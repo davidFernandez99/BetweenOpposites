@@ -10,6 +10,8 @@ import android.os.Bundle
  *  TODO: Que cada uno ponga aqui su nombre para hacer comprovar que nos funciona a todos.
  */
 
+/*TODO: PARA HACER LOS COMITS INTENTAD PONER EL #"numero tasca" DONDE el numero de la tasca SE IDENTIFICA CON LA TASCA QUE ESTÀ ASSIGNADA ej; #2 -> es Crear Proyecto*/
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
