@@ -7,6 +7,7 @@ import android.os.Bundle
  * Projecte Integrat de Software
  * Creat per:
  *  Óscar Jiménez
+ *  Joan Martín Martrus
  *  TODO: Que cada uno ponga aqui su nombre para hacer comprovar que nos funciona a todos.
  */
 
