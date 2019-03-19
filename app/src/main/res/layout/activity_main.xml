@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingLeft="16dp"
               android:paddingRight="16dp"
               android:orientation="vertical">
+    <TextView
+            android:text="@string/tittle_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tittleGameTextView"
+            android:gravity="center"
+            android:layout_marginTop="100sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:textSize="50sp"
+            android:paddingBottom="20dp"/>
+    <Button
+            android:text="@string/un_jugador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/unJugadorButton" android:textSize="30sp"/>
+    <Button
+            android:text="@string/dos_jugadores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dosJugadoresButton" android:textSize="30sp"/>
+
 </LinearLayout>
