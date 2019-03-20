@@ -8,6 +8,7 @@ import android.os.Bundle
  * Creat per:
  *  Óscar Jiménez Muriano
  *  Joan Martín Martrus
+ *  Albert Pérez Costa
  *  TODO: Que cada uno ponga aqui su nombre para hacer comprovar que nos funciona a todos.
  */
 
