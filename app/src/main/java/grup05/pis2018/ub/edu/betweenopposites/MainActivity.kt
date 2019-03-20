@@ -9,6 +9,7 @@ import android.os.Bundle
  *  Óscar Jiménez Muriano
  *  Joan Martín Martrus
  *  Albert Pérez Costa
+ *  David Fernández Fernández
  *  TODO: Que cada uno ponga aqui su nombre para hacer comprovar que nos funciona a todos.
  */
 
