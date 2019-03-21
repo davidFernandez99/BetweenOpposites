@@ -96,4 +96,10 @@
 
     </android.support.constraint.ConstraintLayout>
 
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:id="@+id/txt_info_2jug"
+              android:text="@string/informacion_conexion_2jug"
+              android:gravity="center|top"
+    />
+
 </LinearLayout>
