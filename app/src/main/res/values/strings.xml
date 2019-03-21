@@ -3,4 +3,8 @@
     <string name="tittle_game">Between Opposites</string>
     <string name="un_jugador">1 Jugador</string>
     <string name="dos_jugadores">2 Jugadores</string>
+    <string name="dosJ_txt_btnCrearPartida">Crear</string>
+    <string name="dosJ_txt_btnUnirsePartida">Unirse</string>
+    <string name="ID_dosJ">Identificador :</string>
+    <string name="dar_id">************</string>
 </resources>
