@@ -8,4 +8,5 @@
     <string name="ID_dosJ">Identificador :</string>
     <string name="damos_ID">************</string>
     <string name="intro_ID_dosJ">Introduce ID :</string>
+    <string name="autofill_ID">Introduce la ID de la partida</string>
 </resources>
