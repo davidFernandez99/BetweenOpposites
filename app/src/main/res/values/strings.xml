@@ -7,5 +7,7 @@
     <string name="title_activity_un_jugador">UnJugador</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="morir">Morir</string>
+    <string name="mor">Morir</string>
+    <string name="ganar">Ganar</string>
+    <string name="pausa">Pausa</string>
 </resources>
