@@ -22,24 +22,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/unJugadorButton"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"/>
     <Button
             android:text="@string/dos_jugadores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dosJugadoresButton"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"/>
     <Button
             android:text="@string/top10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ranking_button"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"/>
     <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/gridLayout"
-    >
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                >
         <Button
                 android:text=""
                 android:layout_width="wrap_content"
