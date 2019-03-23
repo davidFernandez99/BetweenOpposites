@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ranking"
+        android:orientation="vertical"
+        android:id="@+id/base_linearLayout_rank" android:padding="20dp">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:gravity="center"
+              android:id="@+id/titleRanking" android:text="@string/txt_titleRanking" android:textAlignment="center"
+    />
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:gravity="center|top"
+                  android:id="@+id/secondary_linearLayout_rank" android:layout_margin="20dp">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_1"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_1" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_1" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion2">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_2"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_2" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_2"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_2" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion3">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_3"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_3" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_3"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_3" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion4">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_4"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_4" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_4"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_4" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion5">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_5"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_5" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_5"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_5" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion6">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_6"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_6" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_6"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_6" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion7">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_7"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_7" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_7"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_7" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion8">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_8"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_8" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_8"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_8" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion9">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_9"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_9" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_9"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_9" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="60dp"
+                      android:id="@+id/struct_entradaPuntuacion10">
+            <android.support.v4.widget.CircleImageView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:id="@+id/img_puntuacion_10"
+                                                       android:src="@android:drawable/editbox_dropdown_dark_frame"
+                                                       android:layout_margin="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/nombreJugador_rank_10" android:text="@string/nombreJUgador1"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_10"
+                      android:layout_margin="10dp" android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/txt_palabraPuntos_10" android:text="@string/palabraPuntos"
+                      android:layout_margin="10dp" android:gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
