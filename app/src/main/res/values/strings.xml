@@ -3,4 +3,6 @@
     <string name="tittle_game">Between Opposites</string>
     <string name="un_jugador">1 Jugador</string>
     <string name="dos_jugadores">2 Jugadores</string>
+    <string name="fin_juego">Fin del juego</string>
+    <string name="Puntos">Puntos</string>
 </resources>
