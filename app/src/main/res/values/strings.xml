@@ -3,7 +3,7 @@
     <string name="tittle_game">Between Opposites</string>
     <string name="un_jugador">1 Jugador</string>
     <string name="dos_jugadores">2 Jugadores</string>
-
+    <string name="top10">Top 10</string>
     <string name="title_activity_un_jugador">UnJugador</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
