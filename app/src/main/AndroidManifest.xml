@@ -13,6 +13,15 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".PantallaDosJugadores">
+        </activity>
+        <activity
+                android:name=".UnJugador"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/un_jugador"
+                android:screenOrientation="landscape"
+                android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
