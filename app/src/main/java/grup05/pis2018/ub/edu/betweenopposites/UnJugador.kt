@@ -12,9 +12,9 @@ class UnJugador : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_un_jugador)
-        val btn_pausa= findViewById<ImageButton>(R.id.btn_pausa)
+        val btn_pausa = findViewById<ImageButton>(R.id.btn_pausa)
         btn_pausa.setOnClickListener {
-            val intent= Intent(this,PausaActivity::class.java)
+            val intent = Intent(this, PausaActivity::class.java)
             startActivity(intent)
         }
     }
