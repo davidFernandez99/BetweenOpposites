@@ -21,11 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val btn = findViewById<Button>(R.id.unJugadorButton)
-        btn.setOnClickListener {
-            val intent = Intent(this, UnJugador::class.java)
-            startActivity(intent)
-        }
 
     }
 }

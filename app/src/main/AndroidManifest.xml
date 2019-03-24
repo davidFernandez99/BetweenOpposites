@@ -12,19 +12,35 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".IniciarSessio">
-        </activity>
-        <activity android:name=".Opcions">
-        </activity>
-        <activity android:name=".FinJuegoActivity"
-                  android:screenOrientation="landscape">
-        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".Ranking"></activity>
+        <activity
+                android:name=".UnJugador"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/un_jugador"
+                android:screenOrientation="landscape"
+                android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+        <activity
+                android:name=".PausaActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/pausa"
+                android:screenOrientation="landscape"
+                android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+        <activity android:name=".PantallaDosJugadores"></activity>
+        <activity android:name=".Opcions">
+        </activity>
+        <activity android:name=".FinJuegoActivity"
+                  android:screenOrientation="landscape">
+        </activity>
+        <activity android:name=".IniciarSessio">
         </activity>
     </application>
 
