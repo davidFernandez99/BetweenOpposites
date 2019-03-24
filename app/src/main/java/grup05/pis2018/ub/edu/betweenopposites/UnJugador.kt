@@ -17,5 +17,18 @@ class UnJugador : AppCompatActivity() {
             val intent = Intent(this, PausaActivity::class.java)
             startActivity(intent)
         }
+
+        val btn_morir = findViewById<Button>(R.id.btn_Morir)
+        btn_morir.setOnClickListener {
+            val intent = Intent(this, FinJuegoActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btn_ganar = findViewById<Button>(R.id.btn_Ganar)
+        btn_ganar.setOnClickListener {
+            val intent = Intent(this, FinJuegoActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

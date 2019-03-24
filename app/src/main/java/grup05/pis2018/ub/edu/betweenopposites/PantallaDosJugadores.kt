@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import grup05.pis2018.ub.edu.betweenopposites.databinding.ActivityPantallaDosJugadoresBinding
 import kotlin.random.Random
 
@@ -32,6 +33,10 @@ class PantallaDosJugadores : AppCompatActivity() {
                 crearPartidaLayout.visibility = View.VISIBLE
 
             }
+
+            val intent = Intent(this, UnJugador::class.java)
+            startActivity(intent)
+
         }
 
         binding.dosJBtnUnirsePartida.setOnClickListener {
@@ -45,6 +50,9 @@ class PantallaDosJugadores : AppCompatActivity() {
                 //Crea la ID d'una partida Multijugador
                 unirsePartidaLayout.visibility = View.VISIBLE
             }
+
+            val intent = Intent(this, UnJugador::class.java)
+            startActivity(intent)
         }
     }
 
