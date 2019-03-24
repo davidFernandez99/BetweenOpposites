@@ -31,4 +31,6 @@
     <string name="partida_pausada_aux">PARTIDA PAUSADA</string>
     <string name="exit">EXIT</string>
     <string name="renaudar">RENAUDAR</string>
+    <string name="fin_juego">Fin del juego</string>
+    <string name="Puntos">Puntos</string>
 </resources>
