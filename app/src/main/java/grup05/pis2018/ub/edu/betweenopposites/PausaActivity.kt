@@ -19,7 +19,8 @@ class PausaActivity : AppCompatActivity() {
         }
         val btn_exit= findViewById<ImageButton>(R.id.btn_exit)
         btn_exit.setOnClickListener {
-            Toast.makeText(getApplicationContext(), "Ha salido de la partida", Toast.LENGTH_SHORT)
+            val intent2= Intent(this,MainActivity::class.java)
+            startActivity(intent2)
         }
     }
 }
