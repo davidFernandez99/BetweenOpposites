@@ -3,6 +3,16 @@
     <string name="tittle_game">Between Opposites</string>
     <string name="un_jugador">1 Jugador</string>
     <string name="dos_jugadores">2 Jugadores</string>
+    <string name="dosJ_txt_btnCrearPartida">Crear</string>
+    <string name="dosJ_txt_btnUnirsePartida">Unirse</string>
+    <string name="ID_dosJ">Identificador :</string>
+    <string name="damos_ID">************</string>
+    <string name="intro_ID_dosJ">Introduce ID :</string>
+    <string name="autofill_ID">Introduce la ID de la partida</string>
+    <string name="informacion_conexion_2jug">Aqui damos información sobre el estado de la partida, conexión, esperando al segundo jugador, etc.</string>
+    <string name="txt_btn_cancelar_dosJ">Cancelar</string>
+    <string name="titleTxt_dosJ">Partida Multijugador</string>
+    <string name="ejemplo_ID_partida2J">ex:53F10AAB98</string>
     <string name="top10">Top 10</string>
     <string name="title_activity_un_jugador">UnJugador</string>
     <string name="dummy_button">Dummy Button</string>
@@ -10,4 +20,9 @@
     <string name="mor">Morir</string>
     <string name="ganar">Ganar</string>
     <string name="pausa">Pausa</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="partida_pausada">Partida Pausada</string>
+    <string name="partida_pausada_aux">PARTIDA PAUSADA</string>
+    <string name="exit">EXIT</string>
+    <string name="renaudar">RENAUDAR</string>
 </resources>

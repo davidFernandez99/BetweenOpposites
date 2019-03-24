@@ -62,6 +62,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="foregroundImage" value="C:\Users\david\Documents\GitHub\PIS_05\app\src\main\res\drawable\btn_pausa.png" />
+                                      <entry key="foregroundLayerName" value="ic_launcher_foreground_pausa" />
                                     </map>
                                   </option>
                                 </PersistentState>
