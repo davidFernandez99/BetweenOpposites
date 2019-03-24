@@ -13,4 +13,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="partida_pausada">Partida Pausada</string>
+    <string name="partida_pausada_aux">PARTIDA PAUSADA</string>
+    <string name="exit">EXIT</string>
+    <string name="renaudar">RENAUDAR</string>
+
 </resources>

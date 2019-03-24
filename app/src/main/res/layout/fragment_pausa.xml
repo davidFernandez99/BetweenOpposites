@@ -4,11 +4,11 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              tools:context=".PausaFragment" android:id="@+id/constraitLayout"
                                              android:layout_width="250dp" android:layout_height="150dp"
-                                             android:visibility="visible">
+>
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-            android:text="Partida Pausada"
+            android:text="@string/partida_pausada"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/infoPausa"
             app:layout_constraintEnd_toEndOf="parent"
