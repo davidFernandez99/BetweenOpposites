@@ -20,30 +20,28 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val btn_unJugador = findViewById<Button>(R.id.unJugadorButton)
-        btn_unJugador.setOnClickListener {
+        val btn_unjugador = findViewById<ImageButton>(R.id.btn_unjugador)
+        btn_unjugador.setOnClickListener {
             val intent = Intent(this, UnJugador::class.java)
             startActivity(intent)
         }
 
-        val btn_dosJugadores = findViewById<Button>(R.id.dosJugadoresButton)
-        btn_dosJugadores.setOnClickListener {
+        val btn_dosjugadores = findViewById<ImageButton>(R.id.btn_dosjugadors)
+        btn_dosjugadores.setOnClickListener {
             val intent = Intent(this, PantallaDosJugadores::class.java)
             startActivity(intent)
         }
 
-        val btn_ranking = findViewById<Button>(R.id.ranking_button)
+        val btn_ranking = findViewById<ImageButton>(R.id.btn_ranking)
         btn_ranking.setOnClickListener {
             val intent = Intent(this, Ranking::class.java)
             startActivity(intent)
         }
-
-        val btn_opcions = findViewById<Button>(R.id.config_button)
-        btn_opcions.setOnClickListener {
+        val btn_opciones = findViewById<ImageButton>(R.id.btn_opciones)
+        btn_opciones.setOnClickListener {
             val intent = Intent(this, Opcions::class.java)
             startActivity(intent)
         }
 
-    }
+}
 }
