@@ -1,21 +1,36 @@
-package grup05.pis2018.ub.edu.betweenopposites
+package grup05.pis2018.ub.edu.betweenopposites.View
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
+import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
+import grup05.pis2018.ub.edu.betweenopposites.R
 import grup05.pis2018.ub.edu.betweenopposites.databinding.ActivityPantallaDosJugadoresBinding
 import kotlin.random.Random
 
-class PantallaDosJugadores : AppCompatActivity() {
+class PantallaDosJugadores : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View {
+    override fun addObserver(presenter: Presenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteObserver(presenter: Presenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun notifyObservers() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private lateinit var binding: ActivityPantallaDosJugadoresBinding
+    override lateinit var observers: ArrayList<Presenter>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_pantalla_dos_jugadores)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_pantalla_dos_jugadores
+        )
 
         binding.btnCancelarDosJ.setOnClickListener {
             finish()

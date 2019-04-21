@@ -5,16 +5,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".PausaActivity">
+        android:background="@color/colorPrimaryDark"
+        tools:context=".View.PausaActivity">
 
     <TextView
             android:text="@string/partida_pausada_aux"
             android:layout_width="166dp"
             android:layout_height="52dp"
-            android:id="@+id/text_pausa" android:textSize="18sp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="114dp" android:layout_marginBottom="245dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:id="@+id/text_pausa" android:textSize="18sp"
+            tools:layout_editor_absoluteY="274dp" tools:layout_editor_absoluteX="123dp"/>
     <ImageButton
             android:layout_width="51dp"
             android:layout_height="50dp" app:srcCompat="@mipmap/ic_launcher_foreground"
