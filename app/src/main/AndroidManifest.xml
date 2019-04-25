@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".View.MainActivity"
                   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -21,34 +21,34 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Ranking"
+        <activity android:name=".View.Ranking"
                   android:screenOrientation="portrait"
         ></activity>
         <activity
-                android:name=".UnJugador"
+                android:name=".View.UnJugador"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/un_jugador"
                 android:screenOrientation="landscape"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
         <activity
-                android:name=".PausaActivity"
+                android:name=".View.PausaActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/pausa"
                 android:screenOrientation="landscape"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
-        <activity android:name=".PantallaDosJugadores"
+        <activity android:name=".View.PantallaDosJugadores"
                   android:screenOrientation="portrait"
         ></activity>
-        <activity android:name=".Opcions"
+        <activity android:name=".View.Opcions"
                   android:screenOrientation="portrait"
         >
         </activity>
-        <activity android:name=".FinJuegoActivity"
+        <activity android:name=".View.FinJuegoActivity"
                   android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".IniciarSessio"
+        <activity android:name=".View.IniciarSessio"
                   android:screenOrientation="portrait"
         >
         </activity>
