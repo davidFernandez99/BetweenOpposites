@@ -31,9 +31,9 @@
 
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="180dp" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="200dp" app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="270dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="533dp" android:layout_marginBottom="93dp"
+                android:layout_marginStart="533dp" android:layout_marginBottom="114dp"
                 app:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
                 android:layout_width="wrap_content"

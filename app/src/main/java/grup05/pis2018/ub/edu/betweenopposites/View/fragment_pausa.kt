@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import grup05.pis2018.ub.edu.betweenopposites.R
+import kotlinx.android.synthetic.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,11 +38,14 @@ class fragment_pausa : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fragment_pausa, container, false)
