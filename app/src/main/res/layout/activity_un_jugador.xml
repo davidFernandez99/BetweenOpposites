@@ -44,13 +44,7 @@
                 android:name="grup05.pis2018.ub.edu.betweenopposites.View.fragment_pausa"
                 tools:layout="@layout/fragment_fragment_pausa">
         </fragment>
-        <fragment
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/gameover"
-                android:name="grup05.pis2018.ub.edu.betweenopposites.View.fragment_fin_juego"
-                tools:layout="@layout/fragment_fragment_fin_juego">
-        </fragment>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

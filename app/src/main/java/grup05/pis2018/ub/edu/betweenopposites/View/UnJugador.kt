@@ -7,8 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
-import android.R
-
+import android.support.v4.app.FragmentTransaction
 
 
 class UnJugador : AppCompatActivity(),View {
@@ -30,12 +29,11 @@ class UnJugador : AppCompatActivity(),View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_un_jugador)
-        val btn_pausa = findViewById<ImageButton>(R.id.btn_pausa)
-        val fragmentManager = fragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
+        val btn_pausa = findViewById<ImageButton>(grup05.pis2018.ub.edu.betweenopposites.R.id.btn_pausa)
+
         btn_pausa.setOnClickListener {
-            val intent = Intent(this, PausaActivity::class.java)
-            startActivity(intent)
+            supportFragmentManager.beginTransaction().replace(R.id.container, fragment_pausa).commit()
+
         }
 
         val btn_morir = findViewById<Button>(R.id.btn_Morir)
