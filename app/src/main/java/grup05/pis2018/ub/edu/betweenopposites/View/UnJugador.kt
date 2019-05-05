@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
+import android.graphics.Point
+import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
 
 class UnJugador : AppCompatActivity(),View {
     override fun addObserver(presenter: Presenter) {
@@ -23,10 +25,21 @@ class UnJugador : AppCompatActivity(),View {
 
     override lateinit var observers: ArrayList<Presenter>
 
+    private var gameView: GameView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_un_jugador)
+
+        val display = windowManager.defaultDisplay
+
+        val size = Point()
+
+        display.getSize(size)
+
+        gameView= GameView(this,size)
+        setContentView(gameView)
+       /* setContentView(R.layout.activity_un_jugador)
         val btn_pausa = findViewById<ImageButton>(R.id.btn_pausa)
         btn_pausa.setOnClickListener {
             val intent = Intent(this, PausaActivity::class.java)
@@ -44,6 +57,17 @@ class UnJugador : AppCompatActivity(),View {
             val intent = Intent(this, FinJuegoActivity::class.java)
             startActivity(intent)
         }
-
+*/
     }
+
+    override fun onResume() {
+        super.onResume()
+        gameView?.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        gameView?.pause()
+    }
+
 }
