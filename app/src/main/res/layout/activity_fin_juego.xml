@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/colorPrimaryDark"
-        tools:context=".FinJuegoActivity">
+        tools:context=".View.FinJuegoActivity">
 
     <TextView
             android:text="@string/fin_juego"

@@ -6,17 +6,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
-        tools:context=".Opcions">
+        tools:context=".View.Opcions">
     <Switch
             android:layout_width="130dp"
             android:layout_height="72dp"
             android:id="@+id/switch_musica"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="60dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="153dp" android:text="MÚSICA"
+            android:layout_marginTop="153dp" android:text="@string/m_sica"
             app:layout_constraintBottom_toTopOf="@+id/switch_efectos" app:layout_constraintVertical_bias="0.107"/>
     <Switch
-            android:text="EFECTOS"
+            android:text="@string/efectos"
             android:layout_width="132dp"
             android:layout_height="48dp"
             android:id="@+id/switch_efectos"
@@ -24,7 +24,7 @@
             app:layout_constraintTop_toBottomOf="@+id/switch_musica" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="60dp"/>
     <Switch
-            android:text="VIBRACIÓN"
+            android:text="@string/vibraci_n"
             android:layout_width="132dp"
             android:layout_height="46dp"
             android:id="@+id/switch_vibracion"
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@+id/switch_efectos" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="60dp"/>
     <Button
-            android:text="Iniciar Sessió"
+            android:text="@string/iniciar_sessi"
             android:drawableTop="@drawable/ic_foto_google"
             android:layout_width="wrap_content"
             android:layout_height="93dp"
@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/switch_vibracion"/>
     <Button
-            android:text="Tancar Sessió"
+            android:text="@string/tancar_sessi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
             android:layout_marginTop="16dp" android:id="@+id/imageView" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="171dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="123dp" android:layout_marginBottom="45dp"
-            app:layout_constraintBottom_toTopOf="@+id/switch_musica"/><![CDATA[
+            app:layout_constraintBottom_toTopOf="@+id/switch_musica" android:contentDescription="TODO"/><![CDATA[
 
 
 

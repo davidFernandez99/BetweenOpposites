@@ -33,4 +33,15 @@
     <string name="renaudar">RENAUDAR</string>
     <string name="fin_juego">Fin del juego</string>
     <string name="Puntos">Puntos</string>
+    <string name="inciar_sessi_amb_compte_de_google">Inciar Sessió amb compte de Google</string>
+    <string name="acceptar">Acceptar</string>
+    <string name="opciones">OPCIONES</string>
+    <string name="unjugador">UNJUGADOR</string>
+    <string name="dosjugadores">DOSJUGADORES</string>
+    <string name="ranking">RANKING</string>
+    <string name="m_sica">MÚSICA</string>
+    <string name="efectos">EFECTOS</string>
+    <string name="vibraci_n">VIBRACIÓN</string>
+    <string name="iniciar_sessi">Iniciar Sessió</string>
+    <string name="tancar_sessi">Tancar Sessió</string>
 </resources>
