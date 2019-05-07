@@ -27,11 +27,11 @@ class Lobo(bando: Int,height:Float,width:Float,velocidad: Float, direccion: Dire
         //Este método desde la clase Lobo nunca será llamado
     }
 
-    /*
+    /**
      * EL lobo no deberia ser notificado nunca para detectar una colision, si fuese así seria diferente al resto de
      * objetos.
-     *
-    override fun detectarColision(posicionLobo: Posicion) {
+     */
+    fun tratarColision(objeto: Objeto) {
 
-    }*/
+    }
 }
