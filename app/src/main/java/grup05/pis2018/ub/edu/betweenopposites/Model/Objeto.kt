@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 /**
  * Clase madre de todos los objetos creados incluido los Actores
  */
-abstract class Objeto(height:Float,width:Float, posicionInicial: Posicion, image: Bitmap?) {
+abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion, image: Bitmap?) {
     var posicion: Posicion = Posicion(0f, 0f)
     var posicionInicial: Posicion = Posicion(0f, 0f)
     var height : Float= 0f;

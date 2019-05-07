@@ -22,16 +22,10 @@ class Lobo(bando: Int,height:Float,width:Float,velocidad: Float, direccion: Dire
     /**
      * TODO: Método en principio no utilizado por Lobo
      * QUIZÀ PARA LOS MUROS
-     */
-    override fun tratarColision(objeto:Objeto) {
-        //Este método desde la clase Lobo nunca será llamado
-    }
-
-    /**
      * EL lobo no deberia ser notificado nunca para detectar una colision, si fuese así seria diferente al resto de
      * objetos.
      */
-    fun tratarColision(objeto: Objeto) {
-
+    override fun tratarColision(objeto:Objeto) {
+        //Este método desde la clase Lobo nunca será llamado
     }
 }

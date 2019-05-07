@@ -2,7 +2,14 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 
-abstract class ObjetoActivable(posicionInicial: Posicion,image: Bitmap?) : Objeto(posicionInicial,image) {
+abstract class ObjetoActivable(
+    height: Float,
+    width: Float,
+    posicionInicial: Posicion,
+    posicion: Posicion,
+    image: Bitmap?
+) :
+    Objeto(height, width, posicionInicial, posicion, image) {
 
     /**
      * Método abstracto que se encarga de activar el efecto caracteristico de cada objeto.
