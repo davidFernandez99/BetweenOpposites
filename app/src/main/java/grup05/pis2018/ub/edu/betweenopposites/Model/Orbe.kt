@@ -14,15 +14,18 @@ class Orbe (bando:Int,height:Float,width:Float,velocidad: Float, direccion: Dire
         if(objeto is Lobo){
             var lobo:Lobo = objeto as Lobo
             if(lobo.bando ==this.bando){
-                //Le da puntos
+                //Le da puntos al lobo
+                TODO("darle puntos al lobo")
             }
             else{
-                //Le quita puntos
+                //Le quita puntos al lobo
+                TODO("quitarle puntos al lobo")
             }
         }
         if(objeto is Muro) {
             var muro: Muro = objeto as Muro
-            //Canviará dirección
+            //Canviará dirección del propio orbe para que este siempre en movimiento
+            TODO("cambiar dirección del orbe")
         }
     }
 

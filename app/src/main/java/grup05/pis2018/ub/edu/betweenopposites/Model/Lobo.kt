@@ -5,8 +5,11 @@ import android.graphics.Bitmap
 /**
  *
  */
-class Lobo(bando: Int,height:Float,width:Float,velocidad: Float, direccion: Direccion, posicionInicial: Posicion,image: Bitmap?) : Actor(height,width,velocidad, direccion, posicionInicial,image) {
+class Lobo(var vida:Vida,bando: Int,height:Float,width:Float,velocidad: Float, direccion: Direccion, posicionInicial: Posicion, image: Bitmap?) : Actor(height,width,velocidad, direccion,posicionInicial,image) {
     var bando : Int = 0; //Esto habra que hacerlo aleatorio
+    var objetoActivable:ObjetoActivable?=null
+    var visible: Boolean= true
+    var multiplicador :Int=1
 
     fun getInsance(): Lobo {
         TODO("not implemented")
@@ -31,7 +34,5 @@ class Lobo(bando: Int,height:Float,width:Float,velocidad: Float, direccion: Dire
      * EL lobo no deberia ser notificado nunca para detectar una colision, si fuese así seria diferente al resto de
      * objetos.
      */
-    fun tratarColision(objeto: Objeto) {
 
-    }
 }

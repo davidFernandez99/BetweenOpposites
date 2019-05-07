@@ -2,7 +2,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 
-abstract class ObjetoActivable(posicionInicial: Posicion,image: Bitmap?) : Objeto(posicionInicial,image) {
+abstract class ObjetoActivable(height:Float,width:Float, posicionInicial: Posicion, image: Bitmap?) : Objeto(height,width,posicionInicial,image) {
 
     /**
      * Método abstracto que se encarga de activar el efecto caracteristico de cada objeto.
@@ -15,7 +15,5 @@ abstract class ObjetoActivable(posicionInicial: Posicion,image: Bitmap?) : Objet
     /**
      * Implementamos el método tratarColision en esta clase ya que en las hijas siempre serà igual
      */
-    override fun tratarColision() {
-        TODO("Tratar colision con objetos activables") //To change body of created functions use File | Settings | File Templates.
-    }
+    override abstract fun tratarColision(objeto:Objeto)
 }
