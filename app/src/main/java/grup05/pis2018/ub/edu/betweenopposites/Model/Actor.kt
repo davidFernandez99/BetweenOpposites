@@ -5,8 +5,6 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  */
 abstract class Actor(velocidad: Int, direccion: Direccion, posicionInicial: Posicion) : Objeto(posicionInicial) {
 
-
-
     var velocidad : Int = 0
 
     enum class Direccion {
