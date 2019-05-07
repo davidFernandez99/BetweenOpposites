@@ -1,10 +1,13 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.graphics.Bitmap
+
 /**
  *
  */
-class Lobo(velocidad: Int, direccion: Direccion, posicionInicial: Posicion) :
-    Actor(velocidad, direccion, posicionInicial) {
+class Lobo(bando: Int,height:Float,width:Float,velocidad: Float, direccion: Direccion, posicionInicial: Posicion,image: Bitmap?) : Actor(height,width,velocidad, direccion, posicionInicial,image) {
+    var bando : Int = 0; //Esto habra que hacerlo aleatorio
+
     fun getInsance(): Lobo {
         TODO("not implemented")
     }
@@ -20,8 +23,8 @@ class Lobo(velocidad: Int, direccion: Direccion, posicionInicial: Posicion) :
      * TODO: Método en principio no utilizado por Lobo
      * QUIZÀ PARA LOS MUROS
      */
-    override fun tratarColision() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun tratarColision(objeto:Objeto) {
+        //Este método desde la clase Lobo nunca será llamado
     }
 
     /*

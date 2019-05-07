@@ -1,13 +1,15 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.graphics.Bitmap
+
 /**
  * Clase abstracta que se encarga de
  */
-abstract class Actor(velocidad: Int, direccion: Direccion, posicionInicial: Posicion) : Objeto(posicionInicial) {
+abstract class Actor(height:Float,width:Float,velocidad: Float, direccion: Direccion, posicionInicial: Posicion,image: Bitmap?) : Objeto(height,width,posicionInicial,image) {
 
 
 
-    var velocidad : Int = 0
+    var velocidad : Float = 0f;
 
     enum class Direccion {
         ARRIBA, ABAJO, DERECHA, IZQUIERDA
@@ -22,5 +24,6 @@ abstract class Actor(velocidad: Int, direccion: Direccion, posicionInicial: Posi
      */
     abstract fun mover(): Posicion
 
-    abstract override fun tratarColision()
+    abstract override fun tratarColision(objeto:Objeto)
+
 }
