@@ -15,7 +15,7 @@ abstract class ObjetoActivable(posicionInicial: Posicion,image: Bitmap?) : Objet
     /**
      * Implementamos el método tratarColision en esta clase ya que en las hijas siempre serà igual
      */
-    override fun tratarColision() {
+    fun tratarColision() {
         TODO("Tratar colision con objetos activables") //To change body of created functions use File | Settings | File Templates.
     }
 }

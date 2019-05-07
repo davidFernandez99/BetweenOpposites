@@ -5,23 +5,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
 
-class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View {
-    override fun addObserver(presenter: Presenter) {
+class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View() {
+
+
+    override fun notifyObservers(fuente: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
-    override fun deleteObserver(presenter: Presenter) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun notifyObservers() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override lateinit var observers : ArrayList<Presenter>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
