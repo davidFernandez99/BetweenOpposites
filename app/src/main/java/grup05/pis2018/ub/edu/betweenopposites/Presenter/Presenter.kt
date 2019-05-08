@@ -9,8 +9,18 @@ import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
  */
 abstract class Presenter {
 
+    //Contiene la facade del modelo, creada en el momento de la construcción del presenter.
+    lateinit var facade: Facade
+
     /**
-     * Método al cual llama el Observable en el momento que realize el notify
+     * Al construir un presente se obtiene la facade automaticamente
+     */
+    fun onCreate() {
+        facade = Facade()
+    }
+
+    /**
+     * Método al cual llama el Observable en el momento que realize el notify()
      */
     abstract fun update()
 
@@ -18,14 +28,5 @@ abstract class Presenter {
      * Función que actualiza la información que tiene la vista, seria el camino de vuelta tras haber recivido
      *
      */
-    fun changeView() {
-
-    }
-
-    /**
-     * Función que coge el objeto Facade para poder comunicarse con el modelo.
-     */
-    fun getFacade() {
-
-    }
+    abstract fun changeView()
 }

@@ -6,8 +6,23 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  */
 interface Model {
     // Necesitaremos un Interactor para tratar con los datos online
+    /**
+     * Define cuales tienen que ser los datos a guardar localmente
+     */
     fun setLocalData()
+
+    /**
+     * Recoge los datos que tenemos guardados localmente
+     */
     fun getLocalData()
+
+    /**
+     * Sube la información local a online
+     */
     fun uploadServerData()
+
+    /**
+     * Descarga la información remota
+     */
     fun downloadServerData()
 }

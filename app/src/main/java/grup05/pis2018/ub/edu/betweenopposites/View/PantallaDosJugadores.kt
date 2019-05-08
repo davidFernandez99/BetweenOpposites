@@ -2,12 +2,11 @@ package grup05.pis2018.ub.edu.betweenopposites.View
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
-import grup05.pis2018.ub.edu.betweenopposites.databinding.ActivityPantallaDosJugadoresBinding
 import kotlin.random.Random
 
 class PantallaDosJugadores : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View {
@@ -28,7 +27,8 @@ class PantallaDosJugadores : AppCompatActivity(), grup05.pis2018.ub.edu.betweeno
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(
+            this,
             R.layout.activity_pantalla_dos_jugadores
         )
 

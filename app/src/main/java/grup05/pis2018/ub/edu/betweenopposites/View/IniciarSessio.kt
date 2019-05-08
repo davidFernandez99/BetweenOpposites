@@ -1,14 +1,14 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
 
-class IniciarSessio : AppCompatActivity(),View {
+class IniciarSessio : AppCompatActivity(), View {
 
     override lateinit var observers: ArrayList<Presenter>
 

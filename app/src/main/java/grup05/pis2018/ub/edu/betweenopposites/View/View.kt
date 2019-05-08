@@ -1,7 +1,6 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
-import java.lang.Exception
 
 /**
  * Esta Interficie View es un Observable que notifica a los presenters que la observan.

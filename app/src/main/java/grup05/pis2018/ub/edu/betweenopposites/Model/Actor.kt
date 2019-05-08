@@ -5,10 +5,17 @@ import android.graphics.Bitmap
 /**
  * Clase abstracta que se encarga de
  */
-abstract class Actor(height:Float,width:Float,velocidad: Float, direccion: Direccion, posicionInicial: Posicion,image: Bitmap?) : Objeto(height,width,posicionInicial,image) {
+abstract class Actor(
+    height: Float,
+    width: Float,
+    velocidad: Float,
+    direccion: Direccion,
+    posicionInicial: Posicion,
+    posicion: Posicion,
+    image: Bitmap?
+) : Objeto(height, width, posicionInicial, posicion, image) {
 
-    //Contiene lavelocidad del actor con la que se mueve en pantalla
-    var velocidad : Float = 0f;
+    var velocidad: Float = 0f;
 
     enum class Direccion {
         ARRIBA, ABAJO, DERECHA, IZQUIERDA
@@ -24,6 +31,6 @@ abstract class Actor(height:Float,width:Float,velocidad: Float, direccion: Direc
      */
     abstract fun mover(): Posicion
 
-    abstract override fun tratarColision(objeto:Objeto)
+    abstract override fun tratarColision(objeto: Objeto)
 
 }
