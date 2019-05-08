@@ -1,13 +1,13 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.ImageButton
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
 
-class PausaActivity : AppCompatActivity(),View {
+class PausaActivity : AppCompatActivity(), View {
 
     override lateinit var observers: ArrayList<Presenter>
 

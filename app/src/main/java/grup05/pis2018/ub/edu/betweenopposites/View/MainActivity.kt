@@ -1,8 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.ImageButton
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
@@ -16,7 +16,7 @@ import grup05.pis2018.ub.edu.betweenopposites.R
  *  David Fernández Fernández
  */
 
-class MainActivity : AppCompatActivity(),View {
+class MainActivity : AppCompatActivity(), View {
 
     override lateinit var observers: ArrayList<Presenter>
 
@@ -59,5 +59,5 @@ class MainActivity : AppCompatActivity(),View {
             startActivity(intent)
         }
 
-}
+    }
 }

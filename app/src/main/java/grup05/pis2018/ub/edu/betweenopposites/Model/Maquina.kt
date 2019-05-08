@@ -1,5 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.graphics.Bitmap
+
 /**
  * Objeto en el juego que se encuentra en las salas especiales, cuando chocamos con ella nos da la oportunidad de
  * ganar un objeto, sumadro, multiplicador, o objeto activo, tras adivinar una pregunta
@@ -8,7 +10,8 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  * poder sacar mayores puntuaciones.
  * La maquina da opciones para posibles respuestas y si se acierta se obtiene la recompensa.
  */
-class Maquina (height:Float,width:Float, posicionInicial: Posicion, image: Bitmap?): Objeto(height,width,posicionInicial,image){
+class Maquina(height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion, image: Bitmap) :
+    Objeto(height, width, posicionInicial,posicion, image) {
     override fun tratarColision(objeto: Objeto) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

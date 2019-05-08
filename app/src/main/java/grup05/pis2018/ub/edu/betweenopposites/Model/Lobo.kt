@@ -5,11 +5,30 @@ import android.graphics.Bitmap
 /**
  *
  */
-class Lobo(var vida:Vida,bando: Int,height:Float,width:Float,velocidad: Float, direccion: Direccion, posicionInicial: Posicion, image: Bitmap?) : Actor(height,width,velocidad, direccion,posicionInicial,image) {
-    var bando : Int = 0; //Esto habra que hacerlo aleatorio
-    var objetoActivable:ObjetoActivable?=null
-    var visible: Boolean= true
-    var multiplicador :Int=1
+class Lobo(
+    var vida: Vida,
+    bando: Int,
+    height: Float,
+    width: Float,
+    velocidad: Float,
+    direccion: Direccion,
+    posicionInicial: Posicion,
+    posicion: Posicion,
+    image: Bitmap?
+) : Actor(height, width, velocidad, direccion, posicionInicial,posicion, image) {
+    // Bando al que pertenece el Lobo (Blanco, Negro)
+    var bando: Int = 0; //TODO: EN PRINCIPIO AL PRINCIPIO PODEMOS ESCOGER EL BANDO EN EL QUE ESTA EL LOBO,
+                        //TODO: EN CASO DE QUE SE COMPLIQUE, ES MEJOR HACERLO RANDOM.
+
+
+    enum class Bando(val id: Int){
+        Blanco(0),
+        Negro(1)
+    }
+
+    var objetoActivable: ObjetoActivable? = null
+    var visible: Boolean = true
+    var multiplicador: Int = 1
 
     fun getInsance(): Lobo {
         TODO("not implemented")
@@ -25,14 +44,11 @@ class Lobo(var vida:Vida,bando: Int,height:Float,width:Float,velocidad: Float, d
     /**
      * TODO: Método en principio no utilizado por Lobo
      * QUIZÀ PARA LOS MUROS
-     */
-    override fun tratarColision(objeto:Objeto) {
-        //Este método desde la clase Lobo nunca será llamado
-    }
-
-    /**
      * EL lobo no deberia ser notificado nunca para detectar una colision, si fuese así seria diferente al resto de
      * objetos.
-     */
+    */
+    override fun tratarColision(objeto: Objeto) {
+        //Este método desde la clase Lobo nunca será llamado
+    }
 
 }
