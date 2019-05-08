@@ -7,14 +7,14 @@ import android.graphics.Bitmap
  */
 abstract class Actor(height:Float,width:Float,velocidad: Float, direccion: Direccion, posicionInicial: Posicion,image: Bitmap?) : Objeto(height,width,posicionInicial,image) {
 
-
-
+    //Contiene lavelocidad del actor con la que se mueve en pantalla
     var velocidad : Float = 0f;
 
     enum class Direccion {
         ARRIBA, ABAJO, DERECHA, IZQUIERDA
     }
 
+    //Dirección en la que se mueve
     lateinit var direccion: Direccion
 
     /**
