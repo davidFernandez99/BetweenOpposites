@@ -7,6 +7,7 @@ import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
  * Se encarga de notificar al presenter la interacción con los botones por el usuario,
  * para que trate con el modelo y haga los cambios necesarios de forma asincrona.
  */
+// TODO: HAY QUE DECIDIR SI HACER ESTO UNA CLASE ABSTRACTA A UNA INTERFICIE YA QUE SIENDO ESTO UNA CLASE NO PODEMOS HEREDAR DE DOS CLASES DESDE LAS VIEWS
 abstract class View {
 
     //Contiene los observadores de esta view

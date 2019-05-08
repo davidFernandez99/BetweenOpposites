@@ -35,5 +35,10 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
      */
     abstract fun tratarColision(objeto: Objeto)
 
-    abstract fun draw()
+    /**
+     * Funcion que dibuja al objeto
+     */
+    fun draw() {
+
+    }
 }
