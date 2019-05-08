@@ -8,6 +8,10 @@ import android.graphics.Bitmap
  */
 class Trampa(height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion, image: Bitmap?) :
     Objeto(height, width, posicionInicial,posicion, image) {
+    override fun draw() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     val DANO_EN_CORAZONES = 1
     override fun tratarColision(objeto: Objeto) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

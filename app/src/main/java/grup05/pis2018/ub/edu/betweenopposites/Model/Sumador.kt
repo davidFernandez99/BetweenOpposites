@@ -7,6 +7,9 @@ import android.graphics.Bitmap
  */
 class Sumador(valor: Int, height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion, image: Bitmap?) :
     Objeto(height, width, posicionInicial,posicion, image) {
+    override fun draw() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     //Valor que se suma a la puntuación (sin tener el cuanta los multiplicadores recogidos)
     var valor: Int = 0
