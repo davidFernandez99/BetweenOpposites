@@ -17,6 +17,10 @@ class Lobo(
     image: Bitmap?
 ) : Actor(height, width, velocidad, direccion, posicionInicial,posicion, image) {
 
+    override fun draw() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     /**
      * Contiene la única instancia Loco con la cual debemos trabajar.
      * Es lo mismo que crear un campo estatico en Java

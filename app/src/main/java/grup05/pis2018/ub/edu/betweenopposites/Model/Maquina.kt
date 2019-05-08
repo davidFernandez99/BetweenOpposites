@@ -13,6 +13,10 @@ import android.graphics.Bitmap
 class Maquina(height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion, image: Bitmap) :
     Objeto(height, width, posicionInicial,posicion, image) {
 
+    override fun draw() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     // Contiene la recompensa que se da al jugador en caso de que se adivine la respuesta correcta
     lateinit var recompensa: Objeto
     // Flag que nos dice si debe devolverse el Objeto o no. Inicialmente a "false".

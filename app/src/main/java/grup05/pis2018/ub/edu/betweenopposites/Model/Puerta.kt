@@ -16,6 +16,9 @@ class Puerta(
     image: Bitmap
 ) :
     Objeto(height, width, posicionInicial, posicion, image) {
+    override fun draw() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     // Nivel al que lleva la puerta
     lateinit var nivel_de_destino: Nivel

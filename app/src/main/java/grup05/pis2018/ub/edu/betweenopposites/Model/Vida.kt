@@ -11,5 +11,7 @@ class Vida(var image: Bitmap?) {
     }
 
     var numVide: Int = 3
+    fun draw(){
 
+    }
 }
