@@ -2,6 +2,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 
+// TODO: DIVIDIR LOS OBJETOS INANIMADOS (NO ACTORES EN OTRA CLASE ABSTRACTA PARA QUE SOLO ESTOS PUEDAN METERSE EN LAS SALAS)
 /**
  * Clase madre de todos los objetos creados incluido los Actores
  */
