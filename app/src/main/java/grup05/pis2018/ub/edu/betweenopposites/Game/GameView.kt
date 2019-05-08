@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.Point
 import android.util.Log
 import android.view.SurfaceView
+import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
 
 class GameView (context: Context,private val size: Point) : SurfaceView(context), Runnable {
     private val gameThread = Thread(this)
@@ -15,8 +16,10 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private var paused = true
 
     private var canvas : Canvas = Canvas()
+    private val paint : Paint = Paint()
 
-
+    //Players
+    private var playerWolf: Lobo = Lobo() //El cosntructor està incpmpleto
 
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
@@ -49,6 +52,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
     private fun update(fps: Long){  //Aqui actualizaremos el estado de cada objeto
 
+        //Move the player's wolf
+        playerWolf.update(fps)
     }
 
     private fun draw() {
@@ -60,6 +65,14 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             // Draw the background color
             canvas.drawColor(Color.argb(255, 0, 255, 0))
 
+            //Draw all the game objects here
+
+            //Now draw the player wolf
+            canvas.drawBitmap(playerWolf.bitmap, playerWolf.position.left,
+                playerWolf.position.top, paint)
+
+            //Draw the score and the remaining lives
+            canvas.drawText("Puntacion:     Vidas:    ", 20f, 70f, paint)
 
             // Draw everything to the screen
             holder.unlockCanvasAndPost(canvas)
