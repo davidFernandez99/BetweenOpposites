@@ -22,7 +22,10 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
                 this.posicion.x + this.width > objeto.posicion.x &&
                 this.posicion.y < objeto.posicion.y + objeto.height &&
                 this.posicion.y + this.height > objeto.posicion.y
+        // Cada objeto trata la colision de froma diferente y dependiendo del objeto con el cual colisione
         tratarColision(objeto)
+
+        //Devuelve si ha colisionado o no con ese objeto
         return colisio
     }
 
@@ -31,4 +34,6 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
      * Cada objeto tiene un efecto diferente sobre el Lobo
      */
     abstract fun tratarColision(objeto: Objeto)
+
+    abstract fun draw()
 }

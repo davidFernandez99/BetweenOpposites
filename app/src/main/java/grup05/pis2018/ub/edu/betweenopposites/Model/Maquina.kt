@@ -12,21 +12,21 @@ import android.graphics.Bitmap
  */
 class Maquina(height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion, image: Bitmap) :
     Objeto(height, width, posicionInicial,posicion, image) {
-    override fun tratarColision(objeto: Objeto) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    // Contiene la recompensa que se da al jugador en caso de que se adivine la respuesta correcta
+    lateinit var recompensa: Objeto
+    // Flag que nos dice si debe devolverse el Objeto o no. Inicialmente a "false".
+    var dar_recompensa: Boolean = false
+
+    /**
+     * En el caso de que se detecte la colisión con el Lobo, se trata la colisión de forma que se dan las opciones
+     * y en el caso de acierto se da el premio.
+     * La colision TODO: ENTENDER COMO VA A SER EL PROCESO DE CREAR LAS OPCIONES Y ENTREGAR EL OBJETO RECOMPENSA
+     */
+    fun darOpciones() {
     }
 
-    fun darOpciones() {
-
-        // Contiene la recompensa que se da al jugador en caso de que se adivine la respuesta correcta
-        lateinit var recompensa: Objeto
-        // Flag que nos dice si debe devolverse el Objeto o no. Inicialmente a "false".
-        var dar_recompensa: Boolean = false
-
-        /**
-         * En el caso de que se detecte la colisión con el Lobo, se trata la colisión de forma que se dan las opciones
-         * y en el caso de acierto se da el premio.
-         * La colision TODO: ENTENDER COMO VA A SER EL PROCESO DE CREAR LAS OPCIONES Y ENTREGAR EL OBJETO RECOMPENSA
-         */
+    override fun tratarColision(objeto: Objeto) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
