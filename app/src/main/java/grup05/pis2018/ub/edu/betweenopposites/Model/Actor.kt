@@ -21,6 +21,7 @@ abstract class Actor(
         ARRIBA, ABAJO, DERECHA, IZQUIERDA
     }
 
+    //Dirección en la que se mueve
     lateinit var direccion: Direccion
 
     /**

@@ -13,13 +13,12 @@ class Trampa(height: Float, width: Float, posicionInicial: Posicion,posicion:Pos
     }
 
     val DANO_EN_CORAZONES = 1
-    override fun tratarColision(objeto: Objeto) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 
     /**
      * Quita DANO_EN_CORAZONES a la vida del Lobo, tras colisionar con el Lobo.
      */
+    override fun tratarColision(objeto: Objeto) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 }
