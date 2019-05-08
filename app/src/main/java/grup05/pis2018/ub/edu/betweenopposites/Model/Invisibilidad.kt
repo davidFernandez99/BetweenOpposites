@@ -2,14 +2,12 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 
+
 /**
  * Objeto que hace Invisible/Indetectable por los orbes enemigos al LObo por un tiempo limitado cuando se activa
  */
 class Invisibilidad(height: Float, width: Float, posicionInicial: Posicion,posicion: Posicion, image: Bitmap?) :
     ObjetoActivable(height, width, posicionInicial,posicion, image) {
-    override fun draw() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     // Maximo tiempo en segundos de objeto activo
     val MAX_TIEMPO_ACTIVO: Double = 10.0

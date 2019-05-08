@@ -2,11 +2,10 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 
+
 class Multiplicador(valor1: Int, height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion, image: Bitmap?) :
     Objeto(height, width, posicionInicial,posicion, image) {
-    override fun draw() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     //Valor que se suma a los multiplicadores almacenados por el lobo
     var valor: Int = 1
@@ -18,7 +17,7 @@ class Multiplicador(valor1: Int, height: Float, width: Float, posicionInicial: P
 
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
-            lobo.multiplicador += valor
+            lobo.sumarMultiplicador(valor)
         }
     }
 

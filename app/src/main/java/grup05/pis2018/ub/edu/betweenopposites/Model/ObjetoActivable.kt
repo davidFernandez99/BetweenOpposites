@@ -22,7 +22,5 @@ abstract class ObjetoActivable(
     /**
      * Implementamos el método tratarColision en esta clase ya que en las hijas siempre serà igual
      */
-    fun tratarColision() {
-        TODO("Tratar colision con objetos activables") //To change body of created functions use File | Settings | File Templates.
-    }
+
 }

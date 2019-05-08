@@ -2,14 +2,13 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 
+
 /**
  * Objeto Cambio de bando que se encarga de tratar la colision entre este y el Lobo para que cambie de Bando
  */
 class CambioBando(height: Float, width: Float, posicionInicial: Posicion,posicion: Posicion, image: Bitmap?) :
     ObjetoActivable(height, width, posicionInicial,posicion, image) {
-    override fun draw() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     /**
      * Se guarda en la posicion de objeto activable que tiene la Clase Lobo
