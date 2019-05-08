@@ -1,6 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
 
 class Orbe(
     bando: Int,
@@ -12,9 +13,7 @@ class Orbe(
     posicion: Posicion,
     image: Bitmap?
 ) : Actor(height, width, velocidad, direccion, posicionInicial, posicion, image) {
-    override fun draw() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     var bando: Int = 0; //Esto habra que hacerlo aleatorio
     override fun mover(): Posicion {

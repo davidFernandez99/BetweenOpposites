@@ -2,6 +2,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 
+
 /**
  * Objeto que permite el movimiento entre salas para el Lobo.
  */
@@ -16,9 +17,7 @@ class Puerta(
     image: Bitmap
 ) :
     Objeto(height, width, posicionInicial, posicion, image) {
-    override fun draw() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     // Nivel al que lleva la puerta
     lateinit var nivel_de_destino: Nivel
@@ -31,6 +30,9 @@ class Puerta(
      * Se encarga de detectar la colision con el lobo. Lleva al Lobo a la posicion de destino
      */
     override fun tratarColision(objeto: Objeto) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (objeto is Lobo) {
+            TODO("si el lobo colisiona con una puerta hará pasar a la siguiente sala o nivel en caso que fuese la sala final")
+            TODO("si es la sala final del último nivel llamara al método endGame()")
+        }
     }
 }

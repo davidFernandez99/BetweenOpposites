@@ -1,12 +1,14 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
 
 // TODO: DIVIDIR LOS OBJETOS INANIMADOS (NO ACTORES EN OTRA CLASE ABSTRACTA PARA QUE SOLO ESTOS PUEDAN METERSE EN LAS SALAS)
 /**
  * Clase madre de todos los objetos creados incluido los Actores
  */
-abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion, image: Bitmap?) {
+abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion, var image: Bitmap?) {
     var posicion: Posicion = Posicion(0f, 0f)
     var posicionInicial: Posicion = Posicion(0f, 0f)
     var height: Float = 0f;
@@ -39,7 +41,10 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
     /**
      * Funcion que dibuja al objeto
      */
-    fun draw() {
-
+    fun draw(canvas: Canvas) {
+        val paint = Paint()
+        canvas.drawBitmap(this.image, this.posicion.x,
+            this.posicion.y, paint)
     }
+
 }

@@ -1,6 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Intent
 import android.graphics.Bitmap
+
 
 /**
  *
@@ -17,9 +19,7 @@ class Lobo(
     image: Bitmap?
 ) : Actor(height, width, velocidad, direccion, posicionInicial,posicion, image) {
 
-    override fun draw() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    var puntuacion:Puntuacion = Puntuacion(0)
 
     /**
      * Contiene la única instancia Loco con la cual debemos trabajar.
@@ -91,8 +91,8 @@ class Lobo(
      * Suma cierta puntuación teniendo en cuenta el multiplicador acumulado
      * TODO: DECIDIR DONDE SE ENCUANTRA LA PUNTUACION DEL JUEGO GUARDADA Y COMO PODEMOS MODIFICARLA
      */
-    fun sumarPuntuacion(){
-
+    fun sumarPuntuacion(valorSumadpr:Int){
+        this.puntuacion.puntuacion+=valorSumadpr
     }
 
     /**
