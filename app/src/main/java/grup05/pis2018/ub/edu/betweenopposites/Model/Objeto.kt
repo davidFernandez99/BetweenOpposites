@@ -8,7 +8,7 @@ import android.graphics.Paint
 /**
  * Clase madre de todos los objetos creados incluido los Actores
  */
-abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion, var image: Bitmap?) {
+abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) {
     var posicion: Posicion = posicion
     var posicionInicial: Posicion = posicionInicial
     var height: Float = height;
@@ -41,9 +41,9 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
     /**
      * Funcion que dibuja al objeto
      */
-    fun draw(canvas: Canvas) {
+    fun draw(canvas: Canvas,image: Bitmap?) {
         val paint = Paint()
-        canvas.drawBitmap(this.image, this.posicion.x,
+        canvas.drawBitmap(image, this.posicion.x,
             this.posicion.y, paint)
     }
 

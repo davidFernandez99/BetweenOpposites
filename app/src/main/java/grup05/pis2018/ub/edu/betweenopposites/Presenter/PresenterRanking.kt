@@ -3,7 +3,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
 
 class PresenterRanking : Presenter() {
-    lateinit var facade: Facade
+    //lateinit var facade: Facade
 
 
     override fun update() {
@@ -14,7 +14,7 @@ class PresenterRanking : Presenter() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getFacade() {
+    fun getFacade() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

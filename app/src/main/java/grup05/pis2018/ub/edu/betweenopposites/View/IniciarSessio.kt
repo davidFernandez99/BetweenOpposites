@@ -10,7 +10,7 @@ import grup05.pis2018.ub.edu.betweenopposites.R
 
 class IniciarSessio : AppCompatActivity(), View {
 
-    override lateinit var observers: ArrayList<Presenter>
+    //override lateinit var observers: ArrayList<Presenter>
 
     override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -20,9 +20,9 @@ class IniciarSessio : AppCompatActivity(), View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun notifyObservers() {
+    /*override fun notifyObservers() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    }*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

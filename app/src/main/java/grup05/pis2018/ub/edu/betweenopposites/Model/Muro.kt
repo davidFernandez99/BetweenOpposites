@@ -9,9 +9,8 @@ class Muro(
     velocidad: Float,
     direccion: Actor.Direccion,
     posicionInicial: Posicion,
-    posicion:Posicion,
-    image: Bitmap?
-) : Objeto(height, width, posicionInicial,posicion, image) {
+    posicion:Posicion
+) : Objeto(height, width, posicionInicial,posicion) {
 
 
     /**

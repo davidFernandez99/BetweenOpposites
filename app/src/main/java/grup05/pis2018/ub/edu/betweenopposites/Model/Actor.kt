@@ -11,11 +11,11 @@ abstract class Actor(
     velocidad: Float,
     direccion: Direccion,
     posicionInicial: Posicion,
-    posicion: Posicion,
-    image: Bitmap?
-) : Objeto(height, width, posicionInicial, posicion, image) {
+    posicion: Posicion)
+    : Objeto(height, width, posicionInicial, posicion) {
 
     var velocidad: Float = velocidad;
+    var direccion: Direccion = direccion
 
     enum class Direccion {
         ARRIBA, ABAJO, DERECHA, IZQUIERDA
@@ -24,7 +24,7 @@ abstract class Actor(
         Blanco,Negro
     }
     //Dirección en la que se mueve
-    lateinit var direccion: Direccion
+
 
     /**
      * Funcion abstracta que varia segun la implementación de cada actor

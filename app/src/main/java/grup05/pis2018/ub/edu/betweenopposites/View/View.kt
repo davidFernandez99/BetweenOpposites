@@ -8,16 +8,16 @@ import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
  * para que trate con el modelo y haga los cambios necesarios de forma asincrona.
  */
 // TODO: HAY QUE DECIDIR SI HACER ESTO UNA CLASE ABSTRACTA A UNA INTERFICIE YA QUE SIENDO ESTO UNA CLASE NO PODEMOS HEREDAR DE DOS CLASES DESDE LAS VIEWS
-abstract class View {
+interface View {
 
     //Contiene los observadores de esta view
-    var observers: ArrayList<Presenter>? = null
+    //var observers: ArrayList<Presenter>? = null
 
 
     /**
      * Añade observadores a la view.
      */
-    fun addObserver(presenter: Presenter) {
+    fun addObserver(presenter: Presenter) /*{
         //Si no se ha creado aun el array
         if (observers == null) {
             //Creamos
@@ -30,12 +30,12 @@ abstract class View {
         } else {
             throw Exception("El presentador ya se encuentra en la lista")
         }
-    }
+    }*/
 
     /**
      * Elimina uno de los observadores
      */
-    fun deleteObserver(presenter: Presenter) {
+    fun deleteObserver(presenter: Presenter) /*{
         //Si no se ha creado aun el array
         if (observers == null) {
             //Exception
@@ -47,11 +47,12 @@ abstract class View {
                 throw Exception("El presentador no se ha encontrado en el array.")
             }
         }
-    }
+    }*/
 
     /**
      * Notifica que ha habido cambios en la vista. Cada vista implementa su metodo teniendo en cuenta las diferentes
      * fuentes de las que puede procedér el cambio.
      */
-    abstract fun notifyObservers(fuente: String)
+
+    //abstract fun notifyObservers(fuente: String)
 }

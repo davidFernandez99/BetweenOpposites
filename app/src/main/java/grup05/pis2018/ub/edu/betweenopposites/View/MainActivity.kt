@@ -1,8 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
 import android.content.Intent
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
 import android.widget.ImageButton
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
@@ -16,9 +16,9 @@ import grup05.pis2018.ub.edu.betweenopposites.R
  *  David Fernández Fernández
  */
 
-class MainActivity : AppCompatActivity(), View {
+class MainActivity : AppCompatActivity(),View {
 
-    override lateinit var observers: ArrayList<Presenter>
+    //override lateinit var observers: ArrayList<Presenter>
 
     override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity(), View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun notifyObservers() {
+    /*override fun notifyObservers() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    }*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity(), View {
         }
         val btn_opciones = findViewById<ImageButton>(R.id.btn_opciones)
         btn_opciones.setOnClickListener {
-            val intent = Intent(this, Opcions::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, Opcions::class.java)
+            //startActivity(intent)
         }
 
     }

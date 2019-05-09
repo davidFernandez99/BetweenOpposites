@@ -8,17 +8,16 @@ import android.graphics.Bitmap
  *
  */
 class Lobo(
-    var vida: Vida,
+    vida: Vida,
     bando: Bando,
     height: Float,
     width: Float,
     velocidad: Float,
     direccion: Direccion,
     posicionInicial: Posicion,
-    posicion: Posicion,
-    image: Bitmap?
-) : Actor(height, width, velocidad, direccion, posicionInicial,posicion, image) {
-
+    posicion: Posicion)
+    : Actor(height, width, velocidad, direccion, posicionInicial,posicion) {
+    var vida:Vida=vida
     var puntuacion:Puntuacion = Puntuacion(0)
 
     /**
@@ -27,25 +26,14 @@ class Lobo(
      * De esta forma podemos tener una única instancia para esta clase.
      */
     companion object {
-        lateinit var uniqueLobo: Lobo
-            private set
-    }
-
-    /**
-     * Crea el objeto único Lobo al ser llamado por primera vez y siempre es devuelto el mismo.
-     */
-    fun onCreate(): Lobo {
-        uniqueLobo = this
-        return uniqueLobo
+        var life:Vida= Vida()
+        var bando:Bando=Bando.Negro
+        val instance = Lobo(life,bando,2f,2f,10f,Direccion.DERECHA, Posicion(200f,200f),Posicion(200f,200f))
     }
 
     /**
      * Funcion que devuelve la instancia única de la Facade
      */
-    public fun getInstance(): Lobo {
-        return uniqueLobo
-    }
-
 
     // Bando al que pertenece el Lobo (Blanco, Negro)
     var bando: Bando = bando;
@@ -68,11 +56,11 @@ class Lobo(
         if(direccion==Direccion.ABAJO){
             posicion.y+=velocidad/fps
         }
-        if(direccion==Direccion.ARRIBA){
+        if(direccion==Direccion.ARRIBA && posicion.y>velocidad/fps){
             posicion.y-=velocidad/fps
         }
 
-        if(direccion==Direccion.IZQUIERDA){
+        if(direccion==Direccion.IZQUIERDA && posicion.x>velocidad/fps){
             posicion.x-=velocidad/fps
         }
         if(direccion==Direccion.DERECHA){

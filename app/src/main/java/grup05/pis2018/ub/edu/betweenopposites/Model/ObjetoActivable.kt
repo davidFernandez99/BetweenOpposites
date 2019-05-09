@@ -6,10 +6,8 @@ abstract class ObjetoActivable(
     height: Float,
     width: Float,
     posicionInicial: Posicion,
-    posicion: Posicion,
-    image: Bitmap?
-) :
-    Objeto(height, width, posicionInicial, posicion, image) {
+    posicion: Posicion) :
+    Objeto(height, width, posicionInicial, posicion) {
 
     /**
      * Método abstracto que se encarga de activar el efecto caracteristico de cada objeto.

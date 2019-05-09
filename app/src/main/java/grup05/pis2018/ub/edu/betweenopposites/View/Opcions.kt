@@ -1,20 +1,29 @@
-package grup05.pis2018.ub.edu.betweenopposites.View
+
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.Button
 import android.widget.Switch
 import android.widget.Toast
+import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
+import grup05.pis2018.ub.edu.betweenopposites.View.IniciarSessio
+import grup05.pis2018.ub.edu.betweenopposites.View.View
 
-class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View() {
-
-
-    override fun notifyObservers(fuente: String) {
+class Opcions : AppCompatActivity(), View {
+    override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun deleteObserver(presenter: Presenter) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    /*override fun notifyObservers(fuente: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +35,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         val btnIniciaSesio = findViewById<Button>(R.id.btn_Google)
         val btnTancarSessio = findViewById<Button>(R.id.btn_Tancar)
 
-        btnTancarSessio.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
+        //btnTancarSessio.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
 
         //Switch per controlar la música
         swtMusica.setOnCheckedChangeListener { SwitchView, isChecked ->
@@ -59,15 +68,15 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         btnIniciaSesio.setOnClickListener {
             val intent = Intent(this, IniciarSessio::class.java)
             startActivity(intent)
-            btnIniciaSesio.visibility = View.INVISIBLE
-            btnTancarSessio.visibility = View.VISIBLE
+            //btnIniciaSesio.visibility = View.INVISIBLE
+            //btnTancarSessio.visibility = View.VISIBLE
         }
 
         //Tanca la sessio
         btnTancarSessio.setOnClickListener {
             Toast.makeText(this, "Sessió Tancada", Toast.LENGTH_SHORT).show()
-            btnTancarSessio.visibility = View.INVISIBLE
-            btnIniciaSesio.visibility = View.VISIBLE
+            //btnTancarSessio.visibility = View.INVISIBLE
+            //btnIniciaSesio.visibility = View.VISIBLE
         }
 
 

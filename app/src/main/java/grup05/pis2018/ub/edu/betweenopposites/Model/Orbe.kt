@@ -12,9 +12,9 @@ class Orbe(
     velocidad: Float,
     direccion: Direccion,
     posicionInicial: Posicion,
-    posicion: Posicion,
-    image: Bitmap?
-) : Actor(height, width, velocidad, direccion, posicionInicial, posicion, image) {
+    posicion: Posicion
+
+) : Actor(height, width, velocidad, direccion, posicionInicial, posicion) {
 
     var darPuntuacion:Int=10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio

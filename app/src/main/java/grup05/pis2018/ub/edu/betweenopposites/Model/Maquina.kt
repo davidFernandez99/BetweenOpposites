@@ -11,8 +11,8 @@ import android.graphics.Bitmap
  * poder sacar mayores puntuaciones.
  * La maquina da opciones para posibles respuestas y si se acierta se obtiene la recompensa.
  */
-class Maquina(height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion, image: Bitmap) :
-    Objeto(height, width, posicionInicial,posicion, image) {
+class Maquina(height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion) :
+    Objeto(height, width, posicionInicial,posicion) {
 
     // Contiene la recompensa que se da al jugador en caso de que se adivine la respuesta correcta
     lateinit var recompensa: Objeto
