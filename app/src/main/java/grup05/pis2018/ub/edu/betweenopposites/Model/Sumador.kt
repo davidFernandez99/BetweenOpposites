@@ -11,7 +11,7 @@ class Sumador(valor: Int, height: Float, width: Float, posicionInicial: Posicion
 
 
     //Valor que se suma a la puntuación (sin tener el cuanta los multiplicadores recogidos)
-    var valor: Int = 0
+    var valor: Int = valor
 
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {

@@ -15,12 +15,14 @@ abstract class Actor(
     image: Bitmap?
 ) : Objeto(height, width, posicionInicial, posicion, image) {
 
-    var velocidad: Float = 0f;
+    var velocidad: Float = velocidad;
 
     enum class Direccion {
         ARRIBA, ABAJO, DERECHA, IZQUIERDA
     }
-
+    enum class Bando{
+        Blanco,Negro
+    }
     //Dirección en la que se mueve
     lateinit var direccion: Direccion
 

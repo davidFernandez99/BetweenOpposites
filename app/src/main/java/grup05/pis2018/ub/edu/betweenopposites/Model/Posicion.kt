@@ -7,8 +7,8 @@ class Posicion(x: Float, y: Float) {
 
     //Variables que contienen la posición
     //Las inicializo inicialmente a 0
-    var x: Float = 0f
-    var y: Float = 0f
+    var x: Float = x
+    var y: Float = y
 
     /**
      * Funcion para asignar una posicion (x,y)

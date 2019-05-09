@@ -6,7 +6,7 @@ import java.util.*
 import kotlin.random.Random.Default.nextInt
 
 class Orbe(
-    bando: Int,
+    bando: Bando,
     height: Float,
     width: Float,
     velocidad: Float,
@@ -17,7 +17,7 @@ class Orbe(
 ) : Actor(height, width, velocidad, direccion, posicionInicial, posicion, image) {
 
     var darPuntuacion:Int=10
-    var bando: Int = 0; //Esto habra que hacerlo aleatorio
+    var bando: Bando = bando; //Esto habra que hacerlo aleatorio
 
     override fun mover(fps:Long) {
         if(direccion==Direccion.ABAJO){

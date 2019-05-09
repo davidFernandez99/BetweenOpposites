@@ -9,7 +9,7 @@ import android.graphics.Bitmap
  */
 class Lobo(
     var vida: Vida,
-    bando: Int,
+    bando: Bando,
     height: Float,
     width: Float,
     velocidad: Float,
@@ -48,14 +48,7 @@ class Lobo(
 
 
     // Bando al que pertenece el Lobo (Blanco, Negro)
-    var bando: Int = 0; //TODO: EN PRINCIPIO AL PRINCIPIO PODEMOS ESCOGER EL BANDO EN EL QUE ESTA EL LOBO,
-                        //TODO: EN CASO DE QUE SE COMPLIQUE, ES MEJOR HACERLO RANDOM.
-
-
-    enum class Bando(val id: Int){
-        Blanco(0),
-        Negro(1)
-    }
+    var bando: Bando = bando;
 
     var objetoActivable: ObjetoActivable? = null
 
