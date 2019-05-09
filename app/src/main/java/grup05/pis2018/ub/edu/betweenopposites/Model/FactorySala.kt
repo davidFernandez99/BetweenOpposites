@@ -8,7 +8,7 @@ object FactorySala {
     /**
      * Crea una sala basica con algoritmos inteligentes a partir de la dificultad exigida.
      */
-    fun crearSalaBasica(dificultad: Int) {
+    fun crearSalaBasica(dificultad: Int): Sala {
         //TODO: Crear sala Basica
     }
 

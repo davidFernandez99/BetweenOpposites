@@ -4,26 +4,26 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  * Clase que contiene principalmente un Array<Nivel> donde contiene todos los niveles de una partida.
  * Se encarga de tratar con los niveles almacenados y llamar al creador de niveles para obtenerlos.
  */
-class ConjuntoNiveles {
+class ConjuntoNiveles(NUMERO_NIVELES_POR_JUEGO: Int = 8,NUMERO_SALAS_BASICAS_POR_NIVEL: Int= 10, NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL:Int =1) {
 
     // CONSTANTES:
-    val NUMERO_NIVELES_POR_JUEGO: Int = 8
-    val NUMERO_DE_SALAS_POR_NIVEL: Int = 10
-    val NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL = 1
+    public val NUMERO_NIVELES_POR_JUEGO: Int = NUMERO_NIVELES_POR_JUEGO
+    public val NUMERO_DE_SALAS_BASICAS_POR_NIVEL: Int = NUMERO_SALAS_BASICAS_POR_NIVEL
+    public val NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL: Int = NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL
 
     //Array de Nivel
-    var arrayNiveles: Array<Nivel?> = Array(NUMERO_NIVELES_POR_JUEGO, { null })
+    private var arrayNiveles: Array<Nivel?> = Array(NUMERO_NIVELES_POR_JUEGO, { null })
 
     /**
-     * Al crearse esta clase pide todos los niveles al generador de niveles.
+     * AL crear el objeto de esta clase se generan directamente los niveles,
+     *
      */
-    fun onCreate() {
+    init {
 
         // Pedimos la generación de todos los niveles y los guardamos en los niveles
-        for (i in 0..9) {
+        for (i in 1..10) {
             //Pedimos el nivel y lo metemos en el array.
-            arrayNiveles[i + 1] =
-                FactoryNiveles.crearNivel(i + 1, NUMERO_DE_SALAS_POR_NIVEL, NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL)
+            setNivel(i, FactoryNiveles.crearNivel(i, NUMERO_DE_SALAS_BASICAS_POR_NIVEL, NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL))
         }
     }
 
@@ -32,11 +32,11 @@ class ConjuntoNiveles {
      */
     fun getNivel(idNivel: Int): Nivel {
 
-        val nivel: Nivel? = arrayNiveles[idNivel + 1]
+        val nivel: Nivel? = arrayNiveles.get(idNivel-1)
         if (nivel != null) {
             return nivel
         } else {
-            throw Exception("El nivel no se ha creado aún.")
+            throw Exception("Nivel = null")
         }
     }
 
@@ -44,7 +44,13 @@ class ConjuntoNiveles {
      * Setter de un Nivel dentro del Array.
      * EL primer nivel seria el 1.
      */
-    fun setNivel(posicion: Int, nivel: Nivel) {
-        arrayNiveles.set(posicion - 1, nivel)
+    fun setNivel(posicion: Int, nivel: Nivel?) {
+
+        if(nivel!=null){
+            arrayNiveles.set(posicion - 1, nivel)
+        }
+        else{
+            throw Exception("nivel = null")
+        }
     }
 }
