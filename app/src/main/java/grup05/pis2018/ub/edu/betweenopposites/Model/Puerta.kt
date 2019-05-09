@@ -4,27 +4,48 @@ import android.graphics.Bitmap
 
 
 /**
- * Objeto que permite el movimiento entre salas para el Lobo.
+ * Objeto que permite el movimiento entre salas para el Lobo. Las puertas no solo pueden llevarte entre salas, sino también entre niveles.
  */
 class Puerta(
     height: Float,
     width: Float,
     posicion: Posicion,
     posicionInicial: Posicion,
-    nivel_de_destino: Nivel,
-    sala_destino: Sala,
-    posicion_destino: Posicion,
+    id_nivel_destino: Int,
+    id_sala_destino: Int,
+    puerta_destino: Puerta,
     image: Bitmap
 ) :
     Objeto(height, width, posicionInicial, posicion, image) {
 
+    /**
+     * Una puerta te envia a un nivel y sala en concreto.
+     * En el caso de que sea LA PRIMERA PUERTA DE LA PRIMERA SALA DEL NIVEL, no podemos volver atras,
+     * en ese caso tanto sala_destino como nivel_destino son igual a 0.
+     * Como posición de destino devolveria null al igual que si fuese la ÚLTIMA PUERTA DEL ÚLTIMO NIVEL,
+     * en ese caso la sala destino se crearia como la primera pero con un identificador de nivel mas alto
+     * que la cantidad de niveles que tenemos
+     */
 
     // Nivel al que lleva la puerta
-    lateinit var nivel_de_destino: Nivel
+    var id_nivel_destino: Int = id_nivel_destino
     //Sala a la que lleva la puerta en ese nivel
-    lateinit var sala_destino: Sala
-    //Posicion a la que lleva la puerta en esa sala
-    lateinit var posicion_destino: Posicion
+    var id_sala_destino: Int = id_sala_destino
+
+    /**
+     * Cada puerta tiene un spawnpoint cercano donde aparece el Lobo en caso de que salga por esa puerta, este
+     * spawnpoint se obtiene desde la puerta que se atraviesa gracias a puerta_destino, cogiendo su spawnpoint de forma
+     * que cuando nos chocamos con una puerta el procedimiento es:
+     *      1. Coger la posición de destino en la sala_destino de forma que posicion_destino = puerta_destino.spawn_point
+     *      2. Definir la sala_destino como la Sala actual
+     *      3. Colocar al Lobo en la posicion_destino
+     */
+
+    //Una puerta tiene otra de salida, que és el destino, y la que nos devuelve el spawnpoint de esta.
+    // Serà null en el caso de que sea la primera o la última puerta del nivel.
+    var puerta_destino: Puerta? = puerta_destino
+    // Posicion en la que aparece el Lobo cuando llega a esta puerta
+    lateinit var spawn_point: Posicion
 
     /**
      * Se encarga de detectar la colision con el lobo. Lleva al Lobo a la posicion de destino
@@ -35,4 +56,31 @@ class Puerta(
             TODO("si es la sala final del último nivel llamara al método endGame()")
         }
     }
+
+    /**
+     * Mètodo que pasado otra puerta pone a esta como destino.
+     * En el caso de que sea la primera puerta, esta no puede volver atras, por lo tanto la puerta_destino
+     * será ella misma.
+     */
+    fun setDestino(
+        puerta_destino: Puerta? = this.puerta_destino,
+        id_sala_destino: Int = this.id_sala_destino,
+        id_nivel_destino: Int = this.id_nivel_destino
+    ) {
+        this.puerta_destino = puerta_destino
+    }
+
+    /**
+     * Mètodo para coger el destino de esta puerta. Devuelve el nivel, sala y posicion de destino.
+     * En el caso de que sea la primera puerta de la primera sala del nivel, el destino
+     */
+    fun getPosicionDestino(): Posicion {
+        if (puerta_destino != null) {
+            return puerta_destino!!.spawn_point
+        } else {
+            throw Exception("Esta puerta tiene como destino Nivel:${id_nivel_destino} Sala:${id_sala_destino}, de forma que no tiene puerta de destino.")
+        }
+    }
+
+
 }

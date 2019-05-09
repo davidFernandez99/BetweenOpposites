@@ -11,9 +11,10 @@ import android.graphics.Paint
 abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) {
     var posicion: Posicion = posicion
     var posicionInicial: Posicion = posicionInicial
-    var height: Float = height;
-    var width: Float = width;
-
+    var height: Float = height
+    var width: Float = width
+    //TODO: HACER QUE EN VEZ DE ALMAZENAR UN SOLO BITMAN PUEDAS TENER MÁS DE UNA OPCIÓN DE BITMAP.
+    // Hay multiples clases que tienen multiples formas de dibujarse (EJ: Lobo, Corazon, Orbe, Puerta...)
     /**
      * Se encarga de detectar la colision con el lobo.
      * Implementación basica valida para la mayoria de objetos, especialmente aquellos que son fijos
