@@ -29,7 +29,7 @@ abstract class Actor(
      * que se encarga de calcular la posicion del Actor en función de la velocidad y la dirección,
      * y otros parametros propios a la clase hija.
      */
-    abstract fun mover(): Posicion
+    abstract fun mover(fps:Long)
 
     abstract override fun tratarColision(objeto: Objeto)
 

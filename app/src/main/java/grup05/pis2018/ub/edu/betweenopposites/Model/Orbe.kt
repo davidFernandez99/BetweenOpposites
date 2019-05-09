@@ -2,6 +2,8 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import java.util.*
+import kotlin.random.Random.Default.nextInt
 
 class Orbe(
     bando: Int,
@@ -14,10 +16,23 @@ class Orbe(
     image: Bitmap?
 ) : Actor(height, width, velocidad, direccion, posicionInicial, posicion, image) {
 
-
+    var darPuntuacion:Int=10
     var bando: Int = 0; //Esto habra que hacerlo aleatorio
-    override fun mover(): Posicion {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    override fun mover(fps:Long) {
+        if(direccion==Direccion.ABAJO){
+            posicion.y+=velocidad/fps
+        }
+        if(direccion==Direccion.ARRIBA){
+            posicion.y-=velocidad/fps
+        }
+
+        if(direccion==Direccion.IZQUIERDA){
+            posicion.x-=velocidad/fps
+        }
+        if(direccion==Direccion.DERECHA){
+            posicion.x+=velocidad/fps
+        }
     }
 
     /**
@@ -34,16 +49,55 @@ class Orbe(
             var lobo: Lobo = objeto as Lobo
             if (lobo.bando == this.bando) {
                 //Le da puntos al lobo
-                TODO("darle puntos al lobo")
+                lobo.sumarPuntuacion(darPuntuacion)
             } else {
                 //Le quita puntos al lobo
-                TODO("quitarle puntos al lobo")
+                lobo.quitarPuntuacion(darPuntuacion)
             }
         }
         if (objeto is Muro) {
-            var muro: Muro = objeto as Muro
             //Canviará dirección del propio orbe para que este siempre en movimiento
-            TODO("cambiar dirección del orbe")
+            canviarDireccion()
+        }
+    }
+    fun canviarDireccion(){
+        var direccionNueva:Int=0
+        if(direccion==Direccion.DERECHA){
+            direccionNueva=(0..1).random()
+            if(direccionNueva==0){
+                direccion=Direccion.ABAJO
+            }
+            else{
+                direccion=Direccion.ARRIBA
+            }
+
+        }
+        if(direccion==Direccion.IZQUIERDA){
+            direccionNueva=(0..1).random()
+            if(direccionNueva==0){
+                direccion=Direccion.ABAJO
+            }
+            else{
+                direccion=Direccion.ARRIBA
+            }
+        }
+        if(direccion==Direccion.ARRIBA){
+            direccionNueva=(0..1).random()
+            if(direccionNueva==0){
+                direccion=Direccion.IZQUIERDA
+            }
+            else{
+                direccion=Direccion.DERECHA
+            }
+        }
+        if(direccion==Direccion.ABAJO){
+            direccionNueva=(0..1).random()
+            if(direccionNueva==0){
+                direccion=Direccion.IZQUIERDA
+            }
+            else{
+                direccion=Direccion.DERECHA
+            }
         }
     }
 
