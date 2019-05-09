@@ -15,7 +15,7 @@ object FactorySala {
     /**
      * Crea una SalaBasica a partir de una matriz escrita en un archivo .TXT
      */
-    fun crearSalaBasicadesdeTXT(dificultad: Int, filename: String) {
+    fun crearSalaBasicadesdeTXT(dificultad: Int, filename: String): SalaBasica {
 
     }
 

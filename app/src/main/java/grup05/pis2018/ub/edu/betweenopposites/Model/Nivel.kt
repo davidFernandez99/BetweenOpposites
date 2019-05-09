@@ -7,13 +7,14 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  *  arraySalas: Lista de salas que contiene en Nivel.
  *  matrizSalas: matriz que se ha generado para la creación de ese nivel, contiene la estructura que une a las salas.
  */
-class Nivel(listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>) {
+class Nivel(listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>? = null) {
+
+    //TODO
     //Contiene una variable que le identifica como nivel
     var numNivel: Int = 0
 
     //Mantiene las salas de ese nivel
     lateinit var arraySalas: ArrayList<Sala>
-    
 
     /**
      * Se encarga de crear la estructura entre las salas, cual se comunica con que otra ...
@@ -22,5 +23,3 @@ class Nivel(listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>) {
         TODO("not implemented yet")
     }
 }
-
-//TODO: MIRAR COMO SE DEBE ORGANIZAR LAS SALAS EN LOS NIVELES, QUE TIPO DE ESTRUCTURA FORMAN Y COMO TRATAR CON ELLA
