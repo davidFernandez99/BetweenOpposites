@@ -9,7 +9,7 @@ import android.graphics.Bitmap
  */
 class Lobo(
     var vida: Vida,
-    bando: Int,
+    bando: Bando,
     height: Float,
     width: Float,
     velocidad: Float,
@@ -48,14 +48,7 @@ class Lobo(
 
 
     // Bando al que pertenece el Lobo (Blanco, Negro)
-    var bando: Int = 0; //TODO: EN PRINCIPIO AL PRINCIPIO PODEMOS ESCOGER EL BANDO EN EL QUE ESTA EL LOBO,
-                        //TODO: EN CASO DE QUE SE COMPLIQUE, ES MEJOR HACERLO RANDOM.
-
-
-    enum class Bando(val id: Int){
-        Blanco(0),
-        Negro(1)
-    }
+    var bando: Bando = bando;
 
     var objetoActivable: ObjetoActivable? = null
 
@@ -71,8 +64,20 @@ class Lobo(
      * TODO: ¿Lo que hace esta clase es devolver la siguiente posición del lobo donde debe ser dibujado
      *  TODO: en función de velocidad, dirección y conociendo los fps... o es mejor que de eso se encarge el gameEngine?
      */
-    override fun mover(): Posicion {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun mover(fps:Long) {
+        if(direccion==Direccion.ABAJO){
+            posicion.y+=velocidad/fps
+        }
+        if(direccion==Direccion.ARRIBA){
+            posicion.y-=velocidad/fps
+        }
+
+        if(direccion==Direccion.IZQUIERDA){
+            posicion.x-=velocidad/fps
+        }
+        if(direccion==Direccion.DERECHA){
+            posicion.x+=velocidad/fps
+        }
     }
 
     /**
@@ -95,6 +100,14 @@ class Lobo(
         this.puntuacion.puntuacion+=valorSumadpr
     }
 
+    fun quitarPuntuacion(valorSumador:Int){
+        if(this.puntuacion.puntuacion< valorSumador ){
+            this.puntuacion.puntuacion=0
+        }
+        else{
+            this.puntuacion.puntuacion-=valorSumador
+        }
+    }
     /**
      * Aumenta el valor de multiplicador acumulado
      */
@@ -110,18 +123,11 @@ class Lobo(
         // Si solo le queda una vida se quedarà con zero
         if(vida.numVide==1){
             vida.quitarVida()
-            endGame()
+            esta_vivo=false //Cada iteración del bucle después de comprobar las colisiones comprobaremos si el lobo esta vivo o no
         }else{
             vida.quitarVida()
         }
     }
 
-    /**
-     * Se encarga de acabar el juego si el Lobo se ha quedado sin vidas.
-     * TODO: NO SE SI ESTO DEBE SER SINCRONO O LO DETECTA DE FORMA ASINCRONA EL GAME
-     */
-    fun endGame(){
-
-    }
 
 }

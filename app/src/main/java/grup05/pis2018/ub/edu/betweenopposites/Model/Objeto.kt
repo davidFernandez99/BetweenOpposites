@@ -9,10 +9,10 @@ import android.graphics.Paint
  * Clase madre de todos los objetos creados incluido los Actores
  */
 abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion, var image: Bitmap?) {
-    var posicion: Posicion = Posicion(0f, 0f)
-    var posicionInicial: Posicion = Posicion(0f, 0f)
-    var height: Float = 0f;
-    var width: Float = 0f;
+    var posicion: Posicion = posicion
+    var posicionInicial: Posicion = posicionInicial
+    var height: Float = height;
+    var width: Float = width;
 
     /**
      * Se encarga de detectar la colision con el lobo.

@@ -15,12 +15,14 @@ abstract class Actor(
     image: Bitmap?
 ) : Objeto(height, width, posicionInicial, posicion, image) {
 
-    var velocidad: Float = 0f;
+    var velocidad: Float = velocidad;
 
     enum class Direccion {
         ARRIBA, ABAJO, DERECHA, IZQUIERDA
     }
-
+    enum class Bando{
+        Blanco,Negro
+    }
     //Dirección en la que se mueve
     lateinit var direccion: Direccion
 
@@ -29,7 +31,7 @@ abstract class Actor(
      * que se encarga de calcular la posicion del Actor en función de la velocidad y la dirección,
      * y otros parametros propios a la clase hija.
      */
-    abstract fun mover(): Posicion
+    abstract fun mover(fps:Long)
 
     abstract override fun tratarColision(objeto: Objeto)
 

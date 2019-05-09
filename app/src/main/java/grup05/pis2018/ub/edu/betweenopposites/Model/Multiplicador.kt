@@ -8,7 +8,7 @@ class Multiplicador(valor1: Int, height: Float, width: Float, posicionInicial: P
 
 
     //Valor que se suma a los multiplicadores almacenados por el lobo
-    var valor: Int = 1
+    var valor: Int = valor1
 
     /**
      * Notifica al Lobo sobre la colisión pasando el valor del multiplicador
