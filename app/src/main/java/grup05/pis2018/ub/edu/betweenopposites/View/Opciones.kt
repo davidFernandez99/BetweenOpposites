@@ -11,7 +11,7 @@ import grup05.pis2018.ub.edu.betweenopposites.R
 import grup05.pis2018.ub.edu.betweenopposites.View.IniciarSessio
 import grup05.pis2018.ub.edu.betweenopposites.View.View
 
-class Opcions : AppCompatActivity(), View {
+class Opciones : AppCompatActivity(), View {
     override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

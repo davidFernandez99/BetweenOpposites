@@ -20,14 +20,16 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
      * Implementación basica valida para la mayoria de objetos, especialmente aquellos que son fijos
      * y 32x32 en dimensiones
      */
-    protected fun detectarColision(objeto: Objeto): Boolean {
+    fun detectarColision(objeto: Objeto): Boolean {
         var colisio: Boolean = false
-        colisio = this.posicion.x < objeto.posicion.x + objeto.width &&
-                this.posicion.x + this.width > objeto.posicion.x &&
-                this.posicion.y < objeto.posicion.y + objeto.height &&
-                this.posicion.y + this.height > objeto.posicion.y
-        // Cada objeto trata la colision de froma diferente y dependiendo del objeto con el cual colisione
-        tratarColision(objeto)
+        if(this.posicion.x - this.width < objeto.posicion.x + objeto.width
+            && this.posicion.x + this.width > objeto.posicion.x -objeto.width
+            && this.posicion.y -this.height < objeto.posicion.y + objeto.height
+            && this.posicion.y + this.height > objeto.posicion.y - objeto.height){
+            tratarColision(objeto)
+        }
+
+
 
         //Devuelve si ha colisionado o no con ese objeto
         return colisio

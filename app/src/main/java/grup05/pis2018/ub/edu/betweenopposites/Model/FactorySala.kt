@@ -8,16 +8,17 @@ object FactorySala {
     /**
      * Crea una sala basica con algoritmos inteligentes a partir de la dificultad exigida.
      */
-    fun crearSalaBasica(dificultad: Int): Sala {
+    /*fun crearSalaBasica(dificultad: Int): Sala {
         //TODO: Crear sala Basica
-    }
+
+    }*/
 
     /**
      * Crea una SalaBasica a partir de una matriz escrita en un archivo .TXT
      */
-    fun crearSalaBasicadesdeTXT(dificultad: Int, filename: String): SalaBasica {
+    /*fun crearSalaBasicadesdeTXT(dificultad: Int, filename: String): SalaBasica {
 
-    }
+    }*/
 
     /**
      * Crea una SalaEspecial a partir de una matrix definida en un archivo .TXT

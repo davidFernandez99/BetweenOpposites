@@ -63,10 +63,15 @@ class UnJugador : AppCompatActivity(),View {
         super.onPause()
         gameView?.pause()
     }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         // Pass activity on touch event to the gesture detector.
         gestureDetectorCompat!!.onTouchEvent(event)
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true
     }
+
+
+
+
 }

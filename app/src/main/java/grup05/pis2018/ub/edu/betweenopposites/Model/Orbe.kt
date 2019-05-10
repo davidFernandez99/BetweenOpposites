@@ -21,17 +21,41 @@ class Orbe(
 
     override fun mover(fps:Long) {
         if(direccion==Direccion.ABAJO){
-            posicion.y+=velocidad/fps
+            if(this.posicion.y+this.height>=1900){
+                canviarDireccion()
+            }
+            else{
+                posicion.y+=velocidad/fps
+            }
+
         }
         if(direccion==Direccion.ARRIBA){
-            posicion.y-=velocidad/fps
+            if(this.posicion.y-this.height<=20){
+                canviarDireccion()
+            }
+            else{
+                posicion.y-=velocidad/fps
+            }
+
         }
 
         if(direccion==Direccion.IZQUIERDA){
-            posicion.x-=velocidad/fps
+            if(this.posicion.x-this.width==0f){
+                canviarDireccion()
+            }
+            else{
+                posicion.x-=velocidad/fps
+            }
+
         }
         if(direccion==Direccion.DERECHA){
-            posicion.x+=velocidad/fps
+            if(this.posicion.x+this.width==1920f){
+                canviarDireccion()
+            }
+            else{
+                posicion.x+=velocidad/fps
+            }
+
         }
     }
 
@@ -63,7 +87,7 @@ class Orbe(
     fun canviarDireccion(){
         var direccionNueva:Int=0
         if(direccion==Direccion.DERECHA){
-            direccionNueva=(0..1).random()
+            direccionNueva=(0..2).random()
             if(direccionNueva==0){
                 direccion=Direccion.ABAJO
             }
@@ -73,7 +97,7 @@ class Orbe(
 
         }
         if(direccion==Direccion.IZQUIERDA){
-            direccionNueva=(0..1).random()
+            direccionNueva=(0..2).random()
             if(direccionNueva==0){
                 direccion=Direccion.ABAJO
             }

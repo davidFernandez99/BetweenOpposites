@@ -19,7 +19,7 @@ class Lobo(
     : Actor(height, width, velocidad, direccion, posicionInicial,posicion) {
     var vida:Vida=vida
     var puntuacion:Puntuacion = Puntuacion(0)
-
+    var vulnerable:Boolean=true
     /**
      * Contiene la única instancia Loco con la cual debemos trabajar.
      * Es lo mismo que crear un campo estatico en Java
@@ -28,7 +28,7 @@ class Lobo(
     companion object {
         var life:Vida= Vida()
         var bando:Bando=Bando.Negro
-        val instance = Lobo(life,bando,2f,2f,10f,Direccion.DERECHA, Posicion(200f,200f),Posicion(200f,200f))
+        val instance = Lobo(life,bando,32f,64f,40f,Direccion.DERECHA, Posicion(200f,200f),Posicion(200f,200f))
     }
 
     /**
@@ -37,7 +37,7 @@ class Lobo(
 
     // Bando al que pertenece el Lobo (Blanco, Negro)
     var bando: Bando = bando;
-
+    var velocidadInicial:Float=velocidad
     var objetoActivable: ObjetoActivable? = null
 
     var multiplicador: Int = 1
@@ -53,18 +53,39 @@ class Lobo(
      *  TODO: en función de velocidad, dirección y conociendo los fps... o es mejor que de eso se encarge el gameEngine?
      */
     override fun mover(fps:Long) {
+
         if(direccion==Direccion.ABAJO){
-            posicion.y+=velocidad/fps
+            if(this.posicion.y+this.height>=1900){
+                this.velocidad=0f
+            }
+            else{
+                posicion.y+=velocidad/fps
+            }
         }
         if(direccion==Direccion.ARRIBA && posicion.y>velocidad/fps){
-            posicion.y-=velocidad/fps
+            if(this.posicion.y-this.height<=20){
+                this.velocidad=0f
+            }
+            else{
+                posicion.y-=velocidad/fps
+            }
         }
 
         if(direccion==Direccion.IZQUIERDA && posicion.x>velocidad/fps){
-            posicion.x-=velocidad/fps
+            if(this.posicion.x-this.width==0f){
+                this.velocidad=0f
+            }
+            else{
+                posicion.x-=velocidad/fps
+            }
         }
         if(direccion==Direccion.DERECHA){
-            posicion.x+=velocidad/fps
+            if(this.posicion.x+this.width==1920f){
+                this.velocidad=0f
+            }
+            else{
+                posicion.x+=velocidad/fps
+            }
         }
     }
 
@@ -115,6 +136,9 @@ class Lobo(
         }else{
             vida.quitarVida()
         }
+    }
+    fun restarurarVelocidad(){
+        this.velocidad=velocidadInicial
     }
 
 

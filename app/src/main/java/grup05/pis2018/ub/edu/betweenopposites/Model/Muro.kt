@@ -6,8 +6,6 @@ import android.graphics.Bitmap
 class Muro(
     height: Float,
     width: Float,
-    velocidad: Float,
-    direccion: Actor.Direccion,
     posicionInicial: Posicion,
     posicion:Posicion
 ) : Objeto(height, width, posicionInicial,posicion) {

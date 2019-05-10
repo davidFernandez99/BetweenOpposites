@@ -35,7 +35,11 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
 
         // Only when swipe distance between minimal and maximal distance value then we treat it as effective swipe
         if (deltaXAbs >= MIN_SWIPE_DISTANCE_X && deltaXAbs <= MAX_SWIPE_DISTANCE_X) {
+            if(lobo.velocidad==0f){
+                lobo.restarurarVelocidad()
+            }
             if (deltaX > 0) {
+
                 lobo.direccion=Actor.Direccion.IZQUIERDA
             } else {
                 lobo.direccion=Actor.Direccion.DERECHA
@@ -43,6 +47,9 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
         }
 
         if (deltaYAbs >= MIN_SWIPE_DISTANCE_Y && deltaYAbs <= MAX_SWIPE_DISTANCE_Y) {
+            if(lobo.velocidad==0f){
+                lobo.restarurarVelocidad()
+            }
             if (deltaY > 0) {
                 lobo.direccion=Actor.Direccion.ARRIBA
             } else {
