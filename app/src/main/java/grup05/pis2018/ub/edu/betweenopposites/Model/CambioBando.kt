@@ -1,13 +1,11 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
-import android.graphics.Bitmap
-
 
 /**
  * Objeto Cambio de bando que se encarga de tratar la colision entre este y el Lobo para que cambie de Bando
  */
-class CambioBando(height: Float, width: Float, posicionInicial: Posicion,posicion: Posicion) :
-    ObjetoActivable(height, width, posicionInicial,posicion) {
+class CambioBando(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) :
+    ObjetoActivable(height, width, posicionInicial, posicion) {
 
 
     /**

@@ -1,8 +1,5 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
-import java.util.*
-import kotlin.collections.ArrayList
-
 /**
  * Se encarga de generar niveles,
  * Es una clase estatica.
@@ -16,6 +13,7 @@ object FactoryNiveles {
      * Método que crea un nivel y lo devuelve, en función de la dificultad, numero de salas en nivel, numero de salas especiales
      * La dificultad del nivel se identifica con el numero de nivel.
      */
+    /*
     fun crearNivel(dificultad: Int, num_salas_basicas: Int, num_salas_especiales: Int): Nivel {
 
         /**
@@ -53,7 +51,7 @@ object FactoryNiveles {
 
         return Nivel()
     }
-
+*/
     /**
      * Mètodo para crear niveles a partir de SalasBasicas, especiales y finales interpretadas a partir de ficheros TXT.
      * Parametros:
@@ -118,7 +116,7 @@ object FactoryNiveles {
             //Generamos salas con las diferentes plantillas y las vamos guardadando en la lista
             listaSalas.add(
                 FactorySala.crearSalaBasicadesdeTXT(
-                    dificultad,
+                    dificultad, salas_basicas_generadas + salas_especiales_generadas + 1,
                     plantillasSalasBasicas[salas_basicas_generadas]
                 )
             )
@@ -131,8 +129,8 @@ object FactoryNiveles {
             if (siguiente_sala_a_generar in queueEspeciales) {
                 //Añado una sala especial
                 listaSalas.add(
-                    FactorySala.crearSalaBasicadesdeTXT(
-                        dificultad,
+                    FactorySala.crearSalaEspecial(
+                        salas_basicas_generadas + salas_especiales_generadas + 1,
                         plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()]
                     )
                 )
@@ -156,7 +154,7 @@ object FactoryNiveles {
                 //Generamos las salas con una plantilla random
                 listaSalas.add(
                     FactorySala.crearSalaBasicadesdeTXT(
-                        dificultad,
+                        dificultad, salas_basicas_generadas + salas_especiales_generadas + 1,
                         plantillasSalasBasicas[(0..plantillasSalasBasicas.size - 1).random()]
                     )
                 )
@@ -168,8 +166,8 @@ object FactoryNiveles {
                 if (siguiente_sala_a_generar in queueEspeciales) {
                     //Añado una sala especial
                     listaSalas.add(
-                        FactorySala.crearSalaBasicadesdeTXT(
-                            dificultad,
+                        FactorySala.crearSalaEspecial(
+                            salas_basicas_generadas + salas_especiales_generadas + 1,
                             plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()]
                         )
                     )
@@ -180,8 +178,8 @@ object FactoryNiveles {
 
         // Creamos la sala final a través de
         listaSalas.add(
-            FactorySala.crearSalaBasicadesdeTXT(
-                dificultad,
+            FactorySala.crearSalaFinal(
+                salas_basicas_generadas + salas_especiales_generadas + 1,
                 plantillasSalaFinal[(0..plantillasSalaFinal.size - 1).random()]
             )
         )

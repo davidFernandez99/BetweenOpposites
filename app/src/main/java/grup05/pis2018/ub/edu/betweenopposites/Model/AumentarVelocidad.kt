@@ -1,10 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-
-class AumentarVelocidad(height: Float, width: Float, posicionInicial: Posicion,posicion: Posicion) :
-    ObjetoActivable(height, width, posicionInicial,posicion) {
+class AumentarVelocidad(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) :
+    ObjetoActivable(height, width, posicionInicial, posicion) {
     // Maximo tiempo en segundos de objeto activo
     val MAX_TIEMPO_ACTIVO: Double = 10.0
     val AUMENTO_DE_VELOCIDAD: Int = 10

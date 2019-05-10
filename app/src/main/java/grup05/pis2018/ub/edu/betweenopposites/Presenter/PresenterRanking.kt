@@ -1,7 +1,5 @@
 package grup05.pis2018.ub.edu.betweenopposites.Presenter
 
-import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
-
 class PresenterRanking : Presenter() {
     //lateinit var facade: Facade
 

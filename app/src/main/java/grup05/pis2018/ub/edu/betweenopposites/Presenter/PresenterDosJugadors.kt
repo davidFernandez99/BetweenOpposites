@@ -1,8 +1,6 @@
 package grup05.pis2018.ub.edu.betweenopposites.Presenter
 
-import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
-
-class PresenterDosJugadors : Presenter(){
+class PresenterDosJugadors : Presenter() {
     //lateinit var facade: Facade
 
 

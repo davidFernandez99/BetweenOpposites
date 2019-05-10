@@ -42,10 +42,12 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
     /**
      * Funcion que dibuja al objeto
      */
-    fun draw(canvas: Canvas,image: Bitmap?) {
+    fun draw(canvas: Canvas, image: Bitmap?) {
         val paint = Paint()
-        canvas.drawBitmap(image, this.posicion.x,
-            this.posicion.y, paint)
+        canvas.drawBitmap(
+            image, this.posicion.x,
+            this.posicion.y, paint
+        )
     }
 
 }

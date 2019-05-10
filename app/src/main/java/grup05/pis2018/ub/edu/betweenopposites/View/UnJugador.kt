@@ -1,20 +1,15 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
-import grup05.pis2018.ub.edu.betweenopposites.R
 import android.graphics.Point
+import android.os.Bundle
 import android.support.v4.view.GestureDetectorCompat
-import android.view.GestureDetector
+import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
 import com.dev2qa.gestureexample.DetectSwipeGestureListener
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
+import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 
-class UnJugador : AppCompatActivity(),View {
+class UnJugador : AppCompatActivity(), View {
     override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -40,7 +35,7 @@ class UnJugador : AppCompatActivity(),View {
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-        gameView= GameView(this,size)
+        gameView = GameView(this, size)
         setContentView(gameView)
 
 
@@ -63,6 +58,7 @@ class UnJugador : AppCompatActivity(),View {
         super.onPause()
         gameView?.pause()
     }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         // Pass activity on touch event to the gesture detector.
         gestureDetectorCompat!!.onTouchEvent(event)

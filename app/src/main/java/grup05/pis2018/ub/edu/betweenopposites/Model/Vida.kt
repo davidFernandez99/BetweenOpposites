@@ -5,15 +5,17 @@ import android.graphics.Canvas
 import android.graphics.Paint
 
 //TODO: YO HARIA ESTA CLASE HEREDAR DE OBJETO PARA QUE TENGA TMB UNA POSICIÓN, BITMAP, METODO DRAW...
-class Vida( ) {
+class Vida() {
     var numVide: Int = 3
-    fun quitarVida(){
-        numVide-=1
+    fun quitarVida() {
+        numVide -= 1
     }
 
-    fun draw(canvas: Canvas, x:Float, y:Float,image: Bitmap?) {
+    fun draw(canvas: Canvas, x: Float, y: Float, image: Bitmap?) {
         val paint = Paint()
-        canvas.drawBitmap(image, x,
-            y, paint)
+        canvas.drawBitmap(
+            image, x,
+            y, paint
+        )
     }
 }

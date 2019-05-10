@@ -7,7 +7,7 @@ abstract class Sala(idSala: Int, matrixSala: Array<Array<Objeto?>>) {
 
     //Define una matriz de objetos donde mantiene la información de la sala y to*o lo que contiene (Objetos).
     // Crea inicialmente una matriz de nulls
-    var matrixSala: Array<Array<Objeto?>> = Array<Array<Objeto?>>(20, { Array(10, { null }) })
+    var matrixSala: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
     //Tiene un array de orbes que deben aparecer en la sala en el momento de crearse
     var orbes: ArrayList<Orbe> = ArrayList<Orbe>()

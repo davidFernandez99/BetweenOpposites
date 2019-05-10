@@ -1,10 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
-import android.graphics.Bitmap
 
-
-class Multiplicador(valor1: Int, height: Float, width: Float, posicionInicial: Posicion,posicion:Posicion) :
-    Objeto(height, width, posicionInicial,posicion) {
+class Multiplicador(valor1: Int, height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) :
+    Objeto(height, width, posicionInicial, posicion) {
 
 
     //Valor que se suma a los multiplicadores almacenados por el lobo

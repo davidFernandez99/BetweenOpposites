@@ -18,7 +18,7 @@ class GameData {
     /**
      * Crea el conjunto de niveles
      */
-    fun crearConjuntoNiveles(){
+    fun crearConjuntoNiveles() {
         // Creamos el conjunto de niveles
         conjuntoNiveles = ConjuntoNiveles()
     }

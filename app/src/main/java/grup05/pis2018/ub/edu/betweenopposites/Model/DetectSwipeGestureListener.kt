@@ -1,15 +1,9 @@
 package com.dev2qa.gestureexample
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.GestureDetector
 import android.view.MotionEvent
 import grup05.pis2018.ub.edu.betweenopposites.Model.Actor
 import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
-import grup05.pis2018.ub.edu.betweenopposites.Model.Posicion
-import grup05.pis2018.ub.edu.betweenopposites.Model.Vida
-import grup05.pis2018.ub.edu.betweenopposites.R
-import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
 /**
  * Created by Jerry on 4/18/2018.
@@ -17,7 +11,7 @@ import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
 class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
 
-    var lobo:Lobo=Lobo.instance
+    var lobo: Lobo = Lobo.instance
 
 
     /* This method is invoked when a swipe gesture happened. */
@@ -36,17 +30,17 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
         // Only when swipe distance between minimal and maximal distance value then we treat it as effective swipe
         if (deltaXAbs >= MIN_SWIPE_DISTANCE_X && deltaXAbs <= MAX_SWIPE_DISTANCE_X) {
             if (deltaX > 0) {
-                lobo.direccion=Actor.Direccion.IZQUIERDA
+                lobo.direccion = Actor.Direccion.IZQUIERDA
             } else {
-                lobo.direccion=Actor.Direccion.DERECHA
+                lobo.direccion = Actor.Direccion.DERECHA
             }
         }
 
         if (deltaYAbs >= MIN_SWIPE_DISTANCE_Y && deltaYAbs <= MAX_SWIPE_DISTANCE_Y) {
             if (deltaY > 0) {
-                lobo.direccion=Actor.Direccion.ARRIBA
+                lobo.direccion = Actor.Direccion.ARRIBA
             } else {
-                lobo.direccion=Actor.Direccion.ABAJO
+                lobo.direccion = Actor.Direccion.ABAJO
             }
         }
 
