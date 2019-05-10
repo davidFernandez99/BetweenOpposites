@@ -1,5 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import java.util.*
+import kotlin.random.Random.Default.nextInt
+
 class Orbe(
     bando: Bando,
     height: Float,
@@ -11,22 +16,46 @@ class Orbe(
 
 ) : Actor(height, width, velocidad, direccion, posicionInicial, posicion) {
 
-    var darPuntuacion: Int = 10
+    var darPuntuacion:Int=10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
 
-    override fun mover(fps: Long) {
-        if (direccion == Direccion.ABAJO) {
-            posicion.y += velocidad / fps
+    override fun mover(fps:Long) {
+        if(direccion==Direccion.ABAJO){
+            if(this.posicion.y+this.height>=1900){
+                canviarDireccion()
+            }
+            else{
+                posicion.y+=velocidad/fps
+            }
+
         }
-        if (direccion == Direccion.ARRIBA) {
-            posicion.y -= velocidad / fps
+        if(direccion==Direccion.ARRIBA){
+            if(this.posicion.y-this.height<=20){
+                canviarDireccion()
+            }
+            else{
+                posicion.y-=velocidad/fps
+            }
+
         }
 
-        if (direccion == Direccion.IZQUIERDA) {
-            posicion.x -= velocidad / fps
+        if(direccion==Direccion.IZQUIERDA){
+            if(this.posicion.x-this.width==0f){
+                canviarDireccion()
+            }
+            else{
+                posicion.x-=velocidad/fps
+            }
+
         }
-        if (direccion == Direccion.DERECHA) {
-            posicion.x += velocidad / fps
+        if(direccion==Direccion.DERECHA){
+            if(this.posicion.x+this.width==1920f){
+                canviarDireccion()
+            }
+            else{
+                posicion.x+=velocidad/fps
+            }
+
         }
     }
 
@@ -55,40 +84,43 @@ class Orbe(
             canviarDireccion()
         }
     }
-
-    fun canviarDireccion() {
-        var direccionNueva: Int = 0
-        if (direccion == Direccion.DERECHA) {
-            direccionNueva = (0..1).random()
-            if (direccionNueva == 0) {
-                direccion = Direccion.ABAJO
-            } else {
-                direccion = Direccion.ARRIBA
+    fun canviarDireccion(){
+        var direccionNueva:Int=0
+        if(direccion==Direccion.DERECHA){
+            direccionNueva=(0..2).random()
+            if(direccionNueva==0){
+                direccion=Direccion.ABAJO
+            }
+            else{
+                direccion=Direccion.ARRIBA
             }
 
         }
-        if (direccion == Direccion.IZQUIERDA) {
-            direccionNueva = (0..1).random()
-            if (direccionNueva == 0) {
-                direccion = Direccion.ABAJO
-            } else {
-                direccion = Direccion.ARRIBA
+        if(direccion==Direccion.IZQUIERDA){
+            direccionNueva=(0..2).random()
+            if(direccionNueva==0){
+                direccion=Direccion.ABAJO
+            }
+            else{
+                direccion=Direccion.ARRIBA
             }
         }
-        if (direccion == Direccion.ARRIBA) {
-            direccionNueva = (0..1).random()
-            if (direccionNueva == 0) {
-                direccion = Direccion.IZQUIERDA
-            } else {
-                direccion = Direccion.DERECHA
+        if(direccion==Direccion.ARRIBA){
+            direccionNueva=(0..1).random()
+            if(direccionNueva==0){
+                direccion=Direccion.IZQUIERDA
+            }
+            else{
+                direccion=Direccion.DERECHA
             }
         }
-        if (direccion == Direccion.ABAJO) {
-            direccionNueva = (0..1).random()
-            if (direccionNueva == 0) {
-                direccion = Direccion.IZQUIERDA
-            } else {
-                direccion = Direccion.DERECHA
+        if(direccion==Direccion.ABAJO){
+            direccionNueva=(0..1).random()
+            if(direccionNueva==0){
+                direccion=Direccion.IZQUIERDA
+            }
+            else{
+                direccion=Direccion.DERECHA
             }
         }
     }

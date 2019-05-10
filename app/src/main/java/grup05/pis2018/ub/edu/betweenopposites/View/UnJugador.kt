@@ -65,4 +65,8 @@ class UnJugador : AppCompatActivity(), View {
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true
     }
+
+
+
+
 }

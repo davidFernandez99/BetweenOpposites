@@ -15,7 +15,7 @@ class Trampa(height: Float, width: Float, posicionInicial: Posicion, posicion: P
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            var lobo: Lobo = objeto as Lobo
+            var lobo: Lobo = Lobo.instance
             lobo.quitarVida()
         }
     }

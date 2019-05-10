@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity(), View {
         }
         val btn_opciones = findViewById<ImageButton>(R.id.btn_opciones)
         btn_opciones.setOnClickListener {
-            //val intent = Intent(this, Opcions::class.java)
+            //val intent = Intent(this, Opciones::class.java)
+
             //startActivity(intent)
         }
 
