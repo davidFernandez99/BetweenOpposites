@@ -29,7 +29,14 @@ class ConjuntoNiveles(
             //Pedimos el nivel y lo metemos en el array.
             setNivel(
                 i,
-                FactoryNiveles.crearNivel(i, NUMERO_DE_SALAS_BASICAS_POR_NIVEL, NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL)
+                FactoryNiveles.crearNivelfromTXT(
+                    i,
+                    NUMERO_DE_SALAS_BASICAS_POR_NIVEL,
+                    NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL,
+                    Plantilla.salaBasica.listaPlantillas,
+                    Plantilla.salaEspecial.listaPlantillas,
+                    Plantilla.salaFinal.listaPlantillas
+                )
             )
         }
     }
