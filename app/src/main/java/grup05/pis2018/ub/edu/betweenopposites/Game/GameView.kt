@@ -12,35 +12,53 @@ import grup05.pis2018.ub.edu.betweenopposites.View.FinJuegoActivity
 
 
 class GameView (context: Context,private val size: Point) : SurfaceView(context), Runnable {
+    private val MAX_TIEMPO_VELOCIDAD: Long = 5000
+    private val MAX_TIEMPO_INVISIBLE: Long = 5000
     private val gameThread = Thread(this)
     private var playing = true
     private var paused = false
-    private var conv: Long = 1000
-    private var tiempo: Long = 0
-    private var segundos: Long = 0
+    private var conv:Long=1000
+    private var tiempo:Tiempo  = Tiempo(conv,conv)
+    private var tiempoVelocidad:Tiempo=Tiempo(MAX_TIEMPO_VELOCIDAD,MAX_TIEMPO_VELOCIDAD)
+    private var tiempoInvisibilidad:Tiempo=Tiempo(MAX_TIEMPO_INVISIBLE,MAX_TIEMPO_INVISIBLE)
+    private var segundos:Long =0
     private var canvas : Canvas = Canvas()
     private val paint : Paint = Paint()
 
 
-    //Bitmap y Objetos de panel superior e inferior
+    //Bitmap de los diferentes objetos que imprimiremos en el canvas
     var bitmapVida: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.corazon_activo)
-    var vida: Vida = Vida()
-    var bitmapBorde: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde)
-    var bitmapBordeSuperior: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde_superior)
-    var bitmapPausa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.boton_pausa)
+    var bitmapBorde:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde)
+    var bitmapBordeSuperior:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_superior)
+    var bitmapPausa:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_pausa)
+    var bitmapOrbeNegro: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
+    var bitmapOrbeBlanco: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
+    var bitmapTrampa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.trampa)
+    var bitmapMuro:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.muro)
+    var bitmapSuelo:Bitmap=BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
+    var bitmapTeleporActivado:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_tp_activado)
+    var bitmapTeleporDesactivado:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_tp_desactivado)
+    var bitmapInv:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_invisibilidad)
+    var bitmapCambio:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_cambiobando)
+    var bitmapAumentoVel:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_velocidad)
+    var bitmapSumador:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.sumador)
+    var bitmapMultiplicador:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.multiplicador)
+    var bitmapBordeSimple:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_singular)
+    var bitmapBordeDoble:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_doble)
+
+    //Instanciamos un objeto vida para poder considerar cuantas vidas dibujar en el canvas
+    var vida: Vida =Vida()
+    //Cogemos la instancia del único Lobo
+    var lobo:Lobo=Lobo.instance
+
 
     //Pruebas
-    var bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
-    var playerWolf: Lobo = Lobo.instance
-    var life: Vida = Vida()
+    //Pruebas
+
     var bando: Actor.Bando = Actor.Bando.Negro
-    var orbe: Orbe = Orbe(bando, 32f, 32f, 10f, Actor.Direccion.IZQUIERDA, Posicion(100f, 100f))
-    var trampa: Trampa = Trampa(16f, 16f, Posicion(500f, 500f))
-    var bitmapOrbe: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
-    var bitmapTrampa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.trampa)
-    var suelo: Suelo? = null
-    var bitmapMuro: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.muro)
-    var bitmapSuelo: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
+    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.IZQUIERDA,Posicion(100f,100f))
+    var trampa:Trampa=Trampa(32f,32f,Posicion(500f,500f))
+    var suelo:Suelo?=null
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
     }
@@ -48,8 +66,9 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     override fun run() {
 
         var fps: Long = 1
+        tiempo.start()
         paint.setColor(Color.WHITE)
-        tiempo = System.currentTimeMillis()
+
 
         while (playing) {
 
@@ -73,14 +92,13 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     }
 
     private fun update(fps: Long){  //Aqui actualizaremos el estado de cada objeto
-        playerWolf.mover(fps)
+        lobo.mover(fps)
         orbe.mover(fps)
         //Move the player's wolf
-        orbe.detectarColision(playerWolf)
-        trampa.detectarColision(playerWolf)
-        if (tiempo == conv) {
+        orbe.detectarColision(lobo)
+        trampa.detectarColision(lobo)
+        if(tiempo.finish==true){
             segundos++
-            tiempo = 0
         }
 
 
@@ -116,25 +134,25 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             //Now draw the player wolf
 
             trampa.draw(canvas, bitmapTrampa)
-            orbe.draw(canvas, bitmapOrbe)
+            orbe.draw(canvas, bitmapOrbeBlanco)
 
             //Draw all the game objects here
-            playerWolf.draw(canvas, bitmap)
+            lobo.draw(canvas, bitmapOrbeNegro)
             canvas.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
             canvas.drawBitmap(bitmapBorde, 0f, 1080f, paint)
-            canvas.drawBitmap(bitmapPausa, 1920f, 1080f, paint)
+            canvas.drawBitmap(bitmapPausa, 1900f, 0f, paint)
 
             canvas.drawText(segundos.toString(), 700f, 0f, paint)
-            if (playerWolf.vida.numVide == 3) {
+            if (lobo.vida.numVide == 3) {
                 vida.draw(canvas, 860f, 0f, bitmapVida)
                 vida.draw(canvas, 960f, 0f, bitmapVida)
                 vida.draw(canvas, 1060f, 0f, bitmapVida)
 
-            } else if (playerWolf.vida.numVide == 2) {
+            } else if (lobo.vida.numVide == 2) {
                 vida.draw(canvas, 860f, 0f, bitmapVida)
                 vida.draw(canvas, 960f, 0f, bitmapVida)
 
-            } else if (playerWolf.vida.numVide == 1) {
+            } else if (lobo.vida.numVide == 1) {
                 vida.draw(canvas, 860f, 0f, bitmapVida)
 
             }

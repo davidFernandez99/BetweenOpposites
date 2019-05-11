@@ -7,7 +7,6 @@ class AumentarVelocidad(
 ) :
     ObjetoActivable(height, width, posicion) {
     // Maximo tiempo en segundos de objeto activo
-    val MAX_TIEMPO_ACTIVO: Double = 10.0
     val AUMENTO_DE_VELOCIDAD: Int = 10
 
     override fun tratarColision(objeto: Objeto) {

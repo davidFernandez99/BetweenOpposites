@@ -12,8 +12,6 @@ class Invisibilidad(
     ObjetoActivable(height, width, posicion) {
 
     // Maximo tiempo en segundos de objeto activo
-    val MAX_TIEMPO_ACTIVO: Double = 10.0
-
 
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {//Si colisiona con un objeto lobo añadirá ese objeto a sus objetos activables

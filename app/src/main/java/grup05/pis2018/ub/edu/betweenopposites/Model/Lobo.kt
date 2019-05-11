@@ -28,7 +28,7 @@ class Lobo(
     companion object {
         var life: Vida = Vida()
         var bando: Bando = Bando.Negro
-        val instance = Lobo(life, bando, 64f, 64f, 50f, Direccion.DERECHA, Posicion(200f, 700f))
+        val instance = Lobo(life, bando, 32f, 32f, 50f, Direccion.DERECHA, Posicion(200f, 700f))
     }
 
     /**
@@ -55,30 +55,30 @@ class Lobo(
     override fun mover(fps: Long) {
 
         if (direccion == Direccion.ABAJO) {
-            if (this.posicion.y + this.height >= 1900f) {
-                this.velocidad = 0f
+            if (posicion.y + height >= 1900f) {
+                velocidad = 0f
             } else {
                 posicion.y += velocidad / fps
             }
         }
         if (direccion == Direccion.ARRIBA && posicion.y > velocidad / fps) {
-            if (this.posicion.y - this.height <= 0f) {
-                this.velocidad = 0f
+            if (posicion.y - height <= 20f) {
+                velocidad = 0f
             } else {
                 posicion.y -= velocidad / fps
             }
         }
 
         if (direccion == Direccion.IZQUIERDA && posicion.x > velocidad / fps) {
-            if (this.posicion.x - this.width + 16f == 0f) {
-                this.velocidad = 0f
+            if (posicion.x - width + 16f == 0f) {
+                velocidad = 0f
             } else {
                 posicion.x -= velocidad / fps
             }
         }
         if (direccion == Direccion.DERECHA) {
-            if (this.posicion.x + this.width == 1920f) {
-                this.velocidad = 0f
+            if (posicion.x + width +16f == 1920f) {
+                velocidad = 0f
             } else {
                 posicion.x += velocidad / fps
             }
