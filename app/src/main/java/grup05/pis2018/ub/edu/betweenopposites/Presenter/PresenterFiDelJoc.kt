@@ -1,9 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Presenter
 
-import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
-
-class PresenterFiDelJoc : Presenter {
-    override lateinit var facade: Facade
+class PresenterFiDelJoc : Presenter() {
+    //lateinit var facade: Facade
 
 
     override fun update() {
@@ -14,4 +12,7 @@ class PresenterFiDelJoc : Presenter {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    fun getFacade() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

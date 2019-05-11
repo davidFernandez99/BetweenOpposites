@@ -48,13 +48,12 @@ const val RC_SIGN_IN = 123
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun notifyObservers() {
+        override fun notifyObservers(fuente: String) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
 
-
-        override lateinit var observers: ArrayList<Presenter>
+        lateinit var observers: ArrayList<Presenter>
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_opcions)

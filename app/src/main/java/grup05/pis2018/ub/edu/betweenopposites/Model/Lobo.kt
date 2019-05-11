@@ -1,66 +1,143 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
-import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.RectF
-import grup05.pis2018.ub.edu.betweenopposites.R
 
-class Lobo(context: Context, posX: Float, posY: Float, bando: Int,
-           height: Float, width: Float, velocidad: Float, direccion: Direccion,
-           posicionInicial: Posicion) : Actor(height,width,velocidad, direccion, posicionInicial) {
 
-    var bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.suelo_Basico)
+/**
+ *
+ */
+class Lobo(
+    vida: Vida,
+    bando: Bando,
+    height: Float,
+    width: Float,
+    velocidad: Float,
+    direccion: Direccion,
+    posicion: Posicion
+) : Actor(height, width, velocidad, direccion, posicion) {
+    var vida: Vida = vida
+    var puntuacion: Puntuacion = Puntuacion(0)
+    var vulnerable: Boolean = true
 
-    //Medidas lobo
-    val width = posX / 20f
-    private val height = posY / 20f
-
-    //Mantiene la posicion del lobo
-     val position = RectF(
-        posX / 2f,
-        posY-height,
-        posX/2 + width,
-        posY.toFloat())
-
-    //This will hold the pixels per second speed that the wolf will move
-    private val speed = 300f
-
-    // This data is accessible using ClassName.propertyName
+    /**
+     * Contiene la única instancia Loco con la cual debemos trabajar.
+     * Es lo mismo que crear un campo estatico en Java
+     * De esta forma podemos tener una única instancia para esta clase.
+     */
     companion object {
-        // Which ways can the wolf move
-        const val stopped = 0
-        const val left = 1
-        const val right = 2
+        var life: Vida = Vida()
+        var bando: Bando = Bando.Negro
+        val instance = Lobo(life, bando, 64f, 64f, 50f, Direccion.DERECHA, Posicion(200f, 700f))
     }
 
-    // Is the wolf moving and in which direction
-    // Start off stopped
-    var moving = stopped
+    /**
+     * Funcion que devuelve la instancia única de la Facade
+     */
 
-    init{
-        // stretch the bitmap to a size
-        // appropriate for the screen resolution
-        bitmap = Bitmap.createScaledBitmap(bitmap,
-            width.toInt() ,
-            height.toInt() ,
-            false)
-    }
+    // Bando al que pertenece el Lobo (Blanco, Negro)
+    var bando: Bando = bando;
+    var velocidadInicial: Float = velocidad
+    var objetoActivable: ObjetoActivable? = null
 
-    // This update method will be called from update in
-    // KotlinInvadersView It determines if the player's
-    // wolf needs to move and changes the coordinates
-    fun update(fps: Long) {
-        // Move as long as it doesn't try and leave the screen
-        if (moving == left && position.left > 0) {
-            position.left -= speed / fps
+    var multiplicador: Int = 1
+
+    //Variable que nos dice si es visible
+    var es_visible: Boolean = true
+
+    //Variable que nos dice si esta vivo
+    var esta_vivo: Boolean = true
+
+    /**
+     * TODO: ¿Lo que hace esta clase es devolver la siguiente posición del lobo donde debe ser dibujado
+     *  TODO: en función de velocidad, dirección y conociendo los fps... o es mejor que de eso se encarge el gameEngine?
+     */
+    override fun mover(fps: Long) {
+
+        if (direccion == Direccion.ABAJO) {
+            if (this.posicion.y + this.height >= 1900f) {
+                this.velocidad = 0f
+            } else {
+                posicion.y += velocidad / fps
+            }
+        }
+        if (direccion == Direccion.ARRIBA && posicion.y > velocidad / fps) {
+            if (this.posicion.y - this.height <= 0f) {
+                this.velocidad = 0f
+            } else {
+                posicion.y -= velocidad / fps
+            }
         }
 
-        else if (moving == right && position.left < posX - width) {
-            position.left += speed / fps
+        if (direccion == Direccion.IZQUIERDA && posicion.x > velocidad / fps) {
+            if (this.posicion.x - this.width + 16f == 0f) {
+                this.velocidad = 0f
+            } else {
+                posicion.x -= velocidad / fps
+            }
         }
-
-        position.right = position.left + width
+        if (direccion == Direccion.DERECHA) {
+            if (this.posicion.x + this.width == 1920f) {
+                this.velocidad = 0f
+            } else {
+                posicion.x += velocidad / fps
+            }
+        }
     }
+
+    /**
+     * TODO: Método en principio no utilizado por Lobo
+     * QUIZÀ PARA LOS MUROS
+     * EL lobo no deberia ser notificado nunca para detectar una colision, si fuese así seria diferente al resto de
+     * objetos.
+     */
+    override fun tratarColision(objeto: Objeto) {
+        //Este método desde la clase Lobo nunca será llamado
+    }
+
+    //MÉTODOS PROPIOS DE LA CLASE LOBO
+
+    /**
+     * Suma cierta puntuación teniendo en cuenta el multiplicador acumulado
+     * TODO: DECIDIR DONDE SE ENCUANTRA LA PUNTUACION DEL JUEGO GUARDADA Y COMO PODEMOS MODIFICARLA
+     */
+    fun sumarPuntuacion(valorSumadpr: Int) {
+        this.puntuacion.puntuacion += valorSumadpr
+    }
+
+    fun quitarPuntuacion(valorSumador: Int) {
+        if (this.puntuacion.puntuacion < valorSumador) {
+            this.puntuacion.puntuacion = 0
+        } else {
+            this.puntuacion.puntuacion -= valorSumador
+        }
+    }
+
+    /**
+     * Aumenta el valor de multiplicador acumulado
+     */
+    fun sumarMultiplicador(valorMultiplicador: Int) {
+        this.multiplicador += valorMultiplicador
+    }
+
+    /**
+     * Quita una vida al Lobo. En el momento que se pierden todas las vidas el valor esta_vivo=false.
+     * TODO: EXTRAS En este metodo podriamos hacer cosas extras en el caso de que se la quiten, realentizar, o hacer inmortal por un tiempo corto
+     */
+    fun quitarVida() {
+        // Si solo le queda una vida se quedarà con zero
+        if (vida.numVide == 1) {
+            vida.quitarVida()
+            esta_vivo =
+                false //Cada iteración del bucle después de comprobar las colisiones comprobaremos si el lobo esta vivo o no
+        } else {
+            vida.quitarVida()
+        }
+    }
+
+    fun restarurarVelocidad() {
+        this.velocidad = velocidadInicial
+    }
+
 
 }
