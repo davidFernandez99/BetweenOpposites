@@ -8,9 +8,11 @@ import android.graphics.Paint
 /**
  * Clase madre de todos los objetos creados incluido los Actores
  */
-abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) {
+abstract class Objeto(
+    height: Float,
+    width: Float,
+    posicion: Posicion) {
     var posicion: Posicion = posicion
-    var posicionInicial: Posicion = posicionInicial
     var height: Float = height
     var width: Float = width
     //TODO: HACER QUE EN VEZ DE ALMAZENAR UN SOLO BITMAN PUEDAS TENER MÁS DE UNA OPCIÓN DE BITMAP.
@@ -27,12 +29,11 @@ abstract class Objeto(height: Float, width: Float, posicionInicial: Posicion, po
             && this.posicion.y -this.height < objeto.posicion.y + objeto.height
             && this.posicion.y + this.height > objeto.posicion.y - objeto.height){
             tratarColision(objeto)
+            colisio=true
         }
-
-
-
         //Devuelve si ha colisionado o no con ese objeto
         return colisio
+
     }
 
     /**

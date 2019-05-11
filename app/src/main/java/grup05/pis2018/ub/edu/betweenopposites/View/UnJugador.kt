@@ -59,6 +59,16 @@ class UnJugador : AppCompatActivity(), View {
         gameView?.pause()
     }
 
+    override fun onStop() {
+        super.onStop()
+        gameView?.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        gameView?.onDestroy()
+    }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         // Pass activity on touch event to the gesture detector.
         gestureDetectorCompat!!.onTouchEvent(event)

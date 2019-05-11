@@ -21,6 +21,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private var canvas : Canvas = Canvas()
     private val paint : Paint = Paint()
 
+
     //Bitmap y Objetos de panel superior e inferior
     var bitmapVida: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.corazon_activo)
     var vida: Vida =Vida()
@@ -33,13 +34,11 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     var playerWolf:Lobo=Lobo.instance
     var life:Vida= Vida()
     var bando: Actor.Bando = Actor.Bando.Negro
-    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.ABAJO, Posicion(100f,100f),Posicion(100f,100f))
-    var trampa:Trampa=Trampa(16f,16f,Posicion(500f,500f),Posicion(500f,500f))
+    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.IZQUIERDA,Posicion(100f,100f))
+    var trampa:Trampa=Trampa(16f,16f,Posicion(500f,500f))
     var bitmapOrbe: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
     var bitmapTrampa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.trampa)
     var suelo:Suelo?=null
-    //var muro:Muro=Muro(16f,16f,Posicion(200f,500f),Posicion(200f,500f))
-    //var muro2:Muro=Muro(16f,16f,Posicion(200f,500f),Posicion(0f,500f))
     var bitmapMuro:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.muro)
     var bitmapSuelo:Bitmap=BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
@@ -49,8 +48,9 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     override fun run() {
 
         var fps: Long = 1
-
+        paint.setColor(Color.WHITE)
         tiempo = System.currentTimeMillis()
+
         while (playing) {
 
             // Capture the current time
@@ -82,8 +82,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             segundos++
             tiempo=0
         }
-        //orbe.detectarColision(muro)
-        //muro.detectarColision(playerWolf)
+
 
 
     }
@@ -105,7 +104,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             for(i in 0..20){
                 y=0f
                 for(j in 0..10){
-                    suelo= Suelo(32f,32f,Posicion(x,y), Posicion(x,y))
+                    suelo= Suelo(32f,32f,Posicion(x,y))
                     suelo!!.draw(canvas,bitmapSuelo)
                     y+=96f
 
@@ -118,15 +117,14 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
             trampa.draw(canvas,bitmapTrampa)
             orbe.draw(canvas,bitmapOrbe)
-            //muro.draw(canvas,bitmapMuro)
-            //muro2.draw(canvas,bitmapMuro)
+
             //Draw all the game objects here
             playerWolf.draw(canvas,bitmap)
             canvas.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
             canvas.drawBitmap(bitmapBorde, 0f, 1080f, paint)
             canvas.drawBitmap(bitmapPausa, 1920f,1080f,paint)
 
-            canvas.drawText(segundos.toString(), 1200f,0f,paint)
+            canvas.drawText(segundos.toString(), 700f,0f,paint)
             if(playerWolf.vida.numVide==3){
                 vida.draw(canvas, 860f,0f,bitmapVida)
                 vida.draw(canvas, 960f,0f,bitmapVida)
@@ -161,10 +159,15 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
     }
 
-    fun finish(){
+    fun onDestroy(){
         gameThread.destroy()
     }
 
+    fun onStop(){
+        pause()
+        gameThread.stop()
+
+    }
 
 
 }

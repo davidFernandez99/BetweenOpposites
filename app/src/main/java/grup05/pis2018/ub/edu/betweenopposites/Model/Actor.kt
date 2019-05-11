@@ -8,9 +8,8 @@ abstract class Actor(
     width: Float,
     velocidad: Float,
     direccion: Direccion,
-    posicionInicial: Posicion,
     posicion: Posicion
-) : Objeto(height, width, posicionInicial, posicion) {
+) : Objeto(height, width, posicion) {
 
     var velocidad: Float = velocidad;
     var direccion: Direccion = direccion

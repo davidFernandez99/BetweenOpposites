@@ -14,9 +14,8 @@ class Lobo(
     width: Float,
     velocidad: Float,
     direccion: Direccion,
-    posicionInicial: Posicion,
     posicion: Posicion)
-    : Actor(height, width, velocidad, direccion, posicionInicial,posicion) {
+    : Actor(height, width, velocidad, direccion,posicion) {
     var vida:Vida=vida
     var puntuacion:Puntuacion = Puntuacion(0)
     var vulnerable:Boolean=true
@@ -28,7 +27,7 @@ class Lobo(
     companion object {
         var life:Vida= Vida()
         var bando:Bando=Bando.Negro
-        val instance = Lobo(life,bando,32f,64f,40f,Direccion.DERECHA, Posicion(200f,200f),Posicion(200f,200f))
+        val instance = Lobo(life,bando,64f,64f,50f,Direccion.DERECHA,Posicion(200f,700f))
     }
 
     /**
@@ -55,7 +54,7 @@ class Lobo(
     override fun mover(fps:Long) {
 
         if(direccion==Direccion.ABAJO){
-            if(this.posicion.y+this.height>=1900){
+            if(this.posicion.y+this.height>=1900f){
                 this.velocidad=0f
             }
             else{
@@ -63,7 +62,7 @@ class Lobo(
             }
         }
         if(direccion==Direccion.ARRIBA && posicion.y>velocidad/fps){
-            if(this.posicion.y-this.height<=20){
+            if(this.posicion.y-this.height<=0f){
                 this.velocidad=0f
             }
             else{
@@ -72,7 +71,7 @@ class Lobo(
         }
 
         if(direccion==Direccion.IZQUIERDA && posicion.x>velocidad/fps){
-            if(this.posicion.x-this.width==0f){
+            if(this.posicion.x-this.width+16f==0f){
                 this.velocidad=0f
             }
             else{

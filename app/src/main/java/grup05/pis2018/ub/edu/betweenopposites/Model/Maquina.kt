@@ -9,8 +9,11 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  * poder sacar mayores puntuaciones.
  * La maquina da opciones para posibles respuestas y si se acierta se obtiene la recompensa.
  */
-class Maquina(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) :
-    Objeto(height, width, posicionInicial, posicion) {
+class Maquina(
+    height: Float,
+    width: Float,
+    posicion: Posicion) :
+    Objeto(height, width, posicion) {
 
     // Contiene la recompensa que se da al jugador en caso de que se adivine la respuesta correcta
     lateinit var recompensa: Objeto

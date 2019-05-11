@@ -4,8 +4,11 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 /**
  * Objeto que hace Invisible/Indetectable por los orbes enemigos al LObo por un tiempo limitado cuando se activa
  */
-class Invisibilidad(height: Float, width: Float, posicionInicial: Posicion, posicion: Posicion) :
-    ObjetoActivable(height, width, posicionInicial, posicion) {
+class Invisibilidad(
+    height: Float,
+    width: Float,
+    posicion: Posicion) :
+    ObjetoActivable(height, width, posicion) {
 
     // Maximo tiempo en segundos de objeto activo
     val MAX_TIEMPO_ACTIVO: Double = 10.0
@@ -24,7 +27,7 @@ class Invisibilidad(height: Float, width: Float, posicionInicial: Posicion, posi
      */
     override fun activarEfecto(lobo: Lobo) {
         lobo.es_visible = false
-        TODO("falta deicrle que cuando pase un tiempo vuelva a la normalidad")
+
     }
 
 

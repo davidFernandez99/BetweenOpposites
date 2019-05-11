@@ -3,10 +3,9 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 abstract class ObjetoActivable(
     height: Float,
     width: Float,
-    posicionInicial: Posicion,
     posicion: Posicion
 ) :
-    Objeto(height, width, posicionInicial, posicion) {
+    Objeto(height, width, posicion) {
 
     /**
      * Método abstracto que se encarga de activar el efecto caracteristico de cada objeto.

@@ -11,49 +11,52 @@ class Orbe(
     width: Float,
     velocidad: Float,
     direccion: Direccion,
-    posicionInicial: Posicion,
     posicion: Posicion
 
-) : Actor(height, width, velocidad, direccion, posicionInicial, posicion) {
+) : Actor(height, width, velocidad, direccion, posicion) {
 
     var darPuntuacion:Int=10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
 
     override fun mover(fps:Long) {
-        if(direccion==Direccion.ABAJO){
+        if(this.direccion==Direccion.ABAJO){
             if(this.posicion.y+this.height>=1900){
-                canviarDireccion()
+                //canviarDireccion()
+                this.velocidad=0f
             }
             else{
-                posicion.y+=velocidad/fps
+                this.posicion.y+=this.velocidad/fps
             }
 
         }
-        if(direccion==Direccion.ARRIBA){
-            if(this.posicion.y-this.height<=20){
-                canviarDireccion()
+        if(this.direccion==Direccion.ARRIBA){
+            if(this.posicion.y-this.height==0f){
+                //canviarDireccion()
+                this.velocidad=0f
             }
             else{
-                posicion.y-=velocidad/fps
+                this.posicion.y-=velocidad/fps
             }
 
         }
 
-        if(direccion==Direccion.IZQUIERDA){
+        if(this.direccion==Direccion.IZQUIERDA ){
             if(this.posicion.x-this.width==0f){
-                canviarDireccion()
+                //canviarDireccion()
+                this.direccion=Direccion.DERECHA
             }
             else{
-                posicion.x-=velocidad/fps
+                this.posicion.x-=this.velocidad/fps
             }
 
         }
-        if(direccion==Direccion.DERECHA){
-            if(this.posicion.x+this.width==1920f){
-                canviarDireccion()
+        if(this.direccion==Direccion.DERECHA){
+            if(this.posicion.x==1920f-this.width){
+                //canviarDireccion()
+                this.velocidad=0f
             }
             else{
-                posicion.x+=velocidad/fps
+                this.posicion.x+=this.velocidad/fps
             }
 
         }
@@ -87,40 +90,40 @@ class Orbe(
     fun canviarDireccion(){
         var direccionNueva:Int=0
         if(direccion==Direccion.DERECHA){
-            direccionNueva=(0..2).random()
+            direccionNueva=(0..1).random()
             if(direccionNueva==0){
-                direccion=Direccion.ABAJO
+                this.direccion=Direccion.ABAJO
             }
             else{
-                direccion=Direccion.ARRIBA
+                this.direccion=Direccion.ARRIBA
             }
 
         }
         if(direccion==Direccion.IZQUIERDA){
-            direccionNueva=(0..2).random()
+            direccionNueva=(0..1).random()
             if(direccionNueva==0){
-                direccion=Direccion.ABAJO
+                this.direccion=Direccion.ABAJO
             }
             else{
-                direccion=Direccion.ARRIBA
+                this.direccion=Direccion.ARRIBA
             }
         }
         if(direccion==Direccion.ARRIBA){
             direccionNueva=(0..1).random()
             if(direccionNueva==0){
-                direccion=Direccion.IZQUIERDA
+                this.direccion=Direccion.IZQUIERDA
             }
             else{
-                direccion=Direccion.DERECHA
+                this.direccion=Direccion.DERECHA
             }
         }
         if(direccion==Direccion.ABAJO){
             direccionNueva=(0..1).random()
             if(direccionNueva==0){
-                direccion=Direccion.IZQUIERDA
+                this.direccion=Direccion.IZQUIERDA
             }
             else{
-                direccion=Direccion.DERECHA
+                this.direccion=Direccion.DERECHA
             }
         }
     }
