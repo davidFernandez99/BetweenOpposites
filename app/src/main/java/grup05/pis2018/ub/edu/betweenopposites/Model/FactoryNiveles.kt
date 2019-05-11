@@ -190,7 +190,7 @@ object FactoryNiveles {
             // Para cada sala la lista menos la última
             // Conectamos su segunda puerta con la primera de la siguiente Sala
             if (i + 1 < listaSalas.size) {
-                listaSalas[i].puertas[-1].setDestino(listaSalas[i + 1].puertas[0])
+                listaSalas[i].puertas[-1].setDestino(listaSalas[i + 1].puertas[0]) //TODO
             }
 
         }

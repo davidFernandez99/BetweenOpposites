@@ -10,12 +10,11 @@ class Puerta(
     height: Float,
     width: Float,
     posicion: Posicion,
-    posicionInicial: Posicion,
     nivel_de_destino: Nivel,
     sala_destino: Sala,
     posicion_destino: Posicion
 ) :
-    Objeto(height, width, posicionInicial, posicion) {
+    Objeto(height, width, posicion) {
 
 
     // Nivel al que lleva la puerta

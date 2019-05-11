@@ -5,12 +5,6 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  */
 object FactoryObjetos {
 
-    enum class Dimension(val height: Float, val width: Float) {
-        muro(32f, 32f),
-        puerta(32f, 32f),
-        suelo(32f, 32f)
-    }
-
     /**
      * Crea un muro a partir de los parametros pasados
      */
@@ -31,16 +25,5 @@ object FactoryObjetos {
     fun crarSuelo(posicionMatriz: Posicion): Suelo {
         return Suelo(Dimension.suelo.height, Dimension.suelo.width, posicionMatriz)
     }
-
-}
-
-/**
- * Defino un enum que identifica
- */
-enum class Descifrar(val char: String) {
-    separacion(","),
-    muro("M"),
-    suelo("_"),
-    puerta("P")
 
 }

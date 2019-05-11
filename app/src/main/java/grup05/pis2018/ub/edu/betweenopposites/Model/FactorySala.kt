@@ -23,8 +23,6 @@ object FactorySala {
      * Crea una SalaBasica a partir de una matriz escrita en un archivo .TXT
      */
     fun crearSalaBasicadesdeTXT(dificultad: Int, id_sala: Int, filename: String): SalaBasica {
-        // Definimos la salaBasica para poder crearla al final de este método.
-        val salaBasica: SalaBasica
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
@@ -67,8 +65,39 @@ object FactorySala {
      */
 
     fun crearSalaEspecial(id_sala: Int, filename: String): SalaEspecial {
-        // TODO : CREAR SALA ESPECIAL
-        return SalaEspecial()
+
+        //Defino la matriz donde se van a cargar los datos
+        var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
+
+        var fitxer: File?
+
+        try {
+            // Defino y obtengo el fichero a través de el nombre
+            fitxer = File(filename)
+
+            // Cargo las linias en una variable
+            val lineas_leidas: List<String> = fitxer.readLines()
+
+            //Leo las lineas para crear la matriz
+            for (j: Int in lineas_leidas.indices) {
+                var linea: String = lineas_leidas[j]
+                //Para cada linea la descifro y creo un array de Objetos
+                var linia_objetos: Array<Objeto?> = descifrarLinia(linea, j)
+                matrix[j] = linia_objetos
+            }
+
+        } catch (e: FileNotFoundException) {
+            throw IllegalArgumentException(
+                String.format(
+                    "El fitxer %s no existeix", filename
+                )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        //Devolvemos la sala
+        return SalaEspecial(id_sala, matrix)
     }
 
     /**
@@ -76,11 +105,52 @@ object FactorySala {
      */
     fun crearSalaFinal(id_sala: Int, filename: String): SalaFinal {
         // TODO: CREAR SALA FINAL
-        return SalaFinal()
+
+        // Definimos la salaBasica para poder crearla al final de este método.
+        val salaFinal: SalaFinal
+
+        //Defino la matriz donde se van a cargar los datos
+        var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
+
+        var fitxer: File?
+
+        try {
+            // Defino y obtengo el fichero a través de el nombre
+            fitxer = File(filename)
+
+            // Cargo las linias en una variable
+            val lineas_leidas: List<String> = fitxer.readLines()
+
+            //Leo las lineas para crear la matriz
+            for (j: Int in lineas_leidas.indices) {
+                var linea: String = lineas_leidas[j]
+                //Para cada linea la descifro y creo un array de Objetos
+                var linia_objetos: Array<Objeto?> = descifrarLinia(linea, j)
+                matrix[j] = linia_objetos
+            }
+
+        } catch (e: FileNotFoundException) {
+            throw IllegalArgumentException(
+                String.format(
+                    "El fitxer %s no existeix", filename
+                )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // Devolvemos la sala
+        return SalaFinal(id_sala, matrix)
     }
 
 
     // MÉTODOS DE SOPORTE:
+
+
+    /**
+     *  Mètodo para leer la matriz
+     */
+    //TODO EXTRAER EL METODO PARA LA LECTURA DE LA MATRIZ
 
     /**
      * Método para descifrar una linia de Strings en una linia de objetos
