@@ -2,8 +2,31 @@ package grup05.pis2018.ub.edu.betweenopposites.Presenter
 
 import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
 
-interface Presenter {
-    var facade : Facade
-    fun update()
-    fun changeView()
+/**
+ * Hemos hecho esta clase abstracta Presenter está destinada a definir los mètodos que necesitan implementar los diferentes Presenter
+ * que observan a su View correspondiente y trata con el modelo a través de la facade.
+ * De forma que el Presenter es un Observer de la View (Observable)
+ */
+abstract class Presenter {
+
+    //Contiene la facade del modelo, creada en el momento de la construcción del presenter.
+    lateinit var facade: Facade
+
+    /**
+     * Al construir un presente se obtiene la facade automaticamente
+     */
+    fun onCreate() {
+        facade = Facade()
+    }
+
+    /**
+     * Método al cual llama el Observable en el momento que realize el notify()
+     */
+    abstract fun update()
+
+    /**
+     * Función que actualiza la información que tiene la vista, seria el camino de vuelta tras haber recivido
+     *
+     */
+    abstract fun changeView()
 }

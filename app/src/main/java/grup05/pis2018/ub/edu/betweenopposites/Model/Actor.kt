@@ -1,13 +1,36 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
-abstract class Actor {
-    var velocidad : Int = 0
-    var direction : String = ""
+/**
+ * Clase abstracta que se encarga de
+ */
+abstract class Actor(
+    height: Float,
+    width: Float,
+    velocidad: Float,
+    direccion: Direccion,
+    posicion: Posicion
+) : Objeto(height, width, posicion) {
 
-    companion object {
-         fun mover(){
+    var velocidad: Float = velocidad;
+    var direccion: Direccion = direccion
 
-         }
+    enum class Direccion {
+        ARRIBA, ABAJO, DERECHA, IZQUIERDA
     }
+
+    enum class Bando {
+        Blanco, Negro
+    }
+    //Dirección en la que se mueve
+
+
+    /**
+     * Funcion abstracta que varia segun la implementación de cada actor
+     * que se encarga de calcular la posicion del Actor en función de la velocidad y la dirección,
+     * y otros parametros propios a la clase hija.
+     */
+    abstract fun mover(fps: Long)
+
+    abstract override fun tratarColision(objeto: Objeto)
 
 }

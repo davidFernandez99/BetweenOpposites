@@ -1,15 +1,15 @@
 package grup05.pis2018.ub.edu.betweenopposites.Game
 
 class GameEngine {
-    fun run(){
+    fun run() {
 
     }
 
-    fun update(){
+    fun update() {
 
     }
 
-    fun draw(){
+    fun draw() {
 
     }
 }
