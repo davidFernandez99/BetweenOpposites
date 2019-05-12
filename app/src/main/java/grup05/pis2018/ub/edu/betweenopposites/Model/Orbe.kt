@@ -17,7 +17,7 @@ class Orbe(
 
     var darPuntuacion: Int = 10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
-
+    var es_visible=true
     override fun mover(fps: Long) {
         if (this.direccion == Direccion.ABAJO) {
             if (this.posicion.y + this.height >= 1900) {
@@ -73,9 +73,11 @@ class Orbe(
             if (lobo.bando == this.bando) {
                 //Le da puntos al lobo
                 lobo.sumarPuntuacion(darPuntuacion)
+                es_visible=false
             } else {
                 //Le quita puntos al lobo
                 lobo.quitarPuntuacion(darPuntuacion)
+                es_visible=false
             }
         }
         if (objeto is Muro) {

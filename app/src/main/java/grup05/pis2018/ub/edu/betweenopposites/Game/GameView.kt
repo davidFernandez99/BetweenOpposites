@@ -12,15 +12,17 @@ import grup05.pis2018.ub.edu.betweenopposites.View.FinJuegoActivity
 
 
 class GameView (context: Context,private val size: Point) : SurfaceView(context), Runnable {
-    private val MAX_TIEMPO_VELOCIDAD: Long = 5000
+    private val MAX_TIEMPO_VELOCIDAD: Long = 10000
     private val MAX_TIEMPO_INVISIBLE: Long = 5000
+    private val MAX_TIEMPO_VULNERABLE: Long = 2000
     private val gameThread = Thread(this)
     private var playing = true
     private var paused = false
     private var conv:Long=1000
     private var tiempo:Tiempo  = Tiempo(conv,conv)
-    private var tiempoVelocidad:Tiempo=Tiempo(MAX_TIEMPO_VELOCIDAD,MAX_TIEMPO_VELOCIDAD)
-    private var tiempoInvisibilidad:Tiempo=Tiempo(MAX_TIEMPO_INVISIBLE,MAX_TIEMPO_INVISIBLE)
+    private var tirmpoVulnerable:Tiempo=Tiempo(1000,MAX_TIEMPO_VULNERABLE)
+    private var tiempoVelocidad:Tiempo=Tiempo(5000,MAX_TIEMPO_VELOCIDAD)
+    private var tiempoInvisibilidad:Tiempo=Tiempo(4000,MAX_TIEMPO_INVISIBLE)
     private var segundos:Long =0
     private var canvas : Canvas = Canvas()
     private val paint : Paint = Paint()
@@ -50,7 +52,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     var vida: Vida =Vida()
     //Cogemos la instancia del único Lobo
     var lobo:Lobo=Lobo.instance
-
+    var comprobar_vulnerabilidad:Boolean=false
+    var compobar_aumento:Boolean=false
 
     //Pruebas
     //Pruebas
@@ -60,6 +63,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     var trampa:Trampa=Trampa(32f,32f,Posicion(500f,500f))
     var suelo:Suelo?=null
     var muro:Muro?=null
+    var aumentarVelocidad:AumentarVelocidad= AumentarVelocidad(32f,32f, Posicion(300f,300f))
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
     }
@@ -96,13 +100,30 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         lobo.mover(fps)
         orbe.mover(fps)
         //Move the player's wolf
-        orbe.detectarColision(lobo)
-        trampa.detectarColision(lobo)
+        if(orbe.es_visible){
+            orbe.detectarColision(lobo)
+        }
+
+        comprobar_vulnerabilidad=trampa.detectarColision(lobo)
+        if(comprobar_vulnerabilidad==true){
+            lobo.vulnerable=false
+            tirmpoVulnerable.start()
+        }
+        if(tirmpoVulnerable.finish==true){
+            lobo.vulnerable=true
+            tirmpoVulnerable.finish=false
+        }
         if(tiempo.finish==true){
             segundos++
         }
-
-
+        compobar_aumento=aumentarVelocidad.detectarColision(lobo)
+        if(compobar_aumento==true){
+            tiempoVelocidad.start()
+        }
+        if(tiempoVelocidad.finish==true){
+            lobo.restarurarVelocidad()
+            tirmpoVulnerable.finish=false
+        }
 
     }
 
@@ -173,7 +194,12 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             //Now draw the player wolf
 
             trampa.draw(canvas, bitmapTrampa)
-            orbe.draw(canvas, bitmapOrbeBlanco)
+            if(orbe.es_visible){
+                orbe.draw(canvas, bitmapOrbeBlanco)
+            }
+            if(aumentarVelocidad.visible==true){
+                aumentarVelocidad.draw(canvas,bitmapAumentoVel)
+            }
 
             //Draw all the game objects here
             lobo.draw(canvas, bitmapOrbeNegro)

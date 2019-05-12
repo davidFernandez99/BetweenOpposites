@@ -8,11 +8,13 @@ class AumentarVelocidad(
     ObjetoActivable(height, width, posicion) {
     // Maximo tiempo en segundos de objeto activo
     val AUMENTO_DE_VELOCIDAD: Int = 10
-
+    var visible=true
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {//Si colisiona con un objeto lobo añadirá ese objeto a sus objetos activables
             var lobo: Lobo = objeto as Lobo
             lobo.objetoActivable = this
+            activarEfecto(lobo)//ALERT!! ESTO ES PARA PROBAR
+            visible=false
         }
     }
 

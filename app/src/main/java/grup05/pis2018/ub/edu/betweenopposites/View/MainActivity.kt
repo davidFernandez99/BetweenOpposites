@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(),View   {
     }
 
     companion object {
-        lateinit var player: MediaPlayer
+        lateinit open var player: MediaPlayer
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

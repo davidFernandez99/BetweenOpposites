@@ -6,6 +6,7 @@ class Tiempo (time:Long,countdown:Long):CountDownTimer (time,countdown) {
     var finish:Boolean=false
     override fun onFinish() {
         finish=true
+
     }
 
     override fun onTick(millisUntilFinished: Long) {

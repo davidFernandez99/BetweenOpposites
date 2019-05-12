@@ -22,6 +22,7 @@ class Trampa(
             var lobo: Lobo = Lobo.instance
             if (lobo.vulnerable == true) {
                 lobo.quitarVida()
+
             }
         }
     }
