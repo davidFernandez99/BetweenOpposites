@@ -40,4 +40,5 @@ class FinJuegoActivity : AppCompatActivity(), View {
         }
 
     }
+
 }

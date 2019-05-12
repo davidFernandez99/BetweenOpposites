@@ -51,6 +51,8 @@ class Puerta(
         if (objeto is Lobo) {
             TODO("si el lobo colisiona con una puerta hará pasar a la siguiente sala o nivel en caso que fuese la sala final")
             TODO("si es la sala final del último nivel llamara al método endGame()")
+            var lobo:Lobo= objeto as Lobo
+            lobo.final=true
         }
     }
 

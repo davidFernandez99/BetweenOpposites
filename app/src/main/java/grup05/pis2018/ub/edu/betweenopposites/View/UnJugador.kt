@@ -1,5 +1,6 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
+import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.support.v4.view.GestureDetectorCompat
@@ -30,6 +31,8 @@ class UnJugador : AppCompatActivity(), View {
     val gestureListener: DetectSwipeGestureListener = DetectSwipeGestureListener()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         gestureDetectorCompat = GestureDetectorCompat(this, gestureListener)
         // Create a common gesture listener object.
         val display = windowManager.defaultDisplay
@@ -61,13 +64,11 @@ class UnJugador : AppCompatActivity(), View {
 
     override fun onStop() {
         super.onStop()
-        MainActivity.player.pause()
         gameView?.onStop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        MainActivity.player.stop()
         gameView?.onDestroy()
     }
 
@@ -77,6 +78,8 @@ class UnJugador : AppCompatActivity(), View {
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true
     }
+
+
 
 
 

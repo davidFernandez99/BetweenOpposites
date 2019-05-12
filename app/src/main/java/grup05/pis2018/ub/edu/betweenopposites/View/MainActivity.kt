@@ -17,7 +17,7 @@ import grup05.pis2018.ub.edu.betweenopposites.R
  *  David Fernández Fernández
  */
 
-class MainActivity : AppCompatActivity(),View   {
+class MainActivity : AppCompatActivity(),View {
 
     lateinit var observers: ArrayList<Presenter>
 
@@ -35,34 +35,29 @@ class MainActivity : AppCompatActivity(),View   {
 
     companion object {
         lateinit open var player: MediaPlayer
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        player=MediaPlayer.create(this,R.raw.musica)
-        player.isLooping=true
+        player = MediaPlayer.create(this, R.raw.musica)
+        player.isLooping = true
         player.start()
 
         val btn_unjugador = findViewById<ImageButton>(R.id.btn_unjugador)
         btn_unjugador.setOnClickListener {
-           val intent = Intent(this, UnJugador::class.java)
+            val intent = Intent(this, UnJugador::class.java)
             startActivity(intent)
         }
 
-        val btn_dosjugadores = findViewById<ImageButton>(R.id.btn_dosjugadors)
-        btn_dosjugadores.setOnClickListener {
-            val intent = Intent(this, PantallaDosJugadores::class.java)
-            startActivity(intent)
-            player.stop()
-        }
 
         val btn_ranking = findViewById<ImageButton>(R.id.btn_ranking)
         btn_ranking.setOnClickListener {
             val intent = Intent(this, Ranking::class.java)
             startActivity(intent)
-            player.stop()
+
         }
         val btn_opciones = findViewById<ImageButton>(R.id.btn_opciones)
         btn_opciones.setOnClickListener {
@@ -72,5 +67,8 @@ class MainActivity : AppCompatActivity(),View   {
         }
 
     }
+
+
+
 
 }

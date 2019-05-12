@@ -9,6 +9,7 @@ import grup05.pis2018.ub.edu.betweenopposites.Model.*
 
 import grup05.pis2018.ub.edu.betweenopposites.R
 import grup05.pis2018.ub.edu.betweenopposites.View.FinJuegoActivity
+import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
 
 class GameView (context: Context,private val size: Point) : SurfaceView(context), Runnable {
@@ -19,7 +20,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private var playing = true
     private var paused = false
     private var conv:Long=1000
-    private var tiempo:Tiempo  = Tiempo(conv,conv)
+    private var tiempo:Tiempo  = Tiempo(10000,conv)
     private var tirmpoVulnerable:Tiempo=Tiempo(1000,MAX_TIEMPO_VULNERABLE)
     private var tiempoVelocidad:Tiempo=Tiempo(5000,MAX_TIEMPO_VELOCIDAD)
     private var tiempoInvisibilidad:Tiempo=Tiempo(4000,MAX_TIEMPO_INVISIBLE)
@@ -29,6 +30,10 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
 
     //Bitmap de los diferentes objetos que imprimiremos en el canvas
+    var bitmapLoboDerecha:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo)
+    var bitmapLoboIzquierda:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_derecha)
+    var bitmapLoboArriba:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_arriba)
+    var bitmapLoboAbajo:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_abajo)
     var bitmapVida: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.corazon_activo)
     var bitmapBorde:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde)
     var bitmapBordeSuperior:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_superior)
@@ -47,6 +52,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     var bitmapMultiplicador:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.multiplicador)
     var bitmapBordeSimple:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_singular)
     var bitmapBordeDoble:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_doble)
+    var bitmapPuerta:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.puerta)
+
 
     //Instanciamos un objeto vida para poder considerar cuantas vidas dibujar en el canvas
     var vida: Vida =Vida()
@@ -58,12 +65,17 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     //Pruebas
     //Pruebas
 
-    var bando: Actor.Bando = Actor.Bando.Negro
-    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.IZQUIERDA,Posicion(500f,500f))
-    var trampa:Trampa=Trampa(32f,32f,Posicion(500f,500f))
+    var bando: Actor.Bando = Actor.Bando.Blanco
+    var bando2: Actor.Bando = Actor.Bando.Negro
+    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.IZQUIERDA,Posicion(200f,200f))
+    var orbe2:Orbe= Orbe(bando2,32f,32f,10f, Actor.Direccion.DERECHA,Posicion(300f,500f))
+    var trampa:Trampa=Trampa(32f,32f,Posicion(500f,550f))
+    var trampa2:Trampa=Trampa(32f,32f,Posicion(800f,550f))
     var suelo:Suelo?=null
     var muro:Muro?=null
-    var aumentarVelocidad:AumentarVelocidad= AumentarVelocidad(32f,32f, Posicion(300f,300f))
+    var aumentarVelocidad:AumentarVelocidad= AumentarVelocidad(32f,32f, Posicion(300f,600f))
+    var puerta:Puerta = Puerta(60f,60f,Posicion(700f,310f))
+
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
     }
@@ -71,7 +83,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     override fun run() {
 
         var fps: Long = 1
-        tiempo.start()
+        //tiempo.start()
         paint.setColor(Color.WHITE)
 
 
@@ -99,16 +111,22 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private fun update(fps: Long){  //Aqui actualizaremos el estado de cada objeto
         lobo.mover(fps)
         orbe.mover(fps)
+        orbe2.mover(fps)
         //Move the player's wolf
         if(orbe.es_visible){
             orbe.detectarColision(lobo)
 
         }
+        if(orbe2.es_visible){
+            orbe2.detectarColision(lobo)
+
+        }
 
         comprobar_vulnerabilidad=trampa.detectarColision(lobo)
+        trampa2.detectarColision(lobo)
         if(comprobar_vulnerabilidad==true){
             lobo.vulnerable=false
-            tirmpoVulnerable.start()
+            //tirmpoVulnerable.start()
         }
         if(tirmpoVulnerable.finish==true){
             lobo.vulnerable=true
@@ -119,12 +137,20 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         }
         compobar_aumento=aumentarVelocidad.detectarColision(lobo)
         if(compobar_aumento==true){
-            tiempoVelocidad.start()
+            //tiempoVelocidad.start()
         }
 
         if(tiempoVelocidad.finish==true){
             lobo.restarurarVelocidad()
             tirmpoVulnerable.finish=false
+        }
+        if(lobo.velocidad==0f && tiempoVelocidad.finish==false){
+            lobo.velocidad=lobo.velocidadCambiada
+        }
+        puerta.detectarColision(lobo)
+        if(lobo.endgame()==true){
+            pause()
+
         }
 
     }
@@ -159,55 +185,117 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             x = 0f
             y= 0f
             for(i in 0..30){
-                muro=Muro(64f,64f,Posicion(x,20f))
+                muro=Muro(60f,60f,Posicion(x,20f))
                 muro!!.draw(canvas,bitmapMuro)
                 muro!!.detectarColision(lobo)
-                orbe.detectarColision(muro!!)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
                 x+=64f
             }
             i=0
             x=0f
             for(i in 0..30){
-                muro=Muro(64f,64f,Posicion(x,960f))
+                muro=Muro(60f,60f,Posicion(x,960f))
                 muro!!.draw(canvas,bitmapMuro)
                 muro!!.detectarColision(lobo)
-                orbe.detectarColision(muro!!)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
                 x+=64f
             }
             i=0
-            x=0f
-            for(i in 0..15){
-                muro=Muro(64f,64f,Posicion(0f,y))
+            x=64f
+            for (i in 0..23){
+                muro=Muro(60f,60f, Posicion(x,696f))
                 muro!!.draw(canvas,bitmapMuro)
                 muro!!.detectarColision(lobo)
-                orbe.detectarColision(muro!!)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
+                x+=64f
+            }
+            i=0
+            x=256f
+            for(i in 0..21){
+                muro=Muro(60f,60f, Posicion(x,310f))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
+                x+=64
+            }
+
+            i=0
+            x=0f
+            for(i in 0..15){
+                muro=Muro(60f,60f,Posicion(0f,y))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
                 y+=64f
             }
             y=0f
             i=0
             for(i in 0..15){
-                muro=Muro(64f,64f,Posicion(1850f,y))
+                muro=Muro(60f,60f,Posicion(1850f,y))
                 muro!!.draw(canvas,bitmapMuro)
                 muro!!.detectarColision(lobo)
-                orbe.detectarColision(muro!!)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
+                y+=64f
+            }
+
+            y=300f
+            i=0
+            for(i in 0..6){
+                muro=Muro(60f,60f,Posicion(1596f,y))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
+                y+=64f
+            }
+            y=300f
+            i=0
+            for(i in 0..6){
+                muro=Muro(60f,60f,Posicion(1532f,y))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                muro!!.detectarColision(orbe)
+                muro!!.detectarColision(orbe2)
                 y+=64f
             }
 
             //Now draw the player wolf
 
             trampa.draw(canvas, bitmapTrampa)
+            trampa2.draw(canvas,bitmapTrampa)
             if(orbe.es_visible){
                 orbe.draw(canvas, bitmapOrbeBlanco)
+            }
+            if(orbe2.es_visible){
+                orbe2.draw(canvas, bitmapOrbeNegro)
             }
             if(aumentarVelocidad.visible==true){
                 aumentarVelocidad.draw(canvas,bitmapAumentoVel)
             }
 
             //Draw all the game objects here
-            lobo.draw(canvas, bitmapOrbeNegro)
+            if(lobo.direccion==Actor.Direccion.DERECHA) {
+                    lobo.draw(canvas, bitmapLoboDerecha)
+            }
+            if(lobo.direccion==Actor.Direccion.IZQUIERDA) {
+                lobo.draw(canvas, bitmapLoboIzquierda)
+            }
+            if(lobo.direccion==Actor.Direccion.ARRIBA) {
+                lobo.draw(canvas, bitmapLoboArriba)
+            }
+            if(lobo.direccion==Actor.Direccion.ABAJO) {
+                lobo.draw(canvas, bitmapLoboAbajo)
+            }
+            puerta.draw(canvas,bitmapPuerta)
             canvas.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
             canvas.drawBitmap(bitmapBorde, 0f, 1080f, paint)
-            canvas.drawBitmap(bitmapPausa, 1900f, 0f, paint)
+            canvas.drawBitmap(bitmapPausa, 1860f, 0f, paint)
 
             canvas.drawText(segundos.toString(), 700f, 0f, paint)
             if (lobo.vida.numVide == 3) {
@@ -228,6 +316,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             // Draw everything to the screen
             holder.unlockCanvasAndPost(canvas)
         }
+
     }
 
     fun resume(){

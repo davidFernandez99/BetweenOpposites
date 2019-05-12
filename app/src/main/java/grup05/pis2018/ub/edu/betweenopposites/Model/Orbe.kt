@@ -80,16 +80,13 @@ class Orbe(
                 es_visible=false
             }
         }
-        if (objeto is Muro) {
-            //Canviará dirección del propio orbe para que este siempre en movimiento
-            canviarDireccion()
-        }
+
     }
 
     fun canviarDireccion() {
         var direccionNueva: Int = 0
         if (direccion == Direccion.DERECHA) {
-            direccionNueva = (0..1).random()
+            direccionNueva = (0..2).random()
             if (direccionNueva == 0) {
                 this.direccion = Direccion.ABAJO
             } else {
@@ -98,7 +95,7 @@ class Orbe(
 
         }
         if (direccion == Direccion.IZQUIERDA) {
-            direccionNueva = (0..1).random()
+            direccionNueva = (0..2).random()
             if (direccionNueva == 0) {
                 this.direccion = Direccion.ABAJO
             } else {
@@ -106,7 +103,7 @@ class Orbe(
             }
         }
         if (direccion == Direccion.ARRIBA) {
-            direccionNueva = (0..1).random()
+            direccionNueva = (0..2).random()
             if (direccionNueva == 0) {
                 this.direccion = Direccion.IZQUIERDA
             } else {
@@ -114,7 +111,7 @@ class Orbe(
             }
         }
         if (direccion == Direccion.ABAJO) {
-            direccionNueva = (0..1).random()
+            direccionNueva = (0..2).random()
             if (direccionNueva == 0) {
                 this.direccion = Direccion.IZQUIERDA
             } else {

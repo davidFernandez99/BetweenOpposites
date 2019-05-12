@@ -29,7 +29,7 @@ class Lobo(
     companion object {
         var life: Vida = Vida()
         var bando: Bando = Bando.Negro
-        val instance = Lobo(life, bando, 32f, 32f, 50f, Direccion.DERECHA, Posicion(200f, 700f))
+        val instance = Lobo(life, bando, 32f, 32f, 50f, Direccion.DERECHA, Posicion(100f, 860f))
     }
 
     /**
@@ -47,6 +47,7 @@ class Lobo(
 
     //Variable que nos dice si esta vivo
     var esta_vivo: Boolean = true
+    var final:Boolean=false
 
     /**
      * TODO: ¿Lo que hace esta clase es devolver la siguiente posición del lobo donde debe ser dibujado
@@ -137,6 +138,9 @@ class Lobo(
 
     fun restarurarVelocidad() {
         this.velocidad = velocidadInicial
+    }
+    fun endgame():Boolean{
+        return final
     }
 
 

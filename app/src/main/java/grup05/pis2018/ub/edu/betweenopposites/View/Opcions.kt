@@ -206,5 +206,4 @@ const val RC_SIGN_IN = 123
                 sign_in_button.visibility=View.VISIBLE
             }
         }
-
     }
