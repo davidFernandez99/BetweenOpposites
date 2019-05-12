@@ -102,6 +102,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         //Move the player's wolf
         if(orbe.es_visible){
             orbe.detectarColision(lobo)
+
         }
 
         comprobar_vulnerabilidad=trampa.detectarColision(lobo)
@@ -120,6 +121,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         if(compobar_aumento==true){
             tiempoVelocidad.start()
         }
+
         if(tiempoVelocidad.finish==true){
             lobo.restarurarVelocidad()
             tirmpoVulnerable.finish=false

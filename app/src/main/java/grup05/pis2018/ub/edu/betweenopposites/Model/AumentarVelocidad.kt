@@ -25,6 +25,7 @@ class AumentarVelocidad(
 
     override fun activarEfecto(lobo: Lobo) {
         lobo.velocidad += AUMENTO_DE_VELOCIDAD//augmentará la velocidad del lobo  durante un tiempo
+        lobo.velocidadCambiada =lobo.velocidad
 
     }
 

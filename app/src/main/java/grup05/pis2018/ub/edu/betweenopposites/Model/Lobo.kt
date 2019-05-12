@@ -17,6 +17,7 @@ class Lobo(
     posicion: Posicion
 ) : Actor(height, width, velocidad, direccion, posicion) {
     var vida: Vida = vida
+    var velocidadCambiada:Float=velocidad
     var puntuacion: Puntuacion = Puntuacion(0)
     var vulnerable: Boolean = true
 
@@ -137,6 +138,7 @@ class Lobo(
     fun restarurarVelocidad() {
         this.velocidad = velocidadInicial
     }
+
 
 
 }
