@@ -56,9 +56,10 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     //Pruebas
 
     var bando: Actor.Bando = Actor.Bando.Negro
-    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.IZQUIERDA,Posicion(100f,100f))
+    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.IZQUIERDA,Posicion(500f,500f))
     var trampa:Trampa=Trampa(32f,32f,Posicion(500f,500f))
     var suelo:Suelo?=null
+    var muro:Muro?=null
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
     }
@@ -122,14 +123,52 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             for (i in 0..20) {
                 y = 0f
                 for (j in 0..10) {
-                    suelo = Suelo(32f, 32f, Posicion(x, y))
+                    suelo = Suelo(16f, 16f, Posicion(x, y))
                     suelo!!.draw(canvas, bitmapSuelo)
+
                     y += 96f
 
                 }
                 x += 96f
             }
-
+            i= 0
+            j= 0
+            x = 0f
+            y= 0f
+            for(i in 0..30){
+                muro=Muro(64f,64f,Posicion(x,20f))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                orbe.detectarColision(muro!!)
+                x+=64f
+            }
+            i=0
+            x=0f
+            for(i in 0..30){
+                muro=Muro(64f,64f,Posicion(x,960f))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                orbe.detectarColision(muro!!)
+                x+=64f
+            }
+            i=0
+            x=0f
+            for(i in 0..15){
+                muro=Muro(64f,64f,Posicion(0f,y))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                orbe.detectarColision(muro!!)
+                y+=64f
+            }
+            y=0f
+            i=0
+            for(i in 0..15){
+                muro=Muro(64f,64f,Posicion(1850f,y))
+                muro!!.draw(canvas,bitmapMuro)
+                muro!!.detectarColision(lobo)
+                orbe.detectarColision(muro!!)
+                y+=64f
+            }
 
             //Now draw the player wolf
 

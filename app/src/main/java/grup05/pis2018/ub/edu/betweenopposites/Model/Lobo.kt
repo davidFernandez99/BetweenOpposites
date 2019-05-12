@@ -39,7 +39,6 @@ class Lobo(
     var bando: Bando = bando;
     var velocidadInicial: Float = velocidad
     var objetoActivable: ObjetoActivable? = null
-
     var multiplicador: Int = 1
 
     //Variable que nos dice si es visible
@@ -55,7 +54,7 @@ class Lobo(
     override fun mover(fps: Long) {
 
         if (direccion == Direccion.ABAJO) {
-            if (posicion.y + height >= 1900f) {
+            if (posicion.y + height >= 940f) {
                 velocidad = 0f
             } else {
                 posicion.y += velocidad / fps

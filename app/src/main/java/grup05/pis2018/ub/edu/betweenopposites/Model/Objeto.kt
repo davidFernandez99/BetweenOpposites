@@ -23,7 +23,7 @@ abstract class Objeto(
      * Implementación basica valida para la mayoria de objetos, especialmente aquellos que son fijos
      * y 32x32 en dimensiones
      */
-    fun detectarColision(objeto: Objeto): Boolean {
+    open fun detectarColision(objeto: Objeto): Boolean {
         var colisio: Boolean = false
         if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
             && this.posicion.x + this.width > objeto.posicion.x - objeto.width
