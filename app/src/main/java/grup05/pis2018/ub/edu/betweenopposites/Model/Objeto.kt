@@ -17,7 +17,6 @@ abstract class Objeto(
     var posicion: Posicion = posicion
     var height: Float = height
     var width: Float = width
-    var bitmap:Bitmap?=null
     var paint:Paint= Paint()
     /**
      * Se encarga de detectar la colision con el lobo.
@@ -48,7 +47,9 @@ abstract class Objeto(
     /**
      * Funcion que dibuja al objeto
      */
-    abstract fun draw(canvas: Canvas, context: Context)
+    fun draw(canvas: Canvas, image:Bitmap){
+        canvas.drawBitmap(image,this.posicion.x,this.posicion.y,paint)
+    }
 
 
 

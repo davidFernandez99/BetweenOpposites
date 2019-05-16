@@ -85,8 +85,5 @@ class Puerta(
             throw Exception("Esta puerta tiene como destino Nivel:${id_nivel_destino} Sala:${id_sala_destino}, de forma que no tiene puerta de destino.")
         }
     }
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.puerta)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 }

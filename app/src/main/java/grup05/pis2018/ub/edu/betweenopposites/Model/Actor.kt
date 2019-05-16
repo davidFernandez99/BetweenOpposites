@@ -15,7 +15,7 @@ abstract class Actor(
     var direccion: Direccion = direccion
 
     enum class Direccion {
-        ARRIBA, ABAJO, DERECHA, IZQUIERDA
+        ARRIBA, ABAJO, DERECHA, IZQUIERDA, PARADO
     }
 
     enum class Bando {

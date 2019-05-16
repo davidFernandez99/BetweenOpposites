@@ -21,11 +21,14 @@ class Orbe(
     var darPuntuacion: Int = 10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
     var es_visible=true
+    var direccionChoque:Direccion?=null
+    var direccionIvalida:Direccion?=null
+
     override fun mover(fps: Long) {
         if (this.direccion == Direccion.ABAJO) {
             if (this.posicion.y + this.height >= 1900) {
-                //canviarDireccion()
-                this.velocidad = 0f
+                canviarDireccion()
+
             } else {
                 this.posicion.y += this.velocidad / fps
             }
@@ -33,8 +36,8 @@ class Orbe(
         }
         if (this.direccion == Direccion.ARRIBA) {
             if (this.posicion.y - this.height == 0f) {
-                //canviarDireccion()
-                this.velocidad = 0f
+                canviarDireccion()
+
             } else {
                 this.posicion.y -= velocidad / fps
             }
@@ -43,8 +46,7 @@ class Orbe(
 
         if (this.direccion == Direccion.IZQUIERDA) {
             if (this.posicion.x - this.width == 0f) {
-                //canviarDireccion()
-                this.direccion = Direccion.DERECHA
+                canviarDireccion()
             } else {
                 this.posicion.x -= this.velocidad / fps
             }
@@ -52,13 +54,14 @@ class Orbe(
         }
         if (this.direccion == Direccion.DERECHA) {
             if (this.posicion.x == 1920f - this.width) {
-                //canviarDireccion()
+                canviarDireccion()
                 this.velocidad = 0f
             } else {
                 this.posicion.x += this.velocidad / fps
             }
 
         }
+        this.direccionIvalida=null
     }
 
     /**
@@ -88,7 +91,7 @@ class Orbe(
 
     fun canviarDireccion() {
         var direccionNueva: Int = 0
-        if (direccion == Direccion.DERECHA) {
+        if (this.direccion == Direccion.DERECHA) {
             direccionNueva = (0..2).random()
             if (direccionNueva == 0) {
                 this.direccion = Direccion.ABAJO
@@ -98,12 +101,7 @@ class Orbe(
 
         }
         if (direccion == Direccion.IZQUIERDA) {
-            direccionNueva = (0..2).random()
-            if (direccionNueva == 0) {
-                this.direccion = Direccion.ABAJO
-            } else {
-                this.direccion = Direccion.ARRIBA
-            }
+            this.direccion=Direccion.ABAJO
         }
         if (direccion == Direccion.ARRIBA) {
             direccionNueva = (0..2).random()
@@ -122,13 +120,24 @@ class Orbe(
             }
         }
     }
-    override fun draw(canvas: Canvas, context: Context){
-        if(this.bando==Bando.Negro){
-            this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
+
+    fun returnPosicion(){
+        if(this.direccionChoque==Direccion.ARRIBA){
+            direccionIvalida=Direccion.ARRIBA
+            this.posicion.y +=1f
         }
-        else{
-            this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
+        if(this.direccionChoque==Direccion.DERECHA){
+            direccionIvalida=Direccion.DERECHA
+            this.posicion.x-=1f
         }
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
+        if(this.direccionChoque==Direccion.ABAJO){
+            direccionIvalida=Direccion.ABAJO
+            this.posicion.y -=1f
+        }
+        if(this.direccionChoque==Direccion.IZQUIERDA){
+            direccionIvalida=Direccion.IZQUIERDA
+            this.posicion.x+=1f
+        }
     }
+
 }
