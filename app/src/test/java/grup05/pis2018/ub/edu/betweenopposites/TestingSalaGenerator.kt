@@ -13,6 +13,6 @@ class TestingSalaGenerator {
         var sala: Sala = FactorySala.crearSalaBasicadesdeTXT(1, 1, "/home/stephen/Desktop/MAZMORRA_1.txt")
         println("SE HA CREADO LA SALA")
         sala.printMatriz()
-        print("SE HA ACABADO DE PRINTERA LA MATRIZ")
+        print("SE HA ACABADO DE PRINTEAR LA MATRIZ")
     }
 }

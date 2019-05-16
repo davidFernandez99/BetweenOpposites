@@ -63,7 +63,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Se encarga de sincronizar las puertas que hay en matriz con las que hay en la lista
      */
-    /*private fun syncPuertas() : Boolean{
+    private fun syncPuertas(): Boolean {
         // Recogemos las puertas que hay en la matriz
         var diferentes: Boolean = false
 
@@ -105,7 +105,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
         //Devolvemos si ha habido cambios
         return diferentes
-    }*/
+    }
 
     /**
      * Coloca multiples puertas
