@@ -65,8 +65,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
     var bando: Actor.Bando = Actor.Bando.Blanco
     var bando2: Actor.Bando = Actor.Bando.Negro
-    var orbe:Orbe= Orbe(bando,32f,32f,10f, Actor.Direccion.IZQUIERDA,Posicion(200f,200f))
-    var orbe2:Orbe= Orbe(bando2,32f,32f,10f, Actor.Direccion.DERECHA,Posicion(300f,500f))
+    var orbe:Orbe= Orbe(bando,32f,32f,50f, Actor.Direccion.IZQUIERDA,Posicion(200f,200f))
+    var orbe2:Orbe= Orbe(bando2,32f,32f,50f, Actor.Direccion.DERECHA,Posicion(300f,500f))
     var trampa:Trampa=Trampa(32f,32f,Posicion(500f,550f))
     var trampa2:Trampa=Trampa(32f,32f,Posicion(800f,550f))
     var suelo:Suelo?=null

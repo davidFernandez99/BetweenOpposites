@@ -60,7 +60,6 @@ class Lobo(
      */
     override fun mover(fps: Long) {
 
-
         if (direccion == Direccion.ABAJO) {
             if (posicion.y + height >= 1080f) {
                 velocidad = 0f

@@ -31,6 +31,12 @@ class Muro(
         }
         if(objeto is Orbe){
             var orbe: Orbe = objeto as Orbe
+            orbe.direccionChoque=orbe.direccion
+
+            while(comprobarColision(orbe)==true){
+                orbe.returnPosicion()
+            }
+            orbe.returnPosicion()
             orbe.canviarDireccion()
         }
     }
