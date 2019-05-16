@@ -1,5 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
+
 
 /**
  * Objeto Cambio de bando que se encarga de tratar la colision entre este y el Lobo para que cambie de Bando
@@ -33,6 +38,9 @@ class CambioBando(
             lobo.bando = Actor.Bando.Blanco
         }
     }
-
+    override fun draw(canvas: Canvas, context: Context){
+        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.objeto_cambiobando)
+        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
+    }
 
 }

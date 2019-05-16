@@ -8,30 +8,34 @@
         android:background="@color/colorPrimaryDark"
         tools:context=".UnJugador">
 
-    <Button
-            android:text="@string/ganar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_Ganar" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="77dp"
-            app:layout_constraintStart_toEndOf="@+id/btn_Morir" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="83dp"/>
-    <Button
-            android:text="@string/mor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_Morir" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.499"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="75dp"
-            app:layout_constraintEnd_toStartOf="@+id/btn_Ganar" android:layout_marginEnd="77dp"/>
-    <ImageButton
-            android:layout_width="29dp"
-            android:layout_height="29dp" app:srcCompat="@mipmap/ic_launcher_foreground_pausa"
-            android:id="@+id/btn_pausa"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="42dp"
-            app:layout_constraintStart_toEndOf="@+id/btn_Ganar" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="208dp" app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/pausa" app:layout_constraintHorizontal_bias="0.384"
-            app:layout_constraintVertical_bias="0.112"/>
 
+    <ImageButton
+            android:src="@drawable/boton_pausa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_pausa"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="674dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="372dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="1.0"/>
+    <ImageButton
+            android:src="@drawable/borde_singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_objeto" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="37dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="361dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="650dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageButton
+            android:src="@drawable/borde_singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_tp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="361dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="574dp"
+            app:layout_constraintStart_toEndOf="@+id/btn_objeto" android:layout_marginStart="33dp"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.722"/>
 </android.support.constraint.ConstraintLayout>

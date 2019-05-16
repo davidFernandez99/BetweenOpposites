@@ -1,5 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.Canvas
+
 abstract class ObjetoActivable(
     height: Float,
     width: Float,

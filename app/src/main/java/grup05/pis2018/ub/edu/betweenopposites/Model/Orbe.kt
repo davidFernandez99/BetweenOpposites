@@ -1,7 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
 import java.util.*
 import kotlin.random.Random.Default.nextInt
 
@@ -119,5 +122,13 @@ class Orbe(
             }
         }
     }
-
+    override fun draw(canvas: Canvas, context: Context){
+        if(this.bando==Bando.Negro){
+            this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
+        }
+        else{
+            this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
+        }
+        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
+    }
 }

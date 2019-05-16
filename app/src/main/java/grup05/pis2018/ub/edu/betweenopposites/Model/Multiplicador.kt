@@ -1,5 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
+
 
 class Multiplicador(
     valor1: Int,
@@ -24,5 +29,8 @@ class Multiplicador(
         }
     }
 
-
+    override fun draw(canvas: Canvas, context: Context){
+        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.multiplicador)
+        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
+    }
 }

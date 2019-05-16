@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.support.v4.view.GestureDetectorCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
+import android.widget.ImageButton
 import com.dev2qa.gestureexample.DetectSwipeGestureListener
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
+import grup05.pis2018.ub.edu.betweenopposites.R
 
 class UnJugador : AppCompatActivity(), View {
     override fun addObserver(presenter: Presenter) {
@@ -40,6 +42,8 @@ class UnJugador : AppCompatActivity(), View {
         display.getSize(size)
         gameView = GameView(this, size)
         setContentView(gameView)
+
+
 
 
         /* setContentView(R.layout.activity_un_jugador)

@@ -1,5 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
+
 
 class Muro(
     height: Float,
@@ -13,49 +18,42 @@ class Muro(
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
+
             var lobo: Lobo = objeto as Lobo
-            lobo.velocidad = 0f
+            lobo.puede_moverse=false
+            lobo.direccionChoque=lobo.direccion
+
+            while(comprobarColision(lobo)==true){
+                lobo.returnPosicion()
+            }
+            var i:Int=0
+            for (i in 0..5){
+                lobo.returnPosicion()
+            }
+            lobo.returnPosicion()
+            lobo.velocidad=0f
+            lobo.puede_moverse=true
         }
         if(objeto is Orbe){
             var orbe: Orbe = objeto as Orbe
             orbe.canviarDireccion()
         }
     }
+    fun comprobarColision(objeto:Objeto):Boolean{
 
-    /*override fun detectarColision(objeto: Objeto): Boolean {
-        if(objeto is Lobo){
-            var lobo: Lobo=objeto as Lobo
-            if(lobo.direccion==Actor.Direccion.ARRIBA){
-
-            }
-            if(lobo.direccion==Actor.Direccion.ABAJO){
-
-            }
-            if(lobo.direccion==Actor.Direccion.IZQUIERDA){
-
-            }
-            if(lobo.direccion==Actor.Direccion.DERECHA){
-
-            }
+        if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
+            && this.posicion.x + this.width > objeto.posicion.x - objeto.width
+            && this.posicion.y - this.height < objeto.posicion.y + objeto.height
+            && this.posicion.y + this.height > objeto.posicion.y - objeto.height
+        ) {
+            return true
         }
-        if(objeto is Orbe){
-            var orbe:Orbe= objeto as Orbe
-            if(orbe.direccion==Actor.Direccion.ARRIBA){
-
-            }
-            if(orbe.direccion==Actor.Direccion.ABAJO){
-
-            }
-            if(orbe.direccion==Actor.Direccion.IZQUIERDA){
-
-            }
-            if(orbe.direccion==Actor.Direccion.DERECHA){
-
-            }
-        }
+        //Devuelve si ha colisionado o no con ese objeto
         return false
-    }*/
-
-
+    }
+    override fun draw(canvas: Canvas, context: Context){
+        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.muro)
+        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
+    }
 
 }

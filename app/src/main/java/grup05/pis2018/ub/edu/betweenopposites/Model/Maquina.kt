@@ -1,5 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
+
 
 /**
  * Objeto en el juego que se encuentra en las salas especiales, cuando chocamos con ella nos da la oportunidad de
@@ -37,5 +42,9 @@ class Maquina(
             var lobo: Lobo = objeto as Lobo
             darOpciones(lobo)
         }
+    }
+    override fun draw(canvas: Canvas, context: Context){
+        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.maquina)
+        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
     }
 }

@@ -28,32 +28,11 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private var canvas : Canvas = Canvas()
     private val paint : Paint = Paint()
 
-
-    //Bitmap de los diferentes objetos que imprimiremos en el canvas
-    var bitmapLoboDerecha:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo)
-    var bitmapLoboIzquierda:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_derecha)
-    var bitmapLoboArriba:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_arriba)
-    var bitmapLoboAbajo:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_abajo)
-    var bitmapVida: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.corazon_activo)
+    var bitmapBordeSimple:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_singular)
+    var bitmapBordeDoble:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_doble)
     var bitmapBorde:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde)
     var bitmapBordeSuperior:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_superior)
     var bitmapPausa:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_pausa)
-    var bitmapOrbeNegro: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
-    var bitmapOrbeBlanco: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
-    var bitmapTrampa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.trampa)
-    var bitmapMuro:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.muro)
-    var bitmapSuelo:Bitmap=BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
-    var bitmapTeleporActivado:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_tp_activado)
-    var bitmapTeleporDesactivado:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_tp_desactivado)
-    var bitmapInv:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_invisibilidad)
-    var bitmapCambio:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_cambiobando)
-    var bitmapAumentoVel:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_velocidad)
-    var bitmapSumador:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.sumador)
-    var bitmapMultiplicador:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.multiplicador)
-    var bitmapBordeSimple:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_singular)
-    var bitmapBordeDoble:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_doble)
-    var bitmapPuerta:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.puerta)
-
 
     //Instanciamos un objeto vida para poder considerar cuantas vidas dibujar en el canvas
     var vida: Vida =Vida()
@@ -169,24 +148,24 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             var j: Int = 0
             var x: Float = 0f
             var y: Float = 0f
-            for (i in 0..20) {
+            for (i in 0..30) {
                 y = 0f
-                for (j in 0..10) {
-                    suelo = Suelo(16f, 16f, Posicion(x, y))
-                    suelo!!.draw(canvas, bitmapSuelo)
+                for (j in 0..20) {
+                    suelo = Suelo(32f, 32f, Posicion(x, y))
+                    suelo!!.draw(canvas, context)
 
-                    y += 96f
+                    y += 64f
 
                 }
-                x += 96f
+                x += 64f
             }
             i= 0
             j= 0
             x = 0f
             y= 0f
             for(i in 0..30){
-                muro=Muro(60f,60f,Posicion(x,20f))
-                muro!!.draw(canvas,bitmapMuro)
+                muro=Muro(32f,32f,Posicion(x,20f))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -195,8 +174,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             i=0
             x=0f
             for(i in 0..30){
-                muro=Muro(60f,60f,Posicion(x,960f))
-                muro!!.draw(canvas,bitmapMuro)
+                muro=Muro(32f,32f,Posicion(x,1024f))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -205,8 +184,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             i=0
             x=64f
             for (i in 0..23){
-                muro=Muro(60f,60f, Posicion(x,696f))
-                muro!!.draw(canvas,bitmapMuro)
+                muro=Muro(32f,32f, Posicion(x,696f))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -215,8 +194,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             i=0
             x=256f
             for(i in 0..21){
-                muro=Muro(60f,60f, Posicion(x,310f))
-                muro!!.draw(canvas,bitmapMuro)
+                muro=Muro(32f,32f, Posicion(x,310f))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -225,9 +204,9 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
             i=0
             x=0f
-            for(i in 0..15){
-                muro=Muro(60f,60f,Posicion(0f,y))
-                muro!!.draw(canvas,bitmapMuro)
+            for(i in 0..20){
+                muro=Muro(32f,32f,Posicion(0f,y))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -235,9 +214,9 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             }
             y=0f
             i=0
-            for(i in 0..15){
-                muro=Muro(60f,60f,Posicion(1850f,y))
-                muro!!.draw(canvas,bitmapMuro)
+            for(i in 0..20){
+                muro=Muro(32f,32f,Posicion(1914f,y))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -247,8 +226,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             y=300f
             i=0
             for(i in 0..6){
-                muro=Muro(60f,60f,Posicion(1596f,y))
-                muro!!.draw(canvas,bitmapMuro)
+                muro=Muro(32f,32f,Posicion(1596f,y))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -257,8 +236,8 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             y=300f
             i=0
             for(i in 0..6){
-                muro=Muro(60f,60f,Posicion(1532f,y))
-                muro!!.draw(canvas,bitmapMuro)
+                muro=Muro(32f,32f,Posicion(1532f,y))
+                muro!!.draw(canvas,context)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
@@ -267,48 +246,37 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
             //Now draw the player wolf
 
-            trampa.draw(canvas, bitmapTrampa)
-            trampa2.draw(canvas,bitmapTrampa)
+            trampa.draw(canvas, context)
+            trampa2.draw(canvas,context)
             if(orbe.es_visible){
-                orbe.draw(canvas, bitmapOrbeBlanco)
+                orbe.draw(canvas, context)
             }
             if(orbe2.es_visible){
-                orbe2.draw(canvas, bitmapOrbeNegro)
+                orbe2.draw(canvas, context)
             }
             if(aumentarVelocidad.visible==true){
-                aumentarVelocidad.draw(canvas,bitmapAumentoVel)
+                aumentarVelocidad.draw(canvas,context)
             }
 
             //Draw all the game objects here
-            if(lobo.direccion==Actor.Direccion.DERECHA) {
-                    lobo.draw(canvas, bitmapLoboDerecha)
-            }
-            if(lobo.direccion==Actor.Direccion.IZQUIERDA) {
-                lobo.draw(canvas, bitmapLoboIzquierda)
-            }
-            if(lobo.direccion==Actor.Direccion.ARRIBA) {
-                lobo.draw(canvas, bitmapLoboArriba)
-            }
-            if(lobo.direccion==Actor.Direccion.ABAJO) {
-                lobo.draw(canvas, bitmapLoboAbajo)
-            }
-            puerta.draw(canvas,bitmapPuerta)
+            lobo.draw(canvas, context)
+
+            puerta.draw(canvas,context)
             canvas.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
-            canvas.drawBitmap(bitmapBorde, 0f, 1080f, paint)
-            canvas.drawBitmap(bitmapPausa, 1860f, 0f, paint)
+            canvas.drawBitmap(bitmapPausa, 1920f, 0f, paint)
 
             canvas.drawText(segundos.toString(), 700f, 0f, paint)
             if (lobo.vida.numVide == 3) {
-                vida.draw(canvas, 860f, 0f, bitmapVida)
-                vida.draw(canvas, 960f, 0f, bitmapVida)
-                vida.draw(canvas, 1060f, 0f, bitmapVida)
+                vida.draw(canvas, 860f, 0f, context)
+                vida.draw(canvas, 960f, 0f, context)
+                vida.draw(canvas, 1060f, 0f, context)
 
             } else if (lobo.vida.numVide == 2) {
-                vida.draw(canvas, 860f, 0f, bitmapVida)
-                vida.draw(canvas, 960f, 0f, bitmapVida)
+                vida.draw(canvas, 860f, 0f, context)
+                vida.draw(canvas, 960f, 0f, context)
 
             } else if (lobo.vida.numVide == 1) {
-                vida.draw(canvas, 860f, 0f, bitmapVida)
+                vida.draw(canvas, 860f, 0f, context)
 
             }
 

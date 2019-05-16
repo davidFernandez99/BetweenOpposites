@@ -1,7 +1,11 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
 
 
 /**
@@ -20,23 +24,6 @@ class Lobo(
     var velocidadCambiada:Float=velocidad
     var puntuacion: Puntuacion = Puntuacion(0)
     var vulnerable: Boolean = true
-
-    /**
-     * Contiene la única instancia Loco con la cual debemos trabajar.
-     * Es lo mismo que crear un campo estatico en Java
-     * De esta forma podemos tener una única instancia para esta clase.
-     */
-    companion object {
-        var life: Vida = Vida()
-        var bando: Bando = Bando.Negro
-        val instance = Lobo(life, bando, 32f, 32f, 50f, Direccion.DERECHA, Posicion(100f, 860f))
-    }
-
-    /**
-     * Funcion que devuelve la instancia única de la Facade
-     */
-
-    // Bando al que pertenece el Lobo (Blanco, Negro)
     var bando: Bando = bando;
     var velocidadInicial: Float = velocidad
     var objetoActivable: ObjetoActivable? = null
@@ -48,6 +35,25 @@ class Lobo(
     //Variable que nos dice si esta vivo
     var esta_vivo: Boolean = true
     var final:Boolean=false
+    var direccionChoque:Direccion?=null
+    var puede_moverse:Boolean=true
+    /**
+     * Contiene la única instancia Loco con la cual debemos trabajar.
+     * Es lo mismo que crear un campo estatico en Java
+     * De esta forma podemos tener una única instancia para esta clase.
+     */
+    companion object {
+        var life: Vida = Vida()
+        var bando: Bando = Bando.Negro
+        val instance = Lobo(life, bando, 32f, 32f, 60f, Direccion.DERECHA, Posicion(100f, 860f))
+    }
+
+    /**
+     * Funcion que devuelve la instancia única de la Facade
+     */
+
+    // Bando al que pertenece el Lobo (Blanco, Negro)
+
 
     /**
      * TODO: ¿Lo que hace esta clase es devolver la siguiente posición del lobo donde debe ser dibujado
@@ -55,35 +61,38 @@ class Lobo(
      */
     override fun mover(fps: Long) {
 
-        if (direccion == Direccion.ABAJO) {
-            if (posicion.y + height >= 940f) {
-                velocidad = 0f
-            } else {
-                posicion.y += velocidad / fps
+        if(this.puede_moverse==true){
+            if (direccion == Direccion.ABAJO) {
+                if (posicion.y + height >= 1080f) {
+                    velocidad = 0f
+                } else {
+                    posicion.y += velocidad / fps
+                }
             }
-        }
-        if (direccion == Direccion.ARRIBA && posicion.y > velocidad / fps) {
-            if (posicion.y - height <= 20f) {
-                velocidad = 0f
-            } else {
-                posicion.y -= velocidad / fps
+            if (direccion == Direccion.ARRIBA && posicion.y > velocidad / fps) {
+                if (posicion.y - height <= 20f) {
+                    velocidad = 0f
+                } else {
+                    posicion.y -= velocidad / fps
+                }
+            }
+
+            if (direccion == Direccion.IZQUIERDA && posicion.x > velocidad / fps) {
+                if (posicion.x - width + 16f == 0f) {
+                    velocidad = 0f
+                } else {
+                    posicion.x -= velocidad / fps
+                }
+            }
+            if (direccion == Direccion.DERECHA) {
+                if (posicion.x + width +16f == 1920f) {
+                    velocidad = 0f
+                } else {
+                    posicion.x += velocidad / fps
+                }
             }
         }
 
-        if (direccion == Direccion.IZQUIERDA && posicion.x > velocidad / fps) {
-            if (posicion.x - width + 16f == 0f) {
-                velocidad = 0f
-            } else {
-                posicion.x -= velocidad / fps
-            }
-        }
-        if (direccion == Direccion.DERECHA) {
-            if (posicion.x + width +16f == 1920f) {
-                velocidad = 0f
-            } else {
-                posicion.x += velocidad / fps
-            }
-        }
     }
 
     /**
@@ -144,5 +153,22 @@ class Lobo(
     }
 
 
-
+    fun returnPosicion(){
+        if(this.direccionChoque==Direccion.ARRIBA){
+            this.posicion.y +=1f
+        }
+        if(this.direccionChoque==Direccion.DERECHA){
+            this.posicion.x-=1f
+        }
+        if(this.direccionChoque==Direccion.ABAJO){
+            this.posicion.y -=1f
+        }
+        if(this.direccionChoque==Direccion.IZQUIERDA){
+            this.posicion.x+=1f
+        }
+    }
+    override fun draw(canvas: Canvas, context: Context){
+        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbe_raro)
+        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
+    }
 }

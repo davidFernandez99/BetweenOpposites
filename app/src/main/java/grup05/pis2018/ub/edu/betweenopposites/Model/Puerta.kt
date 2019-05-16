@@ -1,5 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
+
 
 /**
  * Objeto que permite el movimiento entre salas para el Lobo.
@@ -80,5 +85,8 @@ class Puerta(
             throw Exception("Esta puerta tiene como destino Nivel:${id_nivel_destino} Sala:${id_sala_destino}, de forma que no tiene puerta de destino.")
         }
     }
-
+    override fun draw(canvas: Canvas, context: Context){
+        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.puerta)
+        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
+    }
 }
