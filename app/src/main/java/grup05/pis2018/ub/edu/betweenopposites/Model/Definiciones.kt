@@ -9,11 +9,11 @@ enum class Dimension(
     val height: Float = (height_en_bloques * 32).toFloat(),
     val width: Float = width_en_bloques.toFloat()
 ) {
-    bloque(1, 1),
-    muro(1, 1),
-    puerta(1, 1),
-    suelo(1, 1),
-    sala(10, 20)
+    bloque(1, 1, 32f, 32f),
+    muro(1, 1, 32f, 32f),
+    puerta(1, 1, 32f, 32f),
+    suelo(1, 1, 32f, 32f),
+    sala(10, 20, 320f, 640f)
 }
 
 /**
