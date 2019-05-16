@@ -39,10 +39,14 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
                 lobo.restarurarVelocidad()
             }
             if (deltaX > 0) {
+                if(lobo.direccionIvalida!= Actor.Direccion.IZQUIERDA){
+                    lobo.direccion = Actor.Direccion.IZQUIERDA
+                }
 
-                lobo.direccion = Actor.Direccion.IZQUIERDA
             } else {
-                lobo.direccion = Actor.Direccion.DERECHA
+                if(lobo.direccionIvalida!= Actor.Direccion.DERECHA){
+                    lobo.direccion = Actor.Direccion.DERECHA
+                }
             }
         }
 
@@ -51,9 +55,13 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
                 lobo.restarurarVelocidad()
             }
             if (deltaY > 0) {
-                lobo.direccion = Actor.Direccion.ARRIBA
+                if(lobo.direccionIvalida!= Actor.Direccion.ARRIBA){
+                    lobo.direccion = Actor.Direccion.ARRIBA
+                }
             } else {
-                lobo.direccion = Actor.Direccion.ABAJO
+                if(lobo.direccionIvalida!= Actor.Direccion.ABAJO){
+                    lobo.direccion = Actor.Direccion.ABAJO
+                }
             }
         }
 

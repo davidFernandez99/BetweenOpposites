@@ -34,8 +34,4 @@ class AumentarVelocidad(
 
     }
 
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.objeto_velocidad)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
 }

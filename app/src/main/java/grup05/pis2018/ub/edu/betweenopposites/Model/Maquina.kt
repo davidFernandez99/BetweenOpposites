@@ -43,8 +43,5 @@ class Maquina(
             darOpciones(lobo)
         }
     }
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.maquina)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 }

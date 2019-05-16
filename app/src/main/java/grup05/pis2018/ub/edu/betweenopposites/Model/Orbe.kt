@@ -122,13 +122,5 @@ class Orbe(
             }
         }
     }
-    override fun draw(canvas: Canvas, context: Context){
-        if(this.bando==Bando.Negro){
-            this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
-        }
-        else{
-            this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
-        }
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 }

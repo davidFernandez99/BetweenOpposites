@@ -38,9 +38,6 @@ class CambioBando(
             lobo.bando = Actor.Bando.Blanco
         }
     }
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.objeto_cambiobando)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 
 }

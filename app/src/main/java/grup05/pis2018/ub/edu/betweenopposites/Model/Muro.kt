@@ -20,19 +20,14 @@ class Muro(
         if (objeto is Lobo) {
 
             var lobo: Lobo = objeto as Lobo
-            lobo.puede_moverse=false
+            lobo.velocidad=0f
             lobo.direccionChoque=lobo.direccion
 
             while(comprobarColision(lobo)==true){
                 lobo.returnPosicion()
             }
-            var i:Int=0
-            for (i in 0..5){
-                lobo.returnPosicion()
-            }
             lobo.returnPosicion()
-            lobo.velocidad=0f
-            lobo.puede_moverse=true
+            lobo.direccion=Actor.Direccion.PARADO
         }
         if(objeto is Orbe){
             var orbe: Orbe = objeto as Orbe
@@ -51,9 +46,6 @@ class Muro(
         //Devuelve si ha colisionado o no con ese objeto
         return false
     }
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.muro)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 
 }

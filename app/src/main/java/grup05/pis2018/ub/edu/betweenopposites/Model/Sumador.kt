@@ -27,10 +27,7 @@ class Sumador(
             lobo.sumarPuntuacion(valor)
         }
     }
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.sumador)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 
     /**
      * Al colisionar el Lobo con el objeto se debe notificar al lobo para que aumente su puntuación.

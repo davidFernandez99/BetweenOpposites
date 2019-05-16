@@ -13,8 +13,5 @@ class Suelo(
     override fun tratarColision(objeto: Objeto) {
 
     }
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 }

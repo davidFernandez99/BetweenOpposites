@@ -28,15 +28,13 @@ class Lobo(
     var velocidadInicial: Float = velocidad
     var objetoActivable: ObjetoActivable? = null
     var multiplicador: Int = 1
-
     //Variable que nos dice si es visible
     var es_visible: Boolean = true
-
     //Variable que nos dice si esta vivo
     var esta_vivo: Boolean = true
     var final:Boolean=false
     var direccionChoque:Direccion?=null
-    var puede_moverse:Boolean=true
+    var direccionIvalida:Direccion?=null
     /**
      * Contiene la única instancia Loco con la cual debemos trabajar.
      * Es lo mismo que crear un campo estatico en Java
@@ -46,6 +44,7 @@ class Lobo(
         var life: Vida = Vida()
         var bando: Bando = Bando.Negro
         val instance = Lobo(life, bando, 32f, 32f, 60f, Direccion.DERECHA, Posicion(100f, 860f))
+
     }
 
     /**
@@ -61,37 +60,37 @@ class Lobo(
      */
     override fun mover(fps: Long) {
 
-        if(this.puede_moverse==true){
-            if (direccion == Direccion.ABAJO) {
-                if (posicion.y + height >= 1080f) {
-                    velocidad = 0f
-                } else {
-                    posicion.y += velocidad / fps
-                }
-            }
-            if (direccion == Direccion.ARRIBA && posicion.y > velocidad / fps) {
-                if (posicion.y - height <= 20f) {
-                    velocidad = 0f
-                } else {
-                    posicion.y -= velocidad / fps
-                }
-            }
 
-            if (direccion == Direccion.IZQUIERDA && posicion.x > velocidad / fps) {
-                if (posicion.x - width + 16f == 0f) {
-                    velocidad = 0f
-                } else {
-                    posicion.x -= velocidad / fps
-                }
-            }
-            if (direccion == Direccion.DERECHA) {
-                if (posicion.x + width +16f == 1920f) {
-                    velocidad = 0f
-                } else {
-                    posicion.x += velocidad / fps
-                }
+        if (direccion == Direccion.ABAJO) {
+            if (posicion.y + height >= 1080f) {
+                velocidad = 0f
+            } else {
+                posicion.y += velocidad / fps
             }
         }
+        if (direccion == Direccion.ARRIBA && posicion.y > velocidad / fps) {
+            if (posicion.y - height <= 20f) {
+                velocidad = 0f
+            } else {
+                posicion.y -= velocidad / fps
+            }
+        }
+
+        if (direccion == Direccion.IZQUIERDA && posicion.x > velocidad / fps) {
+            if (posicion.x - width + 16f == 0f) {
+                velocidad = 0f
+            } else {
+                posicion.x -= velocidad / fps
+            }
+        }
+        if (direccion == Direccion.DERECHA) {
+            if (posicion.x + width +16f == 1920f) {
+                velocidad = 0f
+            } else {
+                posicion.x += velocidad / fps
+            }
+        }
+        this.direccionIvalida=null
 
     }
 
@@ -151,24 +150,23 @@ class Lobo(
     fun endgame():Boolean{
         return final
     }
-
-
     fun returnPosicion(){
         if(this.direccionChoque==Direccion.ARRIBA){
+            direccionIvalida=Direccion.ARRIBA
             this.posicion.y +=1f
         }
         if(this.direccionChoque==Direccion.DERECHA){
+            direccionIvalida=Direccion.DERECHA
             this.posicion.x-=1f
         }
         if(this.direccionChoque==Direccion.ABAJO){
+            direccionIvalida=Direccion.ABAJO
             this.posicion.y -=1f
         }
         if(this.direccionChoque==Direccion.IZQUIERDA){
+            direccionIvalida=Direccion.IZQUIERDA
             this.posicion.x+=1f
         }
     }
-    override fun draw(canvas: Canvas, context: Context){
-        this.bitmap= BitmapFactory.decodeResource(context.resources, R.drawable.orbe_raro)
-        canvas.drawBitmap(this.bitmap,this.posicion.x,this.posicion.y,this.paint)
-    }
+
 }
