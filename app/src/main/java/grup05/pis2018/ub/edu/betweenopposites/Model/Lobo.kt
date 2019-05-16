@@ -29,7 +29,7 @@ class Lobo(
     companion object {
         var life: Vida = Vida()
         var bando: Bando = Bando.Negro
-        val instance = Lobo(life, bando, 32f, 32f, 50f, Direccion.DERECHA, Posicion(100f, 860f))
+        val instance = Lobo(life, bando, 32f, 32f, 100f, Direccion.DERECHA, Posicion(100f, 860f))
     }
 
     /**
@@ -37,7 +37,7 @@ class Lobo(
      */
 
     // Bando al que pertenece el Lobo (Blanco, Negro)
-    var bando: Bando = bando;
+    var bando: Bando = bando
     var velocidadInicial: Float = velocidad
     var objetoActivable: ObjetoActivable? = null
     var multiplicador: Int = 1

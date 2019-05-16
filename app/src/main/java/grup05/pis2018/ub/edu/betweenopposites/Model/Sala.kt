@@ -33,10 +33,16 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Introduce un objeto a la sala.
      */
-    fun setObjetoinSala(objeto: Objeto){
+    fun setObjetoinSala(objeto: Objeto) {
         // Distribuye las diferentes formas de guardar un objeto
-        if(objeto is Muro || objeto is Suelo) {
-            matrixSala[i][j] = objeto
+        if (objeto is Muro || objeto is Suelo) {
+            matrixSala[objeto.posicion.x_sala][objeto.posicion.y_sala] = objeto
+        } else if (objeto is Puerta) {
+            anadirPuerta(objeto)
+        } else if (objeto is Orbe) {
+            anadirOrbe(objeto)
+        } else {
+            anadirObjeto(objeto)
         }
     }
 
@@ -49,14 +55,15 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     fun anadirPuerta(puerta: Puerta) {
         // No solo se añada a la lista sino también a la matriz
         puertas.add(puerta)
-        // Sincroniza las puertas que hay en la matriz con las se la lista
-        syncPuertas()
+        // Pongo la puerta en la matriz
+        matrixSala[puerta.posicion.x_sala][puerta.posicion.y_sala] = puerta
+
     }
 
     /**
      * Se encarga de sincronizar las puertas que hay en matriz con las que hay en la lista
      */
-    private fun syncPuertas() : Boolean{
+    /*private fun syncPuertas() : Boolean{
         // Recogemos las puertas que hay en la matriz
         var diferentes: Boolean = false
 
@@ -88,26 +95,26 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         if(diferentes){
             //Substituyo las puertas que tenia por suelos
             for(puerta in puertasRecogidas){
-                setObjetoinSala(puerta.posicion.x_sala,puerta.posicion.y_sala,Suelo(Dimension.suelo.height,Dimension.suelo.width,puerta.posicion))
+                setObjetoinSala(puerta)
             }
             // Pongo las que tengo en la lista a la matriz
             for(puerta in this.puertas){
-                setObjetoinSala(puerta.posicion.x_sala,puerta.posicion.y_sala,puerta)
+                setObjetoinSala(puerta)
             }
         }
 
         //Devolvemos si ha habido cambios
         return diferentes
-    }
+    }*/
 
     /**
      * Coloca multiples puertas
      */
     fun anadirPuertas(lista_puertas: ArrayList<Puerta>) {
-        //No solo se añade a la lista sino también a la matriz
-        this.puertas.addAll(lista_puertas)
-        // Sincroniza el numero de puertas en matriz con las de la lista
-        syncPuertas()
+        // Coloco todas las puertas
+        for (puerta: Puerta in lista_puertas) {
+            anadirPuerta(puerta)
+        }
     }
 
     //      AÑADIR ORBES
@@ -129,7 +136,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Añade una puerta al array de puertas
      */
-    fun anadirObjeto(objeto: Orbe) {
+    fun anadirObjeto(objeto: Objeto) {
         this.objetos.add(objeto)
     }
 
@@ -147,14 +154,14 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * ELimina un objeto de array que lo almazena
      */
-    fun eliminarObjeto(objeto: Objeto){
+    fun eliminarObjeto(objeto: Objeto) {
         this.objetos.remove(objeto)
     }
 
     /**
      * Elimina múltiples objetos del array de objetos
      */
-    fun eliminarObjetos(objetos:ArrayList<Objeto>){
+    fun eliminarObjetos(objetos: ArrayList<Objeto>) {
         this.objetos.removeAll(objetos)
     }
 
@@ -163,14 +170,14 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Elimina un orbe de la lista
      */
-    fun eliminarOrbe(orbe: Orbe){
+    fun eliminarOrbe(orbe: Orbe) {
         this.orbes.remove(orbe)
     }
 
     /**
      * Elimina multiples orbes de la lista
      */
-    fun eliminarOrbes(orbes:ArrayList<Orbe>){
+    fun eliminarOrbes(orbes: ArrayList<Orbe>) {
         this.orbes.removeAll(orbes)
     }
 
@@ -178,25 +185,58 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Elimina una puerta de la sala
      */
+    fun eliminarPuerta(puerta: Puerta) {
+        // Elimino la puerta de la lista
+        this.puertas.remove(puerta)
+        // La elimino de la matriz, la substituyo por un muro
+        matrixSala[puerta.posicion.x_sala][puerta.posicion.y_sala] =
+            Muro(Dimension.muro.height, Dimension.muro.width, puerta.posicion)
+    }
 
 
     /**
      * Método para dibujar todos los objetos contenidos en la sala
      */
-    fun draw(canvas: Canvas){
+    fun draw(canvas: Canvas) {
         // Dibujamos suelos muros y puertas
-        for(j in 0..matrixSala.size){
-            for(i in 0..matrixSala[j].size){
-                getObjetofromSala(i,j).draw(canvas)
+        for (j in 0..matrixSala.size) {
+            for (i in 0..matrixSala[j].size) {
+                getObjetofromSala(i, j).draw(canvas)
             }
         }
         // Dibujamos objetos en la sala
-        for(objeto: Objeto in this.objetos){
+        for (objeto: Objeto in this.objetos) {
             objeto.draw(canvas)
         }
         // Dibujamos los orbes
-        for(orbe: Orbe in this.orbes){
+        for (orbe: Orbe in this.orbes) {
             orbe.draw(canvas)
         }
+    }
+
+    // MÉTODOS PARA TESTING
+    /**
+     * Hace un print de la matriz
+     */
+    fun printMatriz(): ArrayList<String> {
+        var arrayStrings: ArrayList<String> = ArrayList()
+        for (j in 0..matrixSala.size) {
+            for (i in 0..matrixSala[j].size) {
+                var objeto: Objeto
+
+                if (matrixSala[i][j] is Puerta) {
+                    print("P,")
+                    arrayStrings.add("P,")
+                } else if (matrixSala[i][j] is Suelo) {
+                    print("_,")
+                    arrayStrings.add("_,")
+                } else if (matrixSala[i][j] is Muro) {
+                    print("M,")
+                    arrayStrings.add("M,")
+                }
+            }
+            print("\n")
+        }
+        return arrayStrings
     }
 }
