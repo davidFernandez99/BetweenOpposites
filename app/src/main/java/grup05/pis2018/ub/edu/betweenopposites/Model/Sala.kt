@@ -26,7 +26,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      * Devuelve un objeto guardado en una posición en concreto de la sala.
      */
     fun getObjetofromSala(i: Int, j: Int): Objeto {
-        val objeto: Objeto = matrixSala[i][j]!!
+        val objeto: Objeto = matrixSala[j][i]!!
         return objeto
     }
 
@@ -220,17 +220,17 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun printMatriz(): ArrayList<String> {
         var arrayStrings: ArrayList<String> = ArrayList()
-        for (j in 0..matrixSala.size) {
-            for (i in 0..matrixSala[j].size) {
-                var objeto: Objeto
+        for (j in 0..(matrixSala.size - 1)) {
+            for (i in 0..(matrixSala[j].size - 1)) {
+                var objeto: Objeto = matrixSala[j][i]!!
 
-                if (matrixSala[i][j] is Puerta) {
+                if (objeto is Puerta) {
                     print("P,")
                     arrayStrings.add("P,")
-                } else if (matrixSala[i][j] is Suelo) {
+                } else if (objeto is Suelo) {
                     print("_,")
                     arrayStrings.add("_,")
-                } else if (matrixSala[i][j] is Muro) {
+                } else if (objeto is Muro) {
                     print("M,")
                     arrayStrings.add("M,")
                 }
