@@ -23,6 +23,7 @@ class Orbe(
     var es_visible=true
     var direccionChoque:Direccion?=null
     var direccionIvalida:Direccion?=null
+    var velocidadInicial:Float=this.velocidad
 
     override fun mover(fps: Long) {
         if (this.direccion == Direccion.ABAJO) {
@@ -139,5 +140,7 @@ class Orbe(
             this.posicion.x+=1f
         }
     }
-
+    fun restaurarVelocidad(){
+        this.velocidad=this.velocidadInicial
+    }
 }
