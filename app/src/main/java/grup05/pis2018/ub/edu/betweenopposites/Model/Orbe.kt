@@ -1,7 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.R
 import java.util.*
 import kotlin.random.Random.Default.nextInt
 
@@ -18,11 +21,15 @@ class Orbe(
     var darPuntuacion: Int = 10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
     var es_visible=true
+    var direccionChoque:Direccion?=null
+    var direccionIvalida:Direccion?=null
+    var velocidadInicial:Float=this.velocidad
+
     override fun mover(fps: Long) {
         if (this.direccion == Direccion.ABAJO) {
             if (this.posicion.y + this.height >= 1900) {
-                //canviarDireccion()
-                this.velocidad = 0f
+                canviarDireccion()
+
             } else {
                 this.posicion.y += this.velocidad / fps
             }
@@ -30,8 +37,8 @@ class Orbe(
         }
         if (this.direccion == Direccion.ARRIBA) {
             if (this.posicion.y - this.height == 0f) {
-                //canviarDireccion()
-                this.velocidad = 0f
+                canviarDireccion()
+
             } else {
                 this.posicion.y -= velocidad / fps
             }
@@ -40,8 +47,7 @@ class Orbe(
 
         if (this.direccion == Direccion.IZQUIERDA) {
             if (this.posicion.x - this.width == 0f) {
-                //canviarDireccion()
-                this.direccion = Direccion.DERECHA
+                canviarDireccion()
             } else {
                 this.posicion.x -= this.velocidad / fps
             }
@@ -49,13 +55,14 @@ class Orbe(
         }
         if (this.direccion == Direccion.DERECHA) {
             if (this.posicion.x == 1920f - this.width) {
-                //canviarDireccion()
+                canviarDireccion()
                 this.velocidad = 0f
             } else {
                 this.posicion.x += this.velocidad / fps
             }
 
         }
+        this.direccionIvalida=null
     }
 
     /**
@@ -85,7 +92,7 @@ class Orbe(
 
     fun canviarDireccion() {
         var direccionNueva: Int = 0
-        if (direccion == Direccion.DERECHA) {
+        if (this.direccion == Direccion.DERECHA) {
             direccionNueva = (0..2).random()
             if (direccionNueva == 0) {
                 this.direccion = Direccion.ABAJO
@@ -95,12 +102,7 @@ class Orbe(
 
         }
         if (direccion == Direccion.IZQUIERDA) {
-            direccionNueva = (0..2).random()
-            if (direccionNueva == 0) {
-                this.direccion = Direccion.ABAJO
-            } else {
-                this.direccion = Direccion.ARRIBA
-            }
+            this.direccion=Direccion.ABAJO
         }
         if (direccion == Direccion.ARRIBA) {
             direccionNueva = (0..2).random()
@@ -120,4 +122,25 @@ class Orbe(
         }
     }
 
+    fun returnPosicion(){
+        if(this.direccionChoque==Direccion.ARRIBA){
+            direccionIvalida=Direccion.ARRIBA
+            this.posicion.y +=1f
+        }
+        if(this.direccionChoque==Direccion.DERECHA){
+            direccionIvalida=Direccion.DERECHA
+            this.posicion.x-=1f
+        }
+        if(this.direccionChoque==Direccion.ABAJO){
+            direccionIvalida=Direccion.ABAJO
+            this.posicion.y -=1f
+        }
+        if(this.direccionChoque==Direccion.IZQUIERDA){
+            direccionIvalida=Direccion.IZQUIERDA
+            this.posicion.x+=1f
+        }
+    }
+    fun restaurarVelocidad(){
+        this.velocidad=this.velocidadInicial
+    }
 }
