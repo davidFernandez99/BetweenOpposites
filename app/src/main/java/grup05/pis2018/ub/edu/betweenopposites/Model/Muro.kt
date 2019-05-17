@@ -31,13 +31,14 @@ class Muro(
         }
         if(objeto is Orbe){
             var orbe: Orbe = objeto as Orbe
+            orbe.velocidad=0f
             orbe.direccionChoque=orbe.direccion
 
             while(comprobarColision(orbe)==true){
                 orbe.returnPosicion()
             }
-            orbe.returnPosicion()
-            orbe.canviarDireccion()
+            orbe.direccion= Actor.Direccion.PARADO
+            orbe.restaurarVelocidad()
         }
     }
     fun comprobarColision(objeto:Objeto):Boolean{

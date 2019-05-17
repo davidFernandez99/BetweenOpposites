@@ -3,6 +3,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Game
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
+import android.view.MotionEvent
 import android.view.SurfaceView
 import grup05.pis2018.ub.edu.betweenopposites.Model.*
 
@@ -17,6 +18,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private val MAX_TIEMPO_INVISIBLE: Long = 5000
     private val MAX_TIEMPO_VULNERABLE: Long = 2000
     private val gameThread = Thread(this)
+
     var playing = true
     var paused = false
     private var conv:Long=1000
@@ -29,50 +31,51 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private val paint : Paint = Paint()
 
     //Bitmap de los diferentes objetos que imprimiremos en el canvas
-    var bitmapLoboDerecha:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo)
-    var bitmapLoboIzquierda:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_derecha)
-    var bitmapLoboArriba:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_arriba)
-    var bitmapLoboAbajo:Bitmap = BitmapFactory.decodeResource(context.resources,R.drawable.lobo_abajo)
+    var bitmapLoboDerecha: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo)
+    var bitmapLoboIzquierda: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo_derecha)
+    var bitmapLoboArriba: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo_arriba)
+    var bitmapLoboAbajo: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo_abajo)
     var bitmapVida: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.corazon_activo)
-    var bitmapBorde:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde)
-    var bitmapBordeSuperior:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_superior)
-    var bitmapPausa:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_pausa)
+    var bitmapBorde: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde)
+    var bitmapBordeSuperior: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde_superior)
+    var bitmapPausa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.boton_pausa)
     var bitmapOrbeNegro: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
     var bitmapOrbeBlanco: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
     var bitmapTrampa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.trampa)
-    var bitmapMuro:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.muro)
-    var bitmapSuelo:Bitmap=BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
-    var bitmapTeleporActivado:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_tp_activado)
-    var bitmapTeleporDesactivado:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.boton_tp_desactivado)
-    var bitmapInv:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_invisibilidad)
-    var bitmapCambio:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_cambiobando)
-    var bitmapAumentoVel:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.objeto_velocidad)
-    var bitmapSumador:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.sumador)
-    var bitmapMultiplicador:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.multiplicador)
-    var bitmapBordeSimple:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_singular)
-    var bitmapBordeDoble:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.borde_doble)
-    var bitmapPuerta:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.puerta)
-    var bitmapOrbeRaro:Bitmap=BitmapFactory.decodeResource(context.resources,R.drawable.orbe_raro)
+    var bitmapMuro: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.muro)
+    var bitmapSuelo: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
+    var bitmapTeleporActivado: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.boton_tp_activado)
+    var bitmapTeleporDesactivado: Bitmap =
+        BitmapFactory.decodeResource(context.resources, R.drawable.boton_tp_desactivado)
+    var bitmapInv: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.objeto_invisibilidad)
+    var bitmapCambio: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.objeto_cambiobando)
+    var bitmapAumentoVel: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.objeto_velocidad)
+    var bitmapSumador: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.sumador)
+    var bitmapMultiplicador: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.multiplicador)
+    var bitmapBordeSimple: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde_singular)
+    var bitmapBordeDoble: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde_doble)
+    var bitmapPuerta: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.puerta)
+    var bitmapOrbeRaro: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.orbe_raro)
     //Instanciamos un objeto vida para poder considerar cuantas vidas dibujar en el canvas
-    var vida: Vida =Vida()
+    var vida: Vida = Vida()
     //Cogemos la instancia del único Lobo
-    var lobo:Lobo=Lobo.instance
-    var comprobar_vulnerabilidad:Boolean=false
-    var compobar_aumento:Boolean=false
+    var lobo: Lobo = Lobo.instance
+    var comprobar_vulnerabilidad: Boolean = false
+    var compobar_aumento: Boolean = false
 
     //Pruebas
     //Pruebas
 
     var bando: Actor.Bando = Actor.Bando.Blanco
     var bando2: Actor.Bando = Actor.Bando.Negro
-    var orbe:Orbe= Orbe(bando,32f,32f,50f, Actor.Direccion.IZQUIERDA,Posicion(200f,200f))
-    var orbe2:Orbe= Orbe(bando2,32f,32f,50f, Actor.Direccion.DERECHA,Posicion(300f,500f))
-    var trampa:Trampa=Trampa(32f,32f,Posicion(500f,550f))
-    var trampa2:Trampa=Trampa(32f,32f,Posicion(800f,550f))
-    var suelo:Suelo?=null
-    var muro:Muro?=null
-    var aumentarVelocidad:AumentarVelocidad= AumentarVelocidad(32f,32f, Posicion(300f,600f))
-    var puerta:Puerta = Puerta(60f,60f,Posicion(700f,310f))
+    var orbe: Orbe = Orbe(bando, 32f, 32f, 50f, Actor.Direccion.IZQUIERDA, Posicion(200f, 200f))
+    var orbe2: Orbe = Orbe(bando2, 32f, 32f, 10f, Actor.Direccion.DERECHA, Posicion(300f, 500f))
+    var trampa: Trampa = Trampa(32f, 32f, Posicion(500f, 550f))
+    var trampa2: Trampa = Trampa(32f, 32f, Posicion(800f, 550f))
+    var suelo: Suelo? = null
+    var muro: Muro? = null
+    var aumentarVelocidad: AumentarVelocidad = AumentarVelocidad(32f, 32f, Posicion(300f, 600f))
+    var puerta: Puerta = Puerta(60f, 60f, Posicion(700f, 310f))
 
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
@@ -106,46 +109,46 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         }
     }
 
-    private fun update(fps: Long){  //Aqui actualizaremos el estado de cada objeto
+    private fun update(fps: Long) {  //Aqui actualizaremos el estado de cada objeto
         lobo.mover(fps)
         orbe.mover(fps)
         orbe2.mover(fps)
-        if(orbe.es_visible){
+        if (orbe.es_visible) {
             orbe.detectarColision(lobo)
 
         }
-        if(orbe2.es_visible){
+        if (orbe2.es_visible) {
             orbe2.detectarColision(lobo)
 
         }
 
-        comprobar_vulnerabilidad=trampa.detectarColision(lobo)
+        comprobar_vulnerabilidad = trampa.detectarColision(lobo)
         trampa2.detectarColision(lobo)
-        if(comprobar_vulnerabilidad==true){
-            lobo.vulnerable=false
+        if (comprobar_vulnerabilidad == true) {
+            lobo.vulnerable = false
             //tirmpoVulnerable.start()
         }
-        if(tirmpoVulnerable.finish==true){
-            lobo.vulnerable=true
-            tirmpoVulnerable.finish=false
+        if (tirmpoVulnerable.finish == true) {
+            lobo.vulnerable = true
+            tirmpoVulnerable.finish = false
         }
-        if(tiempo.finish==true){
+        if (tiempo.finish == true) {
             segundos++
         }
-        compobar_aumento=aumentarVelocidad.detectarColision(lobo)
-        if(compobar_aumento==true){
+        compobar_aumento = aumentarVelocidad.detectarColision(lobo)
+        if (compobar_aumento == true) {
             //tiempoVelocidad.start()
         }
 
-        if(tiempoVelocidad.finish==true){
+        if (tiempoVelocidad.finish == true) {
             lobo.restarurarVelocidad()
-            tirmpoVulnerable.finish=false
+            tirmpoVulnerable.finish = false
         }
-        if(lobo.velocidad==0f && tiempoVelocidad.finish==false){
-            lobo.velocidad=lobo.velocidadCambiada
+        if (lobo.velocidad == 0f && tiempoVelocidad.finish == false) {
+            lobo.velocidad = lobo.velocidadCambiada
         }
         puerta.detectarColision(lobo)
-        if(lobo.endgame()==true){
+        if (lobo.endgame() == true) {
             pause()
 
         }
@@ -177,126 +180,126 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
                 }
                 x += 64f
             }
-            i= 0
-            j= 0
+            i = 0
+            j = 0
             x = 0f
-            y= 0f
-            for(i in 0..30){
-                muro=Muro(32f,32f,Posicion(x,20f))
-                muro!!.draw(canvas,bitmapMuro)
+            y = 0f
+            for (i in 0..30) {
+                muro = Muro(32f, 32f, Posicion(x, 20f))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                x+=64f
+                x += 64f
 
             }
-            i=0
-            x=0f
-            for(i in 0..30){
-                muro=Muro(32f,32f,Posicion(x,1024f))
-                muro!!.draw(canvas,bitmapMuro)
+            i = 0
+            x = 0f
+            for (i in 0..30) {
+                muro = Muro(32f, 32f, Posicion(x, 1024f))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                x+=64f
+                x += 64f
 
             }
-            i=0
-            x=64f
-            for (i in 0..23){
-                muro=Muro(32f,32f, Posicion(x,696f))
-                muro!!.draw(canvas,bitmapMuro)
+            i = 0
+            x = 64f
+            for (i in 0..23) {
+                muro = Muro(32f, 32f, Posicion(x, 696f))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                x+=64f
+                x += 64f
 
             }
-            i=0
-            x=256f
-            for(i in 0..21){
-                muro=Muro(32f,32f, Posicion(x,310f))
-                muro!!.draw(canvas,bitmapMuro)
+            i = 0
+            x = 256f
+            for (i in 0..21) {
+                muro = Muro(32f, 32f, Posicion(x, 310f))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                x+=64
+                x += 64
             }
 
-            i=0
-            x=0f
-            for(i in 0..20){
-                muro=Muro(32f,32f,Posicion(0f,y))
-                muro!!.draw(canvas,bitmapMuro)
+            i = 0
+            x = 0f
+            for (i in 0..20) {
+                muro = Muro(32f, 32f, Posicion(0f, y))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                y+=64f
+                y += 64f
             }
-            y=0f
-            i=0
-            for(i in 0..20){
-                muro=Muro(32f,32f,Posicion(1914f,y))
-                muro!!.draw(canvas,bitmapMuro)
+            y = 0f
+            i = 0
+            for (i in 0..20) {
+                muro = Muro(32f, 32f, Posicion(1914f, y))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                y+=64f
+                y += 64f
             }
 
-            y=300f
-            i=0
-            for(i in 0..6){
-                muro=Muro(32f,32f,Posicion(1596f,y))
-                muro!!.draw(canvas,bitmapMuro)
+            y = 300f
+            i = 0
+            for (i in 0..6) {
+                muro = Muro(32f, 32f, Posicion(1596f, y))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                y+=64f
+                y += 64f
             }
-            y=300f
-            i=0
-            for(i in 0..6){
-                muro=Muro(32f,32f,Posicion(1532f,y))
-                muro!!.draw(canvas,bitmapMuro)
+            y = 300f
+            i = 0
+            for (i in 0..6) {
+                muro = Muro(32f, 32f, Posicion(1532f, y))
+                muro!!.draw(canvas, bitmapMuro)
                 muro!!.detectarColision(lobo)
                 muro!!.detectarColision(orbe)
                 muro!!.detectarColision(orbe2)
-                y+=64f
+                y += 64f
             }
 
             //Now draw the player wolf
             trampa.draw(canvas, bitmapTrampa)
-            trampa2.draw(canvas,bitmapTrampa)
-            if(orbe.es_visible){
+            trampa2.draw(canvas, bitmapTrampa)
+            if (orbe.es_visible) {
                 orbe.draw(canvas, bitmapOrbeBlanco)
             }
-            if(orbe2.es_visible){
+            if (orbe2.es_visible) {
                 orbe2.draw(canvas, bitmapOrbeNegro)
             }
-            if(aumentarVelocidad.visible==true){
-                aumentarVelocidad.draw(canvas,bitmapAumentoVel)
+            if (aumentarVelocidad.visible == true) {
+                aumentarVelocidad.draw(canvas, bitmapAumentoVel)
             }
 
             //Draw all the game objects here
-            lobo.draw(canvas,bitmapOrbeRaro)
-            puerta.draw(canvas,bitmapPuerta)
+            lobo.draw(canvas, bitmapOrbeRaro)
+            puerta.draw(canvas, bitmapPuerta)
             canvas.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
             canvas.drawBitmap(bitmapBorde, 0f, 1080f, paint)
             canvas.drawBitmap(bitmapPausa, 0f, 0f, paint)
 
             canvas.drawText(segundos.toString(), 700f, 0f, paint)
             if (lobo.vida.numVide == 3) {
-                vida.draw(canvas, 860f, 0f,context)
-                vida.draw(canvas, 960f, 0f,context)
-                vida.draw(canvas, 1060f, 0f,context)
+                vida.draw(canvas, 860f, 0f, context)
+                vida.draw(canvas, 960f, 0f, context)
+                vida.draw(canvas, 1060f, 0f, context)
 
             } else if (lobo.vida.numVide == 2) {
-                vida.draw(canvas, 860f, 0f,context)
-                vida.draw(canvas, 960f, 0f,context)
+                vida.draw(canvas, 860f, 0f, context)
+                vida.draw(canvas, 960f, 0f, context)
 
             } else if (lobo.vida.numVide == 1) {
-                vida.draw(canvas, 860f, 0f,context)
+                vida.draw(canvas, 860f, 0f, context)
 
             }
 
@@ -307,13 +310,13 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
     }
 
-    fun resume(){
+    fun resume() {
         playing = true
         prepareLevel()
         gameThread.start()
     }
 
-    fun pause(){
+    fun pause() {
         playing = false
     }
 
@@ -325,6 +328,5 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         pause()
         gameThread.stop()
     }
-
 
 }
