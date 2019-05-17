@@ -18,16 +18,17 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private val MAX_TIEMPO_INVISIBLE: Long = 5000
     private val MAX_TIEMPO_VULNERABLE: Long = 2000
     private val gameThread = Thread(this)
-    private var playing = true
-    private var paused = false
-    private var conv: Long = 1000
-    private var tiempo: Tiempo = Tiempo(10000, conv)
-    private var tirmpoVulnerable: Tiempo = Tiempo(1000, MAX_TIEMPO_VULNERABLE)
-    private var tiempoVelocidad: Tiempo = Tiempo(5000, MAX_TIEMPO_VELOCIDAD)
-    private var tiempoInvisibilidad: Tiempo = Tiempo(4000, MAX_TIEMPO_INVISIBLE)
-    private var segundos: Long = 0
-    private var canvas: Canvas = Canvas()
-    private val paint: Paint = Paint()
+
+    var playing = true
+    var paused = false
+    private var conv:Long=1000
+    private var tiempo:Tiempo  = Tiempo(10000,conv)
+    private var tirmpoVulnerable:Tiempo=Tiempo(1000,MAX_TIEMPO_VULNERABLE)
+    private var tiempoVelocidad:Tiempo=Tiempo(5000,MAX_TIEMPO_VELOCIDAD)
+    private var tiempoInvisibilidad:Tiempo=Tiempo(4000,MAX_TIEMPO_INVISIBLE)
+    private var segundos:Long =0
+    private var canvas : Canvas = Canvas()
+    private val paint : Paint = Paint()
 
     //Bitmap de los diferentes objetos que imprimiremos en el canvas
     var bitmapLoboDerecha: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo)
@@ -285,7 +286,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             puerta.draw(canvas, bitmapPuerta)
             canvas.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
             canvas.drawBitmap(bitmapBorde, 0f, 1080f, paint)
-            canvas.drawBitmap(bitmapPausa, 1860f, 0f, paint)
+            canvas.drawBitmap(bitmapPausa, 0f, 0f, paint)
 
             canvas.drawText(segundos.toString(), 700f, 0f, paint)
             if (lobo.vida.numVide == 3) {
@@ -313,12 +314,10 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         playing = true
         prepareLevel()
         gameThread.start()
-
     }
 
     fun pause() {
         playing = false
-
     }
 
     fun onDestroy() {
@@ -328,7 +327,6 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     fun onStop() {
         pause()
         gameThread.stop()
-
     }
 
 }
