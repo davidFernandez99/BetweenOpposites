@@ -14,27 +14,22 @@ import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
 
 class GameView (context: Context,private val size: Point) : SurfaceView(context), Runnable {
-    private val MAX_TIEMPO_VELOCIDAD: Long = 10000
+    private val MAX_TIEMPO_VELOCIDAD: Long = 5000
     private val MAX_TIEMPO_INVISIBLE: Long = 5000
-    private val MAX_TIEMPO_VULNERABLE: Long = 2000
+    private val MAX_TIEMPO_VULNERABLE: Long = 1000
     private val gameThread = Thread(this)
     private var playing = true
     private var paused = false
     private var conv: Long = 1000
     private var tiempo: Tiempo = Tiempo(10000, conv)
-    private var tirmpoVulnerable: Tiempo = Tiempo(1000, MAX_TIEMPO_VULNERABLE)
-    private var tiempoVelocidad: Tiempo = Tiempo(5000, MAX_TIEMPO_VELOCIDAD)
-    private var tiempoInvisibilidad: Tiempo = Tiempo(4000, MAX_TIEMPO_INVISIBLE)
+    private var tirmpoVulnerable: Tiempo = Tiempo(MAX_TIEMPO_VULNERABLE, 1000)
+    private var tiempoVelocidad: Tiempo = Tiempo(MAX_TIEMPO_VELOCIDAD, 1000)
+    private var tiempoInvisibilidad: Tiempo = Tiempo(MAX_TIEMPO_INVISIBLE, 1000)
     private var segundos: Long = 0
     private var canvas: Canvas = Canvas()
     private val paint: Paint = Paint()
 
     //Bitmap de los diferentes objetos que imprimiremos en el canvas
-    var bitmapLoboDerecha: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo)
-    var bitmapLoboIzquierda: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo_derecha)
-    var bitmapLoboArriba: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo_arriba)
-    var bitmapLoboAbajo: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.lobo_abajo)
-    var bitmapVida: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.corazon_activo)
     var bitmapBorde: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde)
     var bitmapBordeSuperior: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.borde_superior)
     var bitmapPausa: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.boton_pausa)
@@ -44,8 +39,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     var bitmapMuro: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.muro)
     var bitmapSuelo: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
     var bitmapTeleporActivado: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.boton_tp_activado)
-    var bitmapTeleporDesactivado: Bitmap =
-        BitmapFactory.decodeResource(context.resources, R.drawable.boton_tp_desactivado)
+    var bitmapTeleporDesactivado: Bitmap =  BitmapFactory.decodeResource(context.resources, R.drawable.boton_tp_desactivado)
     var bitmapInv: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.objeto_invisibilidad)
     var bitmapCambio: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.objeto_cambiobando)
     var bitmapAumentoVel: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.objeto_velocidad)
@@ -62,7 +56,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     var comprobar_vulnerabilidad: Boolean = false
     var compobar_aumento: Boolean = false
 
-    //Pruebas
+
     //Pruebas
 
     var bando: Actor.Bando = Actor.Bando.Blanco
@@ -125,7 +119,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         trampa2.detectarColision(lobo)
         if (comprobar_vulnerabilidad == true) {
             lobo.vulnerable = false
-            //tirmpoVulnerable.start()
+            tirmpoVulnerable.start()
         }
         if (tirmpoVulnerable.finish == true) {
             lobo.vulnerable = true
@@ -136,7 +130,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         }
         compobar_aumento = aumentarVelocidad.detectarColision(lobo)
         if (compobar_aumento == true) {
-            //tiempoVelocidad.start()
+            tiempoVelocidad.start()
         }
 
         if (tiempoVelocidad.finish == true) {
@@ -329,6 +323,40 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
         pause()
         gameThread.stop()
 
+    }
+
+    fun obtenerBitmap(objeto: Objeto): Bitmap? {
+        if (objeto is Lobo) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.orbe_raro)
+        } else if (objeto is Orbe) {
+            var orbe: Orbe = objeto as Orbe
+            if (orbe.bando == Actor.Bando.Negro) {
+                return BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
+            } else {
+                return BitmapFactory.decodeResource(context.resources, R.drawable.orbes)
+            }
+        } else if (objeto is Muro) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.muro)
+        } else if (objeto is Suelo) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.suelo)
+        } else if (objeto is Sumador) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.sumador)
+        } else if (objeto is Multiplicador) {
+            BitmapFactory.decodeResource(context.resources, R.drawable.multiplicador)
+        } else if (objeto is Maquina) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.maquina)
+        } else if (objeto is Invisibilidad) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.objeto_invisibilidad)
+        } else if (objeto is AumentarVelocidad) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.objeto_velocidad)
+        } else if (objeto is CambioBando) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.objeto_cambiobando)
+        } else if (objeto is Puerta) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.puerta)
+        } else if (objeto is Trampa) {
+            return BitmapFactory.decodeResource(context.resources, R.drawable.trampa)
+        }
+        return null
     }
 
 }

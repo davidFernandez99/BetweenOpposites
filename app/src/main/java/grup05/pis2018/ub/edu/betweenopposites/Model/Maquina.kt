@@ -31,16 +31,26 @@ class Maquina(
      * y en el caso de acierto se da el premio.
      * La colision TODO: ENTENDER COMO VA A SER EL PROCESO DE CREAR LAS OPCIONES Y ENTREGAR EL OBJETO RECOMPENSA
      */
-    fun darOpciones(lobo: Lobo) {
-        TODO("hacer que devuelva un array de int")
-        TODO("Generar opciones con numeros aleatorios que tengan relacion con la puntuación en ese momento")
-        dar_opciones = true
+    fun darOpciones(lobo: Lobo) :ArrayList<Int> {
+        var listaOpciones:ArrayList<Int> = ArrayList()
+        var lobo:Lobo=Lobo.instance
+        var opcion3:Int= lobo.puntuacion.puntuacion
+        var opcion1:Int= (opcion3-50 .. opcion3+50).random()
+        var opcion2:Int= (opcion3-50 .. opcion3+50).random()
+        while(opcion1==opcion2){
+            opcion2=(opcion3-50 .. opcion3+50).random()
+        }
+        listaOpciones.add(opcion1)
+        listaOpciones.add(opcion2)
+        listaOpciones.add(opcion3)
+        dar_opciones=false
+        return listaOpciones
+
     }
 
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            var lobo: Lobo = objeto as Lobo
-            darOpciones(lobo)
+            dar_opciones=true
         }
     }
 

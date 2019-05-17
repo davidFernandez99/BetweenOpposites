@@ -86,4 +86,17 @@ class Puerta(
         }
     }
 
+    override fun detectarColision(objeto: Objeto): Boolean {
+        var colisio: Boolean = false
+        if (this.posicion.x == objeto.posicion.x
+            && this.posicion.y ==objeto.posicion.y
+        ) {
+            tratarColision(objeto)
+            colisio = true
+        }
+        //Devuelve si ha colisionado o no con ese objeto
+        return colisio
+
+    }
+
 }

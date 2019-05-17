@@ -22,12 +22,11 @@ class Orbe(
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
     var es_visible=true
     var direccionChoque:Direccion?=null
-    var direccionIvalida:Direccion?=null
     var velocidadInicial:Float=this.velocidad
 
     override fun mover(fps: Long) {
         if (this.direccion == Direccion.ABAJO) {
-            if (this.posicion.y + this.height >= 1900) {
+            if (this.posicion.y + this.height >= 1080f) {
                 canviarDireccion()
 
             } else {
@@ -36,7 +35,7 @@ class Orbe(
 
         }
         if (this.direccion == Direccion.ARRIBA) {
-            if (this.posicion.y - this.height == 0f) {
+            if (this.posicion.y - this.height <= 20f) {
                 canviarDireccion()
 
             } else {
@@ -46,7 +45,7 @@ class Orbe(
         }
 
         if (this.direccion == Direccion.IZQUIERDA) {
-            if (this.posicion.x - this.width == 0f) {
+            if (this.posicion.x - this.width + 16f == 0f) {
                 canviarDireccion()
             } else {
                 this.posicion.x -= this.velocidad / fps
@@ -54,15 +53,14 @@ class Orbe(
 
         }
         if (this.direccion == Direccion.DERECHA) {
-            if (this.posicion.x == 1920f - this.width) {
+            if (posicion.x + width +16f == 1920f) {
                 canviarDireccion()
-                this.velocidad = 0f
             } else {
                 this.posicion.x += this.velocidad / fps
             }
 
         }
-        this.direccionIvalida=null
+
     }
 
     /**
@@ -124,19 +122,15 @@ class Orbe(
 
     fun returnPosicion(){
         if(this.direccionChoque==Direccion.ARRIBA){
-            direccionIvalida=Direccion.ARRIBA
             this.posicion.y +=1f
         }
         if(this.direccionChoque==Direccion.DERECHA){
-            direccionIvalida=Direccion.DERECHA
-            this.posicion.x-=1f
+              this.posicion.x-=1f
         }
         if(this.direccionChoque==Direccion.ABAJO){
-            direccionIvalida=Direccion.ABAJO
             this.posicion.y -=1f
         }
         if(this.direccionChoque==Direccion.IZQUIERDA){
-            direccionIvalida=Direccion.IZQUIERDA
             this.posicion.x+=1f
         }
     }

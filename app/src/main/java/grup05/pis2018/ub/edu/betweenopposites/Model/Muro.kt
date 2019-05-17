@@ -37,8 +37,8 @@ class Muro(
             while(comprobarColision(orbe)==true){
                 orbe.returnPosicion()
             }
-            orbe.direccion= Actor.Direccion.PARADO
             orbe.restaurarVelocidad()
+            orbe.canviarDireccion()
         }
     }
     fun comprobarColision(objeto:Objeto):Boolean{
