@@ -201,16 +201,16 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         // Dibujamos suelos muros y puertas
         for (j in 0..matrixSala.size) {
             for (i in 0..matrixSala[j].size) {
-                getObjetofromSala(i, j).draw(canvas)
+                //getObjetofromSala(i, j).draw(canvas)
             }
         }
         // Dibujamos objetos en la sala
         for (objeto: Objeto in this.objetos) {
-            objeto.draw(canvas)
+            //objeto.draw(canvas)
         }
         // Dibujamos los orbes
         for (orbe: Orbe in this.orbes) {
-            orbe.draw(canvas)
+            //orbe.draw(canvas)
         }
     }
 

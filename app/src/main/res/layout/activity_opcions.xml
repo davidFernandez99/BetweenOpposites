@@ -69,14 +69,5 @@
             android:layout_height="35dp"
             android:id="@+id/txt_email"
             app:layout_constraintTop_toBottomOf="@+id/txt_nomUsuari" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="112dp"/><![CDATA[
-
-
-
-    app:srcCompat="@drawable/foto_opciones"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp" app:layout_constraintEnd_toEndOf="parent" android:id="@+id/img_opcions"/>
-
-
-]]>
+            android:layout_marginStart="112dp"/>
 </android.support.constraint.ConstraintLayout>
