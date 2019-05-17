@@ -5,6 +5,7 @@ import android.graphics.Point
 import android.os.Bundle
 import android.support.v4.view.GestureDetectorCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.ImageButton
 import com.dev2qa.gestureexample.DetectSwipeGestureListener
@@ -79,6 +80,20 @@ class UnJugador : AppCompatActivity(), View {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         // Pass activity on touch event to the gesture detector.
         gestureDetectorCompat!!.onTouchEvent(event)
+
+        var x: Float = event.x
+        var y: Float = event.y
+
+        if(event.action == MotionEvent.ACTION_DOWN) {
+
+            Log.i("finger postion", x.toString())
+            Log.i("finger postion", y.toString())
+            if ((x < 100f) && (y < 100f) && !gameView!!.paused) {
+                gameView!!.paused = true
+            } else if ((x < 100f) && (y < 100f) && gameView!!.paused) {
+                gameView!!.paused = false
+            }
+        }
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true
     }
