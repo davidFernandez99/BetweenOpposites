@@ -60,3 +60,15 @@ enum class Plantilla(val listaPlantillas: ArrayList<String>) {
     salaEspecial(ArrayList(listOf(NombreFicheros.salaEspecial_01.filename))),
     salaFinal(ArrayList(listOf(NombreFicheros.salaFinal_01.filename)))
 }
+
+
+/**
+ * Contiene un las dificultades
+ */
+enum class Dificultad(velocidad_orbes: Float, rango_numero_orbes: List<Int>, rango_trampas_posibles: List<Int>) {
+    baja(50f, (2..3).toList(), (0..1).toList()), media(75f, (3..4).toList(), (1..2).toList()), alta(
+        100f,
+        (5..6).toList(),
+        (2..3).toList()
+    )
+}
