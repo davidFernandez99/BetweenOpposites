@@ -12,7 +12,7 @@ object FactorySala {
     // MÉTODOS PARA LA CREACIÓN DE LAS SALAS
 
     /**
-     * Crea una sala basica con algoritmos inteligentes a partir de la dificultad exigida. TODO
+     * Crea una sala basica con algoritmos inteligentes a partir de la dificultad exigida.
      */
     /*
     fun crearSalaBasicaRandom(dificultad: Int): Sala {
@@ -54,8 +54,22 @@ object FactorySala {
             e.printStackTrace()
         }
 
-        //Devolvemos la sala
-        return SalaBasica(id_sala, matrix)
+        //Creo la sala
+        var salaBasica: SalaBasica=SalaBasica(id_sala, matrix)
+
+        // Consigo una lista de posiciones donde es posible colocar objetos u orbes
+        var avaliblePositions: List<List<Int>> = salaBasica.getPosicionesLibres()
+
+        //Creo las listas de orbes y objetos y posteriormente los añado a la sala
+        var orbes:ArrayList<Orbe> = FactoryObjetos.generarOrbes(dificultad,avaliblePositions)
+        var objetos: ArrayList<Objeto> = FactoryObjetos.generarObjetos(dificultad,avaliblePositions)
+
+        //Lo añado a la sala
+        salaBasica.anadirOrbes(orbes)
+        salaBasica.anadirObjetos(objetos)
+
+        //Devuelvo la sala
+        return salaBasica
     }
 
     /**

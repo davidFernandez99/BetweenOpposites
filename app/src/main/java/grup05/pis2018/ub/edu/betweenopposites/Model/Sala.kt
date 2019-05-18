@@ -9,17 +9,26 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
     //Define una matriz de objetos donde mantiene la información de la sala y to*o lo que contiene (Objetos).
     // Crea inicialmente una matriz de nulls
-    var matrixSala: Array<Array<Objeto?>> = matrixSala
+    private var matrixSala: Array<Array<Objeto?>> = matrixSala
 
     //Tiene un array de orbes que deben aparecer en la sala en el momento de crearse
-    var orbes: ArrayList<Orbe> = ArrayList<Orbe>()
+    private var orbes: ArrayList<Orbe> = ArrayList<Orbe>()
 
     // Tiene un array de puertas para acceder mas facilmente a estas
-    var puertas: ArrayList<Puerta> = ArrayList<Puerta>()
+    private var puertas: ArrayList<Puerta> = ArrayList<Puerta>()
 
     // Tiene un array de objetos para acceder a estos
-    var objetos: ArrayList<Objeto> = ArrayList<Objeto>()
+    private var objetos: ArrayList<Objeto> = ArrayList<Objeto>()
 
+    //Mantiene una matriz que nos dice si esa posición està ocupada
+    private var matrixAvalible: Array<Array<Boolean>> = Array<Array<Boolean>>(matrixSala.size,{Array(matrixSala[0].size,{false})})
+
+    init{
+        // Al crear la sala tenemos que meter las puertas de la matriz en la lista
+        syncPuertas()
+        // Al crear la sala se crea la matriz de lugares desocupados
+        createAvalibleMatrix()
+    }
 
     // MÉTODOS PPARA COGER Y MODIFICAR POSICIONES EN LA MATRIZ
     /**
@@ -37,6 +46,8 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         // Distribuye las diferentes formas de guardar un objeto
         if (objeto is Muro || objeto is Suelo) {
             matrixSala[objeto.posicion.x_sala][objeto.posicion.y_sala] = objeto
+            bloquearPosicion(objeto.posicion.x_sala,objeto.posicion.y_sala)
+
         } else if (objeto is Puerta) {
             anadirPuerta(objeto)
         } else if (objeto is Orbe) {
@@ -57,13 +68,24 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         puertas.add(puerta)
         // Pongo la puerta en la matriz
         matrixSala[puerta.posicion.x_sala][puerta.posicion.y_sala] = puerta
+        bloquearPosicion(puerta.posicion.x_sala,puerta.posicion.y_sala)
 
+    }
+
+    /**
+     * Coloca multiples puertas
+     */
+    fun anadirPuertas(lista_puertas: ArrayList<Puerta>) {
+        // Coloco todas las puertas
+        for (puerta: Puerta in lista_puertas) {
+            anadirPuerta(puerta)
+        }
     }
 
     /**
      * Se encarga de sincronizar las puertas que hay en matriz con las que hay en la lista
      */
-    private fun syncPuertas(): Boolean {
+    private fun syncPuertas(){
         // Recogemos las puertas que hay en la matriz
         var diferentes: Boolean = false
 
@@ -78,43 +100,8 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             }
         }
 
-        //Compruevo que todas las puertas recogidas se encuentren en la lista y viceversa
-        // EN EL CASO DE QUE NO COINCIDAN NOS QUEDAMOS CON LAS QUE HAY EN LA LISTA DE PUERTAS
-        if (puertasRecogidas.size != this.puertas.size) {
-            diferentes = true
-        } else {
-            // Compruevo que sean las mismas puertas
-            for (puerta: Puerta in this.puertas) {
-                if (!(puerta in puertasRecogidas)) {
-                    diferentes = true
-                }
-            }
-        }
-
-        // Si son difernetes substituimos las que hay en la lista por las de la matriz
-        if (diferentes) {
-            //Substituyo las puertas que tenia por suelos
-            for (puerta in puertasRecogidas) {
-                setObjetoinSala(puerta)
-            }
-            // Pongo las que tengo en la lista a la matriz
-            for (puerta in this.puertas) {
-                setObjetoinSala(puerta)
-            }
-        }
-
-        //Devolvemos si ha habido cambios
-        return diferentes
-    }
-
-    /**
-     * Coloca multiples puertas
-     */
-    fun anadirPuertas(lista_puertas: ArrayList<Puerta>) {
-        // Coloco todas las puertas
-        for (puerta: Puerta in lista_puertas) {
-            anadirPuerta(puerta)
-        }
+        // PASAMOS LA LISTA DE PUERTAS RECOGIDAS A LA LISTA
+        this.puertas= puertasRecogidas
     }
 
     //      AÑADIR ORBES
@@ -123,6 +110,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun anadirOrbe(orbe: Orbe) {
         this.orbes.add(orbe)
+        bloquearPosicion(orbe.posicion.x_sala,orbe.posicion.y_sala)
     }
 
     /**
@@ -138,6 +126,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun anadirObjeto(objeto: Objeto) {
         this.objetos.add(objeto)
+        bloquearPosicion(objeto.posicion.x_sala,objeto.posicion.y_sala)
     }
 
     /**
@@ -156,6 +145,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun eliminarObjeto(objeto: Objeto) {
         this.objetos.remove(objeto)
+        liberarPosicion(objeto.posicion.x_sala,objeto.posicion.y_sala)
     }
 
     /**
@@ -172,6 +162,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun eliminarOrbe(orbe: Orbe) {
         this.orbes.remove(orbe)
+        liberarPosicion(orbe.posicion.x_sala,orbe.posicion.y_sala)
     }
 
     /**
@@ -193,7 +184,56 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             Muro(Dimension.muro.height, Dimension.muro.width, puerta.posicion)
     }
 
+    // MÉTODOS PARA TRATAR CON LA MATRIZ AVALIBLE
 
+    /**
+     * Genera una la matriz de espacios libres a partir de matrixSala
+     */
+    private fun createAvalibleMatrix(){
+        for(j in (0..(matrixSala.size-1))){
+            for(i in (0..(matrixSala[j].size-1))){
+                // Si es un suelo es posible que esté libre
+                if(matrixSala[j][i] is Suelo){
+                    matrixAvalible[j][i] = true
+                }
+            }
+        }
+    }
+
+    /**
+     * Bloqua la posibilidad de colocar un objeto en esa posición de la matriz
+     */
+    private fun bloquearPosicion(j:Int,i:Int){
+        matrixAvalible[j][i]= false
+    }
+
+    /**
+     * Libera una posición de la matriz, para poder colocar objetos y orbes
+     */
+    private fun liberarPosicion(j:Int,i:Int){
+        matrixAvalible[j][i]= true
+    }
+
+
+    /**
+     * Devuelve en forma de lista las posiciones libres
+     */
+    fun getPosicionesLibres(): List<List<Int>>{
+        // Creo la lista
+        var list: ArrayList<List<Int>> = ArrayList<List<Int>>()
+        // Busco las posiciones libres y las entro en la lista
+        for(j in (0..(matrixAvalible.size-1))){
+            for(i in (0..(matrixAvalible[j].size-1))){
+                // Si es un suelo es posible que esté libre
+                if(matrixAvalible[j][i]){
+                    list.add(listOf(j,i))
+                }
+            }
+        }
+        return list
+    }
+
+    // MÉTODOS PARA EL DIBUJADO DE LA SALA
     /**
      * Método para dibujar todos los objetos contenidos en la sala
      */

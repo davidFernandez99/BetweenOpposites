@@ -19,7 +19,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
     private val MAX_TIEMPO_VULNERABLE: Long = 1000
     private val gameThread = Thread(this)
     private var playing = true
-    private var paused = false
+    var paused = false
     private var conv: Long = 1000
     private var tiempo: Tiempo = Tiempo(10000, conv)
     private var tirmpoVulnerable: Tiempo = Tiempo(MAX_TIEMPO_VULNERABLE, 1000)
@@ -59,10 +59,10 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
 
     //Pruebas
 
-    var bando: Actor.Bando = Actor.Bando.Blanco
-    var bando2: Actor.Bando = Actor.Bando.Negro
-    var orbe: Orbe = Orbe(bando, 32f, 32f, 50f, Actor.Direccion.IZQUIERDA, Posicion(200f, 200f))
-    var orbe2: Orbe = Orbe(bando2, 32f, 32f, 10f, Actor.Direccion.DERECHA, Posicion(300f, 500f))
+    var bando: Bando = Bando.Blanco
+    var bando2: Bando = Bando.Negro
+    var orbe: Orbe = Orbe(bando, 32f, 32f, 50f, Direccion.IZQUIERDA, Posicion(200f, 200f))
+    var orbe2: Orbe = Orbe(bando2, 32f, 32f, 10f, Direccion.DERECHA, Posicion(300f, 500f))
     var trampa: Trampa = Trampa(32f, 32f, Posicion(500f, 550f))
     var trampa2: Trampa = Trampa(32f, 32f, Posicion(800f, 550f))
     var suelo: Suelo? = null
@@ -330,7 +330,7 @@ class GameView (context: Context,private val size: Point) : SurfaceView(context)
             return BitmapFactory.decodeResource(context.resources, R.drawable.orbe_raro)
         } else if (objeto is Orbe) {
             var orbe: Orbe = objeto as Orbe
-            if (orbe.bando == Actor.Bando.Negro) {
+            if (orbe.bando == Bando.Negro) {
                 return BitmapFactory.decodeResource(context.resources, R.drawable.orbe_negro)
             } else {
                 return BitmapFactory.decodeResource(context.resources, R.drawable.orbes)

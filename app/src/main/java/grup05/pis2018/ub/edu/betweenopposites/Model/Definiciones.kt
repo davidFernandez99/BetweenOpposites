@@ -13,7 +13,11 @@ enum class Dimension(
     muro(1, 1, 32f, 32f),
     puerta(1, 1, 32f, 32f),
     suelo(1, 1, 32f, 32f),
-    sala(10, 20, 320f, 640f)
+    sala(10, 20, 320f, 640f),
+    orbe(1, 1, 32f, 32f),
+    trampa(1, 1, 32f, 32f),
+    sumador(1,1,32f,32f),
+    multiplicador(1,1,32f,32f)
 }
 
 /**
@@ -65,10 +69,30 @@ enum class Plantilla(val listaPlantillas: ArrayList<String>) {
 /**
  * Contiene un las dificultades
  */
-enum class Dificultad(velocidad_orbes: Float, rango_numero_orbes: List<Int>, rango_trampas_posibles: List<Int>) {
-    baja(50f, (2..3).toList(), (0..1).toList()), media(75f, (3..4).toList(), (1..2).toList()), alta(
-        100f,
-        (5..6).toList(),
-        (2..3).toList()
-    )
+enum class Dificultad(
+    var velocidad_orbes: Float,
+    var rango_numero_orbes: IntRange,
+    var rango_trampas_posibles: IntRange,
+    var rango_num_sumadores :IntRange,
+    var rango_valores_sumador:IntRange,
+    var rango_num_multiplicadores :IntRange,
+    var rango_valores_multiplicador:IntRange
+) {
+    baja(50f, (2..3), (0..1),(0..2),(1..2),(0..1),(1..1)),
+    media(75f, (3..4), (1..2),(1..3),(1..4),(0..2),(1..1)),
+    alta(100f, (5..6), (2..3),(2..4),(1..5),(0..2),(1..1))
+}
+
+/**
+ * Direcciones posibles para los actores
+ */
+enum class Direccion {
+    ARRIBA, ABAJO, DERECHA, IZQUIERDA, PARADO
+}
+
+/**
+ * Bando posible para Orbes y Lobo
+ */
+enum class Bando {
+    Blanco, Negro
 }
