@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MotionEvent
 import com.dev2qa.gestureexample.DetectSwipeGestureListener
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 
@@ -40,6 +41,7 @@ class UnJugador : AppCompatActivity(), View {
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
+        DisplayThread.playing=true
         gameView = GameView(this, size)
         setContentView(gameView)
 
@@ -77,11 +79,22 @@ class UnJugador : AppCompatActivity(), View {
 
             Log.i("finger postion", x.toString())
             Log.i("finger postion", y.toString())
-           /* if ((x < 100f) && (y < 100f) && !gameView!!.paused) {
-                gameView!!.paused = true
-            } else if ((x < 100f) && (y < 100f) && gameView!!.paused) {
-                gameView!!.paused = false
-            }*/
+           if ((x > 1700) && (y < 40f) && !DisplayThread.paused) {
+               DisplayThread.paused = true
+            } else if ((x > 770f) && (x < 858f) && (y > 550f) && (y < 638f) && DisplayThread.paused && DisplayThread.fin_juego==false) {
+                DisplayThread.playing = false
+                val intent = Intent(this,MainActivity::class.java)
+               this.startActivity(intent)
+            }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 550f) && DisplayThread.paused && DisplayThread.fin_juego==false){
+                DisplayThread.paused = false
+           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true) {
+               DisplayThread.playing = false
+               val intent = Intent(this,MainActivity::class.java)
+               this.startActivity(intent)
+           }else if((x>  1100f) && (x<1188f )  && (y<638f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true){
+               DisplayThread.paused = false //TODO("Habra de comenzar nueva partida")
+
+           }
         }
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true

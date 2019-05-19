@@ -15,6 +15,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     companion object{
         var playing = true
         var paused = false
+        var fin_juego=false
     }
 
 

@@ -38,6 +38,13 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var bitmapBordeDoble: Bitmap ?= null
     var bitmapPuerta: Bitmap ?= null
     var bitmapOrbeRaro: Bitmap ?= null
+
+    //Bitmaps para pausa y fin del juego
+    var bitmappausa:Bitmap?=null
+    var bitmapResume:Bitmap?=null
+    var bitmapHome:Bitmap?=null
+    var bitmapfinjuego:Bitmap?=null
+    var bitmapRestart:Bitmap?=null
     //Instanciamos un objeto vida para poder considerar cuantas vidas dibujar en el canvas
     var vida: Vida ?= null
     //Cogemos la instancia del único Lobo
@@ -76,7 +83,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         comprobar_vulnerabilidad = trampa!!.detectarColision(lobo!!)
         trampa2!!.detectarColision(lobo!!)
         if (comprobar_vulnerabilidad == true) {
-            lobo!!.vulnerable = false
+            //lobo!!.vulnerable = false
             //tirmpoVulnerable!!.start()
         }
         //if (tirmpoVulnerable!!.finish == true) {
@@ -256,7 +263,16 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
                 vida!!.draw(canvas!!, 860f, 0f, contexto)
 
             }
-
+            else{
+                DisplayThread.paused=true
+                DisplayThread.fin_juego=true
+            }
+            if(DisplayThread.paused==true &&DisplayThread.fin_juego==false){
+                dibujarPausa()
+            }
+            if(DisplayThread.paused==true && DisplayThread.fin_juego==true){
+                dibujarFinJuego()
+            }
 
             // Draw everything to the screen
             holder.unlockCanvasAndPost(canvas)
@@ -300,6 +316,21 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
     }
 
+    fun dibujarPausa(){
+        bitmappausa= BitmapFactory.decodeResource(contexto.resources, R.drawable.fondo_pausa)
+        bitmapResume= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_resume)
+        bitmapHome= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
+        canvas!!.drawBitmap(bitmappausa,700f,300f, paint)
+        canvas!!.drawBitmap(bitmapHome,770f,550f, paint)
+        canvas!!.drawBitmap(bitmapResume,1100f,550f, paint)
+    }
 
-
+    fun dibujarFinJuego(){
+        bitmapHome=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
+        bitmapfinjuego=BitmapFactory.decodeResource(contexto.resources, R.drawable.game_over)
+        bitmapRestart=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_retry)
+        canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
+        canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
+        canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
+    }
 }

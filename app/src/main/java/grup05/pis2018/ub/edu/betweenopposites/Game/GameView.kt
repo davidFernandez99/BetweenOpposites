@@ -4,11 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.view.SurfaceView
 import grup05.pis2018.ub.edu.betweenopposites.Model.*
-
-
 import grup05.pis2018.ub.edu.betweenopposites.R
-import grup05.pis2018.ub.edu.betweenopposites.View.FinJuegoActivity
-import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
+
 
 
 open class GameView (context: Context, private val size: Point) : SurfaceView(context), Runnable {
@@ -17,6 +14,7 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
     val gameThread = Thread(this)
     val contexto:Context=context
     var display:DisplayThread ?=null
+
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
     }
@@ -28,5 +26,7 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
     fun onResume(){
         gameThread.start()
     }
+
+
 
 }

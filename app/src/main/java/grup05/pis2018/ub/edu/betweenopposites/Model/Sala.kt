@@ -205,8 +205,8 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun draw(canvas: Canvas) {
         // Dibujamos suelos muros y puertas
-        for (j in 0..matrixSala.size) {
-            for (i in 0..matrixSala[j].size) {
+        for (j in 0..matrixSala.size-1) {
+            for (i in 0..matrixSala[j].size-1) {
                 var objeto:Objeto=getObjetofromSala(i,j)
                 //objeto.draw(canvas,GameView.obtenerBitmap(objeto))
             }
