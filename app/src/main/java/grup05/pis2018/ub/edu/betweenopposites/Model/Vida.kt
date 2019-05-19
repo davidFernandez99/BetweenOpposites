@@ -9,17 +9,16 @@ import grup05.pis2018.ub.edu.betweenopposites.R
 
 //TODO: YO HARIA ESTA CLASE HEREDAR DE OBJETO PARA QUE TENGA TMB UNA POSICIÓN, BITMAP, METODO DRAW...
 class Vida() {
+
     var bitmap:Bitmap?=null
     val paint = Paint()
-
-    var numVide: Int = 3
-    fun quitarVida() {
+    var numVide: Int = 3 //Numero de vidas que tendrá el jugador al comenzar
+    fun quitarVida() { //Método para quitar vida cuando colisiona con una trampa
         numVide -= 1
     }
 
-    fun draw(canvas: Canvas, x: Float, y: Float, context: Context) {
+    fun draw(canvas: Canvas, x: Float, y: Float, context: Context) { //Método para dibujar las vidas en el canvas
         this.bitmap=BitmapFactory.decodeResource(context.resources, R.drawable.corazon_activo)
-
         canvas.drawBitmap(
             this.bitmap, x,
             y, paint

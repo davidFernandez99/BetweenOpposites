@@ -1,5 +1,6 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
@@ -7,11 +8,9 @@ import android.support.v4.view.GestureDetectorCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MotionEvent
-import android.widget.ImageButton
 import com.dev2qa.gestureexample.DetectSwipeGestureListener
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
-import grup05.pis2018.ub.edu.betweenopposites.R
 
 class UnJugador : AppCompatActivity(), View {
     override fun addObserver(presenter: Presenter) {
@@ -27,8 +26,8 @@ class UnJugador : AppCompatActivity(), View {
     }
 
     lateinit var observers: ArrayList<Presenter>
-
     private var gameView: GameView? = null
+    var context:Context=this
     // This is the gesture detector compat instance.
     private var gestureDetectorCompat: GestureDetectorCompat? = null
     val gestureListener: DetectSwipeGestureListener = DetectSwipeGestureListener()
@@ -45,36 +44,26 @@ class UnJugador : AppCompatActivity(), View {
         setContentView(gameView)
 
 
-
-
-        /* setContentView(R.layout.activity_un_jugador)
-         val btn_pausa = findViewById<ImageButton>(R.id.btn_pausa)
-         btn_pausa.setOnClickListener {
-             val intent = Intent(this, PausaActivity::class.java)
-             startActivity(intent)
-         }
-
- */
-    }
+   }
 
     override fun onResume() {
         super.onResume()
-        gameView?.resume()
+        gameView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        gameView?.pause()
+        //gameView?.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        gameView?.onStop()
+        //gameView?.onStop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        gameView?.onDestroy()
+        //gameView?.onDestroy()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -88,11 +77,11 @@ class UnJugador : AppCompatActivity(), View {
 
             Log.i("finger postion", x.toString())
             Log.i("finger postion", y.toString())
-            if ((x < 100f) && (y < 100f) && !gameView!!.paused) {
+           /* if ((x < 100f) && (y < 100f) && !gameView!!.paused) {
                 gameView!!.paused = true
             } else if ((x < 100f) && (y < 100f) && gameView!!.paused) {
                 gameView!!.paused = false
-            }
+            }*/
         }
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true

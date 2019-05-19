@@ -85,7 +85,7 @@ class Puerta(
             throw Exception("Esta puerta tiene como destino Nivel:${id_nivel_destino} Sala:${id_sala_destino}, de forma que no tiene puerta de destino.")
         }
     }
-
+    //Función para detectar una colision entre un actor y puerta cuando esta en la misma posición que esta
     override fun detectarColision(objeto: Objeto): Boolean {
         var colisio: Boolean = false
         if (this.posicion.x == objeto.posicion.x

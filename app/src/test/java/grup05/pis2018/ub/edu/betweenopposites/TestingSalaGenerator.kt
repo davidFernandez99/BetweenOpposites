@@ -10,7 +10,7 @@ class TestingSalaGenerator {
     @Test
     fun comprovarMatriz() {
         // Comprueva si la matriz se está creando correctamante a partir del fichero
-        var sala: Sala = FactorySala.crearSalaBasicadesdeTXT(1, 1, "/home/stephen/Desktop/MAZMORRA_1.txt")
+        var sala: Sala = FactorySala.crearSalaBasicadesdeTXT(1, 1, "\\Users\\david\\Desktop\\MAZMORRA.txt")
         println("SE HA CREADO LA SALA")
         sala.printMatriz()
         print("SE HA ACABADO DE PRINTEAR LA MATRIZ")

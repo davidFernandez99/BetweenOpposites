@@ -21,6 +21,9 @@ class Sumador(
     //Valor que se suma a la puntuación (sin tener el cuanta los multiplicadores recogidos)
     var valor: Int = valor
 
+    /**
+     * Al colisionar el Lobo con el objeto se debe aumente su puntuación.
+     */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
@@ -29,8 +32,6 @@ class Sumador(
     }
 
 
-    /**
-     * Al colisionar el Lobo con el objeto se debe notificar al lobo para que aumente su puntuación.
-     */
+
 
 }
