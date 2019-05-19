@@ -218,7 +218,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Devuelve en forma de lista las posiciones libres
      */
-    fun getPosicionesLibres(): List<List<Int>>{
+    fun getPosicionesLibres(): ArrayList<List<Int>>{
         // Creo la lista
         var list: ArrayList<List<Int>> = ArrayList<List<Int>>()
         // Busco las posiciones libres y las entro en la lista

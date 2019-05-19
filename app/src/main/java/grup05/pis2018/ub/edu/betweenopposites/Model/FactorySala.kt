@@ -58,7 +58,7 @@ object FactorySala {
         var salaBasica: SalaBasica=SalaBasica(id_sala, matrix)
 
         // Consigo una lista de posiciones donde es posible colocar objetos u orbes
-        var avaliblePositions: List<List<Int>> = salaBasica.getPosicionesLibres()
+        var avaliblePositions: ArrayList<List<Int>> = salaBasica.getPosicionesLibres()
 
         //Creo las listas de orbes y objetos y posteriormente los añado a la sala
         var orbes:ArrayList<Orbe> = FactoryObjetos.generarOrbes(dificultad,avaliblePositions)

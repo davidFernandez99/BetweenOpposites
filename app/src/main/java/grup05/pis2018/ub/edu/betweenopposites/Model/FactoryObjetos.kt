@@ -8,18 +8,83 @@ object FactoryObjetos {
 
     // MÉTODOS PRINCIPALES QUE SE ENCARGAN DE GENERAR LAS LISTAS DE OBJETOS.
 
-
     /**
-     * Se encarga de generar los objetos (Orbes, trampas, sumadroes y multiplicadores)
+     * Se encarga de generar los objetos ( trampas, sumadroes y multiplicadores)
      * Tiene en cuanta la dificultad de la sala donde pertenecen estos objetos
      * y las posiciones libres
      */
-    fun generarObjetos(valor_dificultad: Int, avaliblePositions: List<List<Int>>): ArrayList<Objeto> {
+    fun generarObjetos(valor_dificultad: Int, avaliblePositions: ArrayList<List<Int>>): ArrayList<Objeto> {
         // Para empezar traducimos el valor de la dificultad a la clase Dificultad
         val dificultad : Dificultad = getDificultad(valor_dificultad)
 
         //Generamos los diferentes objetos en función de la dificultad y los metemos en posiciones posibles
-        // TODO TODO TODO
+        //  Antes de nada cogemos la cantidad de trampas, sumadores y multiplicadores que queremos generar en esta sala
+        val num_trampas: Int = dificultad.rango_num_trampas.random()
+        val num_sumadores: Int = dificultad.rango_num_sumadores.random()
+        val num_multiplicadores: Int = dificultad.rango_num_multiplicadores.random()
+
+        //Generamos los objetos y los guardo en una lista
+
+        var arrayObjetos:ArrayList<Objeto> = ArrayList<Objeto>()
+
+        //Siempre que el valor cogido no sea zero generamos las trampas
+        if(num_trampas >0){
+
+            for(i in (1..num_trampas)){
+                // Creamos el orbe y se elimina la posición cogida de la lista
+                arrayObjetos.add(crearTrampa(avaliblePositions))
+            }
+        }
+
+        //Siempre que el valor cogido no sea zero generamos los sumadores
+        if(num_sumadores >0){
+
+            for(i in (1..num_sumadores)){
+                // Creamos el orbe y se elimina la posición cogida de la lista
+                arrayObjetos.add(crearOrbe(dificultad,avaliblePositions))
+            }
+        }
+
+        //Siempre que el valor cogido no sea zero generamos
+        if(num_multiplicadores >0){
+
+            for(i in (1..num_multiplicadores)){
+                // Creamos el orbe y se elimina la posición cogida de la lista
+                arrayObjetos.add(crearMultiplicador(dificultad,avaliblePositions))
+            }
+        }
+
+        return arrayObjetos
+
+    }
+
+    /**
+     * Se encarga de generar los orbes
+     * Tiene en cuanta la dificultad de la sala donde pertenecen estos objetos
+     * y las posiciones libres
+     */
+    fun generarOrbes(valor_dificultad: Int, avaliblePositions: ArrayList<List<Int>>): ArrayList<Orbe>{
+        // Para empezar traducimos el valor de la dificultad a la clase Dificultad
+        val dificultad : Dificultad = getDificultad(valor_dificultad)
+
+        //Generamos los diferentes orbes en función de la dificultad y los metemos en posiciones posibles
+        //  Antes de nada cogemos la cantidad de orbes que queremos generar en esta sala
+        val num_orbes: Int = dificultad.rango_numero_orbes.random()
+
+        //Generamos los orbes y los guardo en una lista
+
+        var arrayOrbes:ArrayList<Orbe> = ArrayList<Orbe>()
+
+        //Siempre que el valor cogido no sea zero
+        if(num_orbes >0){
+
+            for(i in (1..num_orbes)){
+                // Creamos el orbe y se elimina la posición cogida de la lista
+                arrayOrbes.add(crearOrbe(dificultad,avaliblePositions))
+            }
+        }
+
+        return arrayOrbes
     }
 
 
@@ -51,7 +116,7 @@ object FactoryObjetos {
      * Parametros:
      *      avaliblePositions: lista de posibles posiciones donde se puede colocar el orbe
      */
-    fun crearOrbe(dificultad: Dificultad, avaliblePositions: List<List<Int>>): Orbe {
+    fun crearOrbe(dificultad: Dificultad, avaliblePositions: ArrayList<List<Int>>): Orbe {
 
         // Escojo una posición en la que pueda poner al orbe
         val posicion: Posicion = escogerPosicion(avaliblePositions)
@@ -63,7 +128,7 @@ object FactoryObjetos {
     /**
      * Se encarga de crear una trampa
      */
-    fun crearTrampa(avaliblePositions: List<List<Int>>): Trampa{
+    fun crearTrampa(avaliblePositions: ArrayList<List<Int>>): Trampa{
         // Escoge una posición vacia
         val posicion :Posicion = escogerPosicion(avaliblePositions)
 
@@ -74,7 +139,7 @@ object FactoryObjetos {
     /**
      * Genera un sumador
      */
-    fun crearSumador(dificultad: Dificultad,avaliblePositions: List<List<Int>>): Sumador{
+    fun crearSumador(dificultad: Dificultad,avaliblePositions: ArrayList<List<Int>>): Sumador{
         // Escoge una posición
         val posicion :Posicion = escogerPosicion(avaliblePositions)
         // Genero un valor del sumador
@@ -86,7 +151,7 @@ object FactoryObjetos {
     /**
      * Genera un multiplicador
      */
-    fun crearMultiplicador(dificultad: Dificultad,avaliblePositions: List<List<Int>>): Multiplicador{
+    fun crearMultiplicador(dificultad: Dificultad,avaliblePositions: ArrayList<List<Int>>): Multiplicador{
         // Escoge una posición
         val posicion :Posicion = escogerPosicion(avaliblePositions)
         // Genero el valor del multiplicador
@@ -99,12 +164,16 @@ object FactoryObjetos {
     // MÉTODOS DE SOPORTE
     /**
      * A partir de una lista de pares (x,y) esta función escoge una de estas parejas y devuelve un objeto Posicion
+     * Elimina la posición escogida de la lista
      */
-    private fun escogerPosicion(lista: List<List<Int>>): Posicion {
+    private fun escogerPosicion(lista: ArrayList<List<Int>>): Posicion {
 
         // Escojo un numero random en la longitud de la lista
         // y extraigo los valores x,y para crear el objeto
         val randomInt: Int = (0..(lista.size - 1)).random()
+
+        // Elimina la posicion escogida de la lista
+        lista.removeAt(randomInt)
 
         //Cojo lo que hay en esa posición
         val x_sala = lista[randomInt][0]

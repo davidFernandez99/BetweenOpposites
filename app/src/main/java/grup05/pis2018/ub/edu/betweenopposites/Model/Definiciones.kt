@@ -72,7 +72,7 @@ enum class Plantilla(val listaPlantillas: ArrayList<String>) {
 enum class Dificultad(
     var velocidad_orbes: Float,
     var rango_numero_orbes: IntRange,
-    var rango_trampas_posibles: IntRange,
+    var rango_num_trampas: IntRange,
     var rango_num_sumadores :IntRange,
     var rango_valores_sumador:IntRange,
     var rango_num_multiplicadores :IntRange,
