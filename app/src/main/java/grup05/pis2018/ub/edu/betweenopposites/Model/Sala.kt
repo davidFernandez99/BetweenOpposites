@@ -24,10 +24,12 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     private var matrixAvalible: Array<Array<Boolean>> = Array<Array<Boolean>>(matrixSala.size,{Array(matrixSala[0].size,{false})})
 
     init{
-        // Al crear la sala tenemos que meter las puertas de la matriz en la lista
-        syncPuertas()
+
         // Al crear la sala se crea la matriz de lugares desocupados
         createAvalibleMatrix()
+        // Al crear la sala tenemos que meter las puertas de la matriz en la lista
+        // También hay que crear el spawnpoint de las puertas
+        syncPuertas()
     }
 
     // MÉTODOS PPARA COGER Y MODIFICAR POSICIONES EN LA MATRIZ
@@ -87,13 +89,12 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     private fun syncPuertas(){
         // Recogemos las puertas que hay en la matriz
-        var diferentes: Boolean = false
 
         var puertasRecogidas: ArrayList<Puerta> = ArrayList()
 
-        for (j in 0..matrixSala.size) {
-            for (i in 0..matrixSala[j].size) {
-                var objetoRecogido = matrixSala[i][j]
+        for (j in 0..matrixSala.size-1) {
+            for (i in 0..matrixSala[j].size-1) {
+                var objetoRecogido : Objeto= matrixSala[j][i]!!
                 if (objetoRecogido is Puerta) {
                     puertasRecogidas.add(objetoRecogido)
                 }
@@ -102,6 +103,49 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
         // PASAMOS LA LISTA DE PUERTAS RECOGIDAS A LA LISTA
         this.puertas= puertasRecogidas
+
+        // CREO LOS SPAWNPOINT DE LAS PUERTAS
+        for(puerta: Puerta in puertas){
+
+            // Extraigo cuales son las posiciones alrededor de la puerta
+            val i: Int = puerta.posicion.x_sala
+            val j: Int = puerta.posicion.y_sala
+
+            //Cojo solo aquellas que tienen la posibilidad de ocuparse
+            var spawnsPosibles: ArrayList<List<Int>> = ArrayList<List<Int>>()
+
+            try {
+                val iz : List<Int> = listOf(j,i-1)
+                if(matrixAvalible[iz[0]][iz[1]]){ spawnsPosibles.add(iz)}
+            } catch (e: Exception) {
+            }
+
+
+            try {
+                val der : List<Int> = listOf(j,i+1)
+                if(matrixAvalible[der[0]][der[1]]){ spawnsPosibles.add(der)}
+            } catch (e: Exception) {
+            }
+
+            try {
+                val arriba : List<Int> = listOf(j+1,i)
+                if(matrixAvalible[arriba[0]][arriba[1]]){ spawnsPosibles.add(arriba)}
+            } catch (e: Exception) {
+            }
+
+            try {
+                val abajo : List<Int> = listOf(j-1,i)
+                if(matrixAvalible[abajo[0]][abajo[1]]){ spawnsPosibles.add(abajo)}
+            } catch (e: Exception) {
+            }
+
+            // Escojo una posición random para el spawn // TODO SERIA MEJOR ESCOGER AQUELLA QUE SE ENCUENTRE MAS AL CENTRO DE LA SALA
+            val opcion: List<Int> = spawnsPosibles.random()
+            // Creo la posición y la pongo como spawnpoint, y bloqueo esta posición en la sala
+            puerta.spawn_point= Posicion(x_sala=opcion[1],y_sala=opcion[0])
+            bloquearPosicion(opcion[0],opcion[1])
+        }
+
     }
 
     //      AÑADIR ORBES

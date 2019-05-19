@@ -27,7 +27,7 @@ object FactorySala {
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
-        var fitxer: File?
+        val fitxer: File?
 
         try {
             // Defino y obtengo el fichero a través de el nombre
@@ -202,7 +202,7 @@ object FactorySala {
     private fun descifrarCaracter(char: String, posicionMatriz: Posicion): Objeto {
         when (char) {
             Descifrar.muro.char -> return FactoryObjetos.crearMuro(posicionMatriz)
-            Descifrar.suelo.char -> return FactoryObjetos.crarSuelo(posicionMatriz)
+            Descifrar.suelo.char -> return FactoryObjetos.crearSuelo(posicionMatriz)
             Descifrar.puerta.char -> return FactoryObjetos.crearPuerta(posicionMatriz)
             else -> throw Exception("Hay un char en la matriz que no se ha podido identificar")
         }

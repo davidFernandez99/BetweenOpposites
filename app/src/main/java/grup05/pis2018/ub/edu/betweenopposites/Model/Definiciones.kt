@@ -6,18 +6,18 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 enum class Dimension(
     val height_en_bloques: Int,
     val width_en_bloques: Int,
-    val height: Float = (height_en_bloques * 32).toFloat(),
-    val width: Float = width_en_bloques.toFloat()
+    val height: Float = (height_en_bloques * 64).toFloat(),
+    val width: Float = width_en_bloques* 64.toFloat()
 ) {
-    bloque(1, 1, 32f, 32f),
-    muro(1, 1, 32f, 32f),
-    puerta(1, 1, 32f, 32f),
-    suelo(1, 1, 32f, 32f),
-    sala(10, 20, 320f, 640f),
-    orbe(1, 1, 32f, 32f),
-    trampa(1, 1, 32f, 32f),
-    sumador(1,1,32f,32f),
-    multiplicador(1,1,32f,32f)
+    bloque(1, 1, 64f, 64f),
+    muro(1, 1, 64f, 64f),
+    puerta(1, 1, 64f, 64f),
+    suelo(1, 1, 64f, 64f),
+    sala(10, 20, 640f, 1280f),
+    orbe(1, 1, 64f, 64f),
+    trampa(1, 1, 64f, 64f),
+    sumador(1,1,64f,64f),
+    multiplicador(1,1,64f,64f)
 }
 
 /**

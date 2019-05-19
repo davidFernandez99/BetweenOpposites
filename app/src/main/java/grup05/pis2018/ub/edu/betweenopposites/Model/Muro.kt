@@ -27,7 +27,7 @@ class Muro(
                 lobo.returnPosicion()
             }
             lobo.returnPosicion()
-            lobo.direccion=Actor.Direccion.PARADO
+            lobo.direccion=Direccion.PARADO
         }
         if(objeto is Orbe){
             var orbe: Orbe = objeto as Orbe

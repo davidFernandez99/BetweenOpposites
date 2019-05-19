@@ -41,7 +41,7 @@ object FactoryObjetos {
 
             for(i in (1..num_sumadores)){
                 // Creamos el orbe y se elimina la posición cogida de la lista
-                arrayObjetos.add(crearOrbe(dificultad,avaliblePositions))
+                arrayObjetos.add(crearSumador(dificultad,avaliblePositions))
             }
         }
 
@@ -107,7 +107,7 @@ object FactoryObjetos {
     /**
      * Crea un suelo a partir de los parametros dados.
      */
-    fun crarSuelo(posicionMatriz: Posicion): Suelo {
+    fun crearSuelo(posicionMatriz: Posicion): Suelo {
         return Suelo(Dimension.suelo.height, Dimension.suelo.width, posicionMatriz)
     }
 
@@ -122,7 +122,8 @@ object FactoryObjetos {
         val posicion: Posicion = escogerPosicion(avaliblePositions)
 
         // La velocidad del orbe dependerá de la dificultad del nivel
-        return Orbe(Bando.values()[(0..(Bando.values().size)).random()],Dimension.orbe.height,Dimension.orbe.width,dificultad.velocidad_orbes,Direccion.ABAJO,posicion)
+        return Orbe(Bando.values()[(0..(Bando.values().size-1)).random()],Dimension.orbe.height,Dimension.orbe.width,dificultad.velocidad_orbes,Direccion.ABAJO,posicion)
+
     }
 
     /**
@@ -155,7 +156,7 @@ object FactoryObjetos {
         // Escoge una posición
         val posicion :Posicion = escogerPosicion(avaliblePositions)
         // Genero el valor del multiplicador
-        val valor: Int = dificultad.rango_valores_sumador.random()
+        val valor: Int = dificultad.rango_valores_multiplicador.random()
         // Crea el multiplicador
         return Multiplicador(valor,Dimension.multiplicador.height,Dimension.multiplicador.width,posicion)
     }
@@ -172,12 +173,12 @@ object FactoryObjetos {
         // y extraigo los valores x,y para crear el objeto
         val randomInt: Int = (0..(lista.size - 1)).random()
 
-        // Elimina la posicion escogida de la lista
-        lista.removeAt(randomInt)
-
         //Cojo lo que hay en esa posición
         val x_sala = lista[randomInt][0]
         val y_sala = lista[randomInt][1]
+
+        // Elimina la posicion escogida de la lista
+        lista.removeAt(randomInt)
 
         //Devuelvo la posicion en la matriz a través de un objeto
         return Posicion(x_sala = x_sala, y_sala = y_sala)

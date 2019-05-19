@@ -4,10 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.GestureDetector
 import android.view.MotionEvent
-import grup05.pis2018.ub.edu.betweenopposites.Model.Actor
-import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
-import grup05.pis2018.ub.edu.betweenopposites.Model.Posicion
-import grup05.pis2018.ub.edu.betweenopposites.Model.Vida
+import grup05.pis2018.ub.edu.betweenopposites.Model.*
 import grup05.pis2018.ub.edu.betweenopposites.R
 import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
@@ -39,13 +36,13 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
                 lobo.restarurarVelocidad()
             }
             if (deltaX > 0) {
-                if(lobo.direccionIvalida!= Actor.Direccion.IZQUIERDA){
-                    lobo.direccion = Actor.Direccion.IZQUIERDA
+                if(lobo.direccionIvalida!= Direccion.IZQUIERDA){
+                    lobo.direccion = Direccion.IZQUIERDA
                 }
 
             } else {
-                if(lobo.direccionIvalida!= Actor.Direccion.DERECHA){
-                    lobo.direccion = Actor.Direccion.DERECHA
+                if(lobo.direccionIvalida!= Direccion.DERECHA){
+                    lobo.direccion = Direccion.DERECHA
                 }
             }
         }
@@ -55,12 +52,12 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
                 lobo.restarurarVelocidad()
             }
             if (deltaY > 0) {
-                if(lobo.direccionIvalida!= Actor.Direccion.ARRIBA){
-                    lobo.direccion = Actor.Direccion.ARRIBA
+                if(lobo.direccionIvalida!= Direccion.ARRIBA){
+                    lobo.direccion = Direccion.ARRIBA
                 }
             } else {
-                if(lobo.direccionIvalida!= Actor.Direccion.ABAJO){
-                    lobo.direccion = Actor.Direccion.ABAJO
+                if(lobo.direccionIvalida!= Direccion.ABAJO){
+                    lobo.direccion = Direccion.ABAJO
                 }
             }
         }
