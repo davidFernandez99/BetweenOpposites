@@ -22,17 +22,20 @@ class Maquina(
     Objeto(height, width, posicion) {
 
     // Contiene la recompensa que se da al jugador en caso de que se adivine la respuesta correcta
-    lateinit var recompensa: Objeto
+    lateinit var recompensa: ObjetoActivable
     // Flag que nos dice si debe devolverse el Objeto o no. Inicialmente a "false".
     var dar_recompensa: Boolean = false
-    var dar_opciones: Boolean = false
+    var dar_opciones: Boolean = true
     /**
      * En el caso de que se detecte la colisión con el Lobo, se trata la colisión de forma que se dan las opciones
      * y en el caso de acierto se da el premio.
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            dar_opciones=true
+            var lobo:Lobo=Lobo.instance
+            lobo.velocidad=0f
+            lobo.direccion=Actor.Direccion.PARADO
+
         }
     }
     fun darOpciones(lobo: Lobo) :ArrayList<Int> {
@@ -55,15 +58,24 @@ class Maquina(
     fun darRecompensa():ObjetoActivable{
         var recompensa_maquina :Int= (0..3).random()
         if(recompensa_maquina==0){
-            return Invisibilidad(16f,16f,Posicion(this.posicion.x,this.posicion.y+this.height+10f))
+            return Invisibilidad(16f,16f,Posicion(this.posicion.x,this.posicion.y+128f))
         }
         else if (recompensa_maquina==1){
-            return CambioBando(16f,16f,Posicion(this.posicion.x,this.posicion.y+this.height+10f))
+            return CambioBando(16f,16f,Posicion(this.posicion.x,this.posicion.y+128f))
         }
         else{
-            return AumentarVelocidad(16f,16f,Posicion(this.posicion.x,this.posicion.y+this.height+10f))
+            return AumentarVelocidad(16f,16f,Posicion(this.posicion.x,this.posicion.y+128f))
         }
     }
 
+    companion object{
+        fun comprobarRespuestaMaquina(puntuacio:Int): Boolean {
+
+            if (puntuacio == Lobo.instance.puntuacion.puntuacion) {
+                return true
+            }
+            return false
+        }
+    }
 
 }

@@ -13,13 +13,12 @@ class AumentarVelocidad(
     ObjetoActivable(height, width, posicion) {
     // Maximo tiempo en segundos de objeto activo
     val AUMENTO_DE_VELOCIDAD: Int = 10 //Constante para determinar cuanto aumenta la velocidad cuando colisiona el Lobo con este objeto
-    var visible=true //Variable booleana para determinar si ese objeto será visible o no para que cuando un Lobo collisiones con este desaparezca
+
     override fun tratarColision(objeto: Objeto) { //Método para aumentar la Velocidad del lobo cuando colisiona con este y que no sea visible este
         if (objeto is Lobo) { //Si colisiona con un objeto lobo añadirá ese objeto a sus objetos activables
             var lobo: Lobo = objeto as Lobo
             lobo.objetoActivable = this
-            activarEfecto(lobo)
-            visible=false
+            es_visible=false
         }
     }
 

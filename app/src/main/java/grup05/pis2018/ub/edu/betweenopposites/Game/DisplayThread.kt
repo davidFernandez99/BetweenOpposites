@@ -16,6 +16,12 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         var playing = true
         var paused = false
         var fin_juego=false
+        var dando_opciones=false
+        var comprobar_opcion=false
+        var opcion:Int=0
+        var fallar=false
+        var mostrar_Pause=false
+        var activar_efecto=false
     }
 
 

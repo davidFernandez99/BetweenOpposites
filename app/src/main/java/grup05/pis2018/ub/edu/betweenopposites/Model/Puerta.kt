@@ -56,8 +56,8 @@ class Puerta(
         if (objeto is Lobo) {
             TODO("si el lobo colisiona con una puerta hará pasar a la siguiente sala o nivel en caso que fuese la sala final")
             TODO("si es la sala final del último nivel llamara al método endGame()")
-            var lobo:Lobo= objeto as Lobo
-            lobo.final=true
+            //var lobo:Lobo= objeto as Lobo
+            //lobo.final=true
         }
     }
 
@@ -85,13 +85,15 @@ class Puerta(
             throw Exception("Esta puerta tiene como destino Nivel:${id_nivel_destino} Sala:${id_sala_destino}, de forma que no tiene puerta de destino.")
         }
     }
-    //Función para detectar una colision entre un actor y puerta cuando esta en la misma posición que esta
-    override fun detectarColision(objeto: Objeto): Boolean {
+
+    fun comprobarColision(objeto:Objeto):Boolean{
         var colisio: Boolean = false
-        if (this.posicion.x == objeto.posicion.x
-            && this.posicion.y ==objeto.posicion.y
+        if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
+            && this.posicion.x + this.width > objeto.posicion.x - objeto.width
+            && this.posicion.y - this.height < objeto.posicion.y + objeto.height
+            && this.posicion.y + this.height > objeto.posicion.y - objeto.height
         ) {
-            tratarColision(objeto)
+
             colisio = true
         }
         //Devuelve si ha colisionado o no con ese objeto

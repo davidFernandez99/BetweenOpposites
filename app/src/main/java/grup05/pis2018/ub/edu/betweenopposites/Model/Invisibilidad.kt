@@ -20,6 +20,7 @@ class Invisibilidad(
         if (objeto is Lobo) {//Si colisiona con un objeto lobo añadirá ese objeto a sus objetos activables
             var lobo: Lobo = objeto as Lobo
             lobo.objetoActivable = this
+            es_visible=false
         }
     }
 
