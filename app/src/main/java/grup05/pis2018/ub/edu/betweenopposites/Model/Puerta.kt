@@ -76,13 +76,13 @@ class Puerta(
 
     /**
      * Mètodo para coger el destino de esta puerta. Devuelve el nivel, sala y posicion de destino.
-     * En el caso de que sea la primera puerta de la primera sala del nivel, el destino
+     * En el caso de que sea la primera puerta de la primera sala del nivel, no tiene destino así que devuelve un null.
      */
-    fun getPosicionDestino(): Posicion {
+    fun getPosicionDestino(): Posicion? {
         if (puerta_destino != null) {
             return puerta_destino!!.spawn_point
         } else {
-            throw Exception("Esta puerta tiene como destino Nivel:${id_nivel_destino} Sala:${id_sala_destino}, de forma que no tiene puerta de destino.")
+            return null
         }
     }
 
@@ -97,6 +97,14 @@ class Puerta(
         //Devuelve si ha colisionado o no con ese objeto
         return colisio
 
+    }
+
+    fun printPuerta() {
+        println("Puerta  \n" +
+                "POSICION: [${posicion.x_sala},${posicion.y_sala}] \n" +
+                "DESTINO: nivel-> ${id_nivel_destino}    sala->${id_sala_destino}    " +
+                "posicion destino-> [${getPosicionDestino()?.x_sala},${getPosicionDestino()?.y_sala}]\n" +
+                "SPAWNPOINT: [${spawn_point.x_sala},${spawn_point.y_sala}]")
     }
 
 }

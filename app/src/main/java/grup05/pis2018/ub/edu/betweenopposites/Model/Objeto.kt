@@ -51,6 +51,13 @@ abstract class Objeto(
         canvas.drawBitmap(image,this.posicion.x,this.posicion.y,paint)
     }
 
+    fun printObjeto() {
+        val tipo : String = when{ this is Trampa -> "Trampa"
+            this is Sumador -> "Sumador"
+            this is Multiplicador -> "Multiplicador"
+            else -> "Impossible"}
+        println("Objeto $tipo POSICION: [${posicion.x_sala},${posicion.y_sala}]")
+    }
 
 
 }

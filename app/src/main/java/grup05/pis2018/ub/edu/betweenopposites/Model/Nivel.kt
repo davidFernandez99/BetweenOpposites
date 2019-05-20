@@ -9,17 +9,23 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  */
 class Nivel(listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>? = null) {
 
-    //TODO
     //Contiene una variable que le identifica como nivel
-    var numNivel: Int = 0
+    var id_nivel: Int = 0
 
     //Mantiene las salas de ese nivel
-    lateinit var arraySalas: ArrayList<Sala>
+    var arraySalas: ArrayList<Sala> =listaSalas
 
+
+    // MÉTODOS PARA TESTING
     /**
-     * Se encarga de crear la estructura entre las salas, cual se comunica con que otra ...
+     * Imprime la información de las salas que contiene
      */
-    fun organizarSala() {
-        TODO("not implemented yet")
+    fun printNivel(){
+        var i: Int=0
+        for (sala: Sala in arraySalas){
+            print("\n\n**************** SALA ${i+1} ***********************\n\n")
+            sala.printMatriz()
+            i++
+        }
     }
 }

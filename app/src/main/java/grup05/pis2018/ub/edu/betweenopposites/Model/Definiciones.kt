@@ -1,5 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.os.Environment
+
 /**
  * Contiene dimensiones de objetos, salas...
  */
@@ -34,13 +36,18 @@ enum class Descifrar(val char: String) {
  * Defino un enumm donde se ecuentran los nobres de las plantillas.
  */
 enum class NombreFicheros(val filename: String) {
-    salaBasica_01(""),
-    salaBasica_02(""),
-    salaBasica_03(""),
-    salaBasica_04(""),
-    salaBasica_05(""),
-    salaEspecial_01(""),
-    salaFinal_01("")
+    salaBasica_01("src/main/res/plantillas/SALA_BASICA_1.txt"),
+    salaBasica_02("src/main/res/plantillas/SALA_BASICA_2.txt"),
+    salaBasica_03("src/main/res/plantillas/SALA_BASICA_3.txt"),
+    salaBasica_04("src/main/res/plantillas/SALA_BASICA_4.txt"),
+    salaBasica_05("src/main/res/plantillas/SALA_BASICA_5.txt"),
+    salaBasica_06("src/main/res/plantillas/SALA_BASICA_6.txt"),
+    salaBasica_07("src/main/res/plantillas/SALA_BASICA_7.txt"),
+    salaBasica_08("src/main/res/plantillas/SALA_BASICA_8.txt"),
+    salaBasica_09("src/main/res/plantillas/SALA_BASICA_9.txt"),
+    salaBasica_10("psrc/main/res/plantillas/SALA_BASICA_10.txt"),
+    salaEspecial_01("src/main/res/plantillas/SALA_ESPECIAL.txt"),
+    salaFinal_01("src/main/res/plantillas/SALA_FINAL.txt")
 }
 
 /**
@@ -57,7 +64,12 @@ enum class Plantilla(val listaPlantillas: ArrayList<String>) {
                 NombreFicheros.salaBasica_02.filename,
                 NombreFicheros.salaBasica_03.filename,
                 NombreFicheros.salaBasica_04.filename,
-                NombreFicheros.salaBasica_05.filename
+                NombreFicheros.salaBasica_05.filename,
+                NombreFicheros.salaBasica_06.filename,
+                NombreFicheros.salaBasica_07.filename,
+                NombreFicheros.salaBasica_08.filename,
+                NombreFicheros.salaBasica_09.filename,
+                NombreFicheros.salaBasica_10.filename
             )
         )
     ),

@@ -66,11 +66,16 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      * Añade una puerta al array de puertas
      */
     fun anadirPuerta(puerta: Puerta) {
+
         // No solo se añada a la lista sino también a la matriz
         puertas.add(puerta)
+
         // Pongo la puerta en la matriz
         matrixSala[puerta.posicion.x_sala][puerta.posicion.y_sala] = puerta
         bloquearPosicion(puerta.posicion.x_sala,puerta.posicion.y_sala)
+
+        // Mezcla el contenido de las puertas para que el orden en la lista varie
+        puertas.shuffle()
 
     }
 
@@ -83,6 +88,38 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             anadirPuerta(puerta)
         }
     }
+
+    /**
+     * Define cual es la salida de una de las puertas que tiene la sala.
+     */
+    fun definirSalida(posicion_puerta_en_lista: Int, id_nivel:Int,id_sala:Int,puertaDestino:Puerta?){
+        val id_puerta: Int = posicion_puerta_en_lista-1
+        if(id_puerta>=puertas.size || id_puerta<0){
+            throw Exception("La id de la puerta no es correcta. La id de la primera puerta = 1")
+        }else{
+            // Asigno como salida de la puerta la puerta pasada por parametro
+            val this_puerta = puertas[id_puerta]
+            this_puerta.puerta_destino= puertaDestino
+            // Pongo el nivel y sala de destino
+            this_puerta.id_nivel_destino= id_nivel
+            this_puerta.id_sala_destino= id_sala
+        }
+    }
+
+    /**
+     * Devuelve la puerta colocada en esa posición de la lista
+     */
+    fun getPuerta(id_puerta: Int): Puerta{
+
+        val posicion: Int= id_puerta-1
+
+        if(posicion<0 || posicion>puertas.size-1){
+            throw ArrayIndexOutOfBoundsException("La posición no es correcta")
+        }else {
+            return puertas[posicion]
+        }
+    }
+
 
     /**
      * Se encarga de sincronizar las puertas que hay en matriz con las que hay en la lista
@@ -321,6 +358,24 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             }
             print("\n")
         }
+
+        // Hago un print también de los objetos, orbes y puertas que contiene
+        print("\n\n**** ORBES ****\n\n")
+        for(orbe: Orbe in orbes){
+            orbe.printOrbe()
+        }
+
+        print("\n\n**** OBJETOS ****\n\n")
+        for(objeto: Objeto in objetos){
+            objeto.printObjeto()
+        }
+
+        print("\n\n**** PUERTAS ****\n\n")
+        for(puerta: Puerta in puertas){
+            puerta.printPuerta()
+        }
+
+
         return arrayStrings
     }
 }

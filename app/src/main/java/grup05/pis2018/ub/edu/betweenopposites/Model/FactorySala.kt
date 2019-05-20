@@ -45,7 +45,7 @@ object FactorySala {
             }
 
         } catch (e: FileNotFoundException) {
-            throw IllegalArgumentException(
+            throw Exception(
                 String.format(
                     "El fitxer %s no existeix", filename
                 )
@@ -109,6 +109,8 @@ object FactorySala {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        // TODO Colocamos la maquina en el centro de la sala
 
         //Devolvemos la sala
         return SalaEspecial(id_sala, matrix)
