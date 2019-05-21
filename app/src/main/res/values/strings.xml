@@ -3,10 +3,10 @@
     <string name="tittle_game">Between Opposites</string>
     <string name="un_jugador">1 Jugador</string>
     <string name="dos_jugadores">2 Jugadores</string>
-    <string name="txt_titleRanking">TOP 10 RANKING</string>
-    <string name="txt_puntuacion_1">998</string>
+    <string name="txt_titleRanking">RANKING</string>
+    <string name="txt_puntuacion_1">0</string>
     <string name="palabraPuntos">puntos</string>
-    <string name="nombreJUgador1">racso92</string>
+    <string name="nombreJUgador1">JUGADOR</string>
     <string name="dosJ_txt_btnCrearPartida">Crear</string>
     <string name="dosJ_txt_btnUnirsePartida">Unirse</string>
     <string name="ID_dosJ">Identificador :</string>
