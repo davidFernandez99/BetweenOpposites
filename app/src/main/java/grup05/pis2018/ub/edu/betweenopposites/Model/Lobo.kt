@@ -42,7 +42,7 @@ class Lobo(
     companion object {
         var life: Vida = Vida()
         var bando: Bando = Bando.Negro
-        var instance = Lobo(life, bando, 32f, 32f, 80f, Direccion.DERECHA, Posicion(100f, 860f))
+        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.DERECHA, Posicion(100f, 860f))
 
     }
 
@@ -167,6 +167,13 @@ class Lobo(
         if(this.direccionChoque==Direccion.IZQUIERDA){
             direccionIvalida=Direccion.IZQUIERDA
             this.posicion.x+=1f
+        }
+    }
+    fun setVulnerabilidad(trampa:Trampa){
+        if(this.vulnerable==false){
+            if(trampa.comprobarColision(this)==false){
+                vulnerable=true
+            }
         }
     }
 

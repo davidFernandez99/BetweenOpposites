@@ -31,5 +31,16 @@ class Trampa(
             }
         }
     }
+    fun comprobarColision(objeto:Objeto):Boolean{ //Método para detectar si hay o no colision entre un muro y un actor
 
+        if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
+            && this.posicion.x + this.width > objeto.posicion.x - objeto.width
+            && this.posicion.y - this.height < objeto.posicion.y + objeto.height
+            && this.posicion.y + this.height > objeto.posicion.y - objeto.height
+        ) {
+            return true
+        }
+        //Devuelve si ha colisionado o no con ese objeto
+        return false
+    }
 }

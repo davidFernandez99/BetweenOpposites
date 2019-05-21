@@ -9,10 +9,7 @@ import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
 class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
-    val MAX_TIEMPO_VELOCIDAD: Long = 5000
-    val MAX_TIEMPO_INVISIBLE: Long = 5000
-    val MAX_TIEMPO_VULNERABLE: Long = 1000
-    var conv: Long = 1000
+
     var mapa:Int=1
     var segundos: Long = 0
     val paint=paint
@@ -54,6 +51,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var lobo: Lobo ?= null
     var facade:Facade?=null
     var comprobar_vulnerabilidad: Boolean = false
+    var comprobar_vulnerabilidad2: Boolean = false
     var compobar_aumento: Boolean = false
     var comprobar_colision_maquina:Boolean=false
     var comprobar_colision_puerta:Boolean=false
@@ -66,9 +64,11 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var orbe2: Orbe ?= null
     var trampa: Trampa ?= null
     var trampa2: Trampa ?= null
+    var ultimaTrampaColisionada:Trampa ?= null
     var suelo: Suelo? = null
     var muro: Muro? = null
     var puerta: Puerta ?= null
+    var puerta2:Puerta?=null
     var canvas: Canvas ?= null
     var maquina:Maquina?=null
     var objetoMaquina:ObjetoActivable?=null
@@ -78,8 +78,26 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             lobo!!.objetoActivable!!.activarEfecto(lobo!!)
             lobo!!.objetoActivable=null
             DisplayThread.activar_efecto=false
-            //iniciará timer y cuando pase x tiempo pondre el activar efecto a false
+
+
         }
+        
+         //if (tirmpoVulnerable!!.finish == true) {
+         //lobo!!.vulnerable = true
+         //tirmpoVulnerable!!.finish = false
+         //}
+         //if (tiempo!!.finish == true) {
+         //  segundos++
+         //}
+
+
+         //if (tiempoVelocidad!!.finish == true) {
+         //  lobo!!.restarurarVelocidad()
+         //tirmpoVulnerable!!.finish = false
+         //}
+         //if (lobo!!.velocidad == 0f && tiempoVelocidad!!.finish == false) {
+         //  lobo!!.velocidad = lobo!!.velocidadCambiada
+         //}
          if(mapa==1){
             updateMapa1(fps)
         }
@@ -89,10 +107,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
     }
 
-    fun drew(){
-
-    }
-    fun draw() {
+     fun draw() {
         // Make sure our drawing surface is valid or the game will crash
         if (holder.surface.isValid) {
             // Lock the canvas ready to draw
@@ -110,7 +125,8 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             canvas!!.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
             canvas!!.drawBitmap(bitmapBorde, 0f, 1020f, paint)
             canvas!!.drawBitmap(bitmapBordeSimple, 64f , 1020f ,paint)
-            canvas!!.drawText(lobo!!.multiplicador.toString(), 1856f, 1040f,paint)
+            canvas!!.drawText("X", 1820f, 1060f,paint)
+            canvas!!.drawText(lobo!!.multiplicador.toString(), 1856f, 1060f,paint)
             canvas!!.drawBitmap(bitmapPausa, 1860f, 0f, paint)
             if(lobo!!.objetoActivable!=null){
                 if(lobo!!.objetoActivable is Invisibilidad){
@@ -123,7 +139,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
                     canvas!!.drawBitmap(bitmapCambio!!,65f,1025f,paint)
                 }
             }
-            canvas!!.drawText(segundos.toString(), 700f, 0f, paint)
+
             if (lobo!!.vida.numVide == 3) {
                 vida!!.draw(canvas!!, 860f, 0f, contexto)
                 vida!!.draw(canvas!!, 960f, 0f, contexto)
@@ -141,6 +157,18 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
                 DisplayThread.paused=true
                 DisplayThread.fin_juego=true
             }
+            if(mapa==1){
+                canvas!!.drawText("1  -  1" ,350f, 30f,paint)
+            }
+            if(mapa==2){
+                canvas!!.drawText("1  -  2" ,350f, 30f,paint)
+            }
+            if(lobo!!.bando== Actor.Bando.Negro){
+                canvas!!.drawText("BANDO :  OSCURIDAD " ,1300f, 30f,paint)
+            }
+            if(lobo!!.bando== Actor.Bando.Blanco){
+                canvas!!.drawText("BANDO :  LUZ " ,1300f, 30f,paint)
+            }
             if(DisplayThread.paused==true && DisplayThread.mostrar_Pause==true){
                 dibujarPausa()
             }
@@ -155,7 +183,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     }
 
     fun inicializarVariable(){
-
+        paint.textSize= 30f
         lobo=Lobo.instance
         facade= Facade.uniqueFacade
         vida=Vida()
@@ -166,8 +194,9 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         trampa = Trampa(32f, 32f, Posicion(500f, 550f))
         trampa2 = Trampa(32f, 32f, Posicion(800f, 550f))
         puerta= Puerta(32f, 32f, Posicion(1404f, 500f))
+        puerta2= Puerta(32f,32f, Posicion(1700f,860f))
         canvas=Canvas()
-        maquina= Maquina(64f,64f,Posicion(1500f,412f))
+        maquina= Maquina(64f,40f,Posicion(1500f,412f))
         bitmapBorde= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde)
         bitmapBordeSuperior= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde_superior)
         bitmapPausa= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_pausa)
@@ -208,6 +237,8 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
         canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
         canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
+        canvas!!.drawText( lobo!!.puntuacion.puntuacion.toString(), 1020f,495f, paint)
+        canvas!!.drawText( segundos.toString(), 930f,560f, paint)
     }
 
     fun drawMapa1(){
@@ -419,6 +450,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             canvas!!.drawBitmap(bitmapFallarOpcionMaquina!!,700f,300f,paint)
 
         }
+        puerta2!!.draw(canvas!!,bitmapPuerta!!)
         lobo!!.draw(canvas!!, bitmapOrbeRaro!!)
 
 
@@ -438,28 +470,22 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
         }
 
-        comprobar_vulnerabilidad = trampa!!.detectarColision(lobo!!)
-        trampa2!!.detectarColision(lobo!!)
-        if (comprobar_vulnerabilidad == true) {
-            //lobo!!.vulnerable = false
-            //tirmpoVulnerable!!.start()
+        if(lobo!!.vulnerable==true){
+            comprobar_vulnerabilidad = trampa!!.detectarColision(lobo!!)
+            comprobar_vulnerabilidad2 = trampa2!!.detectarColision(lobo!!)
         }
-        //if (tirmpoVulnerable!!.finish == true) {
-        //lobo!!.vulnerable = true
-        //tirmpoVulnerable!!.finish = false
-        //}
-        //if (tiempo!!.finish == true) {
-        //  segundos++
-        //}
 
-
-        //if (tiempoVelocidad!!.finish == true) {
-        //  lobo!!.restarurarVelocidad()
-        //tirmpoVulnerable!!.finish = false
-        //}
-        //if (lobo!!.velocidad == 0f && tiempoVelocidad!!.finish == false) {
-        //  lobo!!.velocidad = lobo!!.velocidadCambiada
-        //}
+        if(comprobar_vulnerabilidad==true ){
+            ultimaTrampaColisionada=trampa
+            lobo!!.vulnerable=false
+        }
+        if(comprobar_vulnerabilidad2==true ){
+            ultimaTrampaColisionada=trampa2
+            lobo!!.vulnerable=false
+        }
+        if(ultimaTrampaColisionada!= null){
+            lobo!!.setVulnerabilidad(ultimaTrampaColisionada!!)
+        }
         comprobar_colision_puerta=puerta!!.comprobarColision(lobo!!)
         if(comprobar_colision_puerta==true){
             mapa=2
@@ -503,6 +529,14 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
         if(objetoMaquina!=null){
             objetoMaquina!!.detectarColision(lobo!!)
+        }
+        comprobar_colision_puerta=puerta2!!.comprobarColision(lobo!!)
+        if(comprobar_colision_puerta==true){
+            lobo!!.velocidad=0f
+            lobo!!.direccion=Actor.Direccion.PARADO
+            DisplayThread.fin_juego=true
+            DisplayThread.paused=true
+
         }
 
     }

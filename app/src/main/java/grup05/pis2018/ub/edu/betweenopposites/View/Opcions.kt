@@ -77,7 +77,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        btn_logOut.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
+        btn_logOut.visibility = View.VISIBLE //Inicialment esta invisible fins que s'inicia sessio
 
         val intent = Intent(this, MainActivity::class.java)
         intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP) //T'envia sempre a la pantalla principal quan li dones enrere
@@ -192,7 +192,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
-                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Google sign in failed", Toast.LENGTH_LONG).show()
             }
         }
     }

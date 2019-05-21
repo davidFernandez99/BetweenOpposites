@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.SurfaceHolder
+import grup05.pis2018.ub.edu.betweenopposites.Model.Tiempo
 
 class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     val gameThread= gameThread
@@ -13,6 +14,10 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     val paint= Paint()
     var game:GameEngine?=null
     companion object{
+        val MAX_TIEMPO_VELOCIDAD: Long = 5000
+        val MAX_TIEMPO_INVISIBLE: Long = 5000
+        val MAX_TIEMPO_VULNERABLE: Long = 1000
+        var conv: Long = 1000
         var playing = true
         var paused = false
         var fin_juego=false
@@ -22,6 +27,10 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         var fallar=false
         var mostrar_Pause=false
         var activar_efecto=false
+        var tiempo: Tiempo = Tiempo(10000, conv)
+        var tirmpoVulnerable:Tiempo= Tiempo(MAX_TIEMPO_VULNERABLE, 1000)
+        var tiempoVelocidad:Tiempo= Tiempo(MAX_TIEMPO_VELOCIDAD, 1000)
+        var tiempoInvisibilidad:Tiempo = Tiempo(MAX_TIEMPO_INVISIBLE, 1000)
     }
 
 

@@ -99,7 +99,7 @@ class Orbe(
 
         }
         if (direccion == Direccion.IZQUIERDA) {
-            this.direccion=Direccion.ABAJO
+            this.direccion=Direccion.DERECHA
         }
         if (direccion == Direccion.ARRIBA) {
             direccionNueva = (0..2).random()
