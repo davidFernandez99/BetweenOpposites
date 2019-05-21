@@ -17,7 +17,7 @@ class Multiplicador(
 
     //Valor que se suma a los multiplicadores almacenados por el lobo
     var valor: Int = valor1
-
+    var es_visible=true
     /**
      * Si detecta una colision con lobo sumará valor al multiplicador de este
      */
@@ -25,6 +25,7 @@ class Multiplicador(
 
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
+            es_visible=false
             lobo.sumarMultiplicador(valor)
         }
     }

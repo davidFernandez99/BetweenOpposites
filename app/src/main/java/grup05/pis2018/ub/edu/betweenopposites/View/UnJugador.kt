@@ -92,13 +92,13 @@ class UnJugador : AppCompatActivity(), View {
             }else if((x>  1100f) && (x<1188f )  && (y<638f) && (y> 550f) && DisplayThread.paused && DisplayThread.fin_juego==false && DisplayThread.dando_opciones==false&& DisplayThread.fallar==false){
                 DisplayThread.paused = false
                DisplayThread.mostrar_Pause=false
-           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true && DisplayThread.dando_opciones==false&& DisplayThread.fallar==false) {
+           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true && DisplayThread.dando_opciones==false) {
                DisplayThread.playing = false
                val intent = Intent(this,MainActivity::class.java)
                this.startActivity(intent)
-           }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && DisplayThread.dando_opciones==false&& DisplayThread.fallar==false){
+           }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && DisplayThread.dando_opciones==false){
                DisplayThread.playing = false
-               val intent = Intent(this,Ranking::class.java)
+               val intent = Intent(this,MainActivity::class.java)
                this.startActivity(intent)
            }else if( (x > 770f )&& (x< 814f) && (y > 618f) && (y< 662f) && (DisplayThread.dando_opciones==true) && (DisplayThread.fallar==false)){//Opcion 1 opciones maquina
                DisplayThread.dando_opciones=false
@@ -118,7 +118,9 @@ class UnJugador : AppCompatActivity(), View {
                    DisplayThread.activar_efecto=true
 
                }
-           }
+           }//else if( DisplayThread.fallar==true){
+               //DisplayThread.fallar==false
+           //}
         }
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true

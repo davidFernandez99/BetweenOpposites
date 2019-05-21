@@ -73,6 +73,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var maquina:Maquina?=null
     var objetoMaquina:ObjetoActivable?=null
     var opciones:ArrayList<Int> ?= null
+    var multiplicador:Multiplicador?=null
      fun update(fps: Long) {  //Aqui actualizaremos el estado de cada objeto
         if(DisplayThread.activar_efecto==true){
             lobo!!.objetoActivable!!.activarEfecto(lobo!!)
@@ -81,7 +82,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
 
         }
-        
+
          //if (tirmpoVulnerable!!.finish == true) {
          //lobo!!.vulnerable = true
          //tirmpoVulnerable!!.finish = false
@@ -196,6 +197,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         puerta= Puerta(32f, 32f, Posicion(1404f, 500f))
         puerta2= Puerta(32f,32f, Posicion(1700f,860f))
         canvas=Canvas()
+        multiplicador= Multiplicador(1, 16f,16f, Posicion(200f,200f))
         maquina= Maquina(64f,40f,Posicion(1500f,412f))
         bitmapBorde= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde)
         bitmapBordeSuperior= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde_superior)
@@ -446,10 +448,13 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             }
 
         }
-        if(DisplayThread.fallar==true){
-            canvas!!.drawBitmap(bitmapFallarOpcionMaquina!!,700f,300f,paint)
-
+        if(multiplicador!!.es_visible==true){
+            multiplicador!!.draw(canvas!!,bitmapMultiplicador!!)
         }
+        //if(DisplayThread.fallar==true){
+          //  canvas!!.drawBitmap(bitmapFallarOpcionMaquina!!,700f,300f,paint)
+
+        //}
         puerta2!!.draw(canvas!!,bitmapPuerta!!)
         lobo!!.draw(canvas!!, bitmapOrbeRaro!!)
 
@@ -525,7 +530,9 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
                 DisplayThread.comprobar_opcion=false
             }
         }
-
+        if(multiplicador!!.es_visible==true){
+            multiplicador!!.detectarColision(lobo!!)
+        }
 
         if(objetoMaquina!=null){
             objetoMaquina!!.detectarColision(lobo!!)

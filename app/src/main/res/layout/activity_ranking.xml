@@ -6,12 +6,12 @@
         android:layout_height="match_parent"
         tools:context=".View.Ranking"
         android:orientation="vertical"
-        android:background="#2C2929"
+        android:background="@drawable/fondo_ranking"
         android:id="@+id/base_linearLayout_rank" android:padding="20dp">
 
     <TextView android:layout_width="match_parent" android:layout_height="56dp"
               android:gravity="center"
-              android:id="@+id/titleRanking" android:text="@string/txt_titleRanking" android:textAlignment="center"
+              android:id="@+id/titleRanking" android:textAlignment="center"
               android:textSize="25sp" android:fontFamily="sans-serif-condensed"
               android:textAppearance="@style/AppTheme"/>
 
@@ -33,13 +33,16 @@
                            android:layout_margin="10dp" app:srcCompat="@drawable/interrogante"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/nombreJugador_rank_1" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_1"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/txt_palabraPuntos_1" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
 
             </LinearLayout>
 
@@ -53,13 +56,16 @@
                            android:layout_margin="10dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/nombreJugador_rank_2" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_2"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/txt_palabraPuntos_2" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
 
             </LinearLayout>
 
@@ -73,13 +79,16 @@
                            android:layout_margin="10dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/nombreJugador_rank_3" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_3"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/txt_palabraPuntos_3" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
 
             </LinearLayout>
 
@@ -93,13 +102,16 @@
                            android:layout_margin="10dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/nombreJugador_rank_4" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_4"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/txt_palabraPuntos_4" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
 
             </LinearLayout>
 
@@ -113,13 +125,16 @@
                            android:layout_margin="10dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/nombreJugador_rank_5" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_5"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:id="@+id/txt_palabraPuntos_5" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"/>
+                          android:layout_margin="10dp" android:gravity="center"
+                          android:textColor="@android:color/white"/>
 
             </LinearLayout>
 
