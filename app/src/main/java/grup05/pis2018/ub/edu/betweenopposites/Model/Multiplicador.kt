@@ -19,7 +19,7 @@ class Multiplicador(
     var valor: Int = valor1
 
     /**
-     * Notifica al Lobo sobre la colisión pasando el valor del multiplicador
+     * Si detecta una colision con lobo sumará valor al multiplicador de este
      */
     override fun tratarColision(objeto: Objeto) {
 

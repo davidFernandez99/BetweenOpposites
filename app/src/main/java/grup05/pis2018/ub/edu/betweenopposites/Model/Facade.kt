@@ -15,17 +15,13 @@ class Facade : Model {
      * De esta forma podemos tener una única instancia para esta clase.
      */
     companion object {
-        lateinit var uniqueFacade: Facade
-            private set
+        val uniqueFacade: Facade=Facade()
+
     }
 
     /**
      * Crea el objeto único Facade al ser llamado por primera vez y siempre es devuelto el mismo.
      */
-    fun onCreate(): Facade {
-        uniqueFacade = this
-        return uniqueFacade
-    }
 
     /**
      * Funcion que devuelve la instancia única de la Facade

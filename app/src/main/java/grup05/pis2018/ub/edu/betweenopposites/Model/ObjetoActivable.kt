@@ -9,7 +9,7 @@ abstract class ObjetoActivable(
     posicion: Posicion
 ) :
     Objeto(height, width, posicion) {
-
+    var es_visible:Boolean=true
     /**
      * Método abstracto que se encarga de activar el efecto caracteristico de cada objeto.
      * Debe encargarse de hacer los cambios necesarios en el estado del lobo
@@ -17,9 +17,5 @@ abstract class ObjetoActivable(
      */
     abstract fun activarEfecto(lobo: Lobo)
 
-
-    /**
-     * Implementamos el método tratarColision en esta clase ya que en las hijas siempre serà igual
-     */
 
 }
