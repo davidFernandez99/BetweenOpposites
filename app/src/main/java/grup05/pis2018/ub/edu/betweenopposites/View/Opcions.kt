@@ -100,12 +100,13 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
         //Switch per controlar la música
         swtMusica.setOnCheckedChangeListener { SwitchView, isChecked ->
+            if(!MainActivity.player.isPlaying){
+                MainActivity.player.start()
+            }
             if (swtMusica.isChecked) {
                 Toast.makeText(this, "Música ON", Toast.LENGTH_SHORT).show()
                 //Agafem el valor actual del switch
-                if(!MainActivity.player.isPlaying){
-                    MainActivity.player.start()
-                }
+
                 val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
                 editor.putBoolean("swtMusica", true)
                 editor.commit()
@@ -114,7 +115,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 Toast.makeText(this, "Música OFF", Toast.LENGTH_SHORT).show()
                 //Agafem el valor actual del switch
                 if(MainActivity.player.isPlaying){
-                    MainActivity.player.stop()
+                    MainActivity.player.pause()
                 }
                 val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
                 editor.putBoolean("swtMusica", false)
