@@ -33,10 +33,15 @@ class Maquina(
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            var lobo:Lobo=Lobo.instance
+            var lobo: Lobo = objeto as Lobo
             lobo.velocidad=0f
-            lobo.direccion=Actor.Direccion.PARADO
+            lobo.direccionChoque=lobo.direccion
 
+            while(comprobarColision(lobo)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
+                lobo.returnPosicion()
+            }
+            lobo.returnPosicion()
+            lobo.direccion=Actor.Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
         }
     }
     fun darOpciones(lobo: Lobo) :ArrayList<Int> {
@@ -126,6 +131,18 @@ class Maquina(
     }
 
     override fun draw(canvas: Canvas, image: Bitmap){
-        canvas.drawBitmap(image,this.posicion.x-32f,this.posicion.y-32f,paint)
+        canvas.drawBitmap(image,this.posicion.x-40f,this.posicion.y-45f,paint)
+    }
+    fun comprobarColision(objeto:Objeto):Boolean{ //Método para detectar si hay o no colision entre un muro y un actor
+
+        if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
+            && this.posicion.x + this.width > objeto.posicion.x - objeto.width
+            && this.posicion.y - this.height < objeto.posicion.y + objeto.height
+            && this.posicion.y + this.height > objeto.posicion.y - objeto.height
+        ) {
+            return true
+        }
+        //Devuelve si ha colisionado o no con ese objeto
+        return false
     }
 }

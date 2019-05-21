@@ -504,14 +504,14 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     }
 
     fun updateMapa2(fps:Long){
-        lobo!!.mover(fps)
+        if(DisplayThread.dando_opciones!=true){
+            lobo!!.mover(fps)
+        }
         comprobar_colision_maquina=maquina!!.detectarColision(lobo!!)
         if(comprobar_colision_maquina==true){
             //Abrir opciones si no se ha hecho antes
             if(maquina!!.dar_opciones==true){
                 DisplayThread.dando_opciones=true
-                lobo!!.velocidad=0f
-                lobo!!.direccion=Actor.Direccion.PARADO
                 opciones=maquina!!.darOpciones(lobo!!)
 
             }
