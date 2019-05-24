@@ -41,7 +41,7 @@ class Maquina(
                 lobo.returnPosicion()
             }
             lobo.returnPosicion()
-            lobo.direccion=Actor.Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
+            lobo.direccion=Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
         }
     }
     fun darOpciones(lobo: Lobo) :ArrayList<Int> {
