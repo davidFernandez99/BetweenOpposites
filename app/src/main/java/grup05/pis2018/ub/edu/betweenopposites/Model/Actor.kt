@@ -14,15 +14,6 @@ abstract class Actor(
     var velocidad: Float = velocidad;
     var direccion: Direccion = direccion
 
-    enum class Direccion {
-        ARRIBA, ABAJO, DERECHA, IZQUIERDA
-    }
-
-    enum class Bando {
-        Blanco, Negro
-    }
-    //Dirección en la que se mueve
-
 
     /**
      * Funcion abstracta que varia segun la implementación de cada actor

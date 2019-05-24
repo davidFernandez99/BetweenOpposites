@@ -1,10 +1,12 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import java.nio.channels.FileLock
 
-// TODO: DIVIDIR LOS OBJETOS INANIMADOS (NO ACTORES EN OTRA CLASE ABSTRACTA PARA QUE SOLO ESTOS PUEDAN METERSE EN LAS SALAS)
+
 /**
  * Clase madre de todos los objetos creados incluido los Actores
  */
@@ -16,8 +18,7 @@ abstract class Objeto(
     var posicion: Posicion = posicion
     var height: Float = height
     var width: Float = width
-    //TODO: HACER QUE EN VEZ DE ALMAZENAR UN SOLO BITMAN PUEDAS TENER MÁS DE UNA OPCIÓN DE BITMAP.
-    // Hay multiples clases que tienen multiples formas de dibujarse (EJ: Lobo, Corazon, Orbe, Puerta...)
+    var paint:Paint= Paint()
     /**
      * Se encarga de detectar la colision con el lobo.
      * Implementación basica valida para la mayoria de objetos, especialmente aquellos que son fijos
@@ -47,12 +48,29 @@ abstract class Objeto(
     /**
      * Funcion que dibuja al objeto
      */
-    fun draw(canvas: Canvas, image: Bitmap?) {
-        val paint = Paint()
-        canvas.drawBitmap(
-            image, this.posicion.x,
-            this.posicion.y, paint
-        )
+    fun draw(canvas: Canvas, image:Bitmap){
+        canvas.drawBitmap(image,this.posicion.x,this.posicion.y,paint)
+    }
+
+    fun printObjeto() {
+        val tipo : String = when{ this is Trampa -> "Trampa"
+            this is Sumador -> "Sumador"
+            this is Multiplicador -> "Multiplicador"
+            else -> "Impossible"}
+        println("Objeto $tipo POSICION: [${posicion.x_sala},${posicion.y_sala}]")
+    }
+
+    /**
+     * Substituye la posicon del objeto por la posición pasada por parametro.
+     * No es necesario poner todos los parametros.
+     *  Parametros:
+     *      x = "Posicion x en la pantalla" = 0 por defecto
+     *      y = "Poscion y en la pantalla" = 0 por defecto
+     *      x_sala= "Posicion en x dentro de la matriz de la sala" = 0 por defecto
+     *      y_sala= "Posicion en y dentro de la matriz de la sala" = 0 por defecto
+     */
+    fun setPosicion(x: Float =-1f, y: Float=-1f, x_sala: Int=-1,y_sala: Int= -1){
+        this.posicion.setPosicion(x,y,x_sala,y_sala)
     }
 
 }

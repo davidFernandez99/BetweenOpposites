@@ -4,10 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.GestureDetector
 import android.view.MotionEvent
-import grup05.pis2018.ub.edu.betweenopposites.Model.Actor
-import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
-import grup05.pis2018.ub.edu.betweenopposites.Model.Posicion
-import grup05.pis2018.ub.edu.betweenopposites.Model.Vida
+import grup05.pis2018.ub.edu.betweenopposites.Model.*
 import grup05.pis2018.ub.edu.betweenopposites.R
 import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
@@ -39,10 +36,14 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
                 lobo.restarurarVelocidad()
             }
             if (deltaX > 0) {
+                if(lobo.direccionIvalida!= Direccion.IZQUIERDA){
+                    lobo.direccion = Direccion.IZQUIERDA
+                }
 
-                lobo.direccion = Actor.Direccion.IZQUIERDA
             } else {
-                lobo.direccion = Actor.Direccion.DERECHA
+                if(lobo.direccionIvalida!= Direccion.DERECHA){
+                    lobo.direccion = Direccion.DERECHA
+                }
             }
         }
 
@@ -51,9 +52,13 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
                 lobo.restarurarVelocidad()
             }
             if (deltaY > 0) {
-                lobo.direccion = Actor.Direccion.ARRIBA
+                if(lobo.direccionIvalida!= Direccion.ARRIBA){
+                    lobo.direccion = Direccion.ARRIBA
+                }
             } else {
-                lobo.direccion = Actor.Direccion.ABAJO
+                if(lobo.direccionIvalida!= Direccion.ABAJO){
+                    lobo.direccion = Direccion.ABAJO
+                }
             }
         }
 
