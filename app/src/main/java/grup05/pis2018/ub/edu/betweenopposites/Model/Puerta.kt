@@ -44,7 +44,7 @@ class Puerta(
 
     //Una puerta tiene otra de salida, que és el destino, y la que nos devuelve el spawnpoint de esta.
     // Serà null en el caso de que sea la primera o la última puerta del nivel.
-    var puerta_destino: Puerta? = puerta_destino
+    private var puerta_destino: Puerta? = puerta_destino
     // Posicion en la que aparece el Lobo cuando llega a esta puerta
     lateinit var spawn_point: Posicion
 
@@ -72,6 +72,8 @@ class Puerta(
         id_nivel_destino: Int = this.id_nivel_destino
     ) {
         this.puerta_destino = puerta_destino
+        this.id_sala_destino=id_sala_destino
+        this.id_nivel_destino=id_nivel_destino
     }
 
     /**

@@ -15,6 +15,27 @@ class Nivel(listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>? = nu
     //Mantiene las salas de ese nivel
     var arraySalas: ArrayList<Sala> =listaSalas
 
+    // MÉTODOS GETTERS Y SETTERS
+    /**
+     * Devuelve una sala dentro de este nivel
+     */
+    fun getSala(id_sala:Int): Sala{
+
+        try {
+            if(id_sala == -1){
+                return arraySalas.last()
+            }
+            val sala: Sala? = arraySalas.get(id_sala - 1)
+            if (sala != null) {
+                return sala
+            } else {
+                throw Exception("Sala = null")
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
 
     // MÉTODOS PARA TESTING
     /**

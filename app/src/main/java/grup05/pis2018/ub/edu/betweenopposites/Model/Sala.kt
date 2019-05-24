@@ -99,7 +99,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         }else{
             // Asigno como salida de la puerta la puerta pasada por parametro
             val this_puerta = puertas[id_puerta]
-            this_puerta.puerta_destino= puertaDestino
+            this_puerta.setDestino(puertaDestino,id_sala,id_nivel)
             // Pongo el nivel y sala de destino
             this_puerta.id_nivel_destino= id_nivel
             this_puerta.id_sala_destino= id_sala
@@ -112,11 +112,23 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     fun getPuerta(id_puerta: Int): Puerta{
 
         val posicion: Int= id_puerta-1
+        try {
+            if(posicion<0 || posicion>puertas.size-1){
+                throw ArrayIndexOutOfBoundsException("La posición no es correcta")
+            }
 
-        if(posicion<0 || posicion>puertas.size-1){
-            throw ArrayIndexOutOfBoundsException("La posición no es correcta")
-        }else {
-            return puertas[posicion]
+            if(id_puerta == -1){
+                return puertas.last()
+            }
+
+            val puerta: Puerta? = puertas.get(id_puerta - 1)
+            if (puerta != null) {
+                return puerta
+            } else {
+                throw Exception("Puerta = null")
+            }
+        } catch (e: Exception) {
+            throw e
         }
     }
 
@@ -184,6 +196,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         }
 
     }
+
 
     //      AÑADIR ORBES
     /**
