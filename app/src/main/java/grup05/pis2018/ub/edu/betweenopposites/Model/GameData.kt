@@ -63,7 +63,7 @@ class GameData {
      * Al atravesar una puerta se llama a este método, que se encarga
      * de cargar la sala y nivel objetivo.
      */
-    private fun traspasarPuerta(puerta : Puerta){
+    fun traspasarPuerta(puerta : Puerta){
         val id_nivel_destino: Int = puerta.id_nivel_destino
         val id_sala_destino: Int = puerta.id_sala_destino
         val spawnpoint_destino: Posicion = puerta.getPosicionDestino()!!
