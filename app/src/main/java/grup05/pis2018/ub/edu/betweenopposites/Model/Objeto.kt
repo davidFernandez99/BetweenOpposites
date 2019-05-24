@@ -48,7 +48,7 @@ abstract class Objeto(
     /**
      * Funcion que dibuja al objeto
      */
-    fun draw(canvas: Canvas, image:Bitmap){
+    open fun draw(canvas: Canvas, image:Bitmap){
         canvas.drawBitmap(image,this.posicion.x,this.posicion.y,paint)
     }
 

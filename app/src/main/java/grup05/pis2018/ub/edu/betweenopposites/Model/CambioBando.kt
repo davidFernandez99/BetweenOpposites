@@ -24,6 +24,7 @@ class CambioBando(
         if (objeto is Lobo) { //Si colisiona con un objeto lobo añadirá ese objeto a sus objetos activables
             var lobo: Lobo = objeto as Lobo
             lobo.objetoActivable = this
+            es_visible=false
         }
     }
 
@@ -31,12 +32,7 @@ class CambioBando(
      * Se encarga de cambiar al lobo de bando. De forma que
      */
     override fun activarEfecto(lobo: Lobo) {
-        var bando: Bando = lobo.bando //Cogeremos el bando del lobo y le cambiaremos al contrario
-        if (bando == Bando.Blanco) {
-            lobo.bando = Bando.Negro
-        } else {
-            lobo.bando = Bando.Blanco
-        }
+        lobo.cambioBando()
     }
 
 

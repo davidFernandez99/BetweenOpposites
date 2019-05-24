@@ -24,17 +24,16 @@ class Lobo(
     var velocidadCambiada:Float=velocidad
     var puntuacion: Puntuacion = Puntuacion(0)
     var vulnerable: Boolean = true
-    var bando: Bando = bando;
+    var bando: Bando = bando // Bando al que pertenece el Lobo (Blanco, Negro)
     var velocidadInicial: Float = velocidad
     var objetoActivable: ObjetoActivable? = null
-    var multiplicador: Int = 1
-    //Variable que nos dice si es visible
-    var es_visible: Boolean = true
+    var multiplicador: Int = 1 //Multiplicador de la puntuación que obtiene de los orbes
+    var es_visible: Boolean = true //Variable que nos dice si es visible
     //Variable que nos dice si esta vivo
-    var esta_vivo: Boolean = true
-    var final:Boolean=false
-    var direccionChoque:Direccion?=null
-    var direccionIvalida:Direccion?=null
+    var esta_vivo: Boolean = true //Variable para determinar si el Lobo esta vivo
+    var final:Boolean=false //Variable para saber si ha acabado la partida por falta de vida
+    var direccionChoque:Direccion?=null //Variable para guardar la dirección con la que colisiona con un muro
+    var direccionIvalida:Direccion?=null //Variable para guardar la dirección que no podrás moverte ya que acabas de colisionar con un muro yendo a esa dirección
     /**
      * Contiene la única instancia Loco con la cual debemos trabajar.
      * Es lo mismo que crear un campo estatico en Java
@@ -43,7 +42,7 @@ class Lobo(
     companion object {
         var life: Vida = Vida()
         var bando: Bando = Bando.Negro
-        val instance = Lobo(life, bando, 32f, 32f, 60f, Direccion.DERECHA, Posicion(100f, 860f))
+        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.DERECHA, Posicion(100f, 860f))
 
     }
 
@@ -51,12 +50,9 @@ class Lobo(
      * Funcion que devuelve la instancia única de la Facade
      */
 
-    // Bando al que pertenece el Lobo (Blanco, Negro)
-
 
     /**
-     * TODO: ¿Lo que hace esta clase es devolver la siguiente posición del lobo donde debe ser dibujado
-     *  TODO: en función de velocidad, dirección y conociendo los fps... o es mejor que de eso se encarge el gameEngine?
+     * Función que mueve al lobo según su dirección, velocidad y FPS
      */
     override fun mover(fps: Long) {
 
@@ -94,8 +90,6 @@ class Lobo(
     }
 
     /**
-     * TODO: Método en principio no utilizado por Lobo
-     * QUIZÀ PARA LOS MUROS
      * EL lobo no deberia ser notificado nunca para detectar una colision, si fuese así seria diferente al resto de
      * objetos.
      */
@@ -107,17 +101,21 @@ class Lobo(
 
     /**
      * Suma cierta puntuación teniendo en cuenta el multiplicador acumulado
-     * TODO: DECIDIR DONDE SE ENCUANTRA LA PUNTUACION DEL JUEGO GUARDADA Y COMO PODEMOS MODIFICARLA
      */
     fun sumarPuntuacion(valorSumadpr: Int) {
-        this.puntuacion.puntuacion += valorSumadpr
+        this.puntuacion.puntuacion += valorSumadpr * this.multiplicador
     }
 
+    /**
+     * Resta cierta puntuación teniendo en cuenta el multiplicador acumulado TODO(al restar no se si se tiene en cuenta multiplicador supongo que si)
+     */
+
     fun quitarPuntuacion(valorSumador: Int) {
-        if (this.puntuacion.puntuacion < valorSumador) {
-            this.puntuacion.puntuacion = 0
+        if (this.puntuacion.puntuacion < valorSumador*this.multiplicador) {
+            this.puntuacion.puntuacion = valorSumador*this.multiplicador-this.puntuacion.puntuacion
+            this.cambioBando()
         } else {
-            this.puntuacion.puntuacion -= valorSumador
+            this.puntuacion.puntuacion -= valorSumador*this.multiplicador
         }
     }
 
@@ -130,7 +128,6 @@ class Lobo(
 
     /**
      * Quita una vida al Lobo. En el momento que se pierden todas las vidas el valor esta_vivo=false.
-     * TODO: EXTRAS En este metodo podriamos hacer cosas extras en el caso de que se la quiten, realentizar, o hacer inmortal por un tiempo corto
      */
     fun quitarVida() {
         // Si solo le queda una vida se quedarà con zero
@@ -142,13 +139,17 @@ class Lobo(
             vida.quitarVida()
         }
     }
-
+    //Método para restaurar la velocidad a la del comienzo para el aumento de velocidad y para restablecer la velocidad al chocar con un muro y volver a moverse
     fun restarurarVelocidad() {
         this.velocidad = velocidadInicial
     }
+
+    //Función que devuleve si la partida ha terminado o no
     fun endgame():Boolean{
         return final
     }
+
+    //Método para retroceder de posición cuando colisiona con un muro hasta llegar a dejar de colisionar con este para volver a poder moverse
     fun returnPosicion(){
         if(this.direccionChoque==Direccion.ARRIBA){
             direccionIvalida=Direccion.ARRIBA
@@ -165,6 +166,22 @@ class Lobo(
         if(this.direccionChoque==Direccion.IZQUIERDA){
             direccionIvalida=Direccion.IZQUIERDA
             this.posicion.x+=1f
+        }
+    }
+    fun setVulnerabilidad(trampa:Trampa){
+        if(this.vulnerable==false){
+            if(trampa.comprobarColision(this)==false){
+                vulnerable=true
+            }
+        }
+    }
+
+    fun cambioBando(){
+        if(this.bando==Bando.Blanco){
+            this.bando=Bando.Negro
+        }
+        else{
+            this.bando=Bando.Blanco
         }
     }
 

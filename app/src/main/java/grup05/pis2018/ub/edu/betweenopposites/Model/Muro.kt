@@ -14,7 +14,7 @@ class Muro(
 
 
     /**
-     * Un Actor puede colisionar con un muro. CUando lo haga depende de el objeto harà un cambio u otro.
+     * Un Actor puede colisionar con un muro. Cuando lo haga depende de el objeto harà un cambio u otro.
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
@@ -23,25 +23,24 @@ class Muro(
             lobo.velocidad=0f
             lobo.direccionChoque=lobo.direccion
 
-            while(comprobarColision(lobo)==true){
+            while(comprobarColision(lobo)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
                 lobo.returnPosicion()
             }
             lobo.returnPosicion()
-            lobo.direccion=Direccion.PARADO
+            lobo.direccion=Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
         }
         if(objeto is Orbe){
             var orbe: Orbe = objeto as Orbe
-            orbe.velocidad=0f
             orbe.direccionChoque=orbe.direccion
 
-            while(comprobarColision(orbe)==true){
+            while(comprobarColision(orbe)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
                 orbe.returnPosicion()
             }
-            orbe.restaurarVelocidad()
-            orbe.canviarDireccion()
+            orbe.canviarDireccion() //Cambia la dirección de este orbe para que deje de colisionar y no este parado
+
         }
     }
-    fun comprobarColision(objeto:Objeto):Boolean{
+    fun comprobarColision(objeto:Objeto):Boolean{ //Método para detectar si hay o no colision entre un muro y un actor
 
         if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
             && this.posicion.x + this.width > objeto.posicion.x - objeto.width

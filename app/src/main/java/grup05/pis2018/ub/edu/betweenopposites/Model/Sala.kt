@@ -1,6 +1,11 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
+import grup05.pis2018.ub.edu.betweenopposites.R
 
 abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
@@ -276,6 +281,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         // La elimino de la matriz, la substituyo por un muro
         matrixSala[puerta.posicion.x_sala][puerta.posicion.y_sala] =
             Muro(Dimension.muro.height, Dimension.muro.width, puerta.posicion)
+
     }
 
     // MÉTODOS PARA TRATAR CON LA MATRIZ AVALIBLE
@@ -333,18 +339,19 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun draw(canvas: Canvas) {
         // Dibujamos suelos muros y puertas
-        for (j in 0..matrixSala.size) {
-            for (i in 0..matrixSala[j].size) {
-                //getObjetofromSala(i, j).draw(canvas)
+        for (j in 0..matrixSala.size-1) {
+            for (i in 0..matrixSala[j].size-1) {
+                var objeto:Objeto=getObjetofromSala(i,j)
+                //objeto.draw(canvas,GameView.obtenerBitmap(objeto))
             }
         }
         // Dibujamos objetos en la sala
         for (objeto: Objeto in this.objetos) {
-            //objeto.draw(canvas)
+           // objeto.draw(canvas,GameView.obtenerBitmap(objeto))
         }
         // Dibujamos los orbes
         for (orbe: Orbe in this.orbes) {
-            //orbe.draw(canvas)
+            //orbe.draw(canvas,GameView.obtenerBitmap(orbe))
         }
     }
 
@@ -391,4 +398,40 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
         return arrayStrings
     }
+
+    fun obtenerBitmap(objeto: Objeto,contexto: Context): Bitmap {
+
+        if (objeto is Lobo) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_raro)
+        } else if (objeto is Orbe) {
+            var orbe: Orbe = objeto as Orbe
+            if (orbe.bando == Actor.Bando.Negro) {
+                return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_negro)
+            } else {
+                return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbes)
+            }
+        } else if (objeto is Muro) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.muro)
+        } else if (objeto is Suelo) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.suelo)
+        } else if (objeto is Sumador) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.sumador)
+        } else if (objeto is Multiplicador) {
+            BitmapFactory.decodeResource(contexto.resources, R.drawable.multiplicador)
+        } else if (objeto is Maquina) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.maquina)
+        } else if (objeto is Invisibilidad) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_invisibilidad)
+        } else if (objeto is AumentarVelocidad) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_velocidad)
+        } else if (objeto is CambioBando) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_cambiobando)
+        } else if (objeto is Puerta) {
+            return BitmapFactory.decodeResource(contexto.resources, R.drawable.puerta)
+        }
+        return BitmapFactory.decodeResource(contexto.resources, R.drawable.trampa)
+
+
+    }
+
 }

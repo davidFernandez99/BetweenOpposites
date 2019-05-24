@@ -20,11 +20,10 @@ class Orbe(
 
     var darPuntuacion: Int = 10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
-    var es_visible=true
-    var direccionChoque:Direccion?=null
-    var velocidadInicial:Float=this.velocidad
+    var es_visible=true //Variable para determinar si el orbe es visible
+    var direccionChoque:Direccion?=null //Variable para almacenar la dirección con la que colisiona con el muro
 
-    override fun mover(fps: Long) {
+    override fun mover(fps: Long) { //Método para el movimiento del orbe según su dirección, y fps
         if (this.direccion == Direccion.ABAJO) {
             if (this.posicion.y + this.height >= 1080f) {
                 canviarDireccion()
@@ -66,10 +65,10 @@ class Orbe(
     /**
      *
      * Método con tal de detectar si el orbe está en colision conun objeto tanto si colisiona con un muro como si colisiona con un objeto Lobo
-     * Si el orbe es edel mismo lado del  lobo seguirá un patrón de movimiento de: DiagonaArribalIzquierda, DiagonalAbajoIzquierda,DigonalAbajoDerecha y DiagonalArribaDerecha
+     * Si el orbe es del mismo lado del  lobo seguirá un patrón de movimiento de: DiagonaArribalIzquierda, DiagonalAbajoIzquierda,DigonalAbajoDerecha y DiagonalArribaDerecha
      * Esos cuatro movimiento del orbe irán cambiando cuando colisione con alún objeto muro
      *
-     * Si el orbe colisiona con un objeto Lobo ,si es del bando contrario a éste le quitara una vida a éste y desaparecerá este orbe
+     * Si el orbe colisiona con un objeto Lobo ,si es del bando contrario a éste le quitara puntuación a éste y desaparecerá este orbe
      * Si el orbe es del mismo bando del lobo le augmentará puntos según el multiplicador que lleve en ese momento
      */
     override fun tratarColision(objeto: Objeto) {
@@ -88,7 +87,7 @@ class Orbe(
 
     }
 
-    fun canviarDireccion() {
+    fun canviarDireccion() { //Método para canviar la dirección del orbe cuando colisiona con un muro para que no siempre se mueva de forma lineal
         var direccionNueva: Int = 0
         if (this.direccion == Direccion.DERECHA) {
             direccionNueva = (0..2).random()
@@ -100,7 +99,7 @@ class Orbe(
 
         }
         if (direccion == Direccion.IZQUIERDA) {
-            this.direccion=Direccion.ABAJO
+            this.direccion=Direccion.DERECHA
         }
         if (direccion == Direccion.ARRIBA) {
             direccionNueva = (0..2).random()
@@ -120,7 +119,7 @@ class Orbe(
         }
     }
 
-    fun returnPosicion(){
+    fun returnPosicion(){ //Método usado como auxiliar para retornar a posiciones anteriores a la colision de un muro
         if(this.direccionChoque==Direccion.ARRIBA){
             this.posicion.y +=1f
         }
@@ -134,6 +133,7 @@ class Orbe(
             this.posicion.x+=1f
         }
     }
+
     fun restaurarVelocidad(){
         this.velocidad=this.velocidadInicial
     }
