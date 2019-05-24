@@ -60,7 +60,6 @@ abstract class Objeto(
         println("Objeto $tipo POSICION: [${posicion.x_sala},${posicion.y_sala}]")
     }
 
-
     /**
      * Substituye la posicon del objeto por la posición pasada por parametro.
      * No es necesario poner todos los parametros.
@@ -70,7 +69,7 @@ abstract class Objeto(
      *      x_sala= "Posicion en x dentro de la matriz de la sala" = 0 por defecto
      *      y_sala= "Posicion en y dentro de la matriz de la sala" = 0 por defecto
      */
-    fun setPosicion(x: Float?=null, y: Float?=null, x_sala: Int?=null,y_sala: Int?= null){
+    fun setPosicion(x: Float =-1f, y: Float=-1f, x_sala: Int=-1,y_sala: Int= -1){
         this.posicion.setPosicion(x,y,x_sala,y_sala)
     }
 

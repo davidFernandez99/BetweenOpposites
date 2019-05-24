@@ -18,7 +18,7 @@ class TestingNivelGenerator {
     @Test
     fun testingCreacionDeNiveles(){
         // Creo un nivel
-        var nivel: Nivel = FactoryNiveles.crearNivelfromTXT(1,5,2, Plantilla.salaBasica.listaPlantillas,Plantilla.salaEspecial.listaPlantillas,Plantilla.salaFinal.listaPlantillas)
+        var nivel: Nivel = FactoryNiveles.crearNivelfromTXT(1,12,2, Plantilla.salaBasica.listaPlantillas,Plantilla.salaEspecial.listaPlantillas,Plantilla.salaFinal.listaPlantillas)
         println(nivel.printNivel())
     }
 

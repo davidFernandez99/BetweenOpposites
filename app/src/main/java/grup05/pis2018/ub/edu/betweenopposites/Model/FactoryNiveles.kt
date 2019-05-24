@@ -61,6 +61,10 @@ object FactoryNiveles {
      *  plantillasSalasBasicas => Lista de nombres de los archivos txt donde estan definidas plantillas de salas basicas
      *  plantillasSalaEspecial => Lista de nombres de los archivos txt donde estan definidas plantillas de salas especiales
      *  plantillasSalaFinal => Lista de nombres de los archivos txt donde estan definidas plantillas de salas finales
+     *
+     *  Ten en cuanta que el numero de salas especiales debe ser menor o igual al de salasBasicas, en el caso dee que
+     *  sea mayor, solo se generara el mismo numero que salasBasicas, ya que no queremos a salasEspeciales juntas.
+     *
      */
     fun crearNivelfromTXT(
         num_nivel: Int,
@@ -89,8 +93,7 @@ object FactoryNiveles {
         var queueEspeciales: ArrayList<Int> = ArrayList()
         // Genero los numeros random donde deben quedar las salas especiales
         for (i in 1..num_salas_especiales) {
-            val total_salas = num_salas_basicas + num_salas_especiales
-            queueEspeciales.add((1..total_salas-1).random())
+            queueEspeciales.add((1..num_salas_basicas).random())
         }
 
 
@@ -112,7 +115,7 @@ object FactoryNiveles {
 
         //Generamos las salas hasta que tengamos el numero necesario
 
-        while (plantillas_basicas_restantes != 0 && salas_basicas_generadas <= num_salas_basicas) {
+        while (plantillas_basicas_restantes != 0 && salas_basicas_generadas < num_salas_basicas) {
             //Generamos salas con las diferentes plantillas y las vamos guardadando en la lista
             listaSalas.add(
                 FactorySala.crearSalaBasicadesdeTXT(
@@ -125,8 +128,7 @@ object FactoryNiveles {
 
 
             //Ahora ya puedo generar una salaEspecial, cogiendo una plantilla random.
-            val siguiente_sala_a_generar = salas_basicas_generadas + salas_especiales_generadas + 1
-            if (siguiente_sala_a_generar in queueEspeciales) {
+            if (salas_basicas_generadas in queueEspeciales) {
                 //Añado una sala especial
                 listaSalas.add(
                     FactorySala.crearSalaEspecial(
@@ -162,8 +164,7 @@ object FactoryNiveles {
 
                 //Si ya hemos generado almenos una sala podemos generar especiales
                 //Ahora ya puedo generar una salaEspecial, cogiendo una plantilla random.
-                val siguiente_sala_a_generar = salas_basicas_generadas + salas_especiales_generadas + 1
-                if (siguiente_sala_a_generar in queueEspeciales) {
+                if (salas_basicas_generadas in queueEspeciales) {
                     //Añado una sala especial
                     listaSalas.add(
                         FactorySala.crearSalaEspecial(
@@ -178,7 +179,7 @@ object FactoryNiveles {
 
         // Creamos la sala final a través de
         listaSalas.add(
-            FactorySala.crearSalaFinal(
+            FactorySala.crearSalaFinal(num_nivel,
                 salas_basicas_generadas + salas_especiales_generadas + 1,
                 plantillasSalaFinal[(0..plantillasSalaFinal.size - 1).random()]
             )

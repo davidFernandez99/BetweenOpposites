@@ -188,7 +188,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             } catch (e: Exception) {
             }
 
-            // Escojo una posición random para el spawn // TODO SERIA MEJOR ESCOGER AQUELLA QUE SE ENCUENTRE MAS AL CENTRO DE LA SALA
+            // Escojo una posición random para el spawn
             val opcion: List<Int> = spawnsPosibles.random()
             // Creo la posición y la pongo como spawnpoint, y bloqueo esta posición en la sala
             puerta.spawn_point= Posicion(x_sala=opcion[1],y_sala=opcion[0])

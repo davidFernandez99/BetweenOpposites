@@ -112,6 +112,7 @@ object FactorySala {
 
         // TODO Colocamos la maquina en el centro de la sala
 
+
         //Devolvemos la sala
         return SalaEspecial(id_sala, matrix)
     }
@@ -119,11 +120,7 @@ object FactorySala {
     /**
      * Crea una SalaFinal a partir de una matriz definida en un archivo .TXT
      */
-    fun crearSalaFinal(id_sala: Int, filename: String): SalaFinal {
-        // TODO: CREAR SALA FINAL
-
-        // Definimos la salaBasica para poder crearla al final de este método.
-        val salaFinal: SalaFinal
+    fun crearSalaFinal(dificultad:Int,id_sala: Int, filename: String): SalaFinal {
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
@@ -156,7 +153,20 @@ object FactorySala {
         }
 
         // Devolvemos la sala
-        return SalaFinal(id_sala, matrix)
+        val salaFinal: SalaFinal= SalaFinal(id_sala, matrix)
+
+        // Consigo una lista de posiciones donde es posible colocar objetos u orbes
+        var avaliblePositions: ArrayList<List<Int>> = salaFinal.getPosicionesLibres()
+
+        //Creo las listas de orbes y objetos y posteriormente los añado a la sala
+        var orbes:ArrayList<Orbe> = FactoryObjetos.generarOrbes(dificultad,avaliblePositions)
+        var objetos: ArrayList<Objeto> = FactoryObjetos.generarObjetos(dificultad,avaliblePositions)
+
+        //Lo añado a la sala
+        salaFinal.anadirOrbes(orbes)
+        salaFinal.anadirObjetos(objetos)
+
+        return salaFinal
     }
 
 
