@@ -193,10 +193,10 @@ object FactoryObjetos {
      *      7-8 -> Dificultad alta
      */
     private fun getDificultad(dificultad: Int): Dificultad {
-        when (dificultad) {
-            1, 2, 3 -> return Dificultad.baja
-            4, 5, 6 -> return Dificultad.media
-            7, 8 -> return Dificultad.alta
+        when  {
+            dificultad in (1..3)-> return Dificultad.baja
+            dificultad in (4..6) -> return Dificultad.media
+            dificultad in (7..Float.POSITIVE_INFINITY.toInt())-> return Dificultad.alta
             else -> throw Exception("EL valor entrado como dificultad no es posible")
         }
     }
