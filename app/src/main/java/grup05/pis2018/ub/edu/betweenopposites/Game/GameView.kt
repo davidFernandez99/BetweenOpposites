@@ -5,7 +5,7 @@ import android.graphics.*
 import android.view.SurfaceView
 import grup05.pis2018.ub.edu.betweenopposites.Model.*
 import grup05.pis2018.ub.edu.betweenopposites.R
-
+import grup05.pis2018.ub.edu.betweenopposites.View.MainActivity
 
 
 open class GameView (context: Context, private val size: Point) : SurfaceView(context), Runnable {
@@ -25,8 +25,15 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
     }
     fun onResume(){
         gameThread.start()
+        if(!MainActivity.player.isPlaying){
+            MainActivity.player.start()
+        }
     }
-
-
+    fun onPause(){
+        MainActivity.player.pause()
+    }
+    fun onStop(){
+        MainActivity.player.stop()
+    }
 
 }

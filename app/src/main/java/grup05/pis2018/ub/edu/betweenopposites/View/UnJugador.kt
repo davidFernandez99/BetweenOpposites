@@ -57,12 +57,12 @@ class UnJugador : AppCompatActivity(), View {
 
     override fun onPause() {
         super.onPause()
-        //gameView?.onPause()
+        gameView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        //gameView?.onStop()
+        gameView!!.onStop()
     }
 
     override fun onDestroy() {

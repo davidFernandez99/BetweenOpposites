@@ -27,10 +27,9 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         var fallar=false
         var mostrar_Pause=false
         var activar_efecto=false
-        var tiempo: Tiempo = Tiempo(10000, conv)
-        var tirmpoVulnerable:Tiempo= Tiempo(MAX_TIEMPO_VULNERABLE, 1000)
-        var tiempoVelocidad:Tiempo= Tiempo(MAX_TIEMPO_VELOCIDAD, 1000)
-        var tiempoInvisibilidad:Tiempo = Tiempo(MAX_TIEMPO_INVISIBLE, 1000)
+        var tiempoVelocidad:Boolean= false
+        var tiempoInvisibilidad:Boolean=false
+        var tiempoInicial:Long=0
     }
 
 
@@ -44,6 +43,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
 
             // Capture the current time
             val startFrameTime = System.currentTimeMillis()
+            tiempoInicial=System.currentTimeMillis()
 
             // Update the frame
             if (!paused) {

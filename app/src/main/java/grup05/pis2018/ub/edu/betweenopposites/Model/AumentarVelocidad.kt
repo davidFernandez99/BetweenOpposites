@@ -12,7 +12,7 @@ class AumentarVelocidad(
 ) :
     ObjetoActivable(height, width, posicion) {
     // Maximo tiempo en segundos de objeto activo
-    val AUMENTO_DE_VELOCIDAD: Float = 30f //Constante para determinar cuanto aumenta la velocidad cuando colisiona el Lobo con este objeto
+    val AUMENTO_DE_VELOCIDAD: Float = 2f //Constante para determinar cuanto aumenta la velocidad cuando colisiona el Lobo con este objeto
 
     override fun tratarColision(objeto: Objeto) { //Método para aumentar la Velocidad del lobo cuando colisiona con este y que no sea visible este
         if (objeto is Lobo) { //Si colisiona con un objeto lobo añadirá ese objeto a sus objetos activables
@@ -28,8 +28,8 @@ class AumentarVelocidad(
      */
 
     override fun activarEfecto(lobo: Lobo) { //Aumenta la velocidad del lobo durante un tiempo
-        lobo.velocidad += AUMENTO_DE_VELOCIDAD
-        lobo.velocidadCambiada += AUMENTO_DE_VELOCIDAD
+        lobo.velocidad *= AUMENTO_DE_VELOCIDAD
+        lobo.velocidadCambiada *= AUMENTO_DE_VELOCIDAD
 
     }
 

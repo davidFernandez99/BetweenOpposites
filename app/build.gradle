@@ -6,6 +6,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file(kotlin_version)
+            keyAlias = '085023477861-oftjgf4kf3p7foj86th9k45unmad23ib.apps.googleusercontent.com'
+            keyPassword 'AIzaSyAGgTvA02ZPUdwuhodNnO6a6n0lYLRLa_0'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "grup05.pis2018.ub.edu.betweenopposites"
@@ -14,6 +21,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -34,6 +42,7 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.google.firebase:firebase-database:17.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     testImplementation 'junit:junit:4.12'

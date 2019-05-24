@@ -51,8 +51,6 @@ class Lobo(
      */
 
 
-
-
     /**
      * Función que mueve al lobo según su dirección, velocidad y FPS
      */
@@ -114,7 +112,8 @@ class Lobo(
 
     fun quitarPuntuacion(valorSumador: Int) {
         if (this.puntuacion.puntuacion < valorSumador*this.multiplicador) {
-            this.puntuacion.puntuacion = 0
+            this.puntuacion.puntuacion = valorSumador*this.multiplicador-this.puntuacion.puntuacion
+            this.cambioBando()
         } else {
             this.puntuacion.puntuacion -= valorSumador*this.multiplicador
         }
@@ -174,6 +173,15 @@ class Lobo(
             if(trampa.comprobarColision(this)==false){
                 vulnerable=true
             }
+        }
+    }
+
+    fun cambioBando(){
+        if(this.bando==Bando.Blanco){
+            this.bando=Bando.Negro
+        }
+        else{
+            this.bando=Bando.Blanco
         }
     }
 

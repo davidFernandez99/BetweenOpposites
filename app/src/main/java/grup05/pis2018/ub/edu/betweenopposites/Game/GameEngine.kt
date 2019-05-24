@@ -74,31 +74,48 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var objetoMaquina:ObjetoActivable?=null
     var opciones:ArrayList<Int> ?= null
     var multiplicador:Multiplicador?=null
+    var tiempoFinal:Long=0
+    var tiempoIncialVelocidad:Long=0
+    var tiempoInicialInvisibilidad:Long=0
+
      fun update(fps: Long) {  //Aqui actualizaremos el estado de cada objeto
         if(DisplayThread.activar_efecto==true){
+
             lobo!!.objetoActivable!!.activarEfecto(lobo!!)
             lobo!!.objetoActivable=null
             DisplayThread.activar_efecto=false
-
+            if(lobo!!.objetoActivable is AumentarVelocidad){
+                DisplayThread.tiempoVelocidad=true
+                tiempoIncialVelocidad=System.currentTimeMillis()
+            }
+            if(lobo!!.objetoActivable is Invisibilidad){
+                DisplayThread.tiempoInvisibilidad=true
+                lobo!!.es_visible=false
+                tiempoInicialInvisibilidad=System.currentTimeMillis()
+            }
 
         }
 
          //if (tirmpoVulnerable!!.finish == true) {
          //lobo!!.vulnerable = true
          //tirmpoVulnerable!!.finish = false
-         //}
-         //if (tiempo!!.finish == true) {
-         //  segundos++
-         //}
 
+         if(DisplayThread.tiempoVelocidad==true){
+             if (System.currentTimeMillis() - tiempoIncialVelocidad >= DisplayThread.MAX_TIEMPO_VELOCIDAD) {
+                 lobo!!.restarurarVelocidad()
+                 DisplayThread.tiempoVelocidad = false
+             }
+             if (lobo!!.velocidad == 0f ) {
+                 lobo!!.velocidad = lobo!!.velocidadCambiada
+             }
+         }
 
-         //if (tiempoVelocidad!!.finish == true) {
-         //  lobo!!.restarurarVelocidad()
-         //tirmpoVulnerable!!.finish = false
-         //}
-         //if (lobo!!.velocidad == 0f && tiempoVelocidad!!.finish == false) {
-         //  lobo!!.velocidad = lobo!!.velocidadCambiada
-         //}
+         if(DisplayThread.tiempoInvisibilidad==true){
+             if(System.currentTimeMillis() - tiempoInicialInvisibilidad >= DisplayThread.MAX_TIEMPO_INVISIBLE) {
+                 lobo!!.es_visible = true
+                 DisplayThread.tiempoInvisibilidad = false
+             }
+         }
          if(mapa==1){
             updateMapa1(fps)
         }
@@ -236,6 +253,8 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         bitmapHome=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
         bitmapfinjuego=BitmapFactory.decodeResource(contexto.resources, R.drawable.game_over)
         bitmapRestart=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_retry)
+        tiempoFinal=System.currentTimeMillis()
+        segundos=(tiempoFinal-DisplayThread.tiempoInicial)
         canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
         canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
         canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
@@ -535,7 +554,10 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         }
 
         if(objetoMaquina!=null){
-            objetoMaquina!!.detectarColision(lobo!!)
+            if(objetoMaquina!!.es_visible==true){
+                objetoMaquina!!.detectarColision(lobo!!)
+            }
+
         }
         comprobar_colision_puerta=puerta2!!.comprobarColision(lobo!!)
         if(comprobar_colision_puerta==true){

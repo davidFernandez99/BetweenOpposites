@@ -32,12 +32,7 @@ class CambioBando(
      * Se encarga de cambiar al lobo de bando. De forma que
      */
     override fun activarEfecto(lobo: Lobo) {
-        var bando: Actor.Bando = lobo.bando //Cogeremos el bando del lobo y le cambiaremos al contrario
-        if (bando == Actor.Bando.Blanco) {
-            lobo.bando = Actor.Bando.Negro
-        } else {
-            lobo.bando = Actor.Bando.Blanco
-        }
+        lobo.cambioBando()
     }
 
 
