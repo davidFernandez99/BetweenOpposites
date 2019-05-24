@@ -405,7 +405,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_raro)
         } else if (objeto is Orbe) {
             var orbe: Orbe = objeto as Orbe
-            if (orbe.bando == Actor.Bando.Negro) {
+            if (orbe.bando == Bando.Negro) {
                 return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_negro)
             } else {
                 return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbes)

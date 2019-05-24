@@ -134,9 +134,6 @@ class Orbe(
         }
     }
 
-    fun restaurarVelocidad(){
-        this.velocidad=this.velocidadInicial
-    }
 
     fun printOrbe() {
         println("Orbe ${bando.name} POSICION: [${posicion.x_sala},${posicion.y_sala}]")
