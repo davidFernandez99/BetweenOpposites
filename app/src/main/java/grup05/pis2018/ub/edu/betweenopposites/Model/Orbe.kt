@@ -23,7 +23,7 @@ class Orbe(
     var es_visible=true //Variable para determinar si el orbe es visible
     var direccionChoque:Direccion?=null //Variable para almacenar la dirección con la que colisiona con el muro
 
-    override fun mover(fps: Long) { //Método para el movimiento del orbe según su dirección, velocidad y fps
+    override fun mover(fps: Long) { //Método para el movimiento del orbe según su dirección, y fps
         if (this.direccion == Direccion.ABAJO) {
             if (this.posicion.y + this.height >= 1080f) {
                 canviarDireccion()
@@ -134,4 +134,11 @@ class Orbe(
         }
     }
 
+    fun restaurarVelocidad(){
+        this.velocidad=this.velocidadInicial
+    }
+
+    fun printOrbe() {
+        println("Orbe ${bando.name} POSICION: [${posicion.x_sala},${posicion.y_sala}]")
+    }
 }

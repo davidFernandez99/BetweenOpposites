@@ -8,8 +8,8 @@ import grup05.pis2018.ub.edu.betweenopposites.R
 import grup05.pis2018.ub.edu.betweenopposites.View.MainActivity
 
 
-open class GameView (context: Context, private val size: Point) : SurfaceView(context), Runnable {
 
+open class GameView (context: Context, private val size: Point) : SurfaceView(context), Runnable {
 
     val gameThread = Thread(this)
     val contexto:Context=context
@@ -32,6 +32,7 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
     fun onPause(){
         MainActivity.player.pause()
     }
+
     fun onStop(){
         MainActivity.player.stop()
     }
