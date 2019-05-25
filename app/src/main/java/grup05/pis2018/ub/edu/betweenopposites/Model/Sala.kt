@@ -22,6 +22,9 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     // Tiene un array de puertas para acceder mas facilmente a estas
     private var puertas: ArrayList<Puerta> = ArrayList<Puerta>()
 
+    // Tiene un array de muros para acceder facilmente a estos
+    private var muros: ArrayList<Muro> = ArrayList<Muro>()
+
     // Tiene un array de objetos para acceder a estos
     private var objetos: ArrayList<Objeto> = ArrayList<Objeto>()
 
@@ -32,9 +35,9 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
         // Al crear la sala se crea la matriz de lugares desocupados
         createAvalibleMatrix()
-        // Al crear la sala tenemos que meter las puertas de la matriz en la lista
+        // Al crear la sala tenemos que meter las puertas de la matriz en la lista y los muros en otra
         // También hay que crear el spawnpoint de las puertas
-        syncPuertas()
+        syncPuertasyMuros()
     }
 
     // MÉTODOS PPARA COGER Y MODIFICAR POSICIONES EN LA MATRIZ
@@ -141,22 +144,27 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Se encarga de sincronizar las puertas que hay en matriz con las que hay en la lista
      */
-    private fun syncPuertas(){
+    private fun syncPuertasyMuros(){
         // Recogemos las puertas que hay en la matriz
 
         var puertasRecogidas: ArrayList<Puerta> = ArrayList()
+        var murosRecogidos: ArrayList<Muro> = ArrayList()
 
         for (j in 0..matrixSala.size-1) {
             for (i in 0..matrixSala[j].size-1) {
                 var objetoRecogido : Objeto= matrixSala[j][i]!!
                 if (objetoRecogido is Puerta) {
                     puertasRecogidas.add(objetoRecogido)
+                }else if(objetoRecogido is Muro){
+                    murosRecogidos.add(objetoRecogido)
                 }
             }
         }
 
         // PASAMOS LA LISTA DE PUERTAS RECOGIDAS A LA LISTA
         this.puertas= puertasRecogidas
+        // PASAMOS LA LISTA DE MUROS RECOGIDOS A LA LISTA
+        this.muros= murosRecogidos
 
         // CREO LOS SPAWNPOINT DE LAS PUERTAS
         for(puerta: Puerta in puertas){
@@ -393,7 +401,6 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             puerta.printPuerta()
         }
 
-
         return arrayStrings
     }
 
@@ -428,7 +435,6 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             return BitmapFactory.decodeResource(contexto.resources, R.drawable.puerta)
         }
         return BitmapFactory.decodeResource(contexto.resources, R.drawable.trampa)
-
 
     }
     fun update(fps:Long){
