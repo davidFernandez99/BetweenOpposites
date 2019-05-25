@@ -337,24 +337,22 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Método para dibujar todos los objetos contenidos en la sala
      */
-    fun draw(canvas: Canvas) {
-        // Dibujamos suelos muros y puertas
+    fun draw(canvas:Canvas,contexto: Context){
         for (j in 0..matrixSala.size-1) {
             for (i in 0..matrixSala[j].size-1) {
                 var objeto:Objeto=getObjetofromSala(i,j)
-                //objeto.draw(canvas,GameView.obtenerBitmap(objeto))
+                objeto.draw(canvas,obtenerBitmap(objeto,contexto))
             }
         }
         // Dibujamos objetos en la sala
         for (objeto: Objeto in this.objetos) {
-           // objeto.draw(canvas,GameView.obtenerBitmap(objeto))
+            objeto.draw(canvas,obtenerBitmap(objeto,contexto))
         }
         // Dibujamos los orbes
         for (orbe: Orbe in this.orbes) {
-            //orbe.draw(canvas,GameView.obtenerBitmap(orbe))
+            orbe.draw(canvas,obtenerBitmap(orbe,contexto))
         }
     }
-
     // MÉTODOS PARA TESTING
     /**
      * Hace un print de la matriz
@@ -433,5 +431,20 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
 
     }
+    fun update(fps:Long){
+        // Dibujamos objetos en la sala
+        Lobo.instance!!.mover(fps)
+        // Dibujamos los orbes
+        for (orbe: Orbe in this.orbes) {
+            orbe.mover(fps)
+            if(orbe.es_visible==true){
+                orbe.detectarColision(Lobo.instance)
+            }
+        }
 
+        for (objeto: Objeto in this.objetos) {
+
+        }
+
+    }
 }

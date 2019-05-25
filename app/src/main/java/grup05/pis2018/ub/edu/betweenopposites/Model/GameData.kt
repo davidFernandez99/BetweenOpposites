@@ -1,5 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.Canvas
+
 /**
  * Contiene la información que se maneja durante una partida, todos los datos necesarios para
  * hacer funcionar el Juego.
@@ -75,11 +78,11 @@ class GameData {
 
     }
 
-    fun update(){
-        //salaActiva.update()
+    fun update(fps:Long){
+        salaActiva.update(fps)
     }
 
-    fun draw(){
-
+    fun draw(canvas: Canvas, contexto: Context){
+        salaActiva.draw(canvas,contexto)
     }
 }

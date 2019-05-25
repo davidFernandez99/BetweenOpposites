@@ -119,7 +119,13 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         }
 
     }
+    fun updote(fps:Long){
 
+    }
+
+    fun drew(){
+        facade!!.draw(canvas!!,contexto)
+    }
      fun draw() {
         // Make sure our drawing surface is valid or the game will crash
         if (holder.surface.isValid) {
