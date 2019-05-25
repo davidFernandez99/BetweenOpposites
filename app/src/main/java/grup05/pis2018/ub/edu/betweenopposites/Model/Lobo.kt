@@ -28,7 +28,6 @@ class Lobo(
     var velocidadInicial: Float = velocidad
     var objetoActivable: ObjetoActivable? = null
     var multiplicador: Int = 1 //Multiplicador de la puntuación que obtiene de los orbes
-    var es_visible: Boolean = true //Variable que nos dice si es visible
     //Variable que nos dice si esta vivo
     var esta_vivo: Boolean = true //Variable para determinar si el Lobo esta vivo
     var final:Boolean=false //Variable para saber si ha acabado la partida por falta de vida

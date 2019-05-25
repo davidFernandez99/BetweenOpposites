@@ -17,7 +17,7 @@ class Facade : Model {
      * Es lo mismo que crear un campo estatico en Java
      * De esta forma podemos tener una única instancia para esta clase.
      */
-    var gameData:GameData= GameData()
+    var gameData:GameData= GameData.instance
     companion object {
         val uniqueFacade: Facade=Facade()
 

@@ -20,7 +20,6 @@ class Orbe(
 
     var darPuntuacion: Int = 10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
-    var es_visible=true //Variable para determinar si el orbe es visible
     var direccionChoque:Direccion?=null //Variable para almacenar la dirección con la que colisiona con el muro
 
     override fun mover(fps: Long) { //Método para el movimiento del orbe según su dirección, y fps

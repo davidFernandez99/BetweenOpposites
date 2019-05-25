@@ -23,18 +23,27 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
         display!!.starts()
 
     }
-    fun onResume(){
+    fun onStart(){
         gameThread.start()
+
+    }
+    fun onResume(){
         if(!MainActivity.player.isPlaying){
             MainActivity.player.start()
         }
+        DisplayThread.paused=false
+        DisplayThread.playing=true
     }
     fun onPause(){
         MainActivity.player.pause()
+        DisplayThread.paused=true
+        DisplayThread.playing=false
     }
 
     fun onStop(){
         MainActivity.player.stop()
+        DisplayThread.paused=true
+        DisplayThread.playing=false
     }
 
 }

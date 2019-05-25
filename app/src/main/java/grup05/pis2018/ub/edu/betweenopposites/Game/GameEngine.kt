@@ -111,16 +111,17 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
                  DisplayThread.tiempoInvisible = false
              }
          }
-         if(mapa==1){
+         /*if(mapa==1){
             updateMapa1(fps)
         }
          if(mapa==2){
             updateMapa2(fps)
-        }
+        }*/
+         updote(fps)
 
     }
     fun updote(fps:Long){
-
+        facade!!.update(fps)
     }
 
     fun drew(){
@@ -134,12 +135,13 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
             // Draw the background color
 
-            if(mapa==1){
+            /*if(mapa==1){
                 drawMapa1()
             }
             if(mapa==2){
                 drawMapa2()
-            }
+            }*/
+            drew()
 
             dibujarBordes()
             if(DisplayThread.paused==true && DisplayThread.mostrar_Pause==true){

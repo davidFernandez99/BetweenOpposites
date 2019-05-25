@@ -45,6 +45,12 @@ class GameData {
         traspasarPuerta(primeraPuerta!!)
     }
 
+    companion object {
+
+        var instance = GameData()
+
+    }
+
     /**
      * Carga la sala en indicada en el nivel indicado. Método de soporte
      */

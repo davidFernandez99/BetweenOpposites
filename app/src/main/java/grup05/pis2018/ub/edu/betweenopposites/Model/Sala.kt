@@ -31,6 +31,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     //Mantiene una matriz que nos dice si esa posición està ocupada
     private var matrixAvalible: Array<Array<Boolean>> = Array<Array<Boolean>>(matrixSala.size,{Array(matrixSala[0].size,{false})})
 
+    private var ultimaTrampaColisionada:Trampa?=null
     init{
 
         // Al crear la sala se crea la matriz de lugares desocupados
@@ -341,26 +342,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         return list
     }
 
-    // MÉTODOS PARA EL DIBUJADO DE LA SALA
-    /**
-     * Método para dibujar todos los objetos contenidos en la sala
-     */
-    fun draw(canvas:Canvas,contexto: Context){
-        for (j in 0..matrixSala.size-1) {
-            for (i in 0..matrixSala[j].size-1) {
-                var objeto:Objeto=getObjetofromSala(i,j)
-                objeto.draw(canvas,obtenerBitmap(objeto,contexto))
-            }
-        }
-        // Dibujamos objetos en la sala
-        for (objeto: Objeto in this.objetos) {
-            objeto.draw(canvas,obtenerBitmap(objeto,contexto))
-        }
-        // Dibujamos los orbes
-        for (orbe: Orbe in this.orbes) {
-            orbe.draw(canvas,obtenerBitmap(orbe,contexto))
-        }
-    }
+
     // MÉTODOS PARA TESTING
     /**
      * Hace un print de la matriz
@@ -438,6 +420,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
     }
     fun update(fps:Long){
+        var colision:Boolean=false
         // Dibujamos objetos en la sala
         Lobo.instance!!.mover(fps)
         // Dibujamos los orbes
@@ -449,8 +432,66 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         }
 
         for (objeto: Objeto in this.objetos) {
+            if(objeto is Trampa){
+                if(Lobo.instance.vulnerable==true){
+                    colision=objeto.detectarColision(Lobo.instance)
+                    if(colision==true){
+                        ultimaTrampaColisionada=objeto
+                        Lobo.instance.vulnerable=false
+                    }
+                }
 
+            }
+            else{
+                objeto.detectarColision(Lobo.instance)
+            }
+        }
+        if(ultimaTrampaColisionada!= null){
+            Lobo.instance.setVulnerabilidad(ultimaTrampaColisionada!!)
+        }
+        for (muro:Muro in this.muros){
+            muro.detectarColision(Lobo.instance)
+            for (orbe:Orbe in this.orbes){
+                muro.detectarColision(orbe)
+            }
+        }
+        for (puerta:Puerta in this.puertas){
+            puerta.detectarColision(Lobo.instance)
         }
 
+    }
+    // MÉTODOS PARA EL DIBUJADO DE LA SALA
+    /**
+     * Método para dibujar todos los objetos contenidos en la sala
+     */
+    fun draw(canvas:Canvas,contexto: Context){
+        //Dibujamos muros y suelos
+        for (j in 0..matrixSala.size-1) {
+            for (i in 0..matrixSala[j].size-1) {
+                var objeto:Objeto=getObjetofromSala(i,j)
+                objeto.draw(canvas,obtenerBitmap(objeto,contexto))
+            }
+        }
+        // Dibujamos objetos en la sala
+        for (objeto: Objeto in this.objetos) {
+            if(objeto is Trampa){
+                objeto.draw(canvas,obtenerBitmap(objeto,contexto))
+            }
+            else{
+                if(objeto.es_visible==true){
+                    objeto.draw(canvas,obtenerBitmap(objeto,contexto))
+                }
+            }
+        }
+        // Dibujamos los orbes
+        for (orbe: Orbe in this.orbes) {
+            if(orbe.es_visible==true){
+                orbe.draw(canvas,obtenerBitmap(orbe,contexto))
+            }
+        }
+        for(puerta:Puerta in this.puertas){
+            puerta.draw(canvas,obtenerBitmap(puerta,contexto))
+        }
+        Lobo.instance.draw(canvas,obtenerBitmap(Lobo.instance,contexto))
     }
 }

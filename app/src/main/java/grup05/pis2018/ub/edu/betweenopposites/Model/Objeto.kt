@@ -19,6 +19,7 @@ abstract class Objeto(
     var height: Float = height
     var width: Float = width
     var paint:Paint= Paint()
+    var es_visible=true
     /**
      * Se encarga de detectar la colision con el lobo.
      * Implementación basica valida para la mayoria de objetos, especialmente aquellos que son fijos

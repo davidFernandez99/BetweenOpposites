@@ -50,6 +50,10 @@ class UnJugador : AppCompatActivity(), View {
 
    }
 
+    override fun onStart() {
+        super.onStart()
+        gameView!!.onStart()
+    }
     override fun onResume() {
         super.onResume()
         gameView!!.onResume()
