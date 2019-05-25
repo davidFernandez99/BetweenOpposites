@@ -75,4 +75,11 @@ class GameData {
 
     }
 
+    fun update(){
+        //salaActiva.update()
+    }
+
+    fun draw(){
+
+    }
 }

@@ -57,8 +57,8 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var comprobar_opcion_corecta:Boolean=false
     //Pruebas
 
-    var bando: Actor.Bando ?= null
-    var bando2: Actor.Bando ?= null
+    var bando: Bando ?= null
+    var bando2: Bando ?= null
     var orbe: Orbe ?= null
     var orbe2: Orbe ?= null
     var trampa: Trampa ?= null
@@ -154,10 +154,10 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         lobo=Lobo.instance
         facade= Facade.uniqueFacade
         vida=Vida()
-        bando=Actor.Bando.Blanco
-        bando2=Actor.Bando.Negro
-        orbe= Orbe(bando!!, 32f, 32f, 50f, Actor.Direccion.IZQUIERDA, Posicion(200f, 200f))
-        orbe2 = Orbe(bando2!!, 32f, 32f, 10f, Actor.Direccion.DERECHA, Posicion(300f, 500f))
+        bando=Bando.Blanco
+        bando2=Bando.Negro
+        orbe= Orbe(bando!!, 32f, 32f, 50f, Direccion.IZQUIERDA, Posicion(200f, 200f))
+        orbe2 = Orbe(bando2!!, 32f, 32f, 10f, Direccion.DERECHA, Posicion(300f, 500f))
         trampa = Trampa(32f, 32f, Posicion(500f, 550f))
         trampa2 = Trampa(32f, 32f, Posicion(800f, 550f))
         puerta= Puerta(32f, 32f, Posicion(1404f, 500f))
@@ -446,7 +446,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             DisplayThread.paused=false
             lobo!!.posicion=Posicion(200f, 900f)
             lobo!!.velocidad=0f
-            lobo!!.direccion=Actor.Direccion.PARADO
+            lobo!!.direccion=Direccion.PARADO
         }
 
     }
@@ -491,7 +491,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         comprobar_colision_puerta=puerta2!!.comprobarColision(lobo!!)
         if(comprobar_colision_puerta==true){
             lobo!!.velocidad=0f
-            lobo!!.direccion=Actor.Direccion.PARADO
+            lobo!!.direccion=Direccion.PARADO
             DisplayThread.fin_juego=true
             DisplayThread.paused=true
 
@@ -574,13 +574,13 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         if(mapa==2){
             canvas!!.drawText("1  -  2" ,350f, 30f,paint)
         }
-        if(lobo!!.bando== Actor.Bando.Negro){
+        if(lobo!!.bando== Bando.Negro){
             canvas!!.drawText("BANDO :  OSCURIDAD " ,1300f, 30f,paint)
         }
-        if(lobo!!.bando== Actor.Bando.Blanco){
+        if(lobo!!.bando== Bando.Blanco){
             canvas!!.drawText("BANDO :  LUZ " ,1300f, 30f,paint)
         }
-        if(lobo!!.bando== Actor.Bando.Neutro){
+        if(lobo!!.bando== Bando.Neutro){
             canvas!!.drawText("BANDO :  NEUTRO " ,1300f, 30f,paint)
         }
 

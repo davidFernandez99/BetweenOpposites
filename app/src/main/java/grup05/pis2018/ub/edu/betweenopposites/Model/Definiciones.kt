@@ -106,5 +106,5 @@ enum class Direccion {
  * Bando posible para Orbes y Lobo
  */
 enum class Bando {
-    Blanco, Negro
+    Blanco, Negro, Neutro
 }
