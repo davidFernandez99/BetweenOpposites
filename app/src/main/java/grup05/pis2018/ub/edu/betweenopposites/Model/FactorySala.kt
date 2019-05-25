@@ -110,9 +110,6 @@ object FactorySala {
             e.printStackTrace()
         }
 
-        // TODO Colocamos la maquina en el centro de la sala
-
-
         //Devolvemos la sala
         return SalaEspecial(id_sala, matrix)
     }

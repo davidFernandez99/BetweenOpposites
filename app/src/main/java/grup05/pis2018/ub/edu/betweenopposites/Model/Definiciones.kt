@@ -19,7 +19,8 @@ enum class Dimension(
     orbe(1, 1, 64f, 64f),
     trampa(1, 1, 64f, 64f),
     sumador(1,1,64f,64f),
-    multiplicador(1,1,64f,64f)
+    multiplicador(1,1,64f,64f),
+    maquina(4,4,64f,40f)
 }
 
 /**
