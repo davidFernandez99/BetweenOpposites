@@ -238,6 +238,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         bitmapMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.maquina)
         bitmapOpcionesMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.opciones_maquina)
         bitmapFallarOpcionMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.fallar_opcion_maquina)
+
     }
 
     fun dibujarPausa(){
@@ -576,4 +577,6 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             canvas!!.drawText(opciones!!.get(1).toString(),988f,640f,paint)
             canvas!!.drawText(opciones!!.get(2).toString(),1184f,640f,paint)
     }
+
+
 }
