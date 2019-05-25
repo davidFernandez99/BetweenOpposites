@@ -41,8 +41,8 @@ class Lobo(
      */
     companion object {
         var life: Vida = Vida()
-        var bando: Bando = Bando.Negro
-        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.DERECHA, Posicion(100f, 860f))
+        var bando: Bando = Bando.Neutro
+        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.PARADO, Posicion(100f, 860f))
 
     }
 
@@ -179,6 +179,15 @@ class Lobo(
     fun cambioBando(){
         if(this.bando==Bando.Blanco){
             this.bando=Bando.Negro
+        }
+        else if(this.bando==Bando.Neutro){
+            var rand:Int=(0..1).random()
+            if(rand==0){
+                this.bando=Bando.Blanco
+            }
+            else{
+                this.bando= Bando.Negro
+            }
         }
         else{
             this.bando=Bando.Blanco

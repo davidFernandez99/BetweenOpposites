@@ -11,7 +11,6 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
 
     var mapa:Int=1
-    var segundos: Long = 0
     val paint=paint
     val contexto=contexto
     val holder:SurfaceHolder=holder
@@ -85,13 +84,12 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             lobo!!.objetoActivable=null
             DisplayThread.activar_efecto=false
             if(lobo!!.objetoActivable is AumentarVelocidad){
-                DisplayThread.tiempoVelocidad=true
-                tiempoIncialVelocidad=System.currentTimeMillis()
+                DisplayThread.tiempoVelocidad.start()
             }
             if(lobo!!.objetoActivable is Invisibilidad){
-                DisplayThread.tiempoInvisibilidad=true
-                lobo!!.es_visible=false
-                tiempoInicialInvisibilidad=System.currentTimeMillis()
+
+                DisplayThread.tiempoInvisibilidad.start()
+
             }
 
         }
@@ -100,20 +98,17 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
          //lobo!!.vulnerable = true
          //tirmpoVulnerable!!.finish = false
 
-         if(DisplayThread.tiempoVelocidad==true){
-             if (System.currentTimeMillis() - tiempoIncialVelocidad >= DisplayThread.MAX_TIEMPO_VELOCIDAD) {
-                 lobo!!.restarurarVelocidad()
-                 DisplayThread.tiempoVelocidad = false
-             }
-             if (lobo!!.velocidad == 0f ) {
-                 lobo!!.velocidad = lobo!!.velocidadCambiada
-             }
+         if(DisplayThread.tiempoVel==true){
+             lobo!!.restarurarVelocidad()
+             DisplayThread.tiempoVel=false
+
+
          }
 
-         if(DisplayThread.tiempoInvisibilidad==true){
+         if(DisplayThread.tiempoInvisible==true){
              if(System.currentTimeMillis() - tiempoInicialInvisibilidad >= DisplayThread.MAX_TIEMPO_INVISIBLE) {
                  lobo!!.es_visible = true
-                 DisplayThread.tiempoInvisibilidad = false
+                 DisplayThread.tiempoInvisible = false
              }
          }
          if(mapa==1){
@@ -140,53 +135,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
                 drawMapa2()
             }
 
-            canvas!!.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
-            canvas!!.drawBitmap(bitmapBorde, 0f, 1020f, paint)
-            canvas!!.drawBitmap(bitmapBordeSimple, 64f , 1020f ,paint)
-            canvas!!.drawText("X", 1820f, 1060f,paint)
-            canvas!!.drawText(lobo!!.multiplicador.toString(), 1856f, 1060f,paint)
-            canvas!!.drawBitmap(bitmapPausa, 1860f, 0f, paint)
-            if(lobo!!.objetoActivable!=null){
-                if(lobo!!.objetoActivable is Invisibilidad){
-                    canvas!!.drawBitmap(bitmapInv!!,65f,1025f,paint)
-                }
-                else if(lobo!!.objetoActivable is AumentarVelocidad){
-                    canvas!!.drawBitmap(bitmapAumentoVel!!,65f,1025f,paint)
-                }
-                else{
-                    canvas!!.drawBitmap(bitmapCambio!!,65f,1025f,paint)
-                }
-            }
-
-            if (lobo!!.vida.numVide == 3) {
-                vida!!.draw(canvas!!, 860f, 0f, contexto)
-                vida!!.draw(canvas!!, 960f, 0f, contexto)
-                vida!!.draw(canvas!!, 1060f, 0f, contexto)
-
-            } else if (lobo!!.vida.numVide == 2) {
-                vida!!.draw(canvas!!, 860f, 0f, contexto)
-                vida!!.draw(canvas!!, 960f, 0f, contexto)
-
-            } else if (lobo!!.vida.numVide == 1) {
-                vida!!.draw(canvas!!, 860f, 0f, contexto)
-
-            }
-            else{
-                DisplayThread.paused=true
-                DisplayThread.fin_juego=true
-            }
-            if(mapa==1){
-                canvas!!.drawText("1  -  1" ,350f, 30f,paint)
-            }
-            if(mapa==2){
-                canvas!!.drawText("1  -  2" ,350f, 30f,paint)
-            }
-            if(lobo!!.bando== Actor.Bando.Negro){
-                canvas!!.drawText("BANDO :  OSCURIDAD " ,1300f, 30f,paint)
-            }
-            if(lobo!!.bando== Actor.Bando.Blanco){
-                canvas!!.drawText("BANDO :  LUZ " ,1300f, 30f,paint)
-            }
+            dibujarBordes()
             if(DisplayThread.paused==true && DisplayThread.mostrar_Pause==true){
                 dibujarPausa()
             }
@@ -240,27 +189,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         bitmapFallarOpcionMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.fallar_opcion_maquina)
     }
 
-    fun dibujarPausa(){
-        bitmappausa= BitmapFactory.decodeResource(contexto.resources, R.drawable.fondo_pausa)
-        bitmapResume= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_resume)
-        bitmapHome= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
-        canvas!!.drawBitmap(bitmappausa,700f,300f, paint)
-        canvas!!.drawBitmap(bitmapHome,770f,550f, paint)
-        canvas!!.drawBitmap(bitmapResume,1100f,550f, paint)
-    }
 
-    fun dibujarFinJuego(){
-        bitmapHome=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
-        bitmapfinjuego=BitmapFactory.decodeResource(contexto.resources, R.drawable.game_over)
-        bitmapRestart=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_retry)
-        tiempoFinal=System.currentTimeMillis()
-        segundos=(tiempoFinal-DisplayThread.tiempoInicial)
-        canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
-        canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
-        canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
-        canvas!!.drawText( lobo!!.puntuacion.puntuacion.toString(), 1020f,495f, paint)
-        canvas!!.drawText( segundos.toString(), 930f,560f, paint)
-    }
 
     fun drawMapa1(){
         //Dibujamos los suelos de la sala
@@ -575,5 +504,85 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             canvas!!.drawText(opciones!!.get(0).toString(),792f,640f,paint)
             canvas!!.drawText(opciones!!.get(1).toString(),988f,640f,paint)
             canvas!!.drawText(opciones!!.get(2).toString(),1184f,640f,paint)
+    }
+
+    fun dibujarPausa(){
+        bitmappausa= BitmapFactory.decodeResource(contexto.resources, R.drawable.fondo_pausa)
+        bitmapResume= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_resume)
+        bitmapHome= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
+        canvas!!.drawBitmap(bitmappausa,700f,300f, paint)
+        canvas!!.drawBitmap(bitmapHome,770f,550f, paint)
+        canvas!!.drawBitmap(bitmapResume,1100f,550f, paint)
+    }
+
+    fun dibujarFinJuego(){
+        bitmapHome=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
+        bitmapfinjuego=BitmapFactory.decodeResource(contexto.resources, R.drawable.game_over)
+        bitmapRestart=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_retry)
+        tiempoFinal=System.currentTimeMillis()
+        canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
+        canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
+        canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
+        canvas!!.drawText( lobo!!.puntuacion.puntuacion.toString(), 1020f,495f, paint)
+        canvas!!.drawText( DisplayThread.segundos.toString(), 930f,560f, paint)
+    }
+
+    fun dibujarBordes(){
+        canvas!!.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
+        canvas!!.drawBitmap(bitmapBorde, 0f, 1020f, paint)
+        canvas!!.drawBitmap(bitmapBordeSimple, 64f , 1020f ,paint)
+        canvas!!.drawText("X", 1820f, 1060f,paint)
+        if(lobo!!.es_visible==true){
+            canvas!!.drawText("Visible",1000f, 1060f , paint)
+        }
+        if(lobo!!.es_visible==false){
+            canvas!!.drawText("Invisible",1000f, 1060f , paint)
+        }
+        canvas!!.drawText(lobo!!.multiplicador.toString(), 1856f, 1060f,paint)
+        canvas!!.drawBitmap(bitmapPausa, 1860f, 0f, paint)
+        if(lobo!!.objetoActivable!=null){
+            if(lobo!!.objetoActivable is Invisibilidad){
+                canvas!!.drawBitmap(bitmapInv!!,65f,1025f,paint)
+            }
+            else if(lobo!!.objetoActivable is AumentarVelocidad){
+                canvas!!.drawBitmap(bitmapAumentoVel!!,65f,1025f,paint)
+            }
+            else{
+                canvas!!.drawBitmap(bitmapCambio!!,65f,1025f,paint)
+            }
+        }
+        if (lobo!!.vida.numVide == 3) {
+            vida!!.draw(canvas!!, 860f, 0f, contexto)
+            vida!!.draw(canvas!!, 960f, 0f, contexto)
+            vida!!.draw(canvas!!, 1060f, 0f, contexto)
+
+        } else if (lobo!!.vida.numVide == 2) {
+            vida!!.draw(canvas!!, 860f, 0f, contexto)
+            vida!!.draw(canvas!!, 960f, 0f, contexto)
+
+        } else if (lobo!!.vida.numVide == 1) {
+            vida!!.draw(canvas!!, 860f, 0f, contexto)
+
+        }
+        else{
+            DisplayThread.paused=true
+            DisplayThread.fin_juego=true
+        }
+        if(mapa==1){
+            canvas!!.drawText("1  -  1" ,350f, 30f,paint)
+        }
+        if(mapa==2){
+            canvas!!.drawText("1  -  2" ,350f, 30f,paint)
+        }
+        if(lobo!!.bando== Actor.Bando.Negro){
+            canvas!!.drawText("BANDO :  OSCURIDAD " ,1300f, 30f,paint)
+        }
+        if(lobo!!.bando== Actor.Bando.Blanco){
+            canvas!!.drawText("BANDO :  LUZ " ,1300f, 30f,paint)
+        }
+        if(lobo!!.bando== Actor.Bando.Neutro){
+            canvas!!.drawText("BANDO :  NEUTRO " ,1300f, 30f,paint)
+        }
+
     }
 }

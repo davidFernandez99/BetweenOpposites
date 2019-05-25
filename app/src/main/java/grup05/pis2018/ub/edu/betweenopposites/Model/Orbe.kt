@@ -74,7 +74,12 @@ class Orbe(
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
-            if (lobo.bando == this.bando) {
+            if(lobo.bando==Bando.Neutro){
+                lobo.bando=this.bando
+                lobo.sumarPuntuacion(darPuntuacion)
+                es_visible=false
+            }
+            else if (lobo.bando == this.bando) {
                 //Le da puntos al lobo
                 lobo.sumarPuntuacion(darPuntuacion)
                 es_visible=false

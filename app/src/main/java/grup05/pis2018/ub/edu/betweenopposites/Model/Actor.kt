@@ -19,7 +19,7 @@ abstract class Actor(
     }
 
     enum class Bando { //Enum para determinar el bando de un actor
-        Blanco, Negro
+        Blanco, Negro, Neutro
     }
 
     /**
