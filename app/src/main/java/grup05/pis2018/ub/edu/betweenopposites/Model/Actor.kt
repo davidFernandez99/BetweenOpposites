@@ -14,14 +14,6 @@ abstract class Actor(
     var velocidad: Float = velocidad; //Velocidad en la que se moverá el actor
     var direccion: Direccion = direccion //Dirección de movimiento del actor
 
-    enum class Direccion {  //Enum para determinar la dirección en la que se moverá el actor
-        ARRIBA, ABAJO, DERECHA, IZQUIERDA, PARADO
-    }
-
-    enum class Bando { //Enum para determinar el bando de un actor
-        Blanco, Negro, Neutro
-    }
-
     /**
      * Funcion abstracta que varia segun la implementación de cada actor
      * que se encarga de calcular la posicion del Actor en función de la velocidad y la dirección,

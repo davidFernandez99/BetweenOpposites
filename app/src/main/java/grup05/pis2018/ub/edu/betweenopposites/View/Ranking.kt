@@ -41,8 +41,8 @@ class Ranking : AppCompatActivity(), View {
             img_puntuacion_4.setImageResource(R.drawable.interrogante)
             img_puntuacion_5.setImageResource(R.drawable.interrogante)
         }else{
-            nombreJugador_rank_1.text= user?.displayName
-            Picasso.with(this).load(user?.photoUrl).into(img_puntuacion_1)
+            nombreJugador_rank_1.text= user.displayName
+            Picasso.with(this).load(user.photoUrl).into(img_puntuacion_1)
         }
 
 

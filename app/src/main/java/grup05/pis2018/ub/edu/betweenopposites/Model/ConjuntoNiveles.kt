@@ -25,7 +25,7 @@ class ConjuntoNiveles(
     init {
 
         // Pedimos la generación de todos los niveles y los guardamos en los niveles
-        for (i in 1..10) {
+        for (i in 1..NUMERO_NIVELES_POR_JUEGO) {
             //Pedimos el nivel y lo metemos en el array.
             setNivel(
                 i,
@@ -42,15 +42,23 @@ class ConjuntoNiveles(
     }
 
     /**
-     * Getter de niveles almacenados. Donde la idNivel del primer nivel seria 1.
+     * Getter de niveles almacenados. Donde la id_nivel del primer nivel seria 1.
      */
-    fun getNivel(idNivel: Int): Nivel {
+    fun getNivel(id_nivel: Int): Nivel {
 
-        val nivel: Nivel? = arrayNiveles.get(idNivel - 1)
-        if (nivel != null) {
-            return nivel
-        } else {
-            throw Exception("Nivel = null")
+        try {
+            if(id_nivel == -1){
+                return arrayNiveles.last()!!
+            }
+
+            val nivel: Nivel? = arrayNiveles.get(id_nivel - 1)
+            if (nivel != null) {
+                return nivel
+            } else {
+                throw Exception("Nivel = null")
+            }
+        } catch (e: Exception) {
+            throw e
         }
     }
 
