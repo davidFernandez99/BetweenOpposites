@@ -36,7 +36,7 @@ class Muro(
             while(comprobarColision(orbe)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
                 orbe.returnPosicion()
             }
-            orbe.canviarDireccion() //Cambia la dirección de este orbe para que deje de colisionar y no este parado
+            orbe.canviarDireccionMuro() //Cambia la dirección de este orbe para que deje de colisionar y no este parado
 
         }
     }

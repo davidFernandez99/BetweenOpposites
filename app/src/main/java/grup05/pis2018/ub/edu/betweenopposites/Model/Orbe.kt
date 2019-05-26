@@ -5,7 +5,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import grup05.pis2018.ub.edu.betweenopposites.R
+import java.lang.Math.*
 import java.util.*
+import kotlin.math.atan
 import kotlin.random.Random.Default.nextInt
 
 class Orbe(
@@ -88,7 +90,37 @@ class Orbe(
     }
 
     fun canviarDireccion() { //Método para canviar la dirección del orbe cuando colisiona con un muro para que no siempre se mueva de forma lineal
-        var direccionNueva: Int = 0
+        if (this.bando == Lobo.instance.bando){
+            calcularDireccion()
+
+        }else {
+            var listAux = (1..100)
+            if (listAux.random() > 98){
+                this.direccion = listOf(Direccion.ABAJO,
+                    Direccion.ARRIBA,
+                    Direccion.IZQUIERDA,
+                    Direccion.DERECHA).random()
+            }else{
+                this.direccion = this.direccion
+            }
+        }
+
+
+       /* }else if (Lobo.instance.posicion.x == this.posicion.x &&
+                Lobo.instance.posicion.y > this.posicion.y ){
+            this.direccion = Direccion.ARRIBA
+        }else if (Lobo.instance.posicion.x == this.posicion.x &&
+            Lobo.instance.posicion.y < this.posicion.y ) {
+            this.direccion = Direccion.ABAJO
+        }else if (Lobo.instance.posicion.x > this.posicion.x &&
+            Lobo.instance.posicion.y == this.posicion.y ) {
+            this.direccion = Direccion.DERECHA
+        }else if (Lobo.instance.posicion.x < this.posicion.x &&
+            Lobo.instance.posicion.y == this.posicion.y ) {
+            this.direccion = Direccion.IZQUIERDA
+        }*/
+
+/*        var direccionNueva: Int = 0
         if (this.direccion == Direccion.DERECHA) {
             direccionNueva = (0..2).random()
             if (direccionNueva == 0) {
@@ -116,7 +148,7 @@ class Orbe(
             } else {
                 this.direccion = Direccion.DERECHA
             }
-        }
+        }*/
     }
 
     fun returnPosicion(){ //Método usado como auxiliar para retornar a posiciones anteriores a la colision de un muro
@@ -134,4 +166,49 @@ class Orbe(
         }
     }
 
+    private fun calcularDireccion() {
+        if (this.direccion in posiblesDirecciones()){
+            this.direccion = this.direccion
+        }else {
+            this.direccion = posiblesDirecciones().random()
+        }
+    }
+
+    private fun posiblesDirecciones(): List<Direccion> {
+        if (this.posicion.x < Lobo.instance.posicion.x && this.posicion.y == Lobo.instance.posicion.y){
+            return listOf(Direccion.DERECHA)
+        }else if (this.posicion.x < Lobo.instance.posicion.x && this.posicion.y < Lobo.instance.posicion.y){
+            return listOf(Direccion.DERECHA,Direccion.ABAJO)
+        }else if (this.posicion.x == Lobo.instance.posicion.x && this.posicion.y < Lobo.instance.posicion.y){
+            return listOf(Direccion.ABAJO)
+        }else if (this.posicion.x > Lobo.instance.posicion.x && this.posicion.y < Lobo.instance.posicion.y){
+            return listOf(Direccion.ABAJO,Direccion.IZQUIERDA)
+        }else if (this.posicion.x > Lobo.instance.posicion.x && this.posicion.y == Lobo.instance.posicion.y){
+            return listOf(Direccion.IZQUIERDA)
+        }else if (this.posicion.x > Lobo.instance.posicion.x && this.posicion.y > Lobo.instance.posicion.y) {
+            return listOf(Direccion.ARRIBA, Direccion.IZQUIERDA)
+        }else if (this.posicion.x == Lobo.instance.posicion.x && this.posicion.y > Lobo.instance.posicion.y) {
+            return listOf(Direccion.ARRIBA)
+        }else {
+            return listOf(Direccion.ARRIBA,Direccion.DERECHA)
+        }
+    }
+
+    fun canviarDireccionMuro() {
+        if (this.bando == Lobo.instance.bando){
+            var posiblesDirecciones: MutableList<Direccion> = posiblesDirecciones() as MutableList<Direccion>
+            for (direccion in posiblesDirecciones) {
+                if (direccion != this.direccionChoque) {
+                    this.direccion = direccion
+                }
+            }
+        }else{
+            when (this.direccionChoque){
+                Direccion.IZQUIERDA -> this.direccion = Direccion.DERECHA
+                Direccion.DERECHA -> this.direccion = Direccion.IZQUIERDA
+                Direccion.ARRIBA -> this.direccion = Direccion.ABAJO
+                Direccion.ABAJO -> this.direccion = Direccion.ARRIBA
+            }
+        }
+    }
 }

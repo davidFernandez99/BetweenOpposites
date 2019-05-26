@@ -466,6 +466,8 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         lobo!!.mover(fps)
         orbe!!.mover(fps)
         orbe2!!.mover(fps)
+        orbe!!.canviarDireccion()
+        orbe2!!.canviarDireccion()
         if (orbe!!.es_visible) {
             orbe!!.detectarColision(lobo!!)
 
