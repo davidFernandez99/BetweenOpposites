@@ -28,8 +28,6 @@ import grup05.pis2018.ub.edu.betweenopposites.R
 
 const val RC_SIGN_IN = 123
 
-
-
 lateinit var firebaseAuth: FirebaseAuth
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var mGoogleSignInOptions: GoogleSignInOptions
@@ -77,7 +75,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        btn_logOut.visibility = View.VISIBLE //Inicialment esta invisible fins que s'inicia sessio
+        btn_logOut.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
 
         val intent = Intent(this, MainActivity::class.java)
         intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP) //T'envia sempre a la pantalla principal quan li dones enrere
@@ -189,23 +187,24 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account)
-            } catch (e: ApiException) {
+
+                if(task.isSuccessful) {
+                    val account = task.getResult(ApiException::class.java)
+                    firebaseAuthWithGoogle(account!!)
+                }else{
                 Toast.makeText(this, "Google sign in failed", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     //Authentication with firebase
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?) {
-        val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this) {task->
+            if (task.isSuccessful) {
                 sign_in_button.visibility=View.GONE
-                txt_email.text=acct?.email
-                txt_nomUsuari.text=acct?.displayName
+                txt_email.text=acct.email
+                txt_nomUsuari.text=acct.displayName
                 txt_email.visibility=View.VISIBLE
                 txt_nomUsuari.visibility=View.VISIBLE
                 btn_logOut.visibility=View.VISIBLE
@@ -222,8 +221,8 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             sign_in_button.visibility=View.GONE
-            txt_email.text=user?.email
-            txt_nomUsuari.text=user?.displayName
+            txt_email.text=user.email
+            txt_nomUsuari.text=user.displayName
             txt_email.visibility=View.VISIBLE
             txt_nomUsuari.visibility=View.VISIBLE
             btn_logOut.visibility=View.VISIBLE
@@ -233,7 +232,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
     private fun signOut() {
         mGoogleSignInClient.signOut()
-        FirebaseAuth.getInstance().signOut();
+        //FirebaseAuth.getInstance().signOut();
     }
 
 }

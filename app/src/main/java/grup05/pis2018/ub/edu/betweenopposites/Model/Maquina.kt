@@ -41,7 +41,7 @@ class Maquina(
                 lobo.returnPosicion()
             }
             lobo.returnPosicion()
-            lobo.direccion=Actor.Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
+            lobo.direccion=Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
         }
     }
     fun darOpciones(lobo: Lobo) :ArrayList<Int> {
@@ -53,16 +53,18 @@ class Maquina(
         var primero:Int=0
         var segundo:Int=0
         if(opcion3-50<0){
-            opcion1 = (opcion3 .. opcion3+100).random()
-            opcion2 = (opcion3 .. opcion3+100).random()
+            opcion1 = (opcion3+1 .. opcion3+100).random()
+            opcion2 = (opcion3+1 .. opcion3+100).random()
         }
         else{
             opcion1= (opcion3-50 .. opcion3+50).random()
             opcion2= (opcion3-50.. opcion3+50).random()
         }
-        while(opcion1==opcion2){
+        while(opcion1==opcion2 || opcion1==opcion3 || opcion2==opcion3){
             opcion2=(opcion3-50 .. opcion3+50).random()
+            opcion1=(opcion3-50.. opcion3+50 ).random()
         }
+
         primero = (0..2).random()
         if(primero==0){
             listaOpciones.add(opcion1)
@@ -108,7 +110,7 @@ class Maquina(
     }
 
     fun darRecompensa():ObjetoActivable{
-        var recompensa_maquina :Int= (0..3).random()
+        var recompensa_maquina :Int= (0..2).random()
         if(recompensa_maquina==0){
             return Invisibilidad(16f,16f,Posicion(this.posicion.x,this.posicion.y+200f))
         }

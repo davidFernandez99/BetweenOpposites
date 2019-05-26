@@ -1,5 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.Canvas
+
 /**
  * Clase fachada del modelo, que crea u objeto único (Singletone) para poder proporcionar los servicios
  * del modelo de forma simple a aquellos que quieresn acceder a este, en este caso solo los Presenter.
@@ -14,20 +17,28 @@ class Facade : Model {
      * Es lo mismo que crear un campo estatico en Java
      * De esta forma podemos tener una única instancia para esta clase.
      */
-    companion object {
-        val uniqueFacade: Facade=Facade()
+    lateinit var gameData:GameData
 
+    /**
+     * Guarda si la partida ha sido iniciada
+     */
+    var partidaIniciada=false
+
+    /**
+     * Singleton Facade
+     */
+    companion object {
+        val instance: Facade=Facade()
     }
 
     /**
-     * Crea el objeto único Facade al ser llamado por primera vez y siempre es devuelto el mismo.
+     * Función para inicializar la partida. Crea el conjunto de niveles y dentro de este las salas y objetos.
      */
+    fun iniciarPartida(contexto: Context){
+        // Creo la partida
+        gameData = GameData(contexto)
 
-    /**
-     * Funcion que devuelve la instancia única de la Facade
-     */
-    public fun getInstance(): Facade {
-        return uniqueFacade
+        partidaIniciada=true
     }
 
 
@@ -45,5 +56,18 @@ class Facade : Model {
 
     override fun downloadServerData() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun draw(canvas: Canvas, contexto: Context){
+        gameData.draw(canvas,contexto)
+    }
+    fun update(fps:Long){
+        gameData.update(fps)
+    }
+
+    fun traspasarPuerta(puerta: Puerta) {
+        if(partidaIniciada){
+            gameData.traspasarPuerta(puerta)
+        }
     }
 }

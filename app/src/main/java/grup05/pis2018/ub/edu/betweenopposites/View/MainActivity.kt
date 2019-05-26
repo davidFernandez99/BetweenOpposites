@@ -1,6 +1,8 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -68,7 +70,28 @@ class MainActivity : AppCompatActivity(),View {
 
     }
 
+    //Mostrar el tutorial només al inciar per primer cop
+    override fun onStart() {
+        super.onStart()
 
+        var muestra : Boolean  = getValuePreference(applicationContext)
 
+        if(muestra){
+            val TutorialIntent = Intent(this, Tutorial::class.java)
+            startActivity(TutorialIntent)
+            saveValuePreferences(applicationContext, false)
+        }
+    }
 
+    private fun saveValuePreferences(context: Context, mostrar: Boolean) {
+        val settings = context.getSharedPreferences("mispreferencias", Context.MODE_PRIVATE)
+        val editor = settings.edit().putBoolean("tutorial", mostrar)
+        editor.commit()
+    }
+
+    private fun getValuePreference(context: Context) : Boolean {
+        val preferences  = context.getSharedPreferences("mispreferencias", Context.MODE_PRIVATE)
+        return preferences.getBoolean("tutorial", true)
+
+    }
 }

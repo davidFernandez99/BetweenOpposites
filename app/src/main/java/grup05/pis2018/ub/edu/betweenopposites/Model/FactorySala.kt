@@ -1,7 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.IOException
 
 /**
  * Se encarga de crear las diferentes salas que hay en el juego
@@ -12,7 +15,7 @@ object FactorySala {
     // MÉTODOS PARA LA CREACIÓN DE LAS SALAS
 
     /**
-     * Crea una sala basica con algoritmos inteligentes a partir de la dificultad exigida. TODO
+     * Crea una sala basica con algoritmos inteligentes a partir de la dificultad exigida.
      */
     /*
     fun crearSalaBasicaRandom(dificultad: Int): Sala {
@@ -22,16 +25,16 @@ object FactorySala {
     /**
      * Crea una SalaBasica a partir de una matriz escrita en un archivo .TXT
      */
-    fun crearSalaBasicadesdeTXT(dificultad: Int, id_sala: Int, filename: String): SalaBasica {
+    fun crearSalaBasicadesdeTXT(dificultad: Int, id_sala: Int, filename: String, contexto: Context): SalaBasica {
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
-        var fitxer: File?
+        val fitxer: BufferedReader?
 
         try {
             // Defino y obtengo el fichero a través de el nombre
-            fitxer = File(filename)
+            fitxer = contexto.assets.open(filename).bufferedReader()
 
             // Cargo las linias en una variable
             val lineas_leidas: List<String> = fitxer.readLines()
@@ -45,17 +48,35 @@ object FactorySala {
             }
 
         } catch (e: FileNotFoundException) {
-            throw IllegalArgumentException(
+            throw Exception(
                 String.format(
                     "El fitxer %s no existeix", filename
                 )
+
             )
+            e.printStackTrace()
         } catch (e: Exception) {
+            e.printStackTrace()
+        }catch(e: IOException){
             e.printStackTrace()
         }
 
-        //Devolvemos la sala
-        return SalaBasica(id_sala, matrix)
+        //Creo la sala
+        var salaBasica: SalaBasica=SalaBasica(id_sala, matrix)
+
+        // Consigo una lista de posiciones donde es posible colocar objetos u orbes
+        var avaliblePositions: ArrayList<List<Int>> = salaBasica.getPosicionesLibres()
+
+        //Creo las listas de orbes y objetos y posteriormente los añado a la sala
+        var orbes:ArrayList<Orbe> = FactoryObjetos.generarOrbes(dificultad,avaliblePositions)
+        var objetos: ArrayList<Objeto> = FactoryObjetos.generarObjetos(dificultad,avaliblePositions)
+
+        //Lo añado a la sala
+        salaBasica.anadirOrbes(orbes)
+        salaBasica.anadirObjetos(objetos)
+
+        //Devuelvo la sala
+        return salaBasica
     }
 
     /**
@@ -64,16 +85,16 @@ object FactorySala {
      * posición que passamos por paràmetro.
      */
 
-    fun crearSalaEspecial(id_sala: Int, filename: String): SalaEspecial {
+    fun crearSalaEspecial(id_sala: Int, filename: String, contexto: Context): SalaEspecial {
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
-        var fitxer: File?
+        var fitxer: BufferedReader?
 
         try {
             // Defino y obtengo el fichero a través de el nombre
-            fitxer = File(filename)
+            fitxer = contexto.assets.open(filename).bufferedReader()
 
             // Cargo las linias en una variable
             val lineas_leidas: List<String> = fitxer.readLines()
@@ -103,20 +124,16 @@ object FactorySala {
     /**
      * Crea una SalaFinal a partir de una matriz definida en un archivo .TXT
      */
-    fun crearSalaFinal(id_sala: Int, filename: String): SalaFinal {
-        // TODO: CREAR SALA FINAL
-
-        // Definimos la salaBasica para poder crearla al final de este método.
-        val salaFinal: SalaFinal
+    fun crearSalaFinal(dificultad:Int,id_sala: Int, filename: String,contexto:Context): SalaFinal {
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
-        var fitxer: File?
+        var fitxer: BufferedReader?
 
         try {
             // Defino y obtengo el fichero a través de el nombre
-            fitxer = File(filename)
+            fitxer = contexto.assets.open(filename).bufferedReader()
 
             // Cargo las linias en una variable
             val lineas_leidas: List<String> = fitxer.readLines()
@@ -140,7 +157,20 @@ object FactorySala {
         }
 
         // Devolvemos la sala
-        return SalaFinal(id_sala, matrix)
+        val salaFinal: SalaFinal= SalaFinal(id_sala, matrix)
+
+        // Consigo una lista de posiciones donde es posible colocar objetos u orbes
+        var avaliblePositions: ArrayList<List<Int>> = salaFinal.getPosicionesLibres()
+
+        //Creo las listas de orbes y objetos y posteriormente los añado a la sala
+        var orbes:ArrayList<Orbe> = FactoryObjetos.generarOrbes(dificultad,avaliblePositions)
+        var objetos: ArrayList<Objeto> = FactoryObjetos.generarObjetos(dificultad,avaliblePositions)
+
+        //Lo añado a la sala
+        salaFinal.anadirOrbes(orbes)
+        salaFinal.anadirObjetos(objetos)
+
+        return salaFinal
     }
 
 
@@ -188,7 +218,7 @@ object FactorySala {
     private fun descifrarCaracter(char: String, posicionMatriz: Posicion): Objeto {
         when (char) {
             Descifrar.muro.char -> return FactoryObjetos.crearMuro(posicionMatriz)
-            Descifrar.suelo.char -> return FactoryObjetos.crarSuelo(posicionMatriz)
+            Descifrar.suelo.char -> return FactoryObjetos.crearSuelo(posicionMatriz)
             Descifrar.puerta.char -> return FactoryObjetos.crearPuerta(posicionMatriz)
             else -> throw Exception("Hay un char en la matriz que no se ha podido identificar")
         }

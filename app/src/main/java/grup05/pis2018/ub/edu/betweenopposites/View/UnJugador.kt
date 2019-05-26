@@ -14,8 +14,12 @@ import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
 import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
 import grup05.pis2018.ub.edu.betweenopposites.Model.Maquina
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
+import android.content.res.AssetManager
+
+
 
 class UnJugador : AppCompatActivity(), View {
+
     override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -30,7 +34,7 @@ class UnJugador : AppCompatActivity(), View {
 
     lateinit var observers: ArrayList<Presenter>
     private var gameView: GameView? = null
-    var context:Context=this
+    var context:Context= this
     // This is the gesture detector compat instance.
     private var gestureDetectorCompat: GestureDetectorCompat? = null
     val gestureListener: DetectSwipeGestureListener = DetectSwipeGestureListener()
@@ -50,6 +54,10 @@ class UnJugador : AppCompatActivity(), View {
 
    }
 
+    override fun onStart() {
+        super.onStart()
+        gameView!!.onStart()
+    }
     override fun onResume() {
         super.onResume()
         gameView!!.onResume()
@@ -57,12 +65,12 @@ class UnJugador : AppCompatActivity(), View {
 
     override fun onPause() {
         super.onPause()
-        //gameView?.onPause()
+        gameView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        //gameView?.onStop()
+        gameView!!.onStop()
     }
 
     override fun onDestroy() {

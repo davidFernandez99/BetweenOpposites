@@ -5,11 +5,11 @@ import android.graphics.*
 import android.view.SurfaceView
 import grup05.pis2018.ub.edu.betweenopposites.Model.*
 import grup05.pis2018.ub.edu.betweenopposites.R
+import grup05.pis2018.ub.edu.betweenopposites.View.MainActivity
 
 
 
 open class GameView (context: Context, private val size: Point) : SurfaceView(context), Runnable {
-
 
     val gameThread = Thread(this)
     val contexto:Context=context
@@ -23,10 +23,27 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
         display!!.starts()
 
     }
-    fun onResume(){
+    fun onStart(){
         gameThread.start()
+
+    }
+    fun onResume(){
+        if(!MainActivity.player.isPlaying){
+            MainActivity.player.start()
+        }
+        DisplayThread.paused=false
+        DisplayThread.playing=true
+    }
+    fun onPause(){
+        MainActivity.player.pause()
+        DisplayThread.paused=true
+        DisplayThread.playing=false
     }
 
-
+    fun onStop(){
+        MainActivity.player.stop()
+        DisplayThread.paused=true
+        DisplayThread.playing=false
+    }
 
 }

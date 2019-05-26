@@ -59,11 +59,11 @@
             android:layout_height="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:id="@+id/txt_nomUsuari"
-            app:layout_constraintTop_toBottomOf="@+id/btn_logOut"/>
+            app:layout_constraintTop_toBottomOf="@+id/btn_logOut" android:textColor="@android:color/white"/>
     <TextView
             android:layout_width="216dp"
             android:layout_height="35dp"
             android:id="@+id/txt_email"
             app:layout_constraintTop_toBottomOf="@+id/txt_nomUsuari" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="112dp"/>
+            android:layout_marginStart="112dp" android:textColor="@android:color/white"/>
 </android.support.constraint.ConstraintLayout>

@@ -1,10 +1,12 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+
 /**
  * Clase que contiene principalmente un Array<Nivel> donde contiene todos los niveles de una partida.
  * Se encarga de tratar con los niveles almacenados y llamar al creador de niveles para obtenerlos.
  */
-class ConjuntoNiveles(
+class ConjuntoNiveles(contexto: Context,
     NUMERO_NIVELES_POR_JUEGO: Int = 8,
     NUMERO_SALAS_BASICAS_POR_NIVEL: Int = 10,
     NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL: Int = 1
@@ -25,7 +27,7 @@ class ConjuntoNiveles(
     init {
 
         // Pedimos la generación de todos los niveles y los guardamos en los niveles
-        for (i in 1..10) {
+        for (i in 1..NUMERO_NIVELES_POR_JUEGO) {
             //Pedimos el nivel y lo metemos en el array.
             setNivel(
                 i,
@@ -35,22 +37,31 @@ class ConjuntoNiveles(
                     NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL,
                     Plantilla.salaBasica.listaPlantillas,
                     Plantilla.salaEspecial.listaPlantillas,
-                    Plantilla.salaFinal.listaPlantillas
+                    Plantilla.salaFinal.listaPlantillas,
+                    contexto
                 )
             )
         }
     }
 
     /**
-     * Getter de niveles almacenados. Donde la idNivel del primer nivel seria 1.
+     * Getter de niveles almacenados. Donde la id_nivel del primer nivel seria 1.
      */
-    fun getNivel(idNivel: Int): Nivel {
+    fun getNivel(id_nivel: Int): Nivel {
 
-        val nivel: Nivel? = arrayNiveles.get(idNivel - 1)
-        if (nivel != null) {
-            return nivel
-        } else {
-            throw Exception("Nivel = null")
+        try {
+            if(id_nivel == -1){
+                return arrayNiveles.last()!!
+            }
+
+            val nivel: Nivel? = arrayNiveles.get(id_nivel - 1)
+            if (nivel != null) {
+                return nivel
+            } else {
+                throw Exception("Nivel = null")
+            }
+        } catch (e: Exception) {
+            throw e
         }
     }
 

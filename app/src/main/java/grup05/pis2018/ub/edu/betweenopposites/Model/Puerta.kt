@@ -44,7 +44,7 @@ class Puerta(
 
     //Una puerta tiene otra de salida, que és el destino, y la que nos devuelve el spawnpoint de esta.
     // Serà null en el caso de que sea la primera o la última puerta del nivel.
-    var puerta_destino: Puerta? = puerta_destino
+    private var puerta_destino: Puerta? = puerta_destino
     // Posicion en la que aparece el Lobo cuando llega a esta puerta
     lateinit var spawn_point: Posicion
 
@@ -54,10 +54,9 @@ class Puerta(
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            TODO("si el lobo colisiona con una puerta hará pasar a la siguiente sala o nivel en caso que fuese la sala final")
-            TODO("si es la sala final del último nivel llamara al método endGame()")
-            //var lobo:Lobo= objeto as Lobo
-            //lobo.final=true
+            Facade.instance.traspasarPuerta(this)
+            Lobo.instance.velocidad=0f
+            Lobo.instance.direccion=Direccion.PARADO
         }
     }
 
@@ -72,17 +71,19 @@ class Puerta(
         id_nivel_destino: Int = this.id_nivel_destino
     ) {
         this.puerta_destino = puerta_destino
+        this.id_sala_destino=id_sala_destino
+        this.id_nivel_destino=id_nivel_destino
     }
 
     /**
      * Mètodo para coger el destino de esta puerta. Devuelve el nivel, sala y posicion de destino.
-     * En el caso de que sea la primera puerta de la primera sala del nivel, el destino
+     * En el caso de que sea la primera puerta de la primera sala del nivel, no tiene destino así que devuelve un null.
      */
-    fun getPosicionDestino(): Posicion {
+    fun getPosicionDestino(): Posicion? {
         if (puerta_destino != null) {
             return puerta_destino!!.spawn_point
         } else {
-            throw Exception("Esta puerta tiene como destino Nivel:${id_nivel_destino} Sala:${id_sala_destino}, de forma que no tiene puerta de destino.")
+            return null
         }
     }
 
@@ -99,6 +100,14 @@ class Puerta(
         //Devuelve si ha colisionado o no con ese objeto
         return colisio
 
+    }
+
+    fun printPuerta() {
+        println("Puerta  \n" +
+                "POSICION: [${posicion.x_sala},${posicion.y_sala}] \n" +
+                "DESTINO: nivel-> ${id_nivel_destino}    sala->${id_sala_destino}    " +
+                "posicion destino-> [${getPosicionDestino()?.x_sala},${getPosicionDestino()?.y_sala}]\n" +
+                "SPAWNPOINT: [${spawn_point.x_sala},${spawn_point.y_sala}]")
     }
 
 }

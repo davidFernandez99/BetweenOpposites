@@ -27,7 +27,7 @@ class Muro(
                 lobo.returnPosicion()
             }
             lobo.returnPosicion()
-            lobo.direccion=Actor.Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
+            lobo.direccion=Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
         }
         if(objeto is Orbe){
             var orbe: Orbe = objeto as Orbe

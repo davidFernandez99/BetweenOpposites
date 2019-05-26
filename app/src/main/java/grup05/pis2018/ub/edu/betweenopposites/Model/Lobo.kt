@@ -28,7 +28,6 @@ class Lobo(
     var velocidadInicial: Float = velocidad
     var objetoActivable: ObjetoActivable? = null
     var multiplicador: Int = 1 //Multiplicador de la puntuación que obtiene de los orbes
-    var es_visible: Boolean = true //Variable que nos dice si es visible
     //Variable que nos dice si esta vivo
     var esta_vivo: Boolean = true //Variable para determinar si el Lobo esta vivo
     var final:Boolean=false //Variable para saber si ha acabado la partida por falta de vida
@@ -41,16 +40,14 @@ class Lobo(
      */
     companion object {
         var life: Vida = Vida()
-        var bando: Bando = Bando.Negro
-        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.DERECHA, Posicion(100f, 860f))
+        var bando: Bando = Bando.Neutro
+        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.PARADO, Posicion(100f, 860f))
 
     }
 
     /**
      * Funcion que devuelve la instancia única de la Facade
      */
-
-
 
 
     /**
@@ -114,7 +111,8 @@ class Lobo(
 
     fun quitarPuntuacion(valorSumador: Int) {
         if (this.puntuacion.puntuacion < valorSumador*this.multiplicador) {
-            this.puntuacion.puntuacion = 0
+            this.puntuacion.puntuacion = valorSumador*this.multiplicador-this.puntuacion.puntuacion
+            this.cambioBando()
         } else {
             this.puntuacion.puntuacion -= valorSumador*this.multiplicador
         }
@@ -174,6 +172,24 @@ class Lobo(
             if(trampa.comprobarColision(this)==false){
                 vulnerable=true
             }
+        }
+    }
+
+    fun cambioBando(){
+        if(this.bando==Bando.Blanco){
+            this.bando=Bando.Negro
+        }
+        else if(this.bando==Bando.Neutro){
+            var rand:Int=(0..1).random()
+            if(rand==0){
+                this.bando=Bando.Blanco
+            }
+            else{
+                this.bando= Bando.Negro
+            }
+        }
+        else{
+            this.bando=Bando.Blanco
         }
     }
 

@@ -22,10 +22,9 @@ class Orbe(
 
     var darPuntuacion: Int = 10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
-    var es_visible=true //Variable para determinar si el orbe es visible
     var direccionChoque:Direccion?=null //Variable para almacenar la dirección con la que colisiona con el muro
 
-    override fun mover(fps: Long) { //Método para el movimiento del orbe según su dirección, velocidad y fps
+    override fun mover(fps: Long) { //Método para el movimiento del orbe según su dirección, y fps
         if (this.direccion == Direccion.ABAJO) {
             if (this.posicion.y + this.height >= 1080f) {
                 canviarDireccion()
@@ -76,7 +75,12 @@ class Orbe(
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
-            if (lobo.bando == this.bando) {
+            if(lobo.bando==Bando.Neutro){
+                lobo.bando=this.bando
+                lobo.sumarPuntuacion(darPuntuacion)
+                es_visible=false
+            }
+            else if (lobo.bando == this.bando) {
                 //Le da puntos al lobo
                 lobo.sumarPuntuacion(darPuntuacion)
                 es_visible=false
@@ -166,5 +170,10 @@ class Orbe(
                 Direccion.ABAJO -> this.direccion = Direccion.ARRIBA
             }
         }
+
+
+    fun printOrbe() {
+        println("Orbe ${bando.name} POSICION: [${posicion.x_sala},${posicion.y_sala}]")
+
     }
 }

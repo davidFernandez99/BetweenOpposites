@@ -4,7 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.CountDownTimer
 import android.view.SurfaceHolder
+import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
 import grup05.pis2018.ub.edu.betweenopposites.Model.Tiempo
 
 class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
@@ -27,10 +29,37 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         var fallar=false
         var mostrar_Pause=false
         var activar_efecto=false
-        var tiempo: Tiempo = Tiempo(10000, conv)
-        var tirmpoVulnerable:Tiempo= Tiempo(MAX_TIEMPO_VULNERABLE, 1000)
-        var tiempoVelocidad:Tiempo= Tiempo(MAX_TIEMPO_VELOCIDAD, 1000)
-        var tiempoInvisibilidad:Tiempo = Tiempo(MAX_TIEMPO_INVISIBLE, 1000)
+        var segundos:Int=0
+        var tiempoInvisible= false
+        var tiempoVel=false
+        val tiempo=object : CountDownTimer (1000,1000){
+            override fun onTick(millisUntilFinished:Long){
+
+            }
+            override fun onFinish(){
+                if(paused!=true){
+                    segundos++
+                }
+            }
+        }
+        val tiempoVelocidad=object : CountDownTimer (MAX_TIEMPO_VELOCIDAD,1000){
+            override fun onTick(millisUntilFinished:Long){
+                if (Lobo.instance!!.velocidad == 0f ) {
+                    Lobo.instance!!.velocidad = Lobo.instance!!.velocidadCambiada
+                }
+            }
+            override fun onFinish(){
+                tiempoVel=true
+            }
+        }
+        val tiempoInvisibilidad=object : CountDownTimer (MAX_TIEMPO_INVISIBLE,1000){
+            override fun onTick(millisUntilFinished:Long){
+
+            }
+            override fun onFinish(){
+                tiempoInvisible=true
+            }
+        }
     }
 
 
@@ -45,8 +74,11 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
             // Capture the current time
             val startFrameTime = System.currentTimeMillis()
 
+
+
             // Update the frame
             if (!paused) {
+                tiempo.start()
                 game!!.update(fps)
             }
 
