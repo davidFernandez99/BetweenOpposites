@@ -22,9 +22,14 @@ class Nivel(listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>? = nu
     fun getSala(id_sala:Int): Sala{
 
         try {
-            if(id_sala == -1){
-                return arraySalas.last()
+            if(id_sala<-1 || id_sala==0 || id_sala>arraySalas.size){
+                throw ArrayIndexOutOfBoundsException("La posición no es correcta")
             }
+
+            if(id_sala == -1){
+                return arraySalas.last()!!
+            }
+
             val sala: Sala? = arraySalas.get(id_sala - 1)
             if (sala != null) {
                 return sala

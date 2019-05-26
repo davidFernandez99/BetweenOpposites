@@ -48,13 +48,12 @@ object FactorySala {
             }
 
         } catch (e: FileNotFoundException) {
+            e.printStackTrace()
             throw Exception(
                 String.format(
                     "El fitxer %s no existeix", filename
                 )
-
             )
-            e.printStackTrace()
         } catch (e: Exception) {
             e.printStackTrace()
         }catch(e: IOException){

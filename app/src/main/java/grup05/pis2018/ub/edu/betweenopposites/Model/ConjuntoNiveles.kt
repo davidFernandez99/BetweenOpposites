@@ -50,6 +50,10 @@ class ConjuntoNiveles(contexto: Context,
     fun getNivel(id_nivel: Int): Nivel {
 
         try {
+            if(id_nivel<-1 || id_nivel==0 || id_nivel>arrayNiveles.size){
+                throw ArrayIndexOutOfBoundsException("La posición no es correcta")
+            }
+
             if(id_nivel == -1){
                 return arrayNiveles.last()!!
             }

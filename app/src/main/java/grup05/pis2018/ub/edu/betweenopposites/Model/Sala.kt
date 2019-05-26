@@ -120,9 +120,8 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun getPuerta(id_puerta: Int): Puerta{
 
-        val posicion: Int= id_puerta-1
         try {
-            if(posicion<0 || posicion>puertas.size-1){
+            if(id_puerta<-1 || id_puerta==0 || id_puerta>puertas.size){
                 throw ArrayIndexOutOfBoundsException("La posición no es correcta")
             }
 

@@ -69,9 +69,14 @@ class GameData(contexto: Context) {
     fun traspasarPuerta(puerta : Puerta){
         val id_nivel_destino: Int = puerta.id_nivel_destino
         val id_sala_destino: Int = puerta.id_sala_destino
-        val spawnpoint_destino: Posicion = puerta.getPosicionDestino()!!
+        var spawnpoint_destino: Posicion? = puerta.getPosicionDestino()
 
-        cargarSala(id_nivel_destino,id_sala_destino)
+        if(spawnpoint_destino==null){
+            spawnpoint_destino=puerta.spawn_point
+
+        }
+        // CARGAMOS LA SALA DE DESTINO
+        cargarSala(id_nivel_destino + 1,id_sala_destino + 1)
 
         //Cambio la posición del lobo al destino
         lobo.posicion = spawnpoint_destino
