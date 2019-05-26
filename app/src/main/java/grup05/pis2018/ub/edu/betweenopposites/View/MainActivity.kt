@@ -83,6 +83,11 @@ class MainActivity : AppCompatActivity(),View {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        player.pause()
+    }
+
     private fun saveValuePreferences(context: Context, mostrar: Boolean) {
         val settings = context.getSharedPreferences("mispreferencias", Context.MODE_PRIVATE)
         val editor = settings.edit().putBoolean("tutorial", mostrar)
