@@ -62,15 +62,15 @@ enum class Plantilla(val listaPlantillas: ArrayList<String>) {
         ArrayList(
             listOf(
                 NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_01.filename
+                NombreFicheros.salaBasica_02.filename,
+                NombreFicheros.salaBasica_03.filename,
+                NombreFicheros.salaBasica_04.filename,
+                NombreFicheros.salaBasica_05.filename,
+                NombreFicheros.salaBasica_06.filename,
+                NombreFicheros.salaBasica_07.filename,
+                NombreFicheros.salaBasica_08.filename,
+                NombreFicheros.salaBasica_09.filename,
+                NombreFicheros.salaBasica_10.filename
             )
         )
     ),
