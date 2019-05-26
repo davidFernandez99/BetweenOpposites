@@ -87,7 +87,7 @@ object FactorySala {
     fun crearSalaEspecial(id_sala: Int, filename: String, contexto: Context): SalaEspecial {
 
         //Defino la matriz donde se van a cargar los datos
-        var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
+        var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(15, { Array(30, { null }) })
 
         var fitxer: BufferedReader?
 
@@ -126,7 +126,7 @@ object FactorySala {
     fun crearSalaFinal(dificultad:Int,id_sala: Int, filename: String,contexto:Context): SalaFinal {
 
         //Defino la matriz donde se van a cargar los datos
-        var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
+        var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(15, { Array(30, { null }) })
 
         var fitxer: BufferedReader?
 

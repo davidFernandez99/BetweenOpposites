@@ -411,7 +411,9 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
             }
             else{
-                objeto.detectarColision(Lobo.instance)
+                if(objeto.es_visible==true){
+                    objeto.detectarColision(Lobo.instance)
+                }
             }
         }
         if(ultimaTrampaColisionada!= null){
