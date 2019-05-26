@@ -37,18 +37,18 @@ enum class Descifrar(val char: String) {
  * Defino un enumm donde se ecuentran los nobres de las plantillas.
  */
 enum class NombreFicheros(val filename: String) {
-    salaBasica_01("src/main/assets/plantillas/SALA_BASICA_1.txt"),
-    salaBasica_02("src/main/assets/plantillas/SALA_BASICA_2.txt"),
-    salaBasica_03("src/main/assets/plantillas/SALA_BASICA_3.txt"),
-    salaBasica_04("src/main/assets/plantillas/SALA_BASICA_4.txt"),
-    salaBasica_05("src/main/assets/plantillas/SALA_BASICA_5.txt"),
-    salaBasica_06("src/main/assets/plantillas/SALA_BASICA_6.txt"),
-    salaBasica_07("src/main/assets/plantillas/SALA_BASICA_7.txt"),
-    salaBasica_08("src/main/assets/plantillas/SALA_BASICA_8.txt"),
-    salaBasica_09("src/main/assets/plantillas/SALA_BASICA_9.txt"),
-    salaBasica_10("src/main/assets/plantillas/SALA_BASICA_10.txt"),
-    salaEspecial_01("src/main/assets/plantillas/SALA_ESPECIAL.txt"),
-    salaFinal_01("src/main/assets/plantillas/SALA_FINAL.txt")
+    salaBasica_01("plantillas/SALA_BASICA_1.txt"),
+    salaBasica_02("plantillas/SALA_BASICA_2.txt"),
+    salaBasica_03("plantillas/SALA_BASICA_3.txt"),
+    salaBasica_04("plantillas/SALA_BASICA_4.txt"),
+    salaBasica_05("plantillas/SALA_BASICA_5.txt"),
+    salaBasica_06("plantillas/SALA_BASICA_6.txt"),
+    salaBasica_07("plantillas/SALA_BASICA_7.txt"),
+    salaBasica_08("plantillas/SALA_BASICA_8.txt"),
+    salaBasica_09("plantillas/SALA_BASICA_9.txt"),
+    salaBasica_10("plantillas/SALA_BASICA_10.txt"),
+    salaEspecial_01("plantillas/SALA_ESPECIAL.txt"),
+    salaFinal_01("plantillas/SALA_FINAL.txt")
 }
 
 /**

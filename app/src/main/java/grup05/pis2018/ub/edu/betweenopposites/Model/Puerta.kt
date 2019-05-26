@@ -54,7 +54,7 @@ class Puerta(
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            GameData.instance.traspasarPuerta(this)
+            Facade.instance.traspasarPuerta(this)
             Lobo.instance.velocidad=0f
             Lobo.instance.direccion=Direccion.PARADO
         }

@@ -1,7 +1,10 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.IOException
 
 /**
  * Se encarga de crear las diferentes salas que hay en el juego
@@ -22,16 +25,16 @@ object FactorySala {
     /**
      * Crea una SalaBasica a partir de una matriz escrita en un archivo .TXT
      */
-    fun crearSalaBasicadesdeTXT(dificultad: Int, id_sala: Int, filename: String): SalaBasica {
+    fun crearSalaBasicadesdeTXT(dificultad: Int, id_sala: Int, filename: String, contexto: Context): SalaBasica {
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
-        val fitxer: File?
+        val fitxer: BufferedReader?
 
         try {
             // Defino y obtengo el fichero a través de el nombre
-            fitxer = File(filename)
+            fitxer = contexto.assets.open(filename).bufferedReader()
 
             // Cargo las linias en una variable
             val lineas_leidas: List<String> = fitxer.readLines()
@@ -49,8 +52,12 @@ object FactorySala {
                 String.format(
                     "El fitxer %s no existeix", filename
                 )
+
             )
+            e.printStackTrace()
         } catch (e: Exception) {
+            e.printStackTrace()
+        }catch(e: IOException){
             e.printStackTrace()
         }
 
@@ -78,16 +85,16 @@ object FactorySala {
      * posición que passamos por paràmetro.
      */
 
-    fun crearSalaEspecial(id_sala: Int, filename: String): SalaEspecial {
+    fun crearSalaEspecial(id_sala: Int, filename: String, contexto: Context): SalaEspecial {
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
-        var fitxer: File?
+        var fitxer: BufferedReader?
 
         try {
             // Defino y obtengo el fichero a través de el nombre
-            fitxer = File(filename)
+            fitxer = contexto.assets.open(filename).bufferedReader()
 
             // Cargo las linias en una variable
             val lineas_leidas: List<String> = fitxer.readLines()
@@ -117,16 +124,16 @@ object FactorySala {
     /**
      * Crea una SalaFinal a partir de una matriz definida en un archivo .TXT
      */
-    fun crearSalaFinal(dificultad:Int,id_sala: Int, filename: String): SalaFinal {
+    fun crearSalaFinal(dificultad:Int,id_sala: Int, filename: String,contexto:Context): SalaFinal {
 
         //Defino la matriz donde se van a cargar los datos
         var matrix: Array<Array<Objeto?>> = Array<Array<Objeto?>>(10, { Array(20, { null }) })
 
-        var fitxer: File?
+        var fitxer: BufferedReader?
 
         try {
             // Defino y obtengo el fichero a través de el nombre
-            fitxer = File(filename)
+            fitxer = contexto.assets.open(filename).bufferedReader()
 
             // Cargo las linias en una variable
             val lineas_leidas: List<String> = fitxer.readLines()

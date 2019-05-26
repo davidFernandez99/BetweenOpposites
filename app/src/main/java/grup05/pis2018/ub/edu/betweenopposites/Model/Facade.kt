@@ -17,21 +17,28 @@ class Facade : Model {
      * Es lo mismo que crear un campo estatico en Java
      * De esta forma podemos tener una única instancia para esta clase.
      */
-    var gameData:GameData= GameData.instance
-    companion object {
-        val uniqueFacade: Facade=Facade()
+    lateinit var gameData:GameData
 
+    /**
+     * Guarda si la partida ha sido iniciada
+     */
+    var partidaIniciada=false
+
+    /**
+     * Singleton Facade
+     */
+    companion object {
+        val instance: Facade=Facade()
     }
 
     /**
-     * Crea el objeto único Facade al ser llamado por primera vez y siempre es devuelto el mismo.
+     * Función para inicializar la partida. Crea el conjunto de niveles y dentro de este las salas y objetos.
      */
+    fun iniciarPartida(contexto: Context){
+        // Creo la partida
+        gameData = GameData(contexto)
 
-    /**
-     * Funcion que devuelve la instancia única de la Facade
-     */
-    public fun getInstance(): Facade {
-        return uniqueFacade
+        partidaIniciada=true
     }
 
 
@@ -57,4 +64,10 @@ class Facade : Model {
     fun update(fps:Long){
         gameData.update(fps)
     }
- }
+
+    fun traspasarPuerta(puerta: Puerta) {
+        if(partidaIniciada){
+            gameData.traspasarPuerta(puerta)
+        }
+    }
+}

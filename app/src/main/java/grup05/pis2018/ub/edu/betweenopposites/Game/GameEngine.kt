@@ -5,7 +5,6 @@ import android.graphics.*
 import android.view.SurfaceHolder
 import grup05.pis2018.ub.edu.betweenopposites.Model.*
 import grup05.pis2018.ub.edu.betweenopposites.R
-import grup05.pis2018.ub.edu.betweenopposites.View.UnJugador
 
 class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
@@ -160,7 +159,8 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     fun inicializarVariable(){
         paint.textSize= 30f
         lobo=Lobo.instance
-        facade= Facade.uniqueFacade
+        facade= Facade.instance
+        facade!!.iniciarPartida(contexto)
         vida=Vida()
         bando=Bando.Blanco
         bando2=Bando.Negro

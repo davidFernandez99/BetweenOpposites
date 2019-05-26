@@ -8,7 +8,7 @@ import android.graphics.Canvas
  * hacer funcionar el Juego.
  * El conjunto de niveles, el Lobo...
  */
-class GameData {
+class GameData(contexto: Context) {
     // Tiene una referencia directa a la salaActiva en este momento
     lateinit var salaActiva: Sala
 
@@ -30,7 +30,7 @@ class GameData {
          * Crea el conjunto de niveles y carga como sala inicial la primera del primer nivel.
          */
         // Creamos el conjunto de niveles
-        conjuntoNiveles = ConjuntoNiveles()
+        conjuntoNiveles = ConjuntoNiveles(contexto)
 
         // Crea el objeto lobo y lo posiciona frente a la primera puerta de todas
         // Antes de eso guardamos cual és la primera puerta y la última para saber si cuando
@@ -43,12 +43,6 @@ class GameData {
 
         // Cargamos la primera de las salas como la activa y colocamos al lobo en el punto de spawn
         traspasarPuerta(primeraPuerta!!)
-    }
-
-    companion object {
-
-        var instance = GameData()
-
     }
 
     /**

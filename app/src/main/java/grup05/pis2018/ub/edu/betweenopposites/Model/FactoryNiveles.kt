@@ -1,5 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+
 /**
  * Se encarga de generar niveles,
  * Es una clase estatica.
@@ -72,7 +74,8 @@ object FactoryNiveles {
         num_salas_especiales: Int,
         plantillasSalasBasicas: ArrayList<String>,
         plantillasSalaEspecial: ArrayList<String>,
-        plantillasSalaFinal: ArrayList<String>
+        plantillasSalaFinal: ArrayList<String>,
+        contexto: Context
     ): Nivel {
 
         /**
@@ -120,7 +123,7 @@ object FactoryNiveles {
             listaSalas.add(
                 FactorySala.crearSalaBasicadesdeTXT(
                     num_nivel, salas_basicas_generadas + salas_especiales_generadas + 1,
-                    plantillasSalasBasicas[salas_basicas_generadas]
+                    plantillasSalasBasicas[salas_basicas_generadas],contexto
                 )
             )
             salas_basicas_generadas++
@@ -133,7 +136,8 @@ object FactoryNiveles {
                 listaSalas.add(
                     FactorySala.crearSalaEspecial(
                         salas_basicas_generadas + salas_especiales_generadas + 1,
-                        plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()]
+                        plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()],
+                        contexto
                     )
                 )
 
@@ -157,7 +161,8 @@ object FactoryNiveles {
                 listaSalas.add(
                     FactorySala.crearSalaBasicadesdeTXT(
                         num_nivel, salas_basicas_generadas + salas_especiales_generadas + 1,
-                        plantillasSalasBasicas[(0..plantillasSalasBasicas.size - 1).random()]
+                        plantillasSalasBasicas[(0..plantillasSalasBasicas.size - 1).random()],
+                        contexto
                     )
                 )
                 salas_basicas_generadas++
@@ -169,7 +174,8 @@ object FactoryNiveles {
                     listaSalas.add(
                         FactorySala.crearSalaEspecial(
                             salas_basicas_generadas + salas_especiales_generadas + 1,
-                            plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()]
+                            plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()],
+                            contexto
                         )
                     )
                     salas_especiales_generadas++
@@ -181,7 +187,8 @@ object FactoryNiveles {
         listaSalas.add(
             FactorySala.crearSalaFinal(num_nivel,
                 salas_basicas_generadas + salas_especiales_generadas + 1,
-                plantillasSalaFinal[(0..plantillasSalaFinal.size - 1).random()]
+                plantillasSalaFinal[(0..plantillasSalaFinal.size - 1).random()],
+                contexto
             )
         )
 
