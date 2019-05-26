@@ -27,6 +27,7 @@ class Sumador(
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
+            es_visible=false
             lobo.sumarPuntuacion(valor)
         }
     }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.GameEngine
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
 import grup05.pis2018.ub.edu.betweenopposites.R
 
@@ -385,39 +386,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         return arrayStrings
     }
 
-    fun obtenerBitmap(objeto: Objeto,contexto: Context): Bitmap {
 
-        if (objeto is Lobo) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_raro)
-        } else if (objeto is Orbe) {
-            var orbe: Orbe = objeto as Orbe
-            if (orbe.bando == Bando.Negro) {
-                return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_negro)
-            } else {
-                return BitmapFactory.decodeResource(contexto.resources, R.drawable.orbes)
-            }
-        } else if (objeto is Muro) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.muro)
-        } else if (objeto is Suelo) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.suelo)
-        } else if (objeto is Sumador) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.sumador)
-        } else if (objeto is Multiplicador) {
-            BitmapFactory.decodeResource(contexto.resources, R.drawable.multiplicador)
-        } else if (objeto is Maquina) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.maquina)
-        } else if (objeto is Invisibilidad) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_invisibilidad)
-        } else if (objeto is AumentarVelocidad) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_velocidad)
-        } else if (objeto is CambioBando) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_cambiobando)
-        } else if (objeto is Puerta) {
-            return BitmapFactory.decodeResource(contexto.resources, R.drawable.puerta)
-        }
-        return BitmapFactory.decodeResource(contexto.resources, R.drawable.trampa)
-
-    }
     fun update(fps:Long){
         var colision:Boolean=false
         // Dibujamos objetos en la sala
@@ -468,29 +437,46 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         for (j in 0..matrixSala.size-1) {
             for (i in 0..matrixSala[j].size-1) {
                 var objeto:Objeto=getObjetofromSala(i,j)
-                objeto.draw(canvas,obtenerBitmap(objeto,contexto))
+                if(objeto is Muro){
+                    objeto.draw(canvas, GameEngine.bitmapMuro!!)
+                }
+                if(objeto is Suelo){
+                    objeto.draw(canvas, GameEngine.bitmapSuelo!!)
+                }
+
             }
         }
         // Dibujamos objetos en la sala
         for (objeto: Objeto in this.objetos) {
             if(objeto is Trampa){
-                objeto.draw(canvas,obtenerBitmap(objeto,contexto))
+                objeto.draw(canvas, GameEngine.bitmapTrampa!!)
             }
             else{
                 if(objeto.es_visible==true){
-                    objeto.draw(canvas,obtenerBitmap(objeto,contexto))
+                    if(objeto is Multiplicador){
+                        objeto.draw(canvas, GameEngine.bitmapMultiplicador!!)
+                    }
+                    if(objeto is Sumador){
+                        objeto.draw(canvas, GameEngine.bitmapSumador!!)
+                    }
                 }
             }
         }
         // Dibujamos los orbes
         for (orbe: Orbe in this.orbes) {
             if(orbe.es_visible==true){
-                orbe.draw(canvas,obtenerBitmap(orbe,contexto))
+                if(orbe.bando==Bando.Blanco){
+                    orbe.draw(canvas, GameEngine.bitmapOrbeBlanco!!)
+                }
+                else{
+                    orbe.draw(canvas, GameEngine.bitmapOrbeNegro!!)
+                }
+
             }
         }
         for(puerta:Puerta in this.puertas){
-            puerta.draw(canvas,obtenerBitmap(puerta,contexto))
+            puerta.draw(canvas, GameEngine.bitmapPuerta!!)
         }
-        Lobo.instance.draw(canvas,obtenerBitmap(Lobo.instance,contexto))
+        Lobo.instance.draw(canvas, GameEngine.bitmapOrbeRaro!!)
     }
 }

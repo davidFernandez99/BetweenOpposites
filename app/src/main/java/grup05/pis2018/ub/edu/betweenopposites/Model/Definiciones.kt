@@ -12,14 +12,14 @@ enum class Dimension(
     val width: Float = width_en_bloques* 64.toFloat()
 ) {
     bloque(1, 1, 64f, 64f),
-    muro(1, 1, 64f, 64f),
-    puerta(1, 1, 64f, 64f),
-    suelo(1, 1, 64f, 64f),
+    muro(1, 1, 32f, 32f),
+    puerta(1, 1, 32f, 32f),
+    suelo(1, 1, 32f, 32f),
     sala(15, 30, 640f, 1280f),
-    orbe(1, 1, 64f, 64f),
-    trampa(1, 1, 64f, 64f),
-    sumador(1,1,64f,64f),
-    multiplicador(1,1,64f,64f),
+    orbe(1, 1, 32f, 32f),
+    trampa(1, 1, 32f, 32f),
+    sumador(1,1,16f,16f),
+    multiplicador(1,1,16f,16f),
     maquina(4,4,64f,40f)
 }
 
@@ -37,7 +37,7 @@ enum class Descifrar(val char: String) {
  * Defino un enumm donde se ecuentran los nobres de las plantillas.
  */
 enum class NombreFicheros(val filename: String) {
-    salaBasica_01("plantillas/SALA_BASICA.txt"),
+    salaBasica_01("plantillas/SALA_BASICA_1.txt"),
     salaBasica_02("plantillas/SALA_BASICA_2.txt"),
     salaBasica_03("plantillas/SALA_BASICA_3.txt"),
     salaBasica_04("plantillas/SALA_BASICA_4.txt"),

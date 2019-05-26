@@ -17,31 +17,16 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var bitmapBorde: Bitmap ?= null
     var bitmapBordeSuperior: Bitmap ?= null
     var bitmapPausa: Bitmap ?= null
-    var bitmapOrbeNegro: Bitmap ?= null
-    var bitmapOrbeBlanco: Bitmap ?= null
-    var bitmapTrampa: Bitmap ?= null
-    var bitmapMuro: Bitmap ?= null
-    var bitmapSuelo: Bitmap ?= null
     var bitmapTeleporActivado: Bitmap ?= null
     var bitmapTeleporDesactivado: Bitmap ?=  null
-    var bitmapInv: Bitmap ?= null
-    var bitmapCambio: Bitmap ?= null
-    var bitmapAumentoVel: Bitmap ?= null
-    var bitmapSumador: Bitmap ?= null
-    var bitmapMultiplicador: Bitmap ?= null
     var bitmapBordeSimple: Bitmap ?= null
     var bitmapBordeDoble: Bitmap ?= null
-    var bitmapPuerta: Bitmap ?= null
-    var bitmapOrbeRaro: Bitmap ?= null
-
     //Bitmaps para pausa y fin del juego
     var bitmappausa:Bitmap?=null
     var bitmapResume:Bitmap?=null
     var bitmapHome:Bitmap?=null
     var bitmapfinjuego:Bitmap?=null
     var bitmapRestart:Bitmap?=null
-    var bitmapMaquina:Bitmap?=null
-    var bitmapOpcionesMaquina:Bitmap?=null
     var bitmapFallarOpcionMaquina:Bitmap?=null
     //Instanciamos un objeto vida para poder considerar cuantas vidas dibujar en el canvas
     var vida: Vida ?= null
@@ -176,24 +161,24 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         bitmapBorde= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde)
         bitmapBordeSuperior= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde_superior)
         bitmapPausa= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_pausa)
-        bitmapOrbeNegro= BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_negro)
-        bitmapOrbeBlanco= BitmapFactory.decodeResource(contexto.resources, R.drawable.orbes)
-        bitmapTrampa= BitmapFactory.decodeResource(contexto.resources, R.drawable.trampa)
-        bitmapMuro= BitmapFactory.decodeResource(contexto.resources, R.drawable.muro)
-        bitmapSuelo= BitmapFactory.decodeResource(contexto.resources, R.drawable.suelo)
+        GameEngine.bitmapOrbeNegro= BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_negro)
+        GameEngine.bitmapOrbeBlanco= BitmapFactory.decodeResource(contexto.resources, R.drawable.orbes)
+        GameEngine.bitmapTrampa= BitmapFactory.decodeResource(contexto.resources, R.drawable.trampa)
+        GameEngine.bitmapMuro= BitmapFactory.decodeResource(contexto.resources, R.drawable.muro)
+        GameEngine.bitmapSuelo= BitmapFactory.decodeResource(contexto.resources, R.drawable.suelo)
         bitmapTeleporActivado= BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_tp_activado)
         bitmapTeleporDesactivado=  BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_tp_desactivado)
-        bitmapInv= BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_invisibilidad)
-        bitmapCambio= BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_cambiobando)
-        bitmapAumentoVel= BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_velocidad)
-        bitmapSumador= BitmapFactory.decodeResource(contexto.resources, R.drawable.sumador)
-        bitmapMultiplicador= BitmapFactory.decodeResource(contexto.resources, R.drawable.multiplicador)
+        GameEngine.bitmapInv= BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_invisibilidad)
+        GameEngine.bitmapCambio= BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_cambiobando)
+        GameEngine.bitmapAumentoVel= BitmapFactory.decodeResource(contexto.resources, R.drawable.objeto_velocidad)
+        GameEngine.bitmapSumador= BitmapFactory.decodeResource(contexto.resources, R.drawable.sumador)
+        GameEngine.bitmapMultiplicador= BitmapFactory.decodeResource(contexto.resources, R.drawable.multiplicador)
         bitmapBordeSimple= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde_singular)
         bitmapBordeDoble= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde_doble)
-        bitmapPuerta= BitmapFactory.decodeResource(contexto.resources, R.drawable.puerta)
-        bitmapOrbeRaro= BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_raro)
-        bitmapMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.maquina)
-        bitmapOpcionesMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.opciones_maquina)
+        GameEngine.bitmapPuerta= BitmapFactory.decodeResource(contexto.resources, R.drawable.puerta)
+        GameEngine.bitmapOrbeRaro= BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_raro)
+        GameEngine.bitmapMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.maquina)
+        GameEngine.bitmapOpcionesMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.opciones_maquina)
         bitmapFallarOpcionMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.fallar_opcion_maquina)
     }
 
@@ -593,6 +578,23 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         if(lobo!!.bando== Bando.Neutro){
             canvas!!.drawText("BANDO :  NEUTRO " ,1300f, 30f,paint)
         }
+
+    }
+    companion object{
+        var bitmapOrbeNegro: Bitmap ?= null
+        var bitmapOrbeBlanco: Bitmap ?= null
+        var bitmapTrampa: Bitmap ?= null
+        var bitmapMuro: Bitmap ?= null
+        var bitmapSuelo: Bitmap ?= null
+        var bitmapInv: Bitmap ?= null
+        var bitmapCambio: Bitmap ?= null
+        var bitmapAumentoVel: Bitmap ?= null
+        var bitmapSumador: Bitmap ?= null
+        var bitmapMultiplicador: Bitmap ?= null
+        var bitmapPuerta: Bitmap ?= null
+        var bitmapOrbeRaro: Bitmap ?= null
+        var bitmapMaquina:Bitmap?=null
+        var bitmapOpcionesMaquina:Bitmap?=null
 
     }
 }
