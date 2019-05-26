@@ -155,21 +155,22 @@ class Orbe(
     }
 
     fun canviarDireccionMuro() {
-        if (this.bando == Lobo.instance.bando){
+        if (this.bando == Lobo.instance.bando) {
             var posiblesDirecciones: MutableList<Direccion> = posiblesDirecciones() as MutableList<Direccion>
             for (direccion in posiblesDirecciones) {
                 if (direccion != this.direccionChoque) {
                     this.direccion = direccion
                 }
             }
-        }else{
-            when (this.direccionChoque){
+        } else {
+            when (this.direccionChoque) {
                 Direccion.IZQUIERDA -> this.direccion = Direccion.DERECHA
                 Direccion.DERECHA -> this.direccion = Direccion.IZQUIERDA
                 Direccion.ARRIBA -> this.direccion = Direccion.ABAJO
                 Direccion.ABAJO -> this.direccion = Direccion.ARRIBA
             }
         }
+    }
 
 
     fun printOrbe() {
