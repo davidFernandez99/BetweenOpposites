@@ -104,51 +104,7 @@ class Orbe(
                 this.direccion = this.direccion
             }
         }
-
-
-       /* }else if (Lobo.instance.posicion.x == this.posicion.x &&
-                Lobo.instance.posicion.y > this.posicion.y ){
-            this.direccion = Direccion.ARRIBA
-        }else if (Lobo.instance.posicion.x == this.posicion.x &&
-            Lobo.instance.posicion.y < this.posicion.y ) {
-            this.direccion = Direccion.ABAJO
-        }else if (Lobo.instance.posicion.x > this.posicion.x &&
-            Lobo.instance.posicion.y == this.posicion.y ) {
-            this.direccion = Direccion.DERECHA
-        }else if (Lobo.instance.posicion.x < this.posicion.x &&
-            Lobo.instance.posicion.y == this.posicion.y ) {
-            this.direccion = Direccion.IZQUIERDA
-        }*/
-
-/*        var direccionNueva: Int = 0
-        if (this.direccion == Direccion.DERECHA) {
-            direccionNueva = (0..2).random()
-            if (direccionNueva == 0) {
-                this.direccion = Direccion.ABAJO
-            } else {
-                this.direccion = Direccion.ARRIBA
-            }
-
-        }
-        if (direccion == Direccion.IZQUIERDA) {
-            this.direccion=Direccion.DERECHA
-        }
-        if (direccion == Direccion.ARRIBA) {
-            direccionNueva = (0..2).random()
-            if (direccionNueva == 0) {
-                this.direccion = Direccion.IZQUIERDA
-            } else {
-                this.direccion = Direccion.DERECHA
-            }
-        }
-        if (direccion == Direccion.ABAJO) {
-            direccionNueva = (0..2).random()
-            if (direccionNueva == 0) {
-                this.direccion = Direccion.IZQUIERDA
-            } else {
-                this.direccion = Direccion.DERECHA
-            }
-        }*/
+        
     }
 
     fun returnPosicion(){ //Método usado como auxiliar para retornar a posiciones anteriores a la colision de un muro
