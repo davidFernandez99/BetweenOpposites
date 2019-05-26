@@ -37,7 +37,7 @@ enum class Descifrar(val char: String) {
  * Defino un enumm donde se ecuentran los nobres de las plantillas.
  */
 enum class NombreFicheros(val filename: String) {
-    salaBasica_01("plantillas/SALA_BASICA_1.txt"),
+    salaBasica_01("plantillas/SALA_BASICA.txt"),
     salaBasica_02("plantillas/SALA_BASICA_2.txt"),
     salaBasica_03("plantillas/SALA_BASICA_3.txt"),
     salaBasica_04("plantillas/SALA_BASICA_4.txt"),
