@@ -579,10 +579,10 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             DisplayThread.fin_juego=true
         }
         if(mapa==1){
-            canvas!!.drawText("1  -  1" ,350f, 30f,paint)
+            canvas!!.drawText("NIVEL :  1  -  1" ,350f, 30f,paint)
         }
         if(mapa==2){
-            canvas!!.drawText("1  -  2" ,350f, 30f,paint)
+            canvas!!.drawText("NIVEL :  1  -  2" ,350f, 30f,paint)
         }
         if(lobo!!.bando== Bando.Negro){
             canvas!!.drawText("BANDO :  OSCURIDAD " ,1300f, 30f,paint)

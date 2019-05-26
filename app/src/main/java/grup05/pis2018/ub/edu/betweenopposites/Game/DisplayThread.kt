@@ -47,6 +47,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
                 if (Lobo.instance!!.velocidad == 0f ) {
                     Lobo.instance!!.velocidad = Lobo.instance!!.velocidadCambiada
                 }
+                tiempoVel=true
             }
             override fun onFinish(){
                 tiempoVel=true
@@ -54,7 +55,8 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         }
         val tiempoInvisibilidad=object : CountDownTimer (MAX_TIEMPO_INVISIBLE,1000){
             override fun onTick(millisUntilFinished:Long){
-
+                tiempoInvisible=true
+                
             }
             override fun onFinish(){
                 tiempoInvisible=true

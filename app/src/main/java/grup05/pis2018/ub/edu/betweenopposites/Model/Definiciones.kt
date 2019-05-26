@@ -15,7 +15,7 @@ enum class Dimension(
     muro(1, 1, 64f, 64f),
     puerta(1, 1, 64f, 64f),
     suelo(1, 1, 64f, 64f),
-    sala(10, 20, 640f, 1280f),
+    sala(15, 30, 640f, 1280f),
     orbe(1, 1, 64f, 64f),
     trampa(1, 1, 64f, 64f),
     sumador(1,1,64f,64f),
@@ -62,15 +62,15 @@ enum class Plantilla(val listaPlantillas: ArrayList<String>) {
         ArrayList(
             listOf(
                 NombreFicheros.salaBasica_01.filename,
-                NombreFicheros.salaBasica_02.filename,
-                NombreFicheros.salaBasica_03.filename,
-                NombreFicheros.salaBasica_04.filename,
-                NombreFicheros.salaBasica_05.filename,
-                NombreFicheros.salaBasica_06.filename,
-                NombreFicheros.salaBasica_07.filename,
-                NombreFicheros.salaBasica_08.filename,
-                NombreFicheros.salaBasica_09.filename,
-                NombreFicheros.salaBasica_10.filename
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename,
+                NombreFicheros.salaBasica_01.filename
             )
         )
     ),

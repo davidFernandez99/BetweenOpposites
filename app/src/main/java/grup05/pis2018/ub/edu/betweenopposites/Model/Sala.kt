@@ -334,7 +334,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             for(i in (0..(matrixAvalible[j].size-1))){
                 // Si es un suelo es posible que esté libre
                 if(matrixAvalible[j][i]){
-                    list.add(listOf(j,i))
+                    list.add(listOf(i,j))
                 }
             }
         }

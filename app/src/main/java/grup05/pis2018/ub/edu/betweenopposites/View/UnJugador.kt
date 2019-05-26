@@ -75,7 +75,7 @@ class UnJugador : AppCompatActivity(), View {
 
     override fun onDestroy() {
         super.onDestroy()
-        //gameView?.onDestroy()
+        gameView?.onStop()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
