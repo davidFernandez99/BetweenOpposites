@@ -94,8 +94,8 @@ class Orbe(
     }
 
     fun canviarDireccion() { //Método para canviar la dirección del orbe cuando colisiona con un muro para que no siempre se mueva de forma lineal
-        if (this.bando == Lobo.instance.bando){
-            calcularDireccion()
+        if (this.bando != Lobo.instance.bando){
+            perseguir()
 
         }else {
             var listAux = (1..100)
@@ -126,7 +126,7 @@ class Orbe(
         }
     }
 
-    private fun calcularDireccion() {
+    private fun perseguir() {
         if (this.direccion in posiblesDirecciones()){
             this.direccion = this.direccion
         }else {
@@ -155,7 +155,7 @@ class Orbe(
     }
 
     fun canviarDireccionMuro() {
-        if (this.bando == Lobo.instance.bando) {
+        if (this.bando != Lobo.instance.bando) {
             var posiblesDirecciones: MutableList<Direccion> = posiblesDirecciones() as MutableList<Direccion>
             for (direccion in posiblesDirecciones) {
                 if (direccion != this.direccionChoque) {
