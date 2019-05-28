@@ -34,4 +34,17 @@
     <string name="fin_juego">Fin del juego</string>
     <string name="Puntos">Puntos</string>
     <string name="todo">TODO</string>
+    <string name="descripcio">Bienvenido a BetweenOpposites,\n
+        \nTu misión consistirá en alcanzar la máxima puntuación posible. Para eso podrás optar por el bando de la oscuridad
+        o el bando de la luz. Según tu elección deberás coger orbes de tu mismo bando(+10) mientras esquivas los orbes enemigos(-10).\n
+        En el caso que el bando contrario té quite todos los puntos, cambiarás de bando.</string>
+    <string name="Cambio_bando">Permite cambiar de bando en cualquier momento</string>
+    <string name="Invisibilidad">Té hace invisible a todo el mundo</string>
+    <string name="Augmento_velocidad">Augmenta tu velocidad</string>
+    <string name="Sumador">Suma puntos extra</string>
+    <string name="Multiplicador">Multiplicador de puntos</string>
+    <string name="importante">IMPORTANTE: Deberás ir contando tu puntuación</string>
+    <string name="Aceptar">Aceptar</string>
+
+    <string name="informacio">Información</string>
 </resources>

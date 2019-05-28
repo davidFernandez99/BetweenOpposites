@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity(),View {
         setContentView(R.layout.activity_main)
 
         player = MediaPlayer.create(this, R.raw.musica)
+
         player.isLooping = true
         player.start()
 
@@ -65,7 +67,12 @@ class MainActivity : AppCompatActivity(),View {
         btn_opciones.setOnClickListener {
             val intent = Intent(this, Opcions::class.java)
             startActivity(intent)
-            //mp.stop() No fa falta parar la musica en la pantalla d'opcions
+        }
+
+        val btn_infor = findViewById<Button>(R.id.btn_info)
+        btn_infor.setOnClickListener {
+            val intent = Intent(this, Tutorial::class.java)
+            startActivity(intent)
         }
 
     }
@@ -99,4 +106,5 @@ class MainActivity : AppCompatActivity(),View {
         return preferences.getBoolean("tutorial", true)
 
     }
+
 }

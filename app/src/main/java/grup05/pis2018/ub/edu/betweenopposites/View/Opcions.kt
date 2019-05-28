@@ -18,6 +18,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 
 import android.os.Vibrator
+import android.util.Log
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
@@ -28,7 +29,7 @@ import grup05.pis2018.ub.edu.betweenopposites.R
 
 const val RC_SIGN_IN = 123
 
-lateinit var firebaseAuth: FirebaseAuth
+lateinit var auth: FirebaseAuth
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var mGoogleSignInOptions: GoogleSignInOptions
 
@@ -73,7 +74,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         val swtEfectos = findViewById<Switch>(R.id.switch_efectos)
         val swtVibracion = findViewById<Switch>(R.id.switch_vibracion)
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         btn_logOut.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
 
@@ -186,30 +187,35 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-
-                if(task.isSuccessful) {
+            val task= GoogleSignIn.getSignedInAccountFromIntent(data)
+                try{
                     val account = task.getResult(ApiException::class.java)
                     firebaseAuthWithGoogle(account!!)
-                }else{
-                Toast.makeText(this, "Google sign in failed", Toast.LENGTH_LONG).show()
+                }catch (e: ApiException){
+                    Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     //Authentication with firebase
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        //Log.d("TAG", "firebaseAuthWithGoogle:" + acct.id!!)
+
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this) {task->
+        auth.signInWithCredential(credential).addOnCompleteListener(this) {task->
             if (task.isSuccessful) {
+                //Log.d("TAG", "signInWithCredential:success")
+                Toast.makeText(this, "signInWithCredential:success", Toast.LENGTH_SHORT).show()
+                val user = auth.currentUser
                 sign_in_button.visibility=View.GONE
-                txt_email.text=acct.email
-                txt_nomUsuari.text=acct.displayName
+                txt_email.text=user?.email
+                txt_nomUsuari.text=user?.displayName
                 txt_email.visibility=View.VISIBLE
                 txt_nomUsuari.visibility=View.VISIBLE
                 btn_logOut.visibility=View.VISIBLE
 
             } else {
+                //Log.w("TAG", "signInWithCredential:failure", task.exception)
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
         }
@@ -218,7 +224,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     //Check if the user is signed in already
     override fun onStart() {
         super.onStart()
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = auth.currentUser
         if (user != null) {
             sign_in_button.visibility=View.GONE
             txt_email.text=user.email

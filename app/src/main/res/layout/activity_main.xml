@@ -30,6 +30,11 @@
                 android:layout_height="63dp" app:srcCompat="@mipmap/ic_lbtn_opciones" android:layout_row="8"
                 android:layout_column="0" android:id="@+id/btn_opciones" android:background="@android:color/transparent"
                 android:layout_gravity="end"/>
+        <Button
+                android:text="@string/informacio"
+                android:layout_row="8"
+                android:layout_column="0"
+                android:id="@+id/btn_info"/>
     </GridLayout>
 
 </LinearLayout>

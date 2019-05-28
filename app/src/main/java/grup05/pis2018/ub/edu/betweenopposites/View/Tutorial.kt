@@ -18,5 +18,7 @@ class Tutorial : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP) //T'envia sempre a la pantalla principal quan li dones enrere
     }
 }
