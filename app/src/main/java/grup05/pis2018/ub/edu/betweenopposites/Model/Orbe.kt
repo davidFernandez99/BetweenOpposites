@@ -94,8 +94,27 @@ class Orbe(
     }
 
     fun canviarDireccion() { //Método para canviar la dirección del orbe cuando colisiona con un muro para que no siempre se mueva de forma lineal
-        if (this.bando == Lobo.instance.bando){
-            calcularDireccion()
+        if (Lobo.instance.bando == Bando.Neutro || this.bando == Lobo.instance.bando){
+            cambiarDireccionRandom()
+        }else {
+            perseguir()
+        }
+
+
+
+        /*if (this.bando == Bando.Neutro){
+            var listAux = (1..100)
+            if (listAux.random() > 98){
+                this.direccion = listOf(Direccion.ABAJO,
+                    Direccion.ARRIBA,
+                    Direccion.IZQUIERDA,
+                    Direccion.DERECHA).random()
+            }else{
+                this.direccion = this.direccion
+            }
+        }
+        else if (this.bando != Lobo.instance.bando){
+            perseguir()
 
         }else {
             var listAux = (1..100)
@@ -107,7 +126,7 @@ class Orbe(
             }else{
                 this.direccion = this.direccion
             }
-        }
+        }*/
         
     }
 
@@ -126,7 +145,7 @@ class Orbe(
         }
     }
 
-    private fun calcularDireccion() {
+    private fun perseguir() {
         if (this.direccion in posiblesDirecciones()){
             this.direccion = this.direccion
         }else {
@@ -155,7 +174,7 @@ class Orbe(
     }
 
     fun canviarDireccionMuro() {
-        if (this.bando == Lobo.instance.bando) {
+        if (this.bando != Lobo.instance.bando) {
             var posiblesDirecciones: MutableList<Direccion> = posiblesDirecciones() as MutableList<Direccion>
             for (direccion in posiblesDirecciones) {
                 if (direccion != this.direccionChoque) {
@@ -176,5 +195,17 @@ class Orbe(
     fun printOrbe() {
         println("Orbe ${bando.name} POSICION: [${posicion.x_sala},${posicion.y_sala}]")
 
+    }
+
+    fun cambiarDireccionRandom(){
+        var listAux = (1..100)
+        if (listAux.random() > 98){
+            this.direccion = listOf(Direccion.ABAJO,
+                Direccion.ARRIBA,
+                Direccion.IZQUIERDA,
+                Direccion.DERECHA).random()
+        }else{
+            this.direccion = this.direccion
+        }
     }
 }

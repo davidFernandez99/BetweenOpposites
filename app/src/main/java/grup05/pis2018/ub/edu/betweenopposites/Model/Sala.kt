@@ -394,6 +394,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         // Dibujamos los orbes
         for (orbe: Orbe in this.orbes) {
             orbe.mover(fps)
+            orbe.canviarDireccion()
             if(orbe.es_visible==true){
                 orbe.detectarColision(Lobo.instance)
             }
