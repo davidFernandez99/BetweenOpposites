@@ -29,6 +29,15 @@ class Facade : Model {
      */
     companion object {
         val instance: Facade=Facade()
+        var dando_opciones=false
+        var comprobar_opcion=false
+        var opcion:Int=0
+        var fallar=false
+        var opciones:ArrayList<Int> ?= null
+        var nivel:Int = 0
+        var mapa:Int =0
+        var ultimaPuntuacion:Int=0
+        var signo:Int=0 //si es 1 es +, y 2 es -
     }
 
     /**

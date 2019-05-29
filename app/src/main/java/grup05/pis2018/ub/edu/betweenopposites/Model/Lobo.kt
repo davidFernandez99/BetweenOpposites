@@ -103,6 +103,8 @@ class Lobo(
      */
     fun sumarPuntuacion(valorSumadpr: Int) {
         this.puntuacion.puntuacion += valorSumadpr * this.multiplicador
+        Facade.signo=1
+        Facade.ultimaPuntuacion=valorSumadpr*this.multiplicador
     }
 
     /**
@@ -116,6 +118,8 @@ class Lobo(
         } else {
             this.puntuacion.puntuacion -= valorSumador*this.multiplicador
         }
+        Facade.signo=2
+        Facade.ultimaPuntuacion=valorSumador*this.multiplicador
     }
 
     /**

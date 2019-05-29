@@ -85,6 +85,8 @@ class GameData(contexto: Context) {
 
     fun update(fps:Long){
         salaActiva.update(fps)
+        Facade.mapa=salaActiva.id_sala
+        Facade.nivel=nivelActivo.id_nivel
     }
 
     fun draw(canvas: Canvas, contexto: Context){

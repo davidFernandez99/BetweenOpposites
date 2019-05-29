@@ -4,9 +4,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.os.Vibrator
+import android.support.v4.content.ContextCompat.getSystemService
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameEngine
-import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
-import grup05.pis2018.ub.edu.betweenopposites.R
+import android.content.Context.VIBRATOR_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
+
 
 abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
@@ -33,6 +37,12 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     private var matrixAvalible: Array<Array<Boolean>> = Array<Array<Boolean>>(matrixSala.size,{Array(matrixSala[0].size,{false})})
 
     private var ultimaTrampaColisionada:Trampa?=null
+
+    //Variables para comprobar funciones maquina en sala especial
+    var comprobar_colision_maquina:Boolean=false
+    var comprobar_opcion_corecta:Boolean=false
+    var objetoMaquina:ObjetoActivable?=null
+    var maquinaSala:Maquina?=null
     init{
 
         // Al crear la sala se crea la matriz de lugares desocupados
@@ -411,10 +421,37 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
                 }
 
             }
+            if(objeto is Maquina){
+                var maquina:Maquina= objeto as Maquina
+                maquinaSala=maquina
+                comprobar_colision_maquina=maquina!!.detectarColision(Lobo.instance!!)
+                if(comprobar_colision_maquina==true){
+                    //Abrir opciones si no se ha hecho antes
+                    if(maquina!!.dar_opciones==true){
+                        Facade.dando_opciones=true
+                        Facade.opciones=maquina!!.darOpciones(Lobo.instance!!)
+
+                    }
+
+                }
+            }
             else{
                 if(objeto.es_visible==true){
                     objeto.detectarColision(Lobo.instance)
                 }
+            }
+        }
+        if(Facade.comprobar_opcion==true){
+
+            comprobar_opcion_corecta=Maquina.comprobarRespuestaMaquina(Facade.opciones!!.get(Facade.opcion))
+            if(comprobar_opcion_corecta==true){
+                objetoMaquina=maquinaSala!!.darRecompensa()
+                Facade.comprobar_opcion=false
+
+            }
+            else if(comprobar_opcion_corecta==false){
+                Facade.fallar=true
+                Facade.comprobar_opcion=false
             }
         }
         if(ultimaTrampaColisionada!= null){
@@ -425,6 +462,12 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             for (orbe:Orbe in this.orbes){
                 muro.detectarColision(orbe)
             }
+        }
+        if(objetoMaquina!=null){
+            if(objetoMaquina!!.es_visible==true){
+                objetoMaquina!!.detectarColision(Lobo.instance!!)
+            }
+
         }
         for (puerta:Puerta in this.puertas){
             puerta.detectarColision(Lobo.instance)
@@ -462,8 +505,32 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
                     if(objeto is Sumador){
                         objeto.draw(canvas, GameEngine.bitmapSumador!!)
                     }
+                    if(objeto is Maquina){
+                        objeto.draw(canvas , GameEngine.bitmapMaquina!!)
+                    }
                 }
             }
+        }
+
+        if(objetoMaquina!=null){
+            if(objetoMaquina is AumentarVelocidad){
+                if(objetoMaquina!!.es_visible==true){
+                    objetoMaquina!!.draw(canvas!!, GameEngine.bitmapAumentoVel!!)
+                }
+
+            }
+            else if (objetoMaquina is Invisibilidad){
+                if(objetoMaquina!!.es_visible==true){
+                    objetoMaquina!!.draw(canvas!!, GameEngine.bitmapInv!!)
+                }
+            }
+            else{
+                if(objetoMaquina!!.es_visible==true){
+                    objetoMaquina!!.draw(canvas!!, GameEngine.bitmapCambio!!)
+                }
+
+            }
+
         }
         // Dibujamos los orbes
         for (orbe: Orbe in this.orbes) {
@@ -482,4 +549,6 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         }
         Lobo.instance.draw(canvas, GameEngine.bitmapOrbeRaro!!)
     }
+
+
 }

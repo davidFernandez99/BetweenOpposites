@@ -15,7 +15,7 @@ import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
 import grup05.pis2018.ub.edu.betweenopposites.Model.Maquina
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import android.content.res.AssetManager
-
+import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
 
 
 class UnJugador : AppCompatActivity(), View {
@@ -89,38 +89,40 @@ class UnJugador : AppCompatActivity(), View {
 
             Log.i("finger postion", x.toString())
             Log.i("finger postion", y.toString())
-           if ((x > 1700) && (y < 40f) && !DisplayThread.paused) {
+           if ((x > 1700) && (y < 60f) && !DisplayThread.paused) {
                DisplayThread.paused = true
                DisplayThread.mostrar_Pause=true
-            } else if ((x > 770f) && (x < 858f) && (y > 550f) && (y < 638f) && DisplayThread.paused && DisplayThread.fin_juego==false && DisplayThread.dando_opciones==false && DisplayThread.fallar==false) {
+            } else if ((x > 770f) && (x < 858f) && (y > 550f) && (y < 638f) && DisplayThread.paused && DisplayThread.fin_juego==false && Facade.dando_opciones==false && Facade.fallar==false) {
                 DisplayThread.playing = false
                 val intent = Intent(this,MainActivity::class.java)
                DisplayThread.mostrar_Pause=false
                this.startActivity(intent)
-            }else if((x>  1100f) && (x<1188f )  && (y<638f) && (y> 550f) && DisplayThread.paused && DisplayThread.fin_juego==false && DisplayThread.dando_opciones==false&& DisplayThread.fallar==false){
+            }else if((x>  1100f) && (x<1188f )  && (y<638f) && (y> 550f) && DisplayThread.paused && DisplayThread.fin_juego==false && Facade.dando_opciones==false&& Facade.fallar==false){
                 DisplayThread.paused = false
                DisplayThread.mostrar_Pause=false
-           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true && DisplayThread.dando_opciones==false) {
+           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false) {
                DisplayThread.playing = false
+               DisplayThread.fin_juego=false
                val intent = Intent(this,MainActivity::class.java)
                this.startActivity(intent)
-           }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && DisplayThread.dando_opciones==false){
+           }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false){
                DisplayThread.playing = false
+               DisplayThread.fin_juego=false
                val intent = Intent(this,MainActivity::class.java)
                this.startActivity(intent)
-           }else if( (x > 770f )&& (x< 814f) && (y > 618f) && (y< 662f) && (DisplayThread.dando_opciones==true) && (DisplayThread.fallar==false)){//Opcion 1 opciones maquina
-               DisplayThread.dando_opciones=false
-               DisplayThread.comprobar_opcion=true
-               DisplayThread.opcion=0
+           }else if( (x > 770f )&& (x< 814f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true) && (Facade.fallar==false)){//Opcion 1 opciones maquina
+               Facade.dando_opciones=false
+               Facade.comprobar_opcion=true
+               Facade.opcion=0
 
-           }else if((x > 966f )&& (x< 1010f) && (y > 618f) && (y< 662f) && (DisplayThread.dando_opciones==true)&& (DisplayThread.fallar==false)){//Opcion 2 opciones maquina
-               DisplayThread.dando_opciones=false
-               DisplayThread.comprobar_opcion=true
-               DisplayThread.opcion=1
-           }else if((x > 1162f )&& (x< 1206f) && (y > 618f) && (y< 662f)&& (DisplayThread.dando_opciones==true)&& (DisplayThread.fallar==false)){//Opcion 3 opciones maquina
-               DisplayThread.dando_opciones=false
-               DisplayThread.comprobar_opcion=true
-               DisplayThread.opcion=2
+           }else if((x > 966f )&& (x< 1010f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true)&& (Facade.fallar==false)){//Opcion 2 opciones maquina
+               Facade.dando_opciones=false
+               Facade.comprobar_opcion=true
+               Facade.opcion=1
+           }else if((x > 1162f )&& (x< 1206f) && (y > 618f) && (y< 662f)&& (Facade.dando_opciones==true)&& (Facade.fallar==false)){//Opcion 3 opciones maquina
+               Facade.dando_opciones=false
+               Facade.comprobar_opcion=true
+               Facade.opcion=2
            }else if(x >64f && x< 124f  && y >1020f && y <1080f && DisplayThread.activar_efecto==false){
                if(Lobo.instance.objetoActivable!=null){
                    DisplayThread.activar_efecto=true

@@ -32,7 +32,7 @@ class Ranking : AppCompatActivity(), View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ranking)
 
-        var user = firebaseAuth.currentUser
+        var user = auth.currentUser
 
         if(user == null){
             img_puntuacion_1.setImageResource(R.drawable.interrogante)

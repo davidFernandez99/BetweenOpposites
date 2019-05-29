@@ -18,28 +18,25 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     companion object{
         val MAX_TIEMPO_VELOCIDAD: Long = 5000
         val MAX_TIEMPO_INVISIBLE: Long = 5000
-        val MAX_TIEMPO_VULNERABLE: Long = 1000
+        var MAX_TIEMPO_VULNERABLE: Long = 1000
         var conv: Long = 1000
         var playing = true
         var paused = false
         var fin_juego=false
-        var dando_opciones=false
-        var comprobar_opcion=false
-        var opcion:Int=0
-        var fallar=false
         var mostrar_Pause=false
         var activar_efecto=false
         var segundos:Int=0
         var tiempoInvisible= false
         var tiempoVel=false
-        val tiempo=object : CountDownTimer (1000,1000){
+        val tiempo=object : CountDownTimer (MAX_TIEMPO_VULNERABLE,1000){
             override fun onTick(millisUntilFinished:Long){
-
+                MAX_TIEMPO_VULNERABLE=MAX_TIEMPO_VULNERABLE-millisUntilFinished
             }
             override fun onFinish(){
                 if(paused!=true){
                     segundos++
                 }
+                MAX_TIEMPO_VULNERABLE=1000
             }
         }
         val tiempoVelocidad=object : CountDownTimer (MAX_TIEMPO_VELOCIDAD,1000){
