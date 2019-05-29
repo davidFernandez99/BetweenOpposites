@@ -43,10 +43,12 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     var comprobar_opcion_corecta:Boolean=false
     var objetoMaquina:ObjetoActivable?=null
     var maquinaSala:Maquina?=null
+
     init{
 
         // Al crear la sala se crea la matriz de lugares desocupados
         createAvalibleMatrix()
+
         // Al crear la sala tenemos que meter las puertas de la matriz en la lista y los muros en otra
         // También hay que crear el spawnpoint de las puertas
         syncPuertasyMuros()
@@ -67,8 +69,8 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     fun setObjetoinSala(objeto: Objeto) {
         // Distribuye las diferentes formas de guardar un objeto
         if (objeto is Muro || objeto is Suelo) {
-            matrixSala[objeto.posicion.x_sala][objeto.posicion.y_sala] = objeto
-            bloquearPosicion(objeto.posicion.x_sala,objeto.posicion.y_sala)
+            matrixSala[objeto.posicion.y_sala][objeto.posicion.x_sala] = objeto
+            bloquearPosicion(objeto.posicion.y_sala,objeto.posicion.x_sala)
 
         } else if (objeto is Puerta) {
             anadirPuerta(objeto)
@@ -91,8 +93,8 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         puertas.add(puerta)
 
         // Pongo la puerta en la matriz
-        matrixSala[puerta.posicion.x_sala][puerta.posicion.y_sala] = puerta
-        bloquearPosicion(puerta.posicion.x_sala,puerta.posicion.y_sala)
+        matrixSala[puerta.posicion.y_sala][puerta.posicion.x_sala] = puerta
+        bloquearPosicion(puerta.posicion.y_sala,puerta.posicion.x_sala)
 
         // Mezcla el contenido de las puertas para que el orden en la lista varie
         puertas.shuffle()
@@ -228,14 +230,16 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun anadirOrbe(orbe: Orbe) {
         this.orbes.add(orbe)
-        bloquearPosicion(orbe.posicion.x_sala,orbe.posicion.y_sala)
+        bloquearPosicion(orbe.posicion.y_sala,orbe.posicion.x_sala)
     }
 
     /**
      * Coloca multiples puertas
      */
-    fun anadirOrbes(lista_objetos: ArrayList<Orbe>) {
-        this.orbes.addAll(lista_objetos)
+    fun anadirOrbes(lista_orbes: ArrayList<Orbe>) {
+        for (orbe in lista_orbes){
+            anadirOrbe(orbe)
+        }
     }
 
     //      AÑADIR OBJETOS
@@ -244,14 +248,16 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun anadirObjeto(objeto: Objeto) {
         this.objetos.add(objeto)
-        bloquearPosicion(objeto.posicion.x_sala,objeto.posicion.y_sala)
+        bloquearPosicion(objeto.posicion.y_sala,objeto.posicion.x_sala)
     }
 
     /**
      * Coloca multiples puertas
      */
     fun anadirObjetos(lista_objetos: ArrayList<Objeto>) {
-        this.objetos.addAll(lista_objetos)
+        for (objeto in lista_objetos){
+            anadirObjeto(objeto)
+        }
     }
 
     // MÉTODOS PARA ELIMINAR OBJETOS, ORBES Y PUERTAS
@@ -263,14 +269,16 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun eliminarObjeto(objeto: Objeto) {
         this.objetos.remove(objeto)
-        liberarPosicion(objeto.posicion.x_sala,objeto.posicion.y_sala)
+        liberarPosicion(objeto.posicion.y_sala,objeto.posicion.x_sala)
     }
 
     /**
      * Elimina múltiples objetos del array de objetos
      */
     fun eliminarObjetos(objetos: ArrayList<Objeto>) {
-        this.objetos.removeAll(objetos)
+        for (objeto in objetos){
+            eliminarObjeto(objeto)
+        }
     }
 
 
@@ -280,14 +288,16 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      */
     fun eliminarOrbe(orbe: Orbe) {
         this.orbes.remove(orbe)
-        liberarPosicion(orbe.posicion.x_sala,orbe.posicion.y_sala)
+        liberarPosicion(orbe.posicion.y_sala,orbe.posicion.x_sala)
     }
 
     /**
      * Elimina multiples orbes de la lista
      */
     fun eliminarOrbes(orbes: ArrayList<Orbe>) {
-        this.orbes.removeAll(orbes)
+        for (orbe in orbes){
+            eliminarObjeto(orbe)
+        }
     }
 
     // ELIMINAR PUERTAS
@@ -298,7 +308,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         // Elimino la puerta de la lista
         this.puertas.remove(puerta)
         // La elimino de la matriz, la substituyo por un muro
-        matrixSala[puerta.posicion.x_sala][puerta.posicion.y_sala] =
+        matrixSala[puerta.posicion.y_sala][puerta.posicion.x_sala] =
             Muro(Dimension.muro.height, Dimension.muro.width, puerta.posicion)
 
     }
@@ -358,6 +368,11 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
      * Hace un print de la matriz
      */
     fun printMatriz(): ArrayList<String> {
+
+        // Pintamos la id de la sala
+        println("SALA ${this.id_sala}")
+
+
         var arrayStrings: ArrayList<String> = ArrayList()
         for (j in 0..(matrixSala.size - 1)) {
             for (i in 0..(matrixSala[j].size - 1)) {
@@ -390,7 +405,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
         print("\n\n**** PUERTAS ****\n\n")
         for(puerta: Puerta in puertas){
-            puerta.printPuerta()
+            //puerta.printPuerta() //TODO DESCOMENTAR DESPUES DEL TEST
         }
 
         return arrayStrings

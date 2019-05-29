@@ -6,7 +6,7 @@ import kotlin.system.measureTimeMillis
 
 class TestingObjectsGenerator {
 
-    @Test
+    /*@Test
     fun tiempo(){
         val tiempo_final= measureTimeMillis{comprovarObjetos()}
         println("Tiempo: ${tiempo_final} ms")
@@ -53,6 +53,6 @@ class TestingObjectsGenerator {
         sala.anadirObjetos(objetos)
         sala.anadirOrbes(orbes)
         println("HE ACABADO")
-    }
+    }*/
 
 }
