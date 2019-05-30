@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent" >
+
+    <TextView
+            android:id="@+id/nombreJugador_rank"
+            android:text="TextView"
+            android:layout_width="170dp"
+            android:layout_height="91dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="6dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="84dp"
+            android:layout_height="33dp"
+            android:id="@+id/txt_puntuacion" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp" app:layout_constraintStart_toEndOf="@+id/nombreJugador_rank"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="65dp"
+            android:layout_height="34dp"
+            android:id="@+id/txt_palabraPuntos"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="4dp" android:layout_marginStart="25dp"
+            app:layout_constraintStart_toEndOf="@+id/txt_puntuacion"/>
+</android.support.constraint.ConstraintLayout>

@@ -22,7 +22,7 @@ class Lobo(
 ) : Actor(height, width, velocidad, direccion, posicion) {
     var vida: Vida = vida
     var velocidadCambiada:Float=velocidad
-    var puntuacion: Puntuacion = Puntuacion(0)
+    var puntuacion: Int = 0
     var vulnerable: Boolean = true
     var bando: Bando = bando // Bando al que pertenece el Lobo (Blanco, Negro)
     var velocidadInicial: Float = velocidad
@@ -102,7 +102,7 @@ class Lobo(
      * Suma cierta puntuación teniendo en cuenta el multiplicador acumulado
      */
     fun sumarPuntuacion(valorSumadpr: Int) {
-        this.puntuacion.puntuacion += valorSumadpr * this.multiplicador
+        this.puntuacion += valorSumadpr * this.multiplicador
         Facade.signo=1
         Facade.ultimaPuntuacion=valorSumadpr*this.multiplicador
     }
@@ -112,11 +112,11 @@ class Lobo(
      */
 
     fun quitarPuntuacion(valorSumador: Int) {
-        if (this.puntuacion.puntuacion < valorSumador*this.multiplicador) {
-            this.puntuacion.puntuacion = valorSumador*this.multiplicador-this.puntuacion.puntuacion
+        if (this.puntuacion < valorSumador*this.multiplicador) {
+            this.puntuacion = valorSumador*this.multiplicador-this.puntuacion
             this.cambioBando()
         } else {
-            this.puntuacion.puntuacion -= valorSumador*this.multiplicador
+            this.puntuacion -= valorSumador*this.multiplicador
         }
         Facade.signo=2
         Facade.ultimaPuntuacion=valorSumador*this.multiplicador

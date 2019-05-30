@@ -155,7 +155,7 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
         canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
         canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
-        canvas!!.drawText( lobo!!.puntuacion.puntuacion.toString(), 1020f,495f, paint)
+        canvas!!.drawText( lobo!!.puntuacion.toString(), 1020f,495f, paint)
         canvas!!.drawText( DisplayThread.segundos.toString(), 930f,560f, paint)
     }
 

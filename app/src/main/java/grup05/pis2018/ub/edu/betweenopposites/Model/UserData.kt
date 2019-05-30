@@ -1,8 +1,9 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
-import grup05.pis2018.ub.edu.betweenopposites.View.Ranking
 
-class UserData {
-    lateinit var ranking: Ranking
-    lateinit var historial: Historial
+class UserData(val userName : String, val email : String, val puntuacion: Int) {
+
+    constructor() : this("", "", 0 ){
+
+    }
 }
