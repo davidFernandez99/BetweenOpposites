@@ -15,134 +15,13 @@
               android:textSize="25sp" android:fontFamily="sans-serif-condensed"
               android:textAppearance="@style/AppTheme"/>
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="487dp">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical"
                       android:gravity="center|top"
-                      android:id="@+id/secondary_linearLayout_rank" android:layout_margin="20dp">
+                      android:id="@+id/secondary_linearLayout_rank" android:layout_margin="20dp"/>
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="86dp"
-                          android:id="@+id/struct_entradaPuntuacion">
-                <ImageView android:layout_width="40dp"
-                           android:layout_height="40dp"
-                           android:id="@+id/img_puntuacion_1"
-                           android:src="@android:drawable/editbox_dropdown_dark_frame"
-                           android:layout_margin="10dp" app:srcCompat="@drawable/interrogante"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/nombreJugador_rank_1" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_1"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/txt_palabraPuntos_1" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="86dp"
-                          android:id="@+id/struct_entradaPuntuacion2">
-                <ImageView android:layout_width="40dp"
-                           android:layout_height="40dp"
-                           android:id="@+id/img_puntuacion_2"
-                           android:src="@android:drawable/editbox_dropdown_dark_frame"
-                           android:layout_margin="10dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/nombreJugador_rank_2" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_2"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/txt_palabraPuntos_2" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="86dp"
-                          android:id="@+id/struct_entradaPuntuacion3">
-                <ImageView android:layout_width="40dp"
-                           android:layout_height="40dp"
-                           android:id="@+id/img_puntuacion_3"
-                           android:src="@android:drawable/editbox_dropdown_dark_frame"
-                           android:layout_margin="10dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/nombreJugador_rank_3" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_3"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/txt_palabraPuntos_3" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="86dp"
-                          android:id="@+id/struct_entradaPuntuacion4">
-                <ImageView android:layout_width="40dp"
-                           android:layout_height="40dp"
-                           android:id="@+id/img_puntuacion_4"
-                           android:src="@android:drawable/editbox_dropdown_dark_frame"
-                           android:layout_margin="10dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/nombreJugador_rank_4" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_4"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/txt_palabraPuntos_4" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="86dp"
-                          android:id="@+id/struct_entradaPuntuacion5">
-                <ImageView android:layout_width="40dp"
-                           android:layout_height="40dp"
-                           android:id="@+id/img_puntuacion_5"
-                           android:src="@android:drawable/editbox_dropdown_dark_frame"
-                           android:layout_margin="10dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/nombreJugador_rank_5" android:text="@string/nombreJUgador1"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/txt_puntuacion_1" android:id="@+id/txt_puntuacion_5"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:id="@+id/txt_palabraPuntos_5" android:text="@string/palabraPuntos"
-                          android:layout_margin="10dp" android:gravity="center"
-                          android:textColor="@android:color/white"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-    <Button
-            android:text="UPDATE"
+    <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/btn_update"/>
+            android:layout_height="match_parent" android:id="@+id/listView"/>
 
 </LinearLayout>

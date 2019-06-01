@@ -47,7 +47,7 @@ class Maquina(
     fun darOpciones(lobo: Lobo) :ArrayList<Int> {
         var listaOpciones:ArrayList<Int> = ArrayList()
         var lobo:Lobo=Lobo.instance
-        var opcion3:Int= lobo.puntuacion.puntuacion
+        var opcion3:Int= lobo.puntuacion
         var opcion1:Int=0
         var opcion2:Int=0
         var primero:Int=0
@@ -126,7 +126,7 @@ class Maquina(
     companion object{
         fun comprobarRespuestaMaquina(puntuacio:Int): Boolean {
 
-            if (puntuacio == Lobo.instance.puntuacion.puntuacion) {
+            if (puntuacio == Lobo.instance.puntuacion) {
                 return true
             }
             return false
