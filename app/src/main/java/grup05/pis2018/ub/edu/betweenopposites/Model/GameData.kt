@@ -55,7 +55,7 @@ class GameData(contexto: Context) {
     }
 
     /**
-     * Carga la primera y la última puerta de todo el conjunto
+     * Carga la primera y la última puerta de todó el conjunto
      */
     private fun cargarPrimeraYUltimaPuerta(){
         primeraPuerta =conjuntoNiveles.getNivel(1).getSala(1).getPuerta(1)

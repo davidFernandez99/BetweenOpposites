@@ -405,7 +405,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
         print("\n\n**** PUERTAS ****\n\n")
         for(puerta: Puerta in puertas){
-            //puerta.printPuerta() //TODO DESCOMENTAR DESPUES DEL TEST
+            puerta.printPuerta()
         }
 
         return arrayStrings

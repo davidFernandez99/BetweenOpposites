@@ -431,7 +431,6 @@ object FactorySala {
         //Leo cara caracter de forma ordenada para crear un objeto a partir de este
         for (i: Int in arr.indices) {
             //Añadimos a las lista de objetos los objetos
-            // TODO: PASAR LA POSICION EN MATRIZ PARA LA GENERACIÓN DE OBJETOS
             lista_objetos.add(descifrarCaracter(arr[i], Posicion(x_sala = i, y_sala = j)))
         }
         // Paso los valores de la lista al array
