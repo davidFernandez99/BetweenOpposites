@@ -99,7 +99,7 @@ class Ranking : AppCompatActivity(), View {
     fun userNotInList(userData: UserData) : Boolean { //Comprova si l'usuari ja esta a la llista i si la nova puntuació és més alta
 
         for (i in usersList) {
-            if (i.userName.equals(userData.userName)) {
+            if (i.userE.equals(userData.userE)) {
                if(i.puntuacion < userData.puntuacion) {
                     i.puntuacion = userData.puntuacion
                 }
