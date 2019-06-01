@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(),View {
     }
 
     companion object {
-        lateinit open var player: MediaPlayer
+        lateinit var player: MediaPlayer
 
     }
 

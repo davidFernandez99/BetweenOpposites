@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.ScrollView
+import android.widget.Toast
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import grup05.pis2018.ub.edu.betweenopposites.Model.Puntuacion
@@ -23,10 +24,8 @@ class Ranking : AppCompatActivity(), View {
     lateinit var observers: ArrayList<Presenter>
     lateinit var database : DatabaseReference
     lateinit var userData: UserData //Guardarem l'informació de l'usuari registrat
-    lateinit var usersList : MutableList<UserData> //Llista de usuaris
+    lateinit var usersList : ArrayList<UserData> //Llista de usuaris
     lateinit var listView : ListView
-
-    //TODO: Array de usuaris i ordenarlo segons puntuació
 
     override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -44,25 +43,24 @@ class Ranking : AppCompatActivity(), View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ranking)
 
-        var user = auth.currentUser
-        database = FirebaseDatabase.getInstance().getReference()
-        usersList = mutableListOf() //Inicialitzem llista
+        val user = auth.currentUser
+        database = FirebaseDatabase.getInstance().getReference()  //Referencia de la nostre database
+
         listView= findViewById(R.id.listView)
 
-        //Carregem a la base de dades
-        var userE : String = user?.displayName.toString() //Nom de l'usari guardara la seva maxima puntuació
-        var emailE = user?.email.toString()
-        var puntuacio : Int = 0
 
-        userData=UserData(userE,emailE,puntuacio)
-        //Fer mètode que guardi la puntuació més alta. (Fer que agafi la puntuacio d'aquell usuari de firebase i compari amb la pntuacio que acaba de fer a la partida i es quedi amb la més alta)
-        database.child("usuario").child(userE).setValue(puntuacio)
+        if(!(user?.email.toString().equals(database.child(Opcions.userId).child("email")))){
+            //Carregem a la base de dades
+            val userE : String = user?.displayName.toString() //Nom de l'usari guardara la seva maxima puntuació
+            val emailE = user?.email.toString()
+            val puntuacio : Int = 50
 
+            userData=UserData(Opcions.userId,userE,emailE,puntuacio)
+            usersList = arrayListOf()//Inicialitzem llista
 
+            //Guardem a firebase les dades de l'usuari
+            database.child(Opcions.userId).setValue(userData)
 
-           /* nombreJugador_rank.text= user.displayName
-            Picasso.with(this).load(user.photoUrl).into(img_puntuacion_1)
-*/
             database.addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(p0: DatabaseError) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -70,15 +68,22 @@ class Ranking : AppCompatActivity(), View {
 
                 override fun onDataChange(p0: DataSnapshot) {
                     if(p0.exists()){
+                        usersList.clear()
+                        //Guardem les dades de firebase a la nostre llista d'usuaris
                         for(h in p0.children) {
                             val user = h.getValue(UserData::class.java)
-                            //Afegim a la llista l'usuari
-                            usersList.add(user!!)
+                            if(userNotInList(user!!)) {
+                                //Afegim a la llista l'usuari
+                                usersList.add(user)
+                            }
 
-                            /*val puntuacion = p0.getValue()
-                            txt_puntuacion_1.text = puntuacion.toString()*/
+
                         }
 
+                        //Ordenamos la lista
+                        ordenarLista()
+
+                        //Pasamos la usersLists al Adapter, y mostramos todos los usuarios por orden
                         val adapter = UserAdapter(applicationContext, R.layout.users, usersList)
                         listView.adapter = adapter
 
@@ -87,9 +92,35 @@ class Ranking : AppCompatActivity(), View {
 
             })
 
+        }
+
+    }
+
+    fun userNotInList(userData: UserData) : Boolean { //Comprova si l'usuari ja esta a la llista i si la nova puntuació és més alta
+
+        for (i in usersList) {
+            if (i.userName.equals(userData.userName)) {
+               if(i.puntuacion < userData.puntuacion) {
+                    i.puntuacion = userData.puntuacion
+                }
+                return false
+            }
+        }
+        return true
+    }
 
 
+    fun ordenarLista(){
+        for (i in usersList.indices) {
+            for (j in usersList.indices) {
+                if (usersList[i].puntuacion > usersList[j].puntuacion) {
+                    val userProv = usersList[i]
+                    usersList.set(i, usersList[j])
+                    usersList.set(j, userProv)
 
+                }
+            }
+        }
     }
 
 }

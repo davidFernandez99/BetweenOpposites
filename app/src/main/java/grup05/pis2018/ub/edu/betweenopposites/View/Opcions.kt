@@ -35,6 +35,7 @@ const val RC_SIGN_IN = 123
 lateinit var auth: FirebaseAuth
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var mGoogleSignInOptions: GoogleSignInOptions
+lateinit var database : DatabaseReference
 
 
 class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View,
@@ -60,6 +61,13 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     override fun notifyObservers(fuente: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+    companion object {
+        var efectos= true
+        var vibracion = true
+        lateinit var userId : String
+
+    }
+
 
     lateinit var observers: ArrayList<Presenter>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +85,9 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         val swtEfectos = findViewById<Switch>(R.id.switch_efectos)
         val swtVibracion = findViewById<Switch>(R.id.switch_vibracion)
 
+
         auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().getReference()
 
         btn_logOut.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
 
@@ -181,6 +191,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
     private fun setupUI() {
         sign_in_button.setOnClickListener {
+            userId  = database.push().key!!
             signIn()
         }
     }
@@ -189,11 +200,13 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
+
             val task= GoogleSignIn.getSignedInAccountFromIntent(data)
             try{
                 val account = task.getResult(ApiException::class.java)
@@ -220,6 +233,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 txt_email.visibility=View.VISIBLE
                 txt_nomUsuari.visibility=View.VISIBLE
                 btn_logOut.visibility=View.VISIBLE
+
 
             } else {
                 //Log.w("TAG", "signInWithCredential:failure", task.exception)
@@ -248,9 +262,5 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         //FirebaseAuth.getInstance().signOut();
     }
 
-    companion object {
-        var efectos= true
-        var vibracion = true
 
-    }
 }
