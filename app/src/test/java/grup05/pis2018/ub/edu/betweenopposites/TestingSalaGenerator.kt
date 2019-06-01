@@ -5,6 +5,7 @@ import grup05.pis2018.ub.edu.betweenopposites.Model.FactorySala
 import grup05.pis2018.ub.edu.betweenopposites.Model.Sala
 import grup05.pis2018.ub.edu.betweenopposites.Model.SalaBasica
 import org.junit.Test
+import kotlin.system.measureTimeMillis
 
 class TestingSalaGenerator {
 
@@ -19,8 +20,18 @@ class TestingSalaGenerator {
 
 
     @Test
+    fun time(){
+        for(i in (0..100)){
+        val tiempo_final= measureTimeMillis{FactorySala.crearSalaBasicaAutomaticamente(1,i,2)}
+        println(tiempo_final)
+        }
+    }
+
+    @Test
     fun comprovarMatrizAutogenerada(){
-        var sala: SalaBasica = FactorySala.crearSalaBasicaAutomaticamente(1,1,2,1)
-        sala.printMatriz()
+        for(i in (0..50)){
+            var sala: SalaBasica = FactorySala.crearSalaBasicaAutomaticamente(1,i,2)
+            sala.printMatriz()
+        }
     }
 }

@@ -7,13 +7,13 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
  *  arraySalas: Lista de salas que contiene en Nivel.
  *  matrizSalas: matriz que se ha generado para la creación de ese nivel, contiene la estructura que une a las salas.
  */
-class Nivel(listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>? = null) {
+class Nivel(id_nivel: Int,listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<String>>? = null) {
 
     //Contiene una variable que le identifica como nivel
-    var id_nivel: Int = 0
+    var id_nivel: Int = id_nivel
 
     //Mantiene las salas de ese nivel
-    var arraySalas: ArrayList<Sala> =listaSalas
+    var arraySalas: ArrayList<Sala> = listaSalas
 
     // MÉTODOS GETTERS Y SETTERS
     /**

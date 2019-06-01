@@ -220,6 +220,6 @@ object FactoryNiveles {
         listaSalas[listaSalas.size-1].definirSalida(2,num_nivel+1,0,null)
 
 
-        return Nivel(listaSalas)
+        return Nivel(num_nivel,listaSalas)
     }
 }
