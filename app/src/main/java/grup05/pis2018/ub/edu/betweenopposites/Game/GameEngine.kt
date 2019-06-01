@@ -3,8 +3,12 @@ package grup05.pis2018.ub.edu.betweenopposites.Game
 import android.content.Context
 import android.graphics.*
 import android.view.SurfaceHolder
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import grup05.pis2018.ub.edu.betweenopposites.Model.*
 import grup05.pis2018.ub.edu.betweenopposites.R
+import grup05.pis2018.ub.edu.betweenopposites.View.Opcions
+import grup05.pis2018.ub.edu.betweenopposites.View.Ranking
 
 class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
@@ -38,7 +42,9 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     //Pruebas
     var canvas: Canvas ?= null
     //Timers
-
+    lateinit var database : DatabaseReference
+    var userData: UserData?=null
+    var escrito:Boolean=false
 
 
      fun update(fps: Long) {  //Aqui actualizaremos el estado de cada objeto
@@ -157,6 +163,22 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
         canvas!!.drawText( puntuacionFinal, 1020f,495f, paint)
         canvas!!.drawText( segundosFinal, 930f,560f, paint)
+        var puntos:Int = lobo!!.puntuacion.puntuacion
+        //Escribir en firebase
+        if(escrito==false){
+            if(Opcions.loguejat==true){
+                UserData.instance.puntuacion=puntos
+                if(userNotInList(UserData.instance)==true){
+
+                    database = FirebaseDatabase.getInstance().getReference()
+                    database.child((Opcions.userId)).removeValue()
+                    database.child(Opcions.userId).setValue(UserData.instance)
+                }
+
+            }
+            escrito=true
+        }
+
 
     }
 
@@ -174,6 +196,20 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
         canvas!!.drawText( puntuacionFinal, 1020f,495f, paint)
         canvas!!.drawText( segundosFinal, 930f,560f, paint)
+        var puntos:Int = lobo!!.puntuacion.puntuacion
+        //Escribir en firebase
+        //Escribir en firebase
+        if(escrito==false){
+            if(Opcions.loguejat==true){
+                UserData.instance.puntuacion=puntos
+                if(userNotInList(UserData.instance)==true){
+                    database = FirebaseDatabase.getInstance().getReference()
+                    database.child(Opcions.userId).setValue(UserData.instance)
+                }
+
+            }
+            escrito=true
+        }
 
     }
 
@@ -256,5 +292,26 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         var bitmapMaquina:Bitmap?=null
         var bitmapOpcionesMaquina:Bitmap?=null
 
+    }
+    fun userNotInList(userData: UserData) : Boolean { //Comprova si l'usuari ja esta a la llista i si la nova puntuació és més alta
+
+
+        for (i in Opcions.listaUsuarios) {
+            if (i.userE.equals(userData.userE)) {
+                if(i.puntuacion > userData.puntuacion) {
+                    return false
+                }
+                else{
+                    //Borrar
+                    database = FirebaseDatabase.getInstance().getReference()
+                    database.child(i.userID).removeValue()
+                    return true
+                }
+
+
+            }
+        }
+
+        return true
     }
 }
