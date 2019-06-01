@@ -8,7 +8,7 @@ import grup05.pis2018.ub.edu.betweenopposites.R
 
 class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
 
-
+    var resetear:Boolean=false
     val paint=paint
     val contexto=contexto
     val holder:SurfaceHolder=holder
@@ -18,6 +18,9 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     var bitmapPausa: Bitmap ?= null
     var bitmapTeleporActivado: Bitmap ?= null
     var bitmapTeleporDesactivado: Bitmap ?=  null
+    var bitmapVelBorde: Bitmap ?= null
+    var bitmapCambioBorde: Bitmap ?= null
+    var bitmapInvBorde: Bitmap ?=  null
     var bitmapBordeSimple: Bitmap ?= null
     var bitmapBordeDoble: Bitmap ?= null
     //Bitmaps para pausa y fin del juego
@@ -32,48 +35,29 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     //Cogemos la instancia del único Lobo
     var lobo: Lobo ?= null
     var facade:Facade?=null
-
     //Pruebas
     var canvas: Canvas ?= null
-    var tiempoFinal:Long=0
-    var tiempoIncialVelocidad:Long=0
-    var tiempoInicialInvisibilidad:Long=0
+    //Timers
+
 
 
      fun update(fps: Long) {  //Aqui actualizaremos el estado de cada objeto
         if(DisplayThread.activar_efecto==true){
 
             lobo!!.objetoActivable!!.activarEfecto(lobo!!)
-            lobo!!.objetoActivable=null
+
             DisplayThread.activar_efecto=false
             if(lobo!!.objetoActivable is AumentarVelocidad){
                 DisplayThread.tiempoVelocidad.start()
             }
             if(lobo!!.objetoActivable is Invisibilidad){
-
                 DisplayThread.tiempoInvisibilidad.start()
 
             }
+            lobo!!.objetoActivable=null
 
         }
 
-         //if (tirmpoVulnerable!!.finish == true) {
-         //lobo!!.vulnerable = true
-         //tirmpoVulnerable!!.finish = false
-
-         if(DisplayThread.tiempoVel==true){
-             lobo!!.restarurarVelocidad()
-             DisplayThread.tiempoVel=false
-
-
-         }
-
-         if(DisplayThread.tiempoInvisible==true){
-             if(System.currentTimeMillis() - tiempoInicialInvisibilidad >= DisplayThread.MAX_TIEMPO_INVISIBLE) {
-                 lobo!!.es_visible = true
-                 DisplayThread.tiempoInvisible = false
-             }
-         }
 
 
          facade!!.update(fps)
@@ -85,21 +69,29 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         if (holder.surface.isValid) {
             // Lock the canvas ready to draw
            canvas = holder.lockCanvas()
-
-            // Draw the background color
-
-
             facade!!.draw(canvas!!,contexto)
             if(Facade.dando_opciones==true){
                 dibujarOpcionesMaquina()
             }
             dibujarBordes()
-            if(DisplayThread.paused==true && DisplayThread.mostrar_Pause==true){
+            if(Lobo.instance.es_visible==true){
+                canvas!!.drawText( "VISIBLE", 700f,1060f, paint)
+            }
+            else{
+                canvas!!.drawText( "NO VISIBLE", 700f,1060f, paint)
+            }
+
+            if(Facade.acabar_juego==true){
+                DisplayThread.paused=true
+                dibujarAcabarJuego()
+            }
+            else if(DisplayThread.paused==true && DisplayThread.mostrar_Pause==true){
                 dibujarPausa()
             }
-            if(DisplayThread.paused==true && DisplayThread.fin_juego==true){
+            else if(DisplayThread.paused==true && DisplayThread.fin_juego==true){
                 dibujarFinJuego()
             }
+
 
             // Draw everything to the screen
             holder.unlockCanvasAndPost(canvas)
@@ -136,6 +128,11 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         GameEngine.bitmapMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.maquina)
         GameEngine.bitmapOpcionesMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.opciones_maquina)
         bitmapFallarOpcionMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.fallar_opcion_maquina)
+        bitmapVelBorde= BitmapFactory.decodeResource(contexto.resources,R.drawable.obj_velocidad_borde)
+        bitmapCambioBorde= BitmapFactory.decodeResource(contexto.resources,R.drawable.obj_cambio_bando_borde)
+        bitmapInvBorde=  BitmapFactory.decodeResource(contexto.resources,R.drawable.obj_invisibilidad_borde)
+
+
     }
 
     fun dibujarPausa(){
@@ -151,38 +148,60 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         bitmapHome=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
         bitmapfinjuego=BitmapFactory.decodeResource(contexto.resources, R.drawable.game_over)
         bitmapRestart=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_retry)
-        tiempoFinal=System.currentTimeMillis()
+        var segundos:Long= DisplayThread.segundos
+        var segundosFinal: String = segundos.toString().plus(" ").plus("segundos")
+        var puntuacion:Int=lobo!!.puntuacion.puntuacion
+        var puntuacionFinal:String=puntuacion.toString().plus(" ").plus("puntos")
         canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
         canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
         canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
-        canvas!!.drawText( lobo!!.puntuacion.puntuacion.toString(), 1020f,495f, paint)
-        canvas!!.drawText( DisplayThread.segundos.toString(), 930f,560f, paint)
+        canvas!!.drawText( puntuacionFinal, 1020f,495f, paint)
+        canvas!!.drawText( segundosFinal, 930f,560f, paint)
+
+    }
+
+    fun dibujarAcabarJuego(){
+        //Escribir puntuación en firebase
+        bitmapHome=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_home)
+        bitmapfinjuego=BitmapFactory.decodeResource(contexto.resources, R.drawable.game_over)
+        bitmapRestart=BitmapFactory.decodeResource(contexto.resources, R.drawable.boton_retry)
+        var segundos:Long= DisplayThread.segundos
+        var segundosFinal: String = segundos.toString().plus(" ").plus("segundos")
+        var puntuacion:Int=lobo!!.puntuacion.puntuacion
+        var puntuacionFinal:String=puntuacion.toString().plus(" ").plus("puntos")
+        canvas!!.drawBitmap(bitmapfinjuego,700f,300f, paint)
+        canvas!!.drawBitmap(bitmapHome,770f,650f, paint)
+        canvas!!.drawBitmap(bitmapRestart,1100f,650f, paint)
+        canvas!!.drawText( puntuacionFinal, 1020f,495f, paint)
+        canvas!!.drawText( segundosFinal, 930f,560f, paint)
+
     }
 
     fun dibujarBordes(){
         canvas!!.drawBitmap(bitmapBordeSuperior, 0f, 0f, paint)
         canvas!!.drawBitmap(bitmapBorde, 0f, 1020f, paint)
         canvas!!.drawBitmap(bitmapBordeSimple, 64f , 1020f ,paint)
-        canvas!!.drawText("X", 1820f, 1060f,paint)
+        var multiplicador:String= "X ".plus(lobo!!.multiplicador.toString())
+        canvas!!.drawText(multiplicador, 1820f, 1060f,paint)
         if(Facade.signo==1){
-            canvas!!.drawText(" + ",980f, 1060f , paint)
-            canvas!!.drawText(Facade.ultimaPuntuacion.toString(),1030f, 1060f , paint)
+            var puntuacion:String= " + ".plus(Facade.ultimaPuntuacion.toString())
+            canvas!!.drawText(puntuacion,980f, 1060f , paint)
+
         }
         if(Facade.signo==2){
-            canvas!!.drawText(" - ",980f, 1060f , paint)
-            canvas!!.drawText(Facade.ultimaPuntuacion.toString(),1030f, 1060f , paint)
+            var puntuacion:String= " - ".plus(Facade.ultimaPuntuacion.toString())
+            canvas!!.drawText(puntuacion,980f, 1060f , paint)
         }
-        canvas!!.drawText(lobo!!.multiplicador.toString(), 1856f, 1060f,paint)
         canvas!!.drawBitmap(bitmapPausa, 1860f, 0f, paint)
         if(lobo!!.objetoActivable!=null){
             if(lobo!!.objetoActivable is Invisibilidad){
-                canvas!!.drawBitmap(bitmapInv!!,65f,1025f,paint)
+                canvas!!.drawBitmap(bitmapInv!!,67f,1022f,paint)
             }
             else if(lobo!!.objetoActivable is AumentarVelocidad){
-                canvas!!.drawBitmap(bitmapAumentoVel!!,65f,1025f,paint)
+                canvas!!.drawBitmap(bitmapAumentoVel!!,67f,1022f,paint)
             }
             else{
-                canvas!!.drawBitmap(bitmapCambio!!,65f,1025f,paint)
+                canvas!!.drawBitmap(bitmapCambio!!,67f,1022f,paint)
             }
         }
         if (lobo!!.vida.numVide == 3) {
@@ -202,13 +221,8 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
             DisplayThread.paused=true
             DisplayThread.fin_juego=true
         }
-        var nivel:Int=Facade.nivel+1
-        canvas!!.drawText("NIVEL :  ",350f, 30f,paint)
-        canvas!!.drawText(nivel.toString(),500f, 30f,paint)
-        canvas!!.drawText("  -  ",550f, 30f,paint)
-        canvas!!.drawText(Facade.mapa.toString(),600f, 30f,paint)
-
-
+        var nivel:String= "NIVEL :   ".plus(Facade.nivel.toString()).plus("  -  ").plus(Facade.mapa.toString())
+        canvas!!.drawText(nivel,350f, 30f,paint)
         if(lobo!!.bando== Bando.Negro){
             canvas!!.drawText("BANDO :  OSCURIDAD " ,1300f, 30f,paint)
         }
@@ -222,9 +236,9 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
     }
     fun dibujarOpcionesMaquina(){
         canvas!!.drawBitmap(bitmapOpcionesMaquina!!,700f,300f,paint)
-        canvas!!.drawText(opciones!!.get(0).toString(),792f,640f,paint)
-        canvas!!.drawText(opciones!!.get(1).toString(),988f,640f,paint)
-        canvas!!.drawText(opciones!!.get(2).toString(),1184f,640f,paint)
+        canvas!!.drawText(Facade.opciones!!.get(0).toString(),785f,640f,paint)
+        canvas!!.drawText(Facade.opciones!!.get(1).toString(),980f,640f,paint)
+        canvas!!.drawText(Facade.opciones!!.get(2).toString(),1178f,640f,paint)
     }
     companion object{
         var bitmapOrbeNegro: Bitmap ?= null
@@ -241,6 +255,6 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         var bitmapOrbeRaro: Bitmap ?= null
         var bitmapMaquina:Bitmap?=null
         var bitmapOpcionesMaquina:Bitmap?=null
-        var opciones:ArrayList<Int> ?= null
+
     }
 }

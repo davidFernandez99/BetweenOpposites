@@ -34,7 +34,6 @@ const val RC_SIGN_IN = 123
 lateinit var auth: FirebaseAuth
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var mGoogleSignInOptions: GoogleSignInOptions
-lateinit var database : DatabaseReference
 
 
 class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View,
@@ -65,8 +64,6 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opcions)
-
-        database = FirebaseDatabase.getInstance().getReference()
 
         //Mantenim el valor dels switches tot i cambiar de activities
         val sharedPrefs = getSharedPreferences("opcions", Context.MODE_PRIVATE)
@@ -129,14 +126,12 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         //Switch per controlar els efectes
         swtEfectos.setOnCheckedChangeListener { SwitchView, isChecked ->
             if (swtEfectos.isChecked) {
-                Opcions.efectos=true
                 Toast.makeText(this, "Efectos ON", Toast.LENGTH_SHORT).show()
                 //Agafem el valor actual del switch
                 val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
                 editor.putBoolean("swtEfectos", true)
                 editor.commit()
             } else {
-                Opcions.efectos=false
                 Toast.makeText(this, "Efectos OFF", Toast.LENGTH_SHORT).show()
                 //Agafem el valor actual del switch
                 val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
@@ -149,7 +144,6 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         //Switch per controlar la vibració
         swtVibracion.setOnCheckedChangeListener { SwitchView, isChecked ->
             if (swtVibracion.isChecked) {
-                Opcions.vibracion=true
                 Toast.makeText(this, "Vibración ON", Toast.LENGTH_SHORT).show()
                 //Agafem el valor actual del switch
                 val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
@@ -160,7 +154,6 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                     getSystemService(Context.VIBRATOR_SERVICE) as Vibrator //Fem vibar el mbl al activar l'opcio
                 v.vibrate(500)
             } else {
-                Opcions.vibracion=false
                 Toast.makeText(this, "Vibración OFF", Toast.LENGTH_SHORT).show()
                 //Agafem el valor actual del switch
                 val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
@@ -214,7 +207,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         auth.signInWithCredential(credential).addOnCompleteListener(this) {task->
             if (task.isSuccessful) {
                 //Log.d("TAG", "signInWithCredential:success")
-                Toast.makeText(this, "Has iniciado sesión", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "signInWithCredential:success", Toast.LENGTH_SHORT).show()
                 val user = auth.currentUser
                 sign_in_button.visibility=View.GONE
                 txt_email.text=user?.email
@@ -223,12 +216,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 txt_nomUsuari.visibility=View.VISIBLE
                 btn_logOut.visibility=View.VISIBLE
 
-                //Carregem a la base de dades
-                var userE : String = user?.displayName.toString() //Nom de l'usari guardara la seva maxima puntuació
-                var emailE = user?.email
-                var puntuacio = 10
 
-                database.child("usuario").child(userE).setValue(puntuacio)
 
             } else {
                 //Log.w("TAG", "signInWithCredential:failure", task.exception)
@@ -255,12 +243,6 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     private fun signOut() {
         mGoogleSignInClient.signOut()
         //FirebaseAuth.getInstance().signOut();
-
     }
 
-    companion object {
-        var efectos= true
-        var vibracion = true
-
-    }
 }

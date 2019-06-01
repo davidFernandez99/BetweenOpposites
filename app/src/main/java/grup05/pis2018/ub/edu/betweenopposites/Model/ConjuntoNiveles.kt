@@ -42,6 +42,10 @@ class ConjuntoNiveles(contexto: Context,
                 )
             )
         }
+        for( i in (0..arrayNiveles.size-2)){
+            arrayNiveles.get(i)!!.getSala(-1).getPuerta(2).
+                setDestino(puerta_destino = arrayNiveles[i+1]!!.getSala(1).getPuerta(1) )
+        }
     }
 
     /**
@@ -50,10 +54,12 @@ class ConjuntoNiveles(contexto: Context,
     fun getNivel(id_nivel: Int): Nivel {
 
         try {
-            if(id_nivel<-1 || id_nivel==0 || id_nivel>arrayNiveles.size){
+            if(id_nivel<-1 || id_nivel>arrayNiveles.size){
                 throw ArrayIndexOutOfBoundsException("La posición no es correcta")
             }
-
+            else if (id_nivel==0){
+                return arrayNiveles.get(0)!!
+            }
             if(id_nivel == -1){
                 return arrayNiveles.last()!!
             }

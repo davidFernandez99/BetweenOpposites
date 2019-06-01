@@ -97,7 +97,12 @@ class Orbe(
         if (Lobo.instance.bando == Bando.Neutro || this.bando == Lobo.instance.bando){
             cambiarDireccionRandom()
         }else {
-            perseguir()
+            if(Lobo.instance.es_visible==true){
+                perseguir()
+            }
+            else{
+                cambiarDireccionRandom()
+            }
         }
 
 

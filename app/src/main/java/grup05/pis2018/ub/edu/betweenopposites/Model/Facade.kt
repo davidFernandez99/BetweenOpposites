@@ -2,6 +2,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.content.Context
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 
 /**
  * Clase fachada del modelo, que crea u objeto único (Singletone) para poder proporcionar los servicios
@@ -38,6 +39,7 @@ class Facade : Model {
         var mapa:Int =0
         var ultimaPuntuacion:Int=0
         var signo:Int=0 //si es 1 es +, y 2 es -
+        var acabar_juego=false
     }
 
     /**
@@ -45,7 +47,16 @@ class Facade : Model {
      */
     fun iniciarPartida(contexto: Context){
         // Creo la partida
+
+        DisplayThread.paused=false
+        DisplayThread.fin_juego=false
+        Facade.acabar_juego=false
+        DisplayThread.playing=true
+        Facade.nivel=1
+        Facade.mapa=1
         gameData = GameData(contexto)
+        Lobo.instance.vulnerable=true
+        Lobo.instance.vida=Vida()
 
         partidaIniciada=true
     }

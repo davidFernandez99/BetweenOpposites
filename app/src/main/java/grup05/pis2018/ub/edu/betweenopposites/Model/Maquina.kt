@@ -116,6 +116,7 @@ class Maquina(
         }
         else if (recompensa_maquina==1){
             return CambioBando(16f,16f,Posicion(this.posicion.x,this.posicion.y+200f))
+
         }
         else{
             return AumentarVelocidad(16f,16f,Posicion(this.posicion.x,this.posicion.y+200f))

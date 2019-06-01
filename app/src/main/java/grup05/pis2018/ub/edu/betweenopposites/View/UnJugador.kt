@@ -60,22 +60,22 @@ class UnJugador : AppCompatActivity(), View {
     }
     override fun onResume() {
         super.onResume()
-        gameView!!.onResume()
+        //gameView!!.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        gameView!!.onPause()
+        //gameView!!.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        gameView!!.onStop()
+        //gameView!!.onStop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        gameView?.onStop()
+        //gameView?.onStop()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -101,15 +101,23 @@ class UnJugador : AppCompatActivity(), View {
                 DisplayThread.paused = false
                DisplayThread.mostrar_Pause=false
            }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false) {
-               DisplayThread.playing = false
-               DisplayThread.fin_juego=false
-               val intent = Intent(this,MainActivity::class.java)
-               this.startActivity(intent)
+
+
            }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false){
-               DisplayThread.playing = false
-               DisplayThread.fin_juego=false
-               val intent = Intent(this,MainActivity::class.java)
-               this.startActivity(intent)
+               DisplayThread.paused=false
+               Lobo.instance.resetearLobo()
+               Facade.instance.iniciarPartida(this)
+
+           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && Facade.acabar_juego==true && Facade.dando_opciones==false) {
+
+
+
+           }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && Facade.acabar_juego==true && Facade.dando_opciones==false){
+               DisplayThread.paused=false
+               Lobo.instance.resetearLobo()
+               Facade.instance.iniciarPartida(this)
+
+
            }else if( (x > 770f )&& (x< 814f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true) && (Facade.fallar==false)){//Opcion 1 opciones maquina
                Facade.dando_opciones=false
                Facade.comprobar_opcion=true

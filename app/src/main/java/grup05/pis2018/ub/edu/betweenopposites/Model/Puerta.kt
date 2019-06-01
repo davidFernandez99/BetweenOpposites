@@ -1,6 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import grup05.pis2018.ub.edu.betweenopposites.R
@@ -54,9 +55,34 @@ class Puerta(
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            Facade.instance.traspasarPuerta(this)
-            Lobo.instance.velocidad=0f
-            Lobo.instance.direccion=Direccion.PARADO
+            var lobo:Lobo =objeto as Lobo
+            lobo.velocidad=0f
+            lobo.direccionChoque=lobo.direccion
+
+            while(comprobarColision(lobo)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
+                lobo.returnPosicion()
+            }
+            lobo.returnPosicion()
+            lobo.direccion=Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
+            if(this.puerta_destino==null && Facade.mapa!=1){
+                Facade.acabar_juego=true
+            }
+
+            else{
+                Facade.instance.traspasarPuerta(this)
+            }
+
+
+        }
+        if(objeto is Orbe){
+            var orbe: Orbe = objeto as Orbe
+            orbe.direccionChoque=orbe.direccion
+
+            while(comprobarColision(orbe)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
+                orbe.returnPosicion()
+            }
+            orbe.canviarDireccionMuro() //Cambia la dirección de este orbe para que deje de colisionar y no este parado
+
         }
     }
 
@@ -108,6 +134,9 @@ class Puerta(
                 "DESTINO: nivel-> ${id_nivel_destino}    sala->${id_sala_destino}    " +
                 "posicion destino-> [${getPosicionDestino()?.x_sala},${getPosicionDestino()?.y_sala}]\n" +
                 "SPAWNPOINT: [${spawn_point.x_sala},${spawn_point.y_sala}]")
+    }
+    override fun draw(canvas: Canvas, image: Bitmap){
+        canvas.drawBitmap(image,this.posicion.x-7,this.posicion.y,paint)
     }
 
 }

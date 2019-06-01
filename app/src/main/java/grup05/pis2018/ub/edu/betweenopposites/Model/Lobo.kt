@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.R
 
 
@@ -102,6 +103,9 @@ class Lobo(
      * Suma cierta puntuación teniendo en cuenta el multiplicador acumulado
      */
     fun sumarPuntuacion(valorSumadpr: Int) {
+        if(this.puntuacion.puntuacion==0){
+            cambioBando()
+        }
         this.puntuacion.puntuacion += valorSumadpr * this.multiplicador
         Facade.signo=1
         Facade.ultimaPuntuacion=valorSumadpr*this.multiplicador
@@ -115,7 +119,11 @@ class Lobo(
         if (this.puntuacion.puntuacion < valorSumador*this.multiplicador) {
             this.puntuacion.puntuacion = valorSumador*this.multiplicador-this.puntuacion.puntuacion
             this.cambioBando()
-        } else {
+        }
+        else if (this.puntuacion.puntuacion==valorSumador*this.multiplicador){
+            this.puntuacion.puntuacion=0
+            this.bando=Bando.Neutro
+        }else{
             this.puntuacion.puntuacion -= valorSumador*this.multiplicador
         }
         Facade.signo=2
@@ -197,4 +205,22 @@ class Lobo(
         }
     }
 
+    fun resetearLobo(){
+        this.bando=Bando.Neutro
+        this.vida=Vida()
+        vida.numVide=3
+        this.direccion=Direccion.PARADO
+        this.velocidad=0f
+        Facade.ultimaPuntuacion=0
+        Facade.signo=0
+        this.vulnerable=false
+        this.puntuacion= Puntuacion(0)
+        this.es_visible=true
+        multiplicador = 1
+        esta_vivo = true
+        objetoActivable=null
+        final=false
+        direccionChoque=null
+        direccionIvalida=null
+    }
 }

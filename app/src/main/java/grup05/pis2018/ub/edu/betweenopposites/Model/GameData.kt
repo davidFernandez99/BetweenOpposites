@@ -43,6 +43,7 @@ class GameData(contexto: Context) {
 
         // Cargamos la primera de las salas como la activa y colocamos al lobo en el punto de spawn
         traspasarPuerta(primeraPuerta!!)
+
     }
 
     /**
@@ -76,7 +77,7 @@ class GameData(contexto: Context) {
 
         }
         // CARGAMOS LA SALA DE DESTINO
-        cargarSala(id_nivel_destino + 1,id_sala_destino + 1)
+        cargarSala(id_nivel_destino  ,id_sala_destino  )
 
         //Cambio la posición del lobo al destino
         lobo.posicion = spawnpoint_destino

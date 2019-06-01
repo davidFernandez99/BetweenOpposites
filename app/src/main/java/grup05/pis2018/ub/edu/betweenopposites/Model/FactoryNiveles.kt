@@ -217,9 +217,9 @@ object FactoryNiveles {
         // Para la última sala hago que la última puerta nos lleve a una puerta null y que la anterior a esta apunte a ella y que la primera de esta vuelva a la anteriór.
         listaSalas[listaSalas.size-2].definirSalida(2,num_nivel,listaSalas.size-1,listaSalas[listaSalas.size-1].getPuerta(1))
         listaSalas[listaSalas.size-1].definirSalida(1,num_nivel,listaSalas.size-2,listaSalas[listaSalas.size-2].getPuerta(2))
-        listaSalas[listaSalas.size-1].definirSalida(2,num_nivel+1,0,null)
+        listaSalas[listaSalas.size-1].definirSalida(2,num_nivel+1,1,null)
 
 
-        return Nivel(listaSalas)
+        return Nivel(num_nivel,listaSalas)
     }
 }

@@ -19,19 +19,19 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
 
     //Define una matriz de objetos donde mantiene la información de la sala y to*o lo que contiene (Objetos).
     // Crea inicialmente una matriz de nulls
-    private var matrixSala: Array<Array<Objeto?>> = matrixSala
+    protected var matrixSala: Array<Array<Objeto?>> = matrixSala
 
     //Tiene un array de orbes que deben aparecer en la sala en el momento de crearse
     private var orbes: ArrayList<Orbe> = ArrayList<Orbe>()
 
     // Tiene un array de puertas para acceder mas facilmente a estas
-    private var puertas: ArrayList<Puerta> = ArrayList<Puerta>()
+    protected var puertas: ArrayList<Puerta> = ArrayList<Puerta>()
 
     // Tiene un array de muros para acceder facilmente a estos
-    private var muros: ArrayList<Muro> = ArrayList<Muro>()
+    protected var muros: ArrayList<Muro> = ArrayList<Muro>()
 
     // Tiene un array de objetos para acceder a estos
-    private var objetos: ArrayList<Objeto> = ArrayList<Objeto>()
+    protected var objetos: ArrayList<Objeto> = ArrayList<Objeto>()
 
     //Mantiene una matriz que nos dice si esa posición està ocupada
     private var matrixAvalible: Array<Array<Boolean>> = Array<Array<Boolean>>(matrixSala.size,{Array(matrixSala[0].size,{false})})
@@ -95,7 +95,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         bloquearPosicion(puerta.posicion.x_sala,puerta.posicion.y_sala)
 
         // Mezcla el contenido de las puertas para que el orden en la lista varie
-        puertas.shuffle()
+        //puertas.shuffle()
 
     }
 
@@ -397,7 +397,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     }
 
 
-    fun update(fps:Long){
+    open fun update(fps:Long){
         var colision:Boolean=false
         // Dibujamos objetos en la sala
         Lobo.instance!!.mover(fps)
@@ -421,39 +421,14 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
                 }
 
             }
-            if(objeto is Maquina){
-                var maquina:Maquina= objeto as Maquina
-                maquinaSala=maquina
-                comprobar_colision_maquina=maquina!!.detectarColision(Lobo.instance!!)
-                if(comprobar_colision_maquina==true){
-                    //Abrir opciones si no se ha hecho antes
-                    if(maquina!!.dar_opciones==true){
-                        Facade.dando_opciones=true
-                        Facade.opciones=maquina!!.darOpciones(Lobo.instance!!)
 
-                    }
-
-                }
-            }
             else{
                 if(objeto.es_visible==true){
                     objeto.detectarColision(Lobo.instance)
                 }
             }
         }
-        if(Facade.comprobar_opcion==true){
 
-            comprobar_opcion_corecta=Maquina.comprobarRespuestaMaquina(Facade.opciones!!.get(Facade.opcion))
-            if(comprobar_opcion_corecta==true){
-                objetoMaquina=maquinaSala!!.darRecompensa()
-                Facade.comprobar_opcion=false
-
-            }
-            else if(comprobar_opcion_corecta==false){
-                Facade.fallar=true
-                Facade.comprobar_opcion=false
-            }
-        }
         if(ultimaTrampaColisionada!= null){
             Lobo.instance.setVulnerabilidad(ultimaTrampaColisionada!!)
         }
@@ -463,14 +438,12 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
                 muro.detectarColision(orbe)
             }
         }
-        if(objetoMaquina!=null){
-            if(objetoMaquina!!.es_visible==true){
-                objetoMaquina!!.detectarColision(Lobo.instance!!)
-            }
 
-        }
         for (puerta:Puerta in this.puertas){
             puerta.detectarColision(Lobo.instance)
+            for (orbe:Orbe in this.orbes){
+                puerta.detectarColision(orbe)
+            }
         }
 
     }
@@ -478,7 +451,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Método para dibujar todos los objetos contenidos en la sala
      */
-    fun draw(canvas:Canvas,contexto: Context){
+    open fun draw(canvas:Canvas,contexto: Context){
         //Dibujamos muros y suelos
         for (j in 0..matrixSala.size-1) {
             for (i in 0..matrixSala[j].size-1) {
@@ -505,33 +478,12 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
                     if(objeto is Sumador){
                         objeto.draw(canvas, GameEngine.bitmapSumador!!)
                     }
-                    if(objeto is Maquina){
-                        objeto.draw(canvas , GameEngine.bitmapMaquina!!)
-                    }
+
                 }
             }
         }
 
-        if(objetoMaquina!=null){
-            if(objetoMaquina is AumentarVelocidad){
-                if(objetoMaquina!!.es_visible==true){
-                    objetoMaquina!!.draw(canvas!!, GameEngine.bitmapAumentoVel!!)
-                }
 
-            }
-            else if (objetoMaquina is Invisibilidad){
-                if(objetoMaquina!!.es_visible==true){
-                    objetoMaquina!!.draw(canvas!!, GameEngine.bitmapInv!!)
-                }
-            }
-            else{
-                if(objetoMaquina!!.es_visible==true){
-                    objetoMaquina!!.draw(canvas!!, GameEngine.bitmapCambio!!)
-                }
-
-            }
-
-        }
         // Dibujamos los orbes
         for (orbe: Orbe in this.orbes) {
             if(orbe.es_visible==true){
