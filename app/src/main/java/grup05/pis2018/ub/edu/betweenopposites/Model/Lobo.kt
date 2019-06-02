@@ -150,7 +150,11 @@ class Lobo(
     }
     //Método para restaurar la velocidad a la del comienzo para el aumento de velocidad y para restablecer la velocidad al chocar con un muro y volver a moverse
     fun restarurarVelocidad() {
-        this.velocidad = velocidadInicial
+        this.velocidad = velocidadCambiada
+    }
+
+    fun restaurarVelocidadInicial(){
+        this.velocidad=velocidadInicial
     }
 
     //Función que devuleve si la partida ha terminado o no

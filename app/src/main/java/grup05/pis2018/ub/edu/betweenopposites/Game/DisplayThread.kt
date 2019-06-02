@@ -90,7 +90,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
                 tiempoVelocidad.start()
             }
             if(segundos_vel>=10){
-                Lobo.instance.restarurarVelocidad()
+                Lobo.instance.restaurarVelocidadInicial()
                 tiempoVelocidad.finish=false
                 segundos_vel=0
             }
