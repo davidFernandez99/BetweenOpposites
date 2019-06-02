@@ -1,3 +1,11 @@
+## Información adicional sobre el juego.
+Toda la interfaz de usuario y gráficos está hecha por nosotros.  
+Tenemos dos formas de generar una sala, automáticamente, y a partir de un archivo en disco que contenga la matriz
+Las salas básicas se generan automáticas, mientras que las salas especiales y finales se generan a partir de archivos.  
+Para guardar tu puntuación en un un ranking global debes antes iniciar sesión.  
+Finalmente hemos creado 8 niveles, aunque el juego podría generar los que le pidamos, y 6 salas por nivel.  
+Al iniciar la partida se generan todas las salas y por eso tarda un poco en empezar.  
+
 #### Grupo 05 - Proyecto Integral de Software - UB Facultad de Mateméticas e Informática  
 # Between Opposites  
 Juego para telefonos y tabletas Android.
@@ -32,5 +40,4 @@ famoso videojuego Pac-man a la vez que promover las matemáticas a través de el
   
 ## Estado del proyecto
 **_FINALIZADO_**
-
 
