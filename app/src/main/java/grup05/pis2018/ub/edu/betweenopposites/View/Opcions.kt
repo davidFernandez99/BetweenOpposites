@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
+import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
 import grup05.pis2018.ub.edu.betweenopposites.Model.UserAdapter
 import grup05.pis2018.ub.edu.betweenopposites.Model.UserData
 import grup05.pis2018.ub.edu.betweenopposites.R
@@ -128,6 +129,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
             } else {
                 Toast.makeText(this, "Música OFF", Toast.LENGTH_SHORT).show()
+
                 //Agafem el valor actual del switch
                 if(MainActivity.player.isPlaying){
                     MainActivity.player.pause()
@@ -143,6 +145,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
             if (swtEfectos.isChecked) {
                 Opcions.efectos=true
                 Toast.makeText(this, "Efectos ON", Toast.LENGTH_SHORT).show()
+                Facade.efectos_activados=true
                 //Agafem el valor actual del switch
                 val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
                 editor.putBoolean("swtEfectos", true)
@@ -150,6 +153,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
             } else {
                 Opcions.efectos=false
                 Toast.makeText(this, "Efectos OFF", Toast.LENGTH_SHORT).show()
+                Facade.efectos_activados=false
                 //Agafem el valor actual del switch
                 val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
                 editor.putBoolean("swtEfectos", false)
@@ -163,6 +167,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
             if (swtVibracion.isChecked) {
                 Opcions.vibracion=true
                 Toast.makeText(this, "Vibración ON", Toast.LENGTH_SHORT).show()
+                Facade.vibracion_activada=true
                 //Agafem el valor actual del switch
                 val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
                 editor.putBoolean("swtVibracion", true)
@@ -173,6 +178,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
             } else {
                 Opcions.vibracion=false
                 Toast.makeText(this, "Vibración OFF", Toast.LENGTH_SHORT).show()
+                Facade.vibracion_activada=false
                 //Agafem el valor actual del switch
                 val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
                 editor.putBoolean("swtVibracion", false)

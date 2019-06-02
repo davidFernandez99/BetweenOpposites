@@ -40,6 +40,8 @@ class Facade : Model {
         var ultimaPuntuacion:Int=0
         var signo:Int=0 //si es 1 es +, y 2 es -
         var acabar_juego=false
+        var efectos_activados:Boolean=true
+        var vibracion_activada:Boolean=true
     }
 
     /**

@@ -3,6 +3,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.R
 
 
@@ -27,6 +28,9 @@ class Multiplicador(
             var lobo: Lobo = objeto as Lobo
             es_visible=false
             lobo.sumarMultiplicador(valor)
+            if(Facade.efectos_activados==true){
+                DisplayThread.activar_sonido=true
+            }
         }
     }
 

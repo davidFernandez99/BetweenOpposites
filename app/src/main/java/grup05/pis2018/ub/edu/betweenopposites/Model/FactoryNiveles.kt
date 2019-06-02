@@ -121,11 +121,12 @@ object FactoryNiveles {
         while (plantillas_basicas_restantes != 0 && salas_basicas_generadas < num_salas_basicas) {
             //Generamos salas con las diferentes plantillas y las vamos guardadando en la lista
             listaSalas.add(
-                FactorySala.crearSalaBasicadesdeTXT(
-                    num_nivel, salas_basicas_generadas + salas_especiales_generadas + 1,
-                    plantillasSalasBasicas[salas_basicas_generadas],contexto
-                )
+                FactorySala.crearSalaBasicaAutomaticamente(
+                    num_nivel, salas_basicas_generadas +
+                            salas_especiales_generadas + 1,
+                    2)
             )
+
             salas_basicas_generadas++
             plantillas_basicas_restantes--
 
@@ -159,11 +160,10 @@ object FactoryNiveles {
             for (i in 0..salas_restantes - 1) {
                 //Generamos las salas con una plantilla random
                 listaSalas.add(
-                    FactorySala.crearSalaBasicadesdeTXT(
-                        num_nivel, salas_basicas_generadas + salas_especiales_generadas + 1,
-                        plantillasSalasBasicas[(0..plantillasSalasBasicas.size - 1).random()],
-                        contexto
-                    )
+                    FactorySala.crearSalaBasicaAutomaticamente(
+                        num_nivel, salas_basicas_generadas +
+                                salas_especiales_generadas + 1,
+                        2)
                 )
                 salas_basicas_generadas++
 

@@ -4,12 +4,15 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.os.Handler
+import android.os.Vibrator
 import android.view.SurfaceHolder
 import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
 import grup05.pis2018.ub.edu.betweenopposites.Model.Tiempo
 import grup05.pis2018.ub.edu.betweenopposites.Model.TiempoObjeto
+import grup05.pis2018.ub.edu.betweenopposites.R
 
 class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     val gameThread= gameThread
@@ -19,7 +22,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     var game: GameEngine?=null
     var segundos:Int=0
     var fps:Long=1
-
+    var sonidoComer: MediaPlayer ?=null
     companion object{
         var playing = true
         var paused = false
@@ -40,11 +43,16 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         var tiempoInvisibilidad: TiempoObjeto=TiempoObjeto(MAX_TIEMPO_INVISIBLE,conv)
         var tiempoVelocidad: TiempoObjeto=TiempoObjeto(MAX_TIEMPO_VELOCIDAD,conv)
 
+        var activar_sonido:Boolean=false
+        var activar_vibracion:Boolean=false
 
     }
 
 
     fun starts() {
+        sonidoComer= MediaPlayer.create(contexto, R.raw.eat)
+        val v: Vibrator = contexto.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator //Fem vibar el mbl al activar l'opcio
+
         game= GameEngine(paint,contexto,holder)
 
         //tiempo.start()
@@ -60,6 +68,14 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
             if (!paused) {
 
                 game!!.update(fps)
+                if(DisplayThread.activar_sonido==true){
+                    sonidoComer!!.start()
+                    DisplayThread.activar_sonido=false
+                }
+                if(DisplayThread.activar_vibracion==true){
+                    v.vibrate(50)
+                    DisplayThread.activar_vibracion=false
+                }
             }
             if(tiempo.finish==true &&!paused){
                 DisplayThread.segundos++
