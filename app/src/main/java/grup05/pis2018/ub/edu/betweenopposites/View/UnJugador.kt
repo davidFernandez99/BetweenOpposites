@@ -56,10 +56,14 @@ class UnJugador : AppCompatActivity(), View {
 
     override fun onStart() {
         super.onStart()
+        DisplayThread.playing=true
         gameView!!.onStart()
     }
     override fun onResume() {
         super.onResume()
+        DisplayThread.playing=true
+        DisplayThread.paused=false
+        setContentView(gameView!!)
         //gameView!!.onResume()
     }
 
@@ -102,6 +106,8 @@ class UnJugador : AppCompatActivity(), View {
                DisplayThread.mostrar_Pause=false
            }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false) {
                val intent = Intent(this, MainActivity::class.java)
+               intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+               DisplayThread.playing=false
                startActivity(intent)
 
            }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false){
@@ -111,6 +117,8 @@ class UnJugador : AppCompatActivity(), View {
 
            }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && Facade.acabar_juego==true && Facade.dando_opciones==false) {
                val intent = Intent(this, MainActivity::class.java)
+               intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+               DisplayThread.playing=false
                startActivity(intent)
 
 
