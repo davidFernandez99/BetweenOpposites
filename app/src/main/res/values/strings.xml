@@ -47,4 +47,9 @@
     <string name="Aceptar">Aceptar</string>
 
     <string name="informacio">Información</string>
+    <string name="UsuarioLetra">Usuario: </string>
+    <string name="correo">E-mail:</string>
+    <string name="musica">MÚSICA</string>
+    <string name="efectos">EFECTOS</string>
+    <string name="vibracion">VIBRACIÓN</string>
 </resources>
