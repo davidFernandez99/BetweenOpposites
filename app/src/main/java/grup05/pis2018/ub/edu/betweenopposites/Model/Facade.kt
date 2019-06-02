@@ -56,6 +56,7 @@ class Facade : Model {
         DisplayThread.playing=true
         Facade.nivel=1
         Facade.mapa=1
+        DisplayThread.segundos=0
         gameData = GameData(contexto)
         Lobo.instance.vulnerable=true
         Lobo.instance.vida=Vida()

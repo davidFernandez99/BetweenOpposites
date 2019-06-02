@@ -21,7 +21,7 @@ enum class Dimension(
     sumador(1,1,16f,16f),
     multiplicador(1,1,16f,16f),
     maquina(4,4,64f,40f),
-    lobo(1,1,20f,20f)
+    lobo(1,1,25f,25f)
 }
 
 /**

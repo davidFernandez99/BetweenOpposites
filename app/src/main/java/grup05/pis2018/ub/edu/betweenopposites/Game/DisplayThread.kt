@@ -1,12 +1,9 @@
 package grup05.pis2018.ub.edu.betweenopposites.Game
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.media.MediaPlayer
-import android.os.CountDownTimer
-import android.os.Handler
 import android.os.Vibrator
 import android.view.SurfaceHolder
 import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
@@ -50,7 +47,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
 
 
     fun starts() {
-        sonidoComer= MediaPlayer.create(contexto, R.raw.eat)
+        sonidoComer= MediaPlayer.create(contexto, R.raw.eat2)
         val v: Vibrator = contexto.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator //Fem vibar el mbl al activar l'opcio
 
         game= GameEngine(paint,contexto,holder)
