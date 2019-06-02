@@ -28,7 +28,11 @@ class Sumador(
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
             es_visible=false
+            if(Lobo.instance.puntuacion.puntuacion==0){
+                Lobo.instance.cambioBando()
+            }
             lobo.sumarPuntuacion(valor)
+
         }
     }
 

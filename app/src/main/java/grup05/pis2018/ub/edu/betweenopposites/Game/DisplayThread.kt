@@ -16,9 +16,10 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     val contexto=contexto
     var holder:SurfaceHolder=holder
     val paint= Paint()
-    var game:GameEngine?=null
+    var game: GameEngine?=null
     var segundos:Int=0
     var fps:Long=1
+
     companion object{
         var playing = true
         var paused = false
@@ -44,14 +45,14 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
 
 
     fun starts() {
-        game=GameEngine(paint,contexto,holder)
+        game= GameEngine(paint,contexto,holder)
 
         //tiempo.start()
         paint.setColor(Color.WHITE)
         game!!.inicializarVariable()
         tiempo.start()
         while (playing) {
-
+            var ticks=1000/fps
             // Capture the current time
             val startFrameTime = System.currentTimeMillis()
 
@@ -94,6 +95,21 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
             if (timeThisFrame >= 1) {
                 fps = 1000 / timeThisFrame
             }
+            var sleepTime:Long = ticks - (System.currentTimeMillis() - startFrameTime)
+
+            try {
+
+                if (sleepTime > 0)
+
+                    Thread.sleep(sleepTime)
+                else
+
+                    Thread.sleep(0)
+
+            } catch (e: Exception) {
+            }
+
+
         }
     }
 
@@ -107,10 +123,6 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         playing = false
 
     }
-    fun resume(){
-        paused = false
-        playing = true
 
-    }
 
 }

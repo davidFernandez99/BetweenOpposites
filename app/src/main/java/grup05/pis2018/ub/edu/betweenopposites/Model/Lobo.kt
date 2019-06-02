@@ -103,9 +103,7 @@ class Lobo(
      * Suma cierta puntuación teniendo en cuenta el multiplicador acumulado
      */
     fun sumarPuntuacion(valorSumadpr: Int) {
-        if(this.puntuacion.puntuacion==0){
-            cambioBando()
-        }
+
         this.puntuacion.puntuacion += valorSumadpr * this.multiplicador
         Facade.signo=1
         Facade.ultimaPuntuacion=valorSumadpr*this.multiplicador

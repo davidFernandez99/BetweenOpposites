@@ -24,8 +24,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import grup05.pis2018.ub.edu.betweenopposites.Model.UserAdapter
 import grup05.pis2018.ub.edu.betweenopposites.Model.UserData
 import grup05.pis2018.ub.edu.betweenopposites.R
 
@@ -36,7 +36,7 @@ lateinit var auth: FirebaseAuth
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var mGoogleSignInOptions: GoogleSignInOptions
 lateinit var database : DatabaseReference
-
+lateinit var usersList : ArrayList<UserData>
 
 class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View,
     GoogleApiClient.OnConnectionFailedListener{
@@ -65,7 +65,9 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         var efectos= true
         var vibracion = true
         lateinit var userId : String
-
+        var auth2:FirebaseAuth?=null
+        var loguejat:Boolean=false
+        lateinit var listaUsuarios:ArrayList<UserData>
     }
 
 
@@ -74,7 +76,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opcions)
 
-
+        usersList = arrayListOf()
         //Mantenim el valor dels switches tot i cambiar de activities
         val sharedPrefs = getSharedPreferences("opcions", Context.MODE_PRIVATE)
         switch_musica.setChecked(sharedPrefs.getBoolean("swtMusica", true))
@@ -87,6 +89,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
 
         auth = FirebaseAuth.getInstance()
+        Opcions.auth2=FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().getReference()
 
         btn_logOut.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
@@ -233,7 +236,11 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 txt_email.visibility=View.VISIBLE
                 txt_nomUsuari.visibility=View.VISIBLE
                 btn_logOut.visibility=View.VISIBLE
-
+                UserData.instance.userName=user!!.displayName.toString()
+                UserData.instance.userE=user!!.email.toString()
+                UserData.instance.userID= userId
+                Opcions.loguejat=true
+                llenarListaUsuarios()
 
             } else {
                 //Log.w("TAG", "signInWithCredential:failure", task.exception)
@@ -262,5 +269,47 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         //FirebaseAuth.getInstance().signOut();
     }
 
+    fun llenarListaUsuarios(){
+
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+                    usersList.clear()
+                    //Guardem les dades de firebase a la nostre llista d'usuaris
+                    for(h in p0.children) {
+                        val user = h.getValue(UserData::class.java)
+                        if(userNotInList(user!!)) {
+                            //Afegim a la llista l'usuari
+                            usersList.add(user)
+                        }
+
+
+                    }
+                    Opcions.listaUsuarios=usersList
+
+                }
+            }
+
+        })
+    }
+
+    fun userNotInList(userData: UserData) : Boolean { //Comprova si l'usuari ja esta a la llista i si la nova puntuació és més alta
+
+        if(Opcions.auth2!=null){
+            for (i in usersList) {
+                if (i.userE.equals(userData.userE)) {
+                    if(i.puntuacion < userData.puntuacion) {
+                        i.puntuacion = userData.puntuacion
+                    }
+                    return false
+                }
+            }
+        }
+        return true
+    }
 
 }
