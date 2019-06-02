@@ -1,11 +1,14 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.Canvas
+
 /**
  * Contiene la información que se maneja durante una partida, todos los datos necesarios para
  * hacer funcionar el Juego.
  * El conjunto de niveles, el Lobo...
  */
-class GameData {
+class GameData(contexto: Context) {
     // Tiene una referencia directa a la salaActiva en este momento
     lateinit var salaActiva: Sala
 
@@ -27,7 +30,7 @@ class GameData {
          * Crea el conjunto de niveles y carga como sala inicial la primera del primer nivel.
          */
         // Creamos el conjunto de niveles
-        conjuntoNiveles = ConjuntoNiveles()
+        conjuntoNiveles = ConjuntoNiveles(contexto)
 
         // Crea el objeto lobo y lo posiciona frente a la primera puerta de todas
         // Antes de eso guardamos cual és la primera puerta y la última para saber si cuando
@@ -47,6 +50,11 @@ class GameData {
      */
     private fun cargarSala(id_nivel: Int, id_sala: Int){
         // Ponemos como sala activa la que queremos cargar
+        //println("***************TRASPASO       HACIA NIVEL:${id_nivel} SALA:${id_sala}")
+        //if(this.nivelActivo!=null && this.salaActiva!=null){
+            //println("DESDE NIVEL:${this.nivelActivo.id_nivel} SALA:${this.salaActiva.id_sala}")
+        //}
+
         nivelActivo=conjuntoNiveles.getNivel(id_nivel)
         salaActiva=nivelActivo.getSala(id_sala)
     }
@@ -63,16 +71,35 @@ class GameData {
      * Al atravesar una puerta se llama a este método, que se encarga
      * de cargar la sala y nivel objetivo.
      */
-    private fun traspasarPuerta(puerta : Puerta){
+    fun traspasarPuerta(puerta : Puerta){
         val id_nivel_destino: Int = puerta.id_nivel_destino
         val id_sala_destino: Int = puerta.id_sala_destino
-        val spawnpoint_destino: Posicion = puerta.getPosicionDestino()!!
+        var spawnpoint_destino: Posicion? = puerta.getPosicionDestino()
 
-        cargarSala(id_nivel_destino,id_sala_destino)
+
+        if(puerta==ultimaPuerta){
+            Facade.acabar_juego=true
+        }
+        if(spawnpoint_destino==null){
+            spawnpoint_destino=puerta.spawn_point
+
+        }
+        // CARGAMOS LA SALA DE DESTINO
+        cargarSala(id_nivel_destino  ,id_sala_destino  )
+
 
         //Cambio la posición del lobo al destino
         lobo.posicion = spawnpoint_destino
 
     }
 
+    fun update(fps:Long){
+        salaActiva.update(fps)
+        Facade.mapa=salaActiva.id_sala
+        Facade.nivel=nivelActivo.id_nivel
+    }
+
+    fun draw(canvas: Canvas, contexto: Context){
+        salaActiva.draw(canvas,contexto)
+    }
 }

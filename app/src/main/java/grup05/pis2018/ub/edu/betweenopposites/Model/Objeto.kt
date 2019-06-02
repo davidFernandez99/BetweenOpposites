@@ -19,6 +19,7 @@ abstract class Objeto(
     var height: Float = height
     var width: Float = width
     var paint:Paint= Paint()
+    var es_visible=true
     /**
      * Se encarga de detectar la colision con el lobo.
      * Implementación basica valida para la mayoria de objetos, especialmente aquellos que son fijos
@@ -48,7 +49,7 @@ abstract class Objeto(
     /**
      * Funcion que dibuja al objeto
      */
-    fun draw(canvas: Canvas, image:Bitmap){
+    open fun draw(canvas: Canvas, image:Bitmap){
         canvas.drawBitmap(image,this.posicion.x,this.posicion.y,paint)
     }
 

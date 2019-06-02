@@ -1,5 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+
 /**
  * Se encarga de generar niveles,
  * Es una clase estatica.
@@ -72,7 +74,8 @@ object FactoryNiveles {
         num_salas_especiales: Int,
         plantillasSalasBasicas: ArrayList<String>,
         plantillasSalaEspecial: ArrayList<String>,
-        plantillasSalaFinal: ArrayList<String>
+        plantillasSalaFinal: ArrayList<String>,
+        contexto: Context
     ): Nivel {
 
         /**
@@ -118,11 +121,12 @@ object FactoryNiveles {
         while (plantillas_basicas_restantes != 0 && salas_basicas_generadas < num_salas_basicas) {
             //Generamos salas con las diferentes plantillas y las vamos guardadando en la lista
             listaSalas.add(
-                FactorySala.crearSalaBasicadesdeTXT(
-                    num_nivel, salas_basicas_generadas + salas_especiales_generadas + 1,
-                    plantillasSalasBasicas[salas_basicas_generadas]
-                )
+                FactorySala.crearSalaBasicaAutomaticamente(
+                    num_nivel, salas_basicas_generadas +
+                            salas_especiales_generadas + 1,
+                    2)
             )
+
             salas_basicas_generadas++
             plantillas_basicas_restantes--
 
@@ -133,7 +137,8 @@ object FactoryNiveles {
                 listaSalas.add(
                     FactorySala.crearSalaEspecial(
                         salas_basicas_generadas + salas_especiales_generadas + 1,
-                        plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()]
+                        plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()],
+                        contexto
                     )
                 )
 
@@ -155,10 +160,10 @@ object FactoryNiveles {
             for (i in 0..salas_restantes - 1) {
                 //Generamos las salas con una plantilla random
                 listaSalas.add(
-                    FactorySala.crearSalaBasicadesdeTXT(
-                        num_nivel, salas_basicas_generadas + salas_especiales_generadas + 1,
-                        plantillasSalasBasicas[(0..plantillasSalasBasicas.size - 1).random()]
-                    )
+                    FactorySala.crearSalaBasicaAutomaticamente(
+                        num_nivel, salas_basicas_generadas +
+                                salas_especiales_generadas + 1,
+                        2)
                 )
                 salas_basicas_generadas++
 
@@ -169,7 +174,8 @@ object FactoryNiveles {
                     listaSalas.add(
                         FactorySala.crearSalaEspecial(
                             salas_basicas_generadas + salas_especiales_generadas + 1,
-                            plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()]
+                            plantillasSalaEspecial[(0..plantillasSalaEspecial.size - 1).random()],
+                            contexto
                         )
                     )
                     salas_especiales_generadas++
@@ -181,7 +187,8 @@ object FactoryNiveles {
         listaSalas.add(
             FactorySala.crearSalaFinal(num_nivel,
                 salas_basicas_generadas + salas_especiales_generadas + 1,
-                plantillasSalaFinal[(0..plantillasSalaFinal.size - 1).random()]
+                plantillasSalaFinal[(0..plantillasSalaFinal.size - 1).random()],
+                contexto
             )
         )
 
@@ -208,11 +215,12 @@ object FactoryNiveles {
         }
 
         // Para la última sala hago que la última puerta nos lleve a una puerta null y que la anterior a esta apunte a ella y que la primera de esta vuelva a la anteriór.
-        listaSalas[listaSalas.size-2].definirSalida(2,num_nivel,listaSalas.size-1,listaSalas[listaSalas.size-1].getPuerta(1))
-        listaSalas[listaSalas.size-1].definirSalida(1,num_nivel,listaSalas.size-2,listaSalas[listaSalas.size-2].getPuerta(2))
-        listaSalas[listaSalas.size-1].definirSalida(2,num_nivel+1,0,null)
+        listaSalas[listaSalas.size-2].definirSalida(2,num_nivel,listaSalas.size,listaSalas[listaSalas.size-1].getPuerta(1))
+        listaSalas[listaSalas.size-1].definirSalida(1,num_nivel,listaSalas.size-1,listaSalas[listaSalas.size-2].getPuerta(2))
+
+        // Ponemos la salida de cada nivel al siguiente en el conjunto de niveles.
 
 
-        return Nivel(listaSalas)
+        return Nivel(num_nivel,listaSalas)
     }
 }

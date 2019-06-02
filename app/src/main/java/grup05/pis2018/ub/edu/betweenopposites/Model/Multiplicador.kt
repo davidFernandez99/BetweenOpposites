@@ -3,6 +3,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.R
 
 
@@ -19,13 +20,17 @@ class Multiplicador(
     var valor: Int = valor1
 
     /**
-     * Notifica al Lobo sobre la colisión pasando el valor del multiplicador
+     * Si detecta una colision con lobo sumará valor al multiplicador de este
      */
     override fun tratarColision(objeto: Objeto) {
 
         if (objeto is Lobo) {
             var lobo: Lobo = objeto as Lobo
+            es_visible=false
             lobo.sumarMultiplicador(valor)
+            if(Facade.efectos_activados==true){
+                DisplayThread.activar_sonido=true
+            }
         }
     }
 

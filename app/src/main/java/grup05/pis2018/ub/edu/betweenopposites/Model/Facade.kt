@@ -1,5 +1,9 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
+import android.content.Context
+import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
+
 /**
  * Clase fachada del modelo, que crea u objeto único (Singletone) para poder proporcionar los servicios
  * del modelo de forma simple a aquellos que quieresn acceder a este, en este caso solo los Presenter.
@@ -14,24 +18,50 @@ class Facade : Model {
      * Es lo mismo que crear un campo estatico en Java
      * De esta forma podemos tener una única instancia para esta clase.
      */
+    lateinit var gameData:GameData
+
+    /**
+     * Guarda si la partida ha sido iniciada
+     */
+    var partidaIniciada=false
+
+    /**
+     * Singleton Facade
+     */
     companion object {
-        lateinit var uniqueFacade: Facade
-            private set
+        val instance: Facade=Facade()
+        var dando_opciones=false
+        var comprobar_opcion=false
+        var opcion:Int=0
+        var fallar=false
+        var opciones:ArrayList<Int> ?= null
+        var nivel:Int = 0
+        var mapa:Int =0
+        var ultimaPuntuacion:Int=0
+        var signo:Int=0 //si es 1 es +, y 2 es -
+        var acabar_juego=false
+        var efectos_activados:Boolean=true
+        var vibracion_activada:Boolean=true
     }
 
     /**
-     * Crea el objeto único Facade al ser llamado por primera vez y siempre es devuelto el mismo.
+     * Función para inicializar la partida. Crea el conjunto de niveles y dentro de este las salas y objetos.
      */
-    fun onCreate(): Facade {
-        uniqueFacade = this
-        return uniqueFacade
-    }
+    fun iniciarPartida(contexto: Context){
+        // Creo la partida
 
-    /**
-     * Funcion que devuelve la instancia única de la Facade
-     */
-    public fun getInstance(): Facade {
-        return uniqueFacade
+        DisplayThread.paused=false
+        DisplayThread.fin_juego=false
+        Facade.acabar_juego=false
+        DisplayThread.playing=true
+        Facade.nivel=1
+        Facade.mapa=1
+        DisplayThread.segundos=0
+        gameData = GameData(contexto)
+        Lobo.instance.vulnerable=true
+        Lobo.instance.vida=Vida()
+
+        partidaIniciada=true
     }
 
 
@@ -49,5 +79,18 @@ class Facade : Model {
 
     override fun downloadServerData() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun draw(canvas: Canvas, contexto: Context){
+        gameData.draw(canvas,contexto)
+    }
+    fun update(fps:Long){
+        gameData.update(fps)
+    }
+
+    fun traspasarPuerta(puerta: Puerta) {
+        if(partidaIniciada){
+            gameData.traspasarPuerta(puerta)
+        }
     }
 }

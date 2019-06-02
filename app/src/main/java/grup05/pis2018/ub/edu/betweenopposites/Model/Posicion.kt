@@ -27,7 +27,7 @@ class Posicion(x: Float = -1f, y: Float = -1f, x_sala: Int = -1, y_sala: Int = -
 
         if (x == -1.toFloat() && y == -1.toFloat() && x_sala != -1 && y_sala!=-1) {
             this.x = (x_sala * Dimension.bloque.height) + (Dimension.bloque.height / 2)
-            this.y = (y_sala * Dimension.bloque.width) + (Dimension.bloque.width / 2)
+            this.y = (y_sala * Dimension.bloque.width) + (Dimension.bloque.width / 2)+10f
         } else if(x != -1.toFloat() && y != -1.toFloat() && x_sala == -1 && y_sala==-1){
             this.x_sala = (this.x.toInt() % Dimension.bloque.height - (Dimension.bloque.height / 2)).toInt()
             this.y_sala = (this.y.toInt() % Dimension.bloque.width - (Dimension.bloque.width / 2)).toInt()

@@ -17,7 +17,7 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
     var lobo: Lobo = Lobo.instance
 
 
-    /* This method is invoked when a swipe gesture happened. */
+    //Método que se llamará cuando detecte los swipes
     override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
 
         // Get swipe delta value in x axis.
@@ -30,10 +30,11 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
         val deltaXAbs = Math.abs(deltaX)
         val deltaYAbs = Math.abs(deltaY)
 
-        // Only when swipe distance between minimal and maximal distance value then we treat it as effective swipe
+        // Solo cuando la distáncia detectada del swipe es mayor a la minima establecida y menor a la maxima
         if (deltaXAbs >= MIN_SWIPE_DISTANCE_X && deltaXAbs <= MAX_SWIPE_DISTANCE_X) {
             if (lobo.velocidad == 0f) {
                 lobo.restarurarVelocidad()
+                //Método para restaurar la velocidad cuando deja de colisionar con el muro para que si colisionamos con un muro con el aumento de velocidad siga con ese aumento hasta que pase cierto tiempo
             }
             if (deltaX > 0) {
                 if(lobo.direccionIvalida!= Direccion.IZQUIERDA){
@@ -50,6 +51,7 @@ class DetectSwipeGestureListener : GestureDetector.SimpleOnGestureListener() {
         if (deltaYAbs >= MIN_SWIPE_DISTANCE_Y && deltaYAbs <= MAX_SWIPE_DISTANCE_Y) {
             if (lobo.velocidad == 0f) {
                 lobo.restarurarVelocidad()
+                //Método para restaurar la velocidad cuando deja de colisionar con el muro para que si colisionamos con un muro con el aumento de velocidad siga con ese aumento hasta que pase cierto tiempo
             }
             if (deltaY > 0) {
                 if(lobo.direccionIvalida!= Direccion.ARRIBA){

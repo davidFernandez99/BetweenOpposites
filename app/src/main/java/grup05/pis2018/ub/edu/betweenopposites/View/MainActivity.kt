@@ -1,12 +1,17 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Switch
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
+import kotlinx.android.synthetic.main.activity_opcions.*
 
 /**
  * Projecte Integrat de Software
@@ -34,7 +39,7 @@ class MainActivity : AppCompatActivity(),View {
     }
 
     companion object {
-        lateinit open var player: MediaPlayer
+        lateinit var player: MediaPlayer
 
     }
 
@@ -43,8 +48,13 @@ class MainActivity : AppCompatActivity(),View {
         setContentView(R.layout.activity_main)
 
         player = MediaPlayer.create(this, R.raw.musica)
-        player.isLooping = true
-        player.start()
+
+        if(Opcions.musica==true){
+            player.isLooping = true
+            player.start()
+        }else{
+            player.pause()
+        }
 
         val btn_unjugador = findViewById<ImageButton>(R.id.btn_unjugador)
         btn_unjugador.setOnClickListener {
@@ -63,12 +73,44 @@ class MainActivity : AppCompatActivity(),View {
         btn_opciones.setOnClickListener {
             val intent = Intent(this, Opcions::class.java)
             startActivity(intent)
-            //mp.stop() No fa falta parar la musica en la pantalla d'opcions
+        }
+
+        val btn_infor = findViewById<ImageButton>(R.id.btn_info)
+        btn_infor.setOnClickListener {
+            val intent = Intent(this, Tutorial::class.java)
+            startActivity(intent)
         }
 
     }
 
+    //Mostrar el tutorial només al inciar per primer cop
+    override fun onStart() {
+        super.onStart()
 
+        var muestra : Boolean  = getValuePreference(applicationContext)
 
+        if(muestra){
+            val TutorialIntent = Intent(this, Tutorial::class.java)
+            startActivity(TutorialIntent)
+            saveValuePreferences(applicationContext, false)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.pause()
+    }
+
+    private fun saveValuePreferences(context: Context, mostrar: Boolean) {
+        val settings = context.getSharedPreferences("mispreferencias", Context.MODE_PRIVATE)
+        val editor = settings.edit().putBoolean("tutorial", mostrar)
+        editor.commit()
+    }
+
+    private fun getValuePreference(context: Context) : Boolean {
+        val preferences  = context.getSharedPreferences("mispreferencias", Context.MODE_PRIVATE)
+        return preferences.getBoolean("tutorial", true)
+
+    }
 
 }

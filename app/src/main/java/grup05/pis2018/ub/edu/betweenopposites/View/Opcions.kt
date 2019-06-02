@@ -18,22 +18,26 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 
 import android.os.Vibrator
+import android.util.Log
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.*
+import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
+import grup05.pis2018.ub.edu.betweenopposites.Model.UserAdapter
+import grup05.pis2018.ub.edu.betweenopposites.Model.UserData
 import grup05.pis2018.ub.edu.betweenopposites.R
 
 
 const val RC_SIGN_IN = 123
 
-
-
-lateinit var firebaseAuth: FirebaseAuth
+lateinit var auth: FirebaseAuth
 lateinit var mGoogleSignInClient: GoogleSignInClient
 lateinit var mGoogleSignInOptions: GoogleSignInOptions
-
+lateinit var database : DatabaseReference
+lateinit var usersList : ArrayList<UserData>
 
 class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View.View,
     GoogleApiClient.OnConnectionFailedListener{
@@ -58,24 +62,56 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     override fun notifyObservers(fuente: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+    companion object {
+        var musica=true
+        var efectos= true
+        var vibracion = true
+        lateinit var userId : String
+        var auth2:FirebaseAuth?=null
+        var loguejat:Boolean=false
+        lateinit var listaUsuarios:ArrayList<UserData>
+    }
+
 
     lateinit var observers: ArrayList<Presenter>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opcions)
 
-
+        usersList = arrayListOf()
         //Mantenim el valor dels switches tot i cambiar de activities
-        val sharedPrefs = getSharedPreferences("opcions", Context.MODE_PRIVATE)
-        switch_musica.setChecked(sharedPrefs.getBoolean("swtMusica", true))
-        switch_efectos.setChecked(sharedPrefs.getBoolean("swtEfectos", true))
-        switch_vibracion.setChecked(sharedPrefs.getBoolean("swtVibracion", true))
-
+        //Controlamos estado del switch musica
         val swtMusica = findViewById<Switch>(R.id.switch_musica)
         val swtEfectos = findViewById<Switch>(R.id.switch_efectos)
         val swtVibracion = findViewById<Switch>(R.id.switch_vibracion)
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        if(musica == true){
+            swtMusica.isChecked = true
+
+        }else {
+            swtMusica.isChecked = false
+        }
+
+        //Controlamos estado del switch efectos
+        if(efectos == true){
+            swtEfectos.isChecked = true
+        }else{
+            swtEfectos.isChecked = false
+        }
+
+        //Controlamos estado del switch vibracion
+        if(vibracion == true){
+            swtVibracion.isChecked = true
+        }else{
+            swtVibracion.isChecked = false
+        }
+
+
+
+
+        auth = FirebaseAuth.getInstance()
+        Opcions.auth2=FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().getReference()
 
         btn_logOut.visibility = View.INVISIBLE //Inicialment esta invisible fins que s'inicia sessio
 
@@ -95,47 +131,46 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
             sign_in_button.visibility=View.VISIBLE
             btn_logOut.visibility=View.GONE
             txt_email.visibility=View.GONE
+            Opcions.loguejat=true
             txt_nomUsuari.visibility=View.GONE
         }
 
         //Switch per controlar la música
         swtMusica.setOnCheckedChangeListener { SwitchView, isChecked ->
+            if(!MainActivity.player.isPlaying){
+                MainActivity.player.start()
+            }
             if (swtMusica.isChecked) {
                 Toast.makeText(this, "Música ON", Toast.LENGTH_SHORT).show()
                 //Agafem el valor actual del switch
-                if(!MainActivity.player.isPlaying){
-                    MainActivity.player.start()
-                }
-                val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
-                editor.putBoolean("swtMusica", true)
-                editor.commit()
+                Opcions.musica=true
+
 
             } else {
                 Toast.makeText(this, "Música OFF", Toast.LENGTH_SHORT).show()
+
                 //Agafem el valor actual del switch
                 if(MainActivity.player.isPlaying){
-                    MainActivity.player.stop()
+                    MainActivity.player.pause()
                 }
-                val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
-                editor.putBoolean("swtMusica", false)
-                editor.commit()
+                Opcions.musica=false
+
             }
         }
 
         //Switch per controlar els efectes
         swtEfectos.setOnCheckedChangeListener { SwitchView, isChecked ->
             if (swtEfectos.isChecked) {
+                Opcions.efectos=true
                 Toast.makeText(this, "Efectos ON", Toast.LENGTH_SHORT).show()
-                //Agafem el valor actual del switch
-                val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
-                editor.putBoolean("swtEfectos", true)
-                editor.commit()
+                Facade.efectos_activados=true
+
+
             } else {
+                Opcions.efectos=false
                 Toast.makeText(this, "Efectos OFF", Toast.LENGTH_SHORT).show()
-                //Agafem el valor actual del switch
-                val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
-                editor.putBoolean("swtEfectos", false)
-                editor.commit()
+                Facade.efectos_activados=false
+
 
             }
         }
@@ -143,20 +178,18 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         //Switch per controlar la vibració
         swtVibracion.setOnCheckedChangeListener { SwitchView, isChecked ->
             if (swtVibracion.isChecked) {
+                Opcions.vibracion=true
                 Toast.makeText(this, "Vibración ON", Toast.LENGTH_SHORT).show()
-                //Agafem el valor actual del switch
-                val editor: SharedPreferences.Editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
-                editor.putBoolean("swtVibracion", true)
-                editor.commit()
+                Facade.vibracion_activada=true
+
 
                 val v: Vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator //Fem vibar el mbl al activar l'opcio
                 v.vibrate(500)
             } else {
+                Opcions.vibracion=false
                 Toast.makeText(this, "Vibración OFF", Toast.LENGTH_SHORT).show()
-                //Agafem el valor actual del switch
-                val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
-                editor.putBoolean("swtVibracion", false)
-                editor.commit()
+                Facade.vibracion_activada=false
+
 
             }
         }
@@ -174,6 +207,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
     private fun setupUI() {
         sign_in_button.setOnClickListener {
+            userId  = database.push().key!!
             signIn()
         }
     }
@@ -182,34 +216,47 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
+
+            val task= GoogleSignIn.getSignedInAccountFromIntent(data)
+            try{
                 val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account)
-            } catch (e: ApiException) {
-                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
+                firebaseAuthWithGoogle(account!!)
+            }catch (e: ApiException){
+                Toast.makeText(this, "Google sign in failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     //Authentication with firebase
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount?) {
-        val credential = GoogleAuthProvider.getCredential(acct?.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        //Log.d("TAG", "firebaseAuthWithGoogle:" + acct.id!!)
+
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        auth.signInWithCredential(credential).addOnCompleteListener(this) {task->
+            if (task.isSuccessful) {
+                //Log.d("TAG", "signInWithCredential:success")
+                Toast.makeText(this, "Sesión Iniciada", Toast.LENGTH_SHORT).show()
+                val user = auth.currentUser
                 sign_in_button.visibility=View.GONE
-                txt_email.text=acct?.email
-                txt_nomUsuari.text=acct?.displayName
+                txt_email.text=user?.email
+                txt_nomUsuari.text=user?.displayName
                 txt_email.visibility=View.VISIBLE
                 txt_nomUsuari.visibility=View.VISIBLE
                 btn_logOut.visibility=View.VISIBLE
+                UserData.instance.userName=user!!.displayName.toString()
+                UserData.instance.userE=user!!.email.toString()
+                UserData.instance.userID= userId
+                Opcions.loguejat=true
+                llenarListaUsuarios()
 
             } else {
+                //Log.w("TAG", "signInWithCredential:failure", task.exception)
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
         }
@@ -218,11 +265,11 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
     //Check if the user is signed in already
     override fun onStart() {
         super.onStart()
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = auth.currentUser
         if (user != null) {
             sign_in_button.visibility=View.GONE
-            txt_email.text=user?.email
-            txt_nomUsuari.text=user?.displayName
+            txt_email.text=user.email
+            txt_nomUsuari.text=user.displayName
             txt_email.visibility=View.VISIBLE
             txt_nomUsuari.visibility=View.VISIBLE
             btn_logOut.visibility=View.VISIBLE
@@ -232,7 +279,50 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
     private fun signOut() {
         mGoogleSignInClient.signOut()
-        FirebaseAuth.getInstance().signOut();
+        //FirebaseAuth.getInstance().signOut();
+    }
+
+    fun llenarListaUsuarios(){
+
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+                    usersList.clear()
+                    //Guardem les dades de firebase a la nostre llista d'usuaris
+                    for(h in p0.children) {
+                        val user = h.getValue(UserData::class.java)
+                        if(userNotInList(user!!)) {
+                            //Afegim a la llista l'usuari
+                            usersList.add(user)
+                        }
+
+
+                    }
+                    Opcions.listaUsuarios=usersList
+
+                }
+            }
+
+        })
+    }
+
+    fun userNotInList(userData: UserData) : Boolean { //Comprova si l'usuari ja esta a la llista i si la nova puntuació és més alta
+
+        if(Opcions.auth2!=null){
+            for (i in usersList) {
+                if (i.userE.equals(userData.userE)) {
+                    if(i.puntuacion < userData.puntuacion) {
+                        i.puntuacion = userData.puntuacion
+                    }
+                    return false
+                }
+            }
+        }
+        return true
     }
 
 }

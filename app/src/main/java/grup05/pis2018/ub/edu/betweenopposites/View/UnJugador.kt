@@ -1,5 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
@@ -7,13 +9,24 @@ import android.support.v4.view.GestureDetectorCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MotionEvent
-import android.widget.ImageButton
 import com.dev2qa.gestureexample.DetectSwipeGestureListener
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameView
+import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
+import grup05.pis2018.ub.edu.betweenopposites.Model.Maquina
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
-import grup05.pis2018.ub.edu.betweenopposites.R
+import android.content.res.AssetManager
+import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
+import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
+import android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+import android.R
+
+
+
 
 class UnJugador : AppCompatActivity(), View {
+
     override fun addObserver(presenter: Presenter) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -27,13 +40,16 @@ class UnJugador : AppCompatActivity(), View {
     }
 
     lateinit var observers: ArrayList<Presenter>
-
     private var gameView: GameView? = null
+    var context:Context= this
+    var activities:ArrayList<Activity> = ArrayList()
     // This is the gesture detector compat instance.
     private var gestureDetectorCompat: GestureDetectorCompat? = null
     val gestureListener: DetectSwipeGestureListener = DetectSwipeGestureListener()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activities.add(this)
+
         val intent = Intent(this, MainActivity::class.java)
         intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         gestureDetectorCompat = GestureDetectorCompat(this, gestureListener)
@@ -41,40 +57,40 @@ class UnJugador : AppCompatActivity(), View {
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
+        DisplayThread.playing=true
         gameView = GameView(this, size)
         setContentView(gameView)
 
 
+   }
 
-
-        /* setContentView(R.layout.activity_un_jugador)
-         val btn_pausa = findViewById<ImageButton>(R.id.btn_pausa)
-         btn_pausa.setOnClickListener {
-             val intent = Intent(this, PausaActivity::class.java)
-             startActivity(intent)
-         }
-
- */
+    override fun onStart() {
+        super.onStart()
+        DisplayThread.playing=true
+        gameView!!.onStart()
     }
-
     override fun onResume() {
         super.onResume()
-        gameView?.resume()
+        DisplayThread.playing=true
+        DisplayThread.paused=false
+        setContentView(gameView!!)
+
     }
 
     override fun onPause() {
         super.onPause()
-        gameView?.pause()
+        DisplayThread.paused=true
     }
 
     override fun onStop() {
         super.onStop()
-        gameView?.onStop()
+        DisplayThread.paused=true
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        gameView?.onDestroy()
+        activities.remove(this)
+        DisplayThread.paused=true
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -88,18 +104,77 @@ class UnJugador : AppCompatActivity(), View {
 
             Log.i("finger postion", x.toString())
             Log.i("finger postion", y.toString())
-            if ((x < 100f) && (y < 100f) && !gameView!!.paused) {
-                gameView!!.paused = true
-            } else if ((x < 100f) && (y < 100f) && gameView!!.paused) {
-                gameView!!.paused = false
-            }
+           if ((x > 1700) && (y < 60f) && !DisplayThread.paused) {
+               DisplayThread.paused = true
+               DisplayThread.mostrar_Pause=true
+            } else if ((x > 770f) && (x < 858f) && (y > 550f) && (y < 638f) && DisplayThread.paused && DisplayThread.fin_juego==false && Facade.dando_opciones==false && Facade.fallar==false) {
+                DisplayThread.playing = false
+                val intent = Intent(this,MainActivity::class.java)
+               DisplayThread.mostrar_Pause=false
+               this.startActivity(intent)
+            }else if((x>  1100f) && (x<1188f )  && (y<638f) && (y> 550f) && DisplayThread.paused && DisplayThread.fin_juego==false && Facade.dando_opciones==false&& Facade.fallar==false){
+                DisplayThread.paused = false
+               DisplayThread.mostrar_Pause=false
+           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false) {
+               val intent = Intent(this, MainActivity::class.java)
+               intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+               DisplayThread.playing=false
+               finishAll()
+               startActivity(intent)
+
+           }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false){
+               DisplayThread.paused=false
+               Lobo.instance.resetearLobo()
+               Facade.instance.iniciarPartida(this)
+
+           }else if ((x > 770f) && (x < 858f) && (y > 650f) && (y < 738f) && DisplayThread.paused && Facade.acabar_juego==true && Facade.dando_opciones==false) {
+               val intent = Intent(this, MainActivity::class.java)
+               intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+               DisplayThread.playing=false
+               finishAll()
+               startActivity(intent)
+
+
+           }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && Facade.acabar_juego==true && Facade.dando_opciones==false){
+               DisplayThread.paused=false
+               Lobo.instance.resetearLobo()
+               Facade.instance.iniciarPartida(this)
+
+
+           }else if( (x > 770f )&& (x< 814f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true)){//Opcion 1 opciones maquina
+               Facade.dando_opciones=false
+               Facade.comprobar_opcion=true
+               DisplayThread.paused=false
+               Facade.opcion=0
+
+           }else if((x > 966f )&& (x< 1010f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true)){//Opcion 2 opciones maquina
+               Facade.dando_opciones=false
+               Facade.comprobar_opcion=true
+               DisplayThread.paused=false
+               Facade.opcion=1
+           }else if((x > 1162f )&& (x< 1206f) && (y > 618f) && (y< 662f)&& (Facade.dando_opciones==true)){//Opcion 3 opciones maquina
+               Facade.dando_opciones=false
+               Facade.comprobar_opcion=true
+               DisplayThread.paused=false
+               Facade.opcion=2
+           }else if(x >64f && x< 124f  && y >1020f && y <1080f && DisplayThread.activar_efecto==false){
+               if(Lobo.instance.objetoActivable!=null){
+                   DisplayThread.activar_efecto=true
+
+               }
+           }//else if( DisplayThread.fallar==true){
+               //DisplayThread.fallar==false
+           //}
         }
         // Return true to tell android OS that event has been consumed, do not pass it to other event listeners.
         return true
     }
 
 
-
+    fun finishAll() {
+        for (activity in activities)
+            activity.finish()
+    }
 
 
 

@@ -122,7 +122,7 @@ object FactoryObjetos {
         val posicion: Posicion = escogerPosicion(avaliblePositions)
 
         // La velocidad del orbe dependerá de la dificultad del nivel
-        return Orbe(Bando.values()[(0..(Bando.values().size-1)).random()],Dimension.orbe.height,Dimension.orbe.width,dificultad.velocidad_orbes,Direccion.ABAJO,posicion)
+        return Orbe(listOf<Bando>(Bando.Negro,Bando.Blanco)[(0..1).random()],Dimension.orbe.height,Dimension.orbe.width,dificultad.velocidad_orbes,Direccion.ABAJO,posicion)
 
     }
 

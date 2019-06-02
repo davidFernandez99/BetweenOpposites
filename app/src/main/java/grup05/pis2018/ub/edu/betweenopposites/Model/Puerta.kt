@@ -1,6 +1,7 @@
 package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import grup05.pis2018.ub.edu.betweenopposites.R
@@ -54,10 +55,38 @@ class Puerta(
      */
     override fun tratarColision(objeto: Objeto) {
         if (objeto is Lobo) {
-            //TODO("si el lobo colisiona con una puerta hará pasar a la siguiente sala o nivel en caso que fuese la sala final")
-            //TODO("si es la sala final del último nivel llamara al método endGame()")
-            var lobo:Lobo= objeto as Lobo
-            lobo.final=true
+            var lobo:Lobo =objeto as Lobo
+            lobo.velocidad=0f
+            lobo.direccionChoque=lobo.direccion
+
+            while(comprobarColision(lobo)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
+                lobo.returnPosicion()
+            }
+            lobo.returnPosicion()
+            lobo.direccion=Direccion.PARADO //Establece que la dirección al colisionar con el muro es PARADO
+            if(this.puerta_destino==null && Facade.mapa!=1){
+                Facade.acabar_juego=true
+            }
+
+            else{
+                Facade.instance.traspasarPuerta(this)
+            }
+
+
+        }
+        if(objeto is Orbe){
+            var orbe: Orbe = objeto as Orbe
+            orbe.velocidad=0f
+
+            orbe.direccionChoque=orbe.direccion
+            orbe.direccion=Direccion.PARADO
+            while(comprobarColision(orbe)==true){ //Si detecta una colision le hace retroceder hasta que deje de detectarla
+                orbe.returnPosicion()
+            }
+            orbe.returnPosicion()
+            orbe.restaurarVelocidad()
+            orbe.canviarDireccionMuro() //Cambia la dirección de este orbe para que deje de colisionar y no este parado
+
         }
     }
 
@@ -71,9 +100,23 @@ class Puerta(
         id_sala_destino: Int = this.id_sala_destino,
         id_nivel_destino: Int = this.id_nivel_destino
     ) {
-        this.puerta_destino = puerta_destino
-        this.id_sala_destino=id_sala_destino
-        this.id_nivel_destino=id_nivel_destino
+        if(puerta_destino==null){
+            this.puerta_destino = this
+        }else{
+            this.puerta_destino=puerta_destino
+        }
+        if(id_sala_destino==0){
+            this.id_sala_destino=1
+        }else{
+            this.id_sala_destino=id_sala_destino
+        }
+
+        if(id_sala_destino==0){
+            this.id_nivel_destino=1
+        }else{
+            this.id_nivel_destino=id_nivel_destino
+        }
+
     }
 
     /**
@@ -88,12 +131,14 @@ class Puerta(
         }
     }
 
-    override fun detectarColision(objeto: Objeto): Boolean {
+    fun comprobarColision(objeto:Objeto):Boolean{
         var colisio: Boolean = false
-        if (this.posicion.x == objeto.posicion.x
-            && this.posicion.y ==objeto.posicion.y
+        if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
+            && this.posicion.x + this.width > objeto.posicion.x - objeto.width
+            && this.posicion.y - this.height < objeto.posicion.y + objeto.height
+            && this.posicion.y + this.height > objeto.posicion.y - objeto.height
         ) {
-            tratarColision(objeto)
+
             colisio = true
         }
         //Devuelve si ha colisionado o no con ese objeto
@@ -102,11 +147,14 @@ class Puerta(
     }
 
     fun printPuerta() {
-        println("Puerta  \n" +
+        println("Puerta \n" +
                 "POSICION: [${posicion.x_sala},${posicion.y_sala}] \n" +
                 "DESTINO: nivel-> ${id_nivel_destino}    sala->${id_sala_destino}    " +
                 "posicion destino-> [${getPosicionDestino()?.x_sala},${getPosicionDestino()?.y_sala}]\n" +
                 "SPAWNPOINT: [${spawn_point.x_sala},${spawn_point.y_sala}]")
+    }
+    override fun draw(canvas: Canvas, image: Bitmap){
+        canvas.drawBitmap(image,this.posicion.x-7,this.posicion.y,paint)
     }
 
 }

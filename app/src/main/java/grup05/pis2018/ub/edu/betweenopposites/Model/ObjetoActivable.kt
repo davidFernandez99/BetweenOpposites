@@ -18,8 +18,4 @@ abstract class ObjetoActivable(
     abstract fun activarEfecto(lobo: Lobo)
 
 
-    /**
-     * Implementamos el método tratarColision en esta clase ya que en las hijas siempre serà igual
-     */
-
 }

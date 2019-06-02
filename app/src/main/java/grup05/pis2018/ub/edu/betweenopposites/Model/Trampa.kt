@@ -3,6 +3,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.R
 
 
@@ -27,9 +28,23 @@ class Trampa(
             var lobo: Lobo = Lobo.instance
             if (lobo.vulnerable == true) {
                 lobo.quitarVida()
+                if(Facade.vibracion_activada==true){
+                    DisplayThread.activar_vibracion=true
+                }
 
             }
         }
     }
+    fun comprobarColision(objeto:Objeto):Boolean{ //Método para detectar si hay o no colision entre un muro y un actor
 
+        if (this.posicion.x - this.width < objeto.posicion.x + objeto.width
+            && this.posicion.x + this.width > objeto.posicion.x - objeto.width
+            && this.posicion.y - this.height < objeto.posicion.y + objeto.height
+            && this.posicion.y + this.height > objeto.posicion.y - objeto.height
+        ) {
+            return true
+        }
+        //Devuelve si ha colisionado o no con ese objeto
+        return false
+    }
 }

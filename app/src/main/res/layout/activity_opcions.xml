@@ -5,32 +5,37 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:background="@drawable/fondo_opciones">
 
     <Switch
             android:layout_width="130dp"
             android:layout_height="72dp"
             android:id="@+id/switch_musica"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="60dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="153dp" android:text="MÚSICA"
-            app:layout_constraintBottom_toTopOf="@+id/switch_efectos" app:layout_constraintVertical_bias="0.107"/>
+            android:layout_marginStart="221dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="153dp" android:text="@string/musica"
+            app:layout_constraintBottom_toTopOf="@+id/switch_efectos" app:layout_constraintVertical_bias="0.107"
+            android:textColor="@android:color/white" app:layout_constraintEnd_toEndOf="parent"
+
+            android:layout_marginEnd="221dp"/>
     <Switch
-            android:text="EFECTOS"
+            android:text="@string/efectos"
             android:layout_width="132dp"
             android:layout_height="48dp"
             android:id="@+id/switch_efectos"
             android:layout_marginTop="56dp"
             app:layout_constraintTop_toBottomOf="@+id/switch_musica" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="60dp"/>
+            android:layout_marginStart="221dp" android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="221dp"/>
     <Switch
-            android:text="VIBRACIÓN"
+            android:text="@string/vibracion"
             android:layout_width="132dp"
             android:layout_height="46dp"
             android:id="@+id/switch_vibracion"
             android:layout_marginTop="56dp"
             app:layout_constraintTop_toBottomOf="@+id/switch_efectos" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="60dp"/>
+            android:layout_marginStart="221dp" android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="221dp"/>
 
     <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
@@ -38,9 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="56dp"
             app:layout_constraintTop_toBottomOf="@+id/switch_vibracion" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.507"/>
     <Button
             android:text="Log Out"
             android:layout_width="wrap_content"
@@ -50,24 +55,20 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.498"
             android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/sign_in_button"/>
 
-    <ImageView
-            android:layout_width="117dp"
-            android:layout_height="92dp" app:srcCompat="@drawable/btn_opciones_v3"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp" android:id="@+id/imageView" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="171dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="123dp" android:layout_marginBottom="45dp"
-            app:layout_constraintBottom_toTopOf="@+id/switch_musica"/>
     <TextView
             android:layout_width="181dp"
             android:layout_height="35dp"
+            android:id="@+id/txt_nomUsuari"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="22dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_logOut"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:id="@+id/txt_nomUsuari"
-            app:layout_constraintTop_toBottomOf="@+id/btn_logOut"/>
+            android:layout_marginEnd="89dp" app:layout_constraintBottom_toTopOf="@+id/txt_email"
+    />
     <TextView
             android:layout_width="216dp"
             android:layout_height="35dp"
             android:id="@+id/txt_email"
             app:layout_constraintTop_toBottomOf="@+id/txt_nomUsuari" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="112dp"/>
+            android:layout_marginStart="140dp" android:textColor="@android:color/white"/>
 </android.support.constraint.ConstraintLayout>
