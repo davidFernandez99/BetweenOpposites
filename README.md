@@ -31,6 +31,6 @@ Consiste en la creación de un videojuego para teléfonos o tables Android y deb
 famoso videojuego Pac-man a la vez que promover las matemáticas a través de ella, haciendo que el jugador las necesite durante el juego.
   
 ## Estado del proyecto
-**_EN DESARROLLO_**  
+**_FINALIZADO_**
 
-Se esta creando el proyecto, realizando las pantallas necesarias en el estado final del juego y la implementación de la navegación por la aplicación.
+
