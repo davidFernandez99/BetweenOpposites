@@ -14,6 +14,8 @@ class Tutorial : AppCompatActivity() {
 
         val aceptar  = findViewById<Button>(R.id.btn_accept)
 
+        MainActivity.player.pause()
+
         aceptar.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

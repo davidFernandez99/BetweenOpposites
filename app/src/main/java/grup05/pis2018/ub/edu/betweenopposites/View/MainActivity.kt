@@ -47,8 +47,12 @@ class MainActivity : AppCompatActivity(),View {
 
         player = MediaPlayer.create(this, R.raw.musica)
 
-        player.isLooping = true
-        player.start()
+        if(Opcions.musica==true){
+            player.isLooping = true
+            player.start()
+        }else{
+            player.pause()
+        }
 
         val btn_unjugador = findViewById<ImageButton>(R.id.btn_unjugador)
         btn_unjugador.setOnClickListener {
