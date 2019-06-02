@@ -23,7 +23,7 @@ class Orbe(
     var darPuntuacion: Int = 10
     var bando: Bando = bando; //Esto habra que hacerlo aleatorio
     var direccionChoque:Direccion?=null //Variable para almacenar la dirección con la que colisiona con el muro
-
+    var velocidadInicial:Float=velocidad
     override fun mover(fps: Long) { //Método para el movimiento del orbe según su dirección, y fps
         if (this.direccion == Direccion.ABAJO) {
             if (this.posicion.y + this.height >= 1080f) {
@@ -212,5 +212,8 @@ class Orbe(
         }else{
             this.direccion = this.direccion
         }
+    }
+    fun restaurarVelocidad(){
+        velocidad=velocidadInicial
     }
 }
