@@ -51,7 +51,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="18" />
+                                                <entry key="scalingPercent" value="71" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -62,9 +62,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="C:\Users\Usuario\Desktop\interrogante.png" />
-                                      <entry key="foregroundLayerName" value="ic_launcher_interrogante" />
-                                      <entry key="outputName" value="interrogante" />
+                                      <entry key="foregroundImage" value="C:\Users\david\Documents\GitHub\PIS\app\src\main\res\drawable\logo_between_opposites.png" />
+                                      <entry key="foregroundLayerName" value="ic_launcher_logo_final" />
+                                      <entry key="outputName" value="logo_between_opposites_final" />
                                     </map>
                                   </option>
                                 </PersistentState>

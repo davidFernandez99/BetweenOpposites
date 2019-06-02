@@ -155,6 +155,7 @@ class Lobo(
 
     fun restaurarVelocidadInicial(){
         this.velocidad=velocidadInicial
+        this.velocidadCambiada=velocidadInicial
     }
 
     //Función que devuleve si la partida ha terminado o no

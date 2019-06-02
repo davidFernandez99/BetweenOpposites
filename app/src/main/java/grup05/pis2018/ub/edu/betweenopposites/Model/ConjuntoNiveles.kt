@@ -7,8 +7,8 @@ import android.content.Context
  * Se encarga de tratar con los niveles almacenados y llamar al creador de niveles para obtenerlos.
  */
 class ConjuntoNiveles(contexto: Context,
-    NUMERO_NIVELES_POR_JUEGO: Int = 2,
-    NUMERO_SALAS_BASICAS_POR_NIVEL: Int = 5,
+    NUMERO_NIVELES_POR_JUEGO: Int = 8,
+    NUMERO_SALAS_BASICAS_POR_NIVEL: Int = 6,
     NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL: Int = 1
 ) {
 

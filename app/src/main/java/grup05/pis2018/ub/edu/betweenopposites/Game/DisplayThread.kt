@@ -57,6 +57,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         game!!.inicializarVariable()
         tiempo.start()
         while (playing) {
+
             var ticks=1000/fps
             // Capture the current time
             val startFrameTime = System.currentTimeMillis()

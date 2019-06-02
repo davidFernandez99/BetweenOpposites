@@ -11,7 +11,7 @@ class Tutorial : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial)
-
+        MainActivity.player.pause()
         val aceptar  = findViewById<Button>(R.id.btn_accept)
 
         MainActivity.player.pause()

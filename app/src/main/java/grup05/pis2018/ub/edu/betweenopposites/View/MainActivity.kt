@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Switch
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import grup05.pis2018.ub.edu.betweenopposites.R
+import kotlinx.android.synthetic.main.activity_opcions.*
 
 /**
  * Projecte Integrat de Software
@@ -73,7 +75,7 @@ class MainActivity : AppCompatActivity(),View {
             startActivity(intent)
         }
 
-        val btn_infor = findViewById<Button>(R.id.btn_info)
+        val btn_infor = findViewById<ImageButton>(R.id.btn_info)
         btn_infor.setOnClickListener {
             val intent = Intent(this, Tutorial::class.java)
             startActivity(intent)

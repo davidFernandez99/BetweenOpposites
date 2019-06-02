@@ -80,12 +80,6 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
                 dibujarOpcionesMaquina()
             }
             dibujarBordes()
-            if(Lobo.instance.es_visible==true){
-                canvas!!.drawText( "VISIBLE", 700f,1060f, paint)
-            }
-            else{
-                canvas!!.drawText( "NO VISIBLE", 700f,1060f, paint)
-            }
 
             if(Facade.acabar_juego==true){
                 DisplayThread.paused=true
@@ -130,7 +124,12 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         bitmapBordeSimple= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde_singular)
         bitmapBordeDoble= BitmapFactory.decodeResource(contexto.resources, R.drawable.borde_doble)
         GameEngine.bitmapPuerta= BitmapFactory.decodeResource(contexto.resources, R.drawable.puerta)
-        GameEngine.bitmapOrbeRaro= BitmapFactory.decodeResource(contexto.resources, R.drawable.orbe_raro)
+        GameEngine.bitmapLoboOscuro= BitmapFactory.decodeResource(contexto.resources, R.drawable.lobo_oscuro)
+        GameEngine.bitmapLoboNeutro= BitmapFactory.decodeResource(contexto.resources, R.drawable.lobo_neutro)
+        GameEngine.bitmapLoboLuz= BitmapFactory.decodeResource(contexto.resources, R.drawable.lobo_blanco)
+        GameEngine.bitmapLoboOscuroInv= BitmapFactory.decodeResource(contexto.resources, R.drawable.lobo_oscuro_invisibilidad)
+        GameEngine.bitmapLoboNeutroInv= BitmapFactory.decodeResource(contexto.resources, R.drawable.lobo_neutro_invisible)
+        GameEngine.bitmapLoboLuzInv= BitmapFactory.decodeResource(contexto.resources, R.drawable.lobo_blanco_invisibilidad)
         GameEngine.bitmapMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.maquina)
         GameEngine.bitmapOpcionesMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.opciones_maquina)
         bitmapFallarOpcionMaquina=BitmapFactory.decodeResource(contexto.resources,R.drawable.fallar_opcion_maquina)
@@ -291,6 +290,12 @@ class GameEngine (paint:Paint,contexto:Context,holder:SurfaceHolder) {
         var bitmapOrbeRaro: Bitmap ?= null
         var bitmapMaquina:Bitmap?=null
         var bitmapOpcionesMaquina:Bitmap?=null
+        var bitmapLoboOscuro:Bitmap?=null
+        var bitmapLoboNeutro:Bitmap?=null
+        var bitmapLoboLuz:Bitmap?=null
+        var bitmapLoboOscuroInv:Bitmap?=null
+        var bitmapLoboNeutroInv:Bitmap?=null
+        var bitmapLoboLuzInv:Bitmap?=null
 
     }
     fun userNotInList(userData: UserData) : Boolean { //Comprova si l'usuari ja esta a la llista i si la nova puntuació és més alta

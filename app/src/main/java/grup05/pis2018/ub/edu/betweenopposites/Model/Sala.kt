@@ -513,7 +513,25 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
         for(puerta:Puerta in this.puertas){
             puerta.draw(canvas, GameEngine.bitmapPuerta!!)
         }
-        Lobo.instance.draw(canvas, GameEngine.bitmapOrbeRaro!!)
+        if(Lobo.instance.bando==Bando.Neutro && Lobo.instance.es_visible==true){
+            Lobo.instance.draw(canvas, GameEngine.bitmapLoboNeutro!!)
+        }
+        else if(Lobo.instance.bando==Bando.Negro&& Lobo.instance.es_visible==true){
+            Lobo.instance.draw(canvas, GameEngine.bitmapLoboOscuro!!)
+        }
+        else if(Lobo.instance.bando==Bando.Blanco&& Lobo.instance.es_visible==true){
+            Lobo.instance.draw(canvas, GameEngine.bitmapLoboLuz!!)
+        }
+        if(Lobo.instance.bando==Bando.Neutro&& Lobo.instance.es_visible==false){
+            Lobo.instance.draw(canvas, GameEngine.bitmapLoboNeutroInv!!)
+        }
+        else if(Lobo.instance.bando==Bando.Negro&& Lobo.instance.es_visible==false){
+            Lobo.instance.draw(canvas, GameEngine.bitmapLoboOscuroInv!!)
+        }
+        else if(Lobo.instance.bando==Bando.Blanco&& Lobo.instance.es_visible==false){
+            Lobo.instance.draw(canvas, GameEngine.bitmapLoboLuzInv!!)
+        }
+
     }
 
 

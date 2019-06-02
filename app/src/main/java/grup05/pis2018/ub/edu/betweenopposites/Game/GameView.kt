@@ -21,7 +21,7 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
     }
     override fun run() {
         if(DisplayThread.paused==false){
-            Looper.prepare()
+
             display= DisplayThread(gameThread, contexto, holder)
             display!!.starts()
         }

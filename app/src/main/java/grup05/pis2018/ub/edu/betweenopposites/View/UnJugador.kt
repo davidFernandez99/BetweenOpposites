@@ -1,5 +1,6 @@
 package grup05.pis2018.ub.edu.betweenopposites.View
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
@@ -16,6 +17,12 @@ import grup05.pis2018.ub.edu.betweenopposites.Model.Maquina
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import android.content.res.AssetManager
 import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
+import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
+import android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+import android.R
+
+
 
 
 class UnJugador : AppCompatActivity(), View {
@@ -35,11 +42,14 @@ class UnJugador : AppCompatActivity(), View {
     lateinit var observers: ArrayList<Presenter>
     private var gameView: GameView? = null
     var context:Context= this
+    var activities:ArrayList<Activity> = ArrayList()
     // This is the gesture detector compat instance.
     private var gestureDetectorCompat: GestureDetectorCompat? = null
     val gestureListener: DetectSwipeGestureListener = DetectSwipeGestureListener()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activities.add(this)
+
         val intent = Intent(this, MainActivity::class.java)
         intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         gestureDetectorCompat = GestureDetectorCompat(this, gestureListener)
@@ -64,22 +74,23 @@ class UnJugador : AppCompatActivity(), View {
         DisplayThread.playing=true
         DisplayThread.paused=false
         setContentView(gameView!!)
-        //gameView!!.onResume()
+
     }
 
     override fun onPause() {
         super.onPause()
-        //gameView!!.onPause()
+        DisplayThread.paused=true
     }
 
     override fun onStop() {
         super.onStop()
-        //gameView!!.onStop()
+        DisplayThread.paused=true
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        //gameView?.onStop()
+        activities.remove(this)
+        DisplayThread.paused=true
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -108,6 +119,7 @@ class UnJugador : AppCompatActivity(), View {
                val intent = Intent(this, MainActivity::class.java)
                intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                DisplayThread.playing=false
+               finishAll()
                startActivity(intent)
 
            }else if((x>  1100f) && (x<1188f )  && (y<738f) && (y> 650f) && DisplayThread.paused && DisplayThread.fin_juego==true && Facade.dando_opciones==false){
@@ -119,6 +131,7 @@ class UnJugador : AppCompatActivity(), View {
                val intent = Intent(this, MainActivity::class.java)
                intent.flags=(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                DisplayThread.playing=false
+               finishAll()
                startActivity(intent)
 
 
@@ -128,18 +141,21 @@ class UnJugador : AppCompatActivity(), View {
                Facade.instance.iniciarPartida(this)
 
 
-           }else if( (x > 770f )&& (x< 814f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true) && (Facade.fallar==false)){//Opcion 1 opciones maquina
+           }else if( (x > 770f )&& (x< 814f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true)){//Opcion 1 opciones maquina
                Facade.dando_opciones=false
                Facade.comprobar_opcion=true
+               DisplayThread.paused=false
                Facade.opcion=0
 
-           }else if((x > 966f )&& (x< 1010f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true)&& (Facade.fallar==false)){//Opcion 2 opciones maquina
+           }else if((x > 966f )&& (x< 1010f) && (y > 618f) && (y< 662f) && (Facade.dando_opciones==true)){//Opcion 2 opciones maquina
                Facade.dando_opciones=false
                Facade.comprobar_opcion=true
+               DisplayThread.paused=false
                Facade.opcion=1
-           }else if((x > 1162f )&& (x< 1206f) && (y > 618f) && (y< 662f)&& (Facade.dando_opciones==true)&& (Facade.fallar==false)){//Opcion 3 opciones maquina
+           }else if((x > 1162f )&& (x< 1206f) && (y > 618f) && (y< 662f)&& (Facade.dando_opciones==true)){//Opcion 3 opciones maquina
                Facade.dando_opciones=false
                Facade.comprobar_opcion=true
+               DisplayThread.paused=false
                Facade.opcion=2
            }else if(x >64f && x< 124f  && y >1020f && y <1080f && DisplayThread.activar_efecto==false){
                if(Lobo.instance.objetoActivable!=null){
@@ -155,7 +171,10 @@ class UnJugador : AppCompatActivity(), View {
     }
 
 
-
+    fun finishAll() {
+        for (activity in activities)
+            activity.finish()
+    }
 
 
 

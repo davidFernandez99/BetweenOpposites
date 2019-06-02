@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.SignInButton
 import grup05.pis2018.ub.edu.betweenopposites.Presenter.Presenter
 import kotlinx.android.synthetic.main.activity_opcions.*
@@ -17,16 +18,16 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 
 import android.os.Vibrator
+import android.util.Log
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
 import grup05.pis2018.ub.edu.betweenopposites.Model.Facade
 import grup05.pis2018.ub.edu.betweenopposites.Model.UserAdapter
 import grup05.pis2018.ub.edu.betweenopposites.Model.UserData
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import grup05.pis2018.ub.edu.betweenopposites.R
 
 
@@ -62,9 +63,9 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
     companion object {
+        var musica=true
         var efectos= true
         var vibracion = true
-        var musica = true
         lateinit var userId : String
         var auth2:FirebaseAuth?=null
         var loguejat:Boolean=false
@@ -78,15 +79,12 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         setContentView(R.layout.activity_opcions)
 
         usersList = arrayListOf()
-
+        //Mantenim el valor dels switches tot i cambiar de activities
+        //Controlamos estado del switch musica
         val swtMusica = findViewById<Switch>(R.id.switch_musica)
         val swtEfectos = findViewById<Switch>(R.id.switch_efectos)
         val swtVibracion = findViewById<Switch>(R.id.switch_vibracion)
 
-        txt_usuarioLetra.visibility=View.INVISIBLE
-        txt_correoLetra.visibility=View.INVISIBLE
-
-        //Controlamos estado del switch musica
         if(musica == true){
             swtMusica.isChecked = true
 
@@ -107,6 +105,8 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
         }else{
             swtVibracion.isChecked = false
         }
+
+
 
 
         auth = FirebaseAuth.getInstance()
@@ -131,9 +131,8 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
             sign_in_button.visibility=View.VISIBLE
             btn_logOut.visibility=View.GONE
             txt_email.visibility=View.GONE
+            Opcions.loguejat=true
             txt_nomUsuari.visibility=View.GONE
-            txt_correoLetra.visibility=View.GONE
-            txt_usuarioLetra.visibility=View.GONE
         }
 
         //Switch per controlar la música
@@ -143,15 +142,18 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
             }
             if (swtMusica.isChecked) {
                 Toast.makeText(this, "Música ON", Toast.LENGTH_SHORT).show()
-                musica = true
+                //Agafem el valor actual del switch
+                Opcions.musica=true
+
 
             } else {
                 Toast.makeText(this, "Música OFF", Toast.LENGTH_SHORT).show()
-                musica = false
+
                 //Agafem el valor actual del switch
                 if(MainActivity.player.isPlaying){
                     MainActivity.player.pause()
                 }
+                Opcions.musica=false
 
             }
         }
@@ -162,14 +164,13 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 Opcions.efectos=true
                 Toast.makeText(this, "Efectos ON", Toast.LENGTH_SHORT).show()
                 Facade.efectos_activados=true
+
+
             } else {
                 Opcions.efectos=false
                 Toast.makeText(this, "Efectos OFF", Toast.LENGTH_SHORT).show()
                 Facade.efectos_activados=false
-                //Agafem el valor actual del switch
-                val editor = getSharedPreferences("opcions", Context.MODE_PRIVATE).edit()
-                editor.putBoolean("swtEfectos", false)
-                editor.commit()
+
 
             }
         }
@@ -181,12 +182,15 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 Toast.makeText(this, "Vibración ON", Toast.LENGTH_SHORT).show()
                 Facade.vibracion_activada=true
 
+
                 val v: Vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator //Fem vibar el mbl al activar l'opcio
                 v.vibrate(500)
             } else {
                 Opcions.vibracion=false
                 Toast.makeText(this, "Vibración OFF", Toast.LENGTH_SHORT).show()
                 Facade.vibracion_activada=false
+
+
             }
         }
 
@@ -240,8 +244,6 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
                 Toast.makeText(this, "Sesión Iniciada", Toast.LENGTH_SHORT).show()
                 val user = auth.currentUser
                 sign_in_button.visibility=View.GONE
-                txt_usuarioLetra.visibility=View.VISIBLE
-                txt_correoLetra.visibility=View.VISIBLE
                 txt_email.text=user?.email
                 txt_nomUsuari.text=user?.displayName
                 txt_email.visibility=View.VISIBLE
@@ -277,6 +279,7 @@ class Opcions : AppCompatActivity(), grup05.pis2018.ub.edu.betweenopposites.View
 
     private fun signOut() {
         mGoogleSignInClient.signOut()
+        //FirebaseAuth.getInstance().signOut();
     }
 
     fun llenarListaUsuarios(){

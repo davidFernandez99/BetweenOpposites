@@ -2,6 +2,8 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 
 import android.content.Context
 import android.graphics.Canvas
+import android.view.Display
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.Game.GameEngine
 
 class SalaEspecial(id_sala: Int, matrixSala: Array<Array<Objeto?>>) : Sala(id_sala, matrixSala) {
@@ -25,6 +27,7 @@ class SalaEspecial(id_sala: Int, matrixSala: Array<Array<Objeto?>>) : Sala(id_sa
                     if(maquina!!.dar_opciones==true){
                         Facade.dando_opciones=true
                         Facade.opciones=maquina!!.darOpciones(Lobo.instance!!)
+                        DisplayThread.paused=true
 
                     }
 
@@ -57,15 +60,15 @@ class SalaEspecial(id_sala: Int, matrixSala: Array<Array<Objeto?>>) : Sala(id_sa
             muro.detectarColision(Lobo.instance)
         }
     }
-     override fun draw(canvas: Canvas, contexto: Context){
-        //Dibujamos muros y suelos
-         for (j in 0..matrixSala.size-1) {
-             for (i in 0..matrixSala[j].size-1) {
-                 var objeto:Objeto=getObjetofromSala(i,j)
-                 if(objeto is Muro){
+     override fun draw(canvas: Canvas, contexto: Context) {
+         //Dibujamos muros y suelos
+         for (j in 0..matrixSala.size - 1) {
+             for (i in 0..matrixSala[j].size - 1) {
+                 var objeto: Objeto = getObjetofromSala(i, j)
+                 if (objeto is Muro) {
                      objeto.draw(canvas, GameEngine.bitmapMuro!!)
                  }
-                 if(objeto is Suelo){
+                 if (objeto is Suelo) {
                      objeto.draw(canvas, GameEngine.bitmapSuelo!!)
                  }
 
@@ -74,37 +77,51 @@ class SalaEspecial(id_sala: Int, matrixSala: Array<Array<Objeto?>>) : Sala(id_sa
          // Dibujamos objetos en la sala
          for (objeto: Objeto in this.objetos) {
 
-             if(objeto is Maquina){
-                 objeto.draw(canvas , GameEngine.bitmapMaquina!!)
+             if (objeto is Maquina) {
+                 objeto.draw(canvas, GameEngine.bitmapMaquina!!)
              }
 
 
          }
 
-         if(objetoMaquina!=null){
-             if(objetoMaquina is AumentarVelocidad){
-                 if(objetoMaquina!!.es_visible==true){
+         if (objetoMaquina != null) {
+             if (objetoMaquina is AumentarVelocidad) {
+                 if (objetoMaquina!!.es_visible == true) {
                      objetoMaquina!!.draw(canvas!!, GameEngine.bitmapAumentoVel!!)
                  }
 
-             }
-             else if (objetoMaquina is Invisibilidad){
-                 if(objetoMaquina!!.es_visible==true){
+             } else if (objetoMaquina is Invisibilidad) {
+                 if (objetoMaquina!!.es_visible == true) {
                      objetoMaquina!!.draw(canvas!!, GameEngine.bitmapInv!!)
                  }
-             }
-             else{
-                 if(objetoMaquina!!.es_visible==true){
+             } else {
+                 if (objetoMaquina!!.es_visible == true) {
                      objetoMaquina!!.draw(canvas!!, GameEngine.bitmapCambio!!)
                  }
 
              }
 
          }
-         for(puerta:Puerta in this.puertas){
+         for (puerta: Puerta in this.puertas) {
              puerta.draw(canvas, GameEngine.bitmapPuerta!!)
          }
-         Lobo.instance.draw(canvas, GameEngine.bitmapOrbeRaro!!)
-    }
-
+         if(Lobo.instance.bando==Bando.Neutro && Lobo.instance.es_visible==true){
+             Lobo.instance.draw(canvas, GameEngine.bitmapLoboNeutro!!)
+         }
+         else if(Lobo.instance.bando==Bando.Negro&& Lobo.instance.es_visible==true){
+             Lobo.instance.draw(canvas, GameEngine.bitmapLoboOscuro!!)
+         }
+         else if(Lobo.instance.bando==Bando.Blanco&& Lobo.instance.es_visible==true){
+             Lobo.instance.draw(canvas, GameEngine.bitmapLoboLuz!!)
+         }
+         if(Lobo.instance.bando==Bando.Neutro&& Lobo.instance.es_visible==false){
+             Lobo.instance.draw(canvas, GameEngine.bitmapLoboNeutroInv!!)
+         }
+         else if(Lobo.instance.bando==Bando.Negro&& Lobo.instance.es_visible==false){
+             Lobo.instance.draw(canvas, GameEngine.bitmapLoboOscuroInv!!)
+         }
+         else if(Lobo.instance.bando==Bando.Blanco&& Lobo.instance.es_visible==false){
+             Lobo.instance.draw(canvas, GameEngine.bitmapLoboLuzInv!!)
+         }
+     }
 }
