@@ -122,9 +122,6 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
             // Asigno como salida de la puerta la puerta pasada por parametro
             val this_puerta = puertas[id_puerta]
             this_puerta.setDestino(puertaDestino,id_sala,id_nivel)
-            // Pongo el nivel y sala de destino
-            this_puerta.id_nivel_destino= id_nivel
-            this_puerta.id_sala_destino= id_sala
         }
     }
 
@@ -134,8 +131,10 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     fun getPuerta(id_puerta: Int): Puerta{
 
         try {
-            if(id_puerta<-1 || id_puerta==0 || id_puerta>puertas.size){
+            if(id_puerta<-1 || id_puerta>puertas.size){
                 throw ArrayIndexOutOfBoundsException("La posición no es correcta")
+            }else if(id_puerta==0 ){
+                return puertas[0]
             }
 
             if(id_puerta == -1){
@@ -157,7 +156,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Se encarga de sincronizar las puertas que hay en matriz con las que hay en la lista
      */
-    private fun syncPuertasyMuros(){
+    fun syncPuertasyMuros(){
         // Recogemos las puertas que hay en la matriz
 
         var puertasRecogidas: ArrayList<Puerta> = ArrayList()
@@ -318,7 +317,7 @@ abstract class Sala(id_sala: Int, matrixSala: Array<Array<Objeto?>>) {
     /**
      * Genera una la matriz de espacios libres a partir de matrixSala
      */
-    private fun createAvalibleMatrix(){
+    fun createAvalibleMatrix(){
         for(j in (0..(matrixSala.size-1))){
             for(i in (0..(matrixSala[j].size-1))){
                 // Si es un suelo es posible que esté libre

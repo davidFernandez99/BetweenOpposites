@@ -30,7 +30,7 @@ class TestingSalaGenerator {
     @Test
     fun comprovarMatrizAutogenerada(){
         for(i in (0..50)){
-            var sala: SalaBasica = FactorySala.crearSalaBasicaAutomaticamente(1,i,2)
+            var sala: SalaBasica = FactorySala.crearSalaBasicaAutomaticamente(1,1,2)
             sala.printMatriz()
         }
     }

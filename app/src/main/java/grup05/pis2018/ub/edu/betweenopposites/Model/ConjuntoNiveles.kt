@@ -7,8 +7,8 @@ import android.content.Context
  * Se encarga de tratar con los niveles almacenados y llamar al creador de niveles para obtenerlos.
  */
 class ConjuntoNiveles(contexto: Context,
-    NUMERO_NIVELES_POR_JUEGO: Int = 8,
-    NUMERO_SALAS_BASICAS_POR_NIVEL: Int = 10,
+    NUMERO_NIVELES_POR_JUEGO: Int = 2,
+    NUMERO_SALAS_BASICAS_POR_NIVEL: Int = 5,
     NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL: Int = 1
 ) {
 
@@ -42,9 +42,16 @@ class ConjuntoNiveles(contexto: Context,
                 )
             )
         }
+
+        // Unimos los diferentes niveles de forma que la última de las puertas apunte a la primera del próximo nivel
         for( i in (0..arrayNiveles.size-2)){
-            arrayNiveles.get(i)!!.getSala(-1).getPuerta(2).
-                setDestino(puerta_destino = arrayNiveles[i+1]!!.getSala(1).getPuerta(1) )
+            arrayNiveles.get(i)!!.getSala(-1).definirSalida(2,i+2,
+                1,arrayNiveles[i+1]!!.getSala(1).getPuerta(1))
+        }
+
+        // Print de todas las salas:
+        for(i in (1..arrayNiveles.size)){
+            getNivel(i).getSala(-1).printMatriz()
         }
     }
 

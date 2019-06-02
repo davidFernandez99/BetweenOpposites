@@ -50,8 +50,8 @@ class Nivel(id_nivel:Int,listaSalas: ArrayList<Sala>, matrizSalas: Array<Array<S
      */
     fun printNivel(){
         var i: Int=0
+        print("\n\n**************** NIVEL ${id_nivel} ***********************\n\n")
         for (sala: Sala in arraySalas){
-            print("\n\n**************** SALA ${i+1} ***********************\n\n")
             sala.printMatriz()
             i++
         }

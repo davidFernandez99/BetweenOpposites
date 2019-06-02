@@ -50,6 +50,11 @@ class GameData(contexto: Context) {
      */
     private fun cargarSala(id_nivel: Int, id_sala: Int){
         // Ponemos como sala activa la que queremos cargar
+        //println("***************TRASPASO       HACIA NIVEL:${id_nivel} SALA:${id_sala}")
+        //if(this.nivelActivo!=null && this.salaActiva!=null){
+            //println("DESDE NIVEL:${this.nivelActivo.id_nivel} SALA:${this.salaActiva.id_sala}")
+        //}
+
         nivelActivo=conjuntoNiveles.getNivel(id_nivel)
         salaActiva=nivelActivo.getSala(id_sala)
     }
@@ -71,6 +76,10 @@ class GameData(contexto: Context) {
         val id_sala_destino: Int = puerta.id_sala_destino
         var spawnpoint_destino: Posicion? = puerta.getPosicionDestino()
 
+
+        if(puerta==ultimaPuerta){
+            Facade.acabar_juego=true
+        }
         if(spawnpoint_destino==null){
             spawnpoint_destino=puerta.spawn_point
 

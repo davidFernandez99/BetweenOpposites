@@ -20,7 +20,8 @@ enum class Dimension(
     trampa(1, 1, 32f, 32f),
     sumador(1,1,16f,16f),
     multiplicador(1,1,16f,16f),
-    maquina(4,4,64f,40f)
+    maquina(4,4,64f,40f),
+    lobo(1,1,20f,20f)
 }
 
 /**

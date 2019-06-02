@@ -96,9 +96,23 @@ class Puerta(
         id_sala_destino: Int = this.id_sala_destino,
         id_nivel_destino: Int = this.id_nivel_destino
     ) {
-        this.puerta_destino = puerta_destino
-        this.id_sala_destino=id_sala_destino
-        this.id_nivel_destino=id_nivel_destino
+        if(puerta_destino==null){
+            this.puerta_destino = this
+        }else{
+            this.puerta_destino=puerta_destino
+        }
+        if(id_sala_destino==0){
+            this.id_sala_destino=1
+        }else{
+            this.id_sala_destino=id_sala_destino
+        }
+
+        if(id_sala_destino==0){
+            this.id_nivel_destino=1
+        }else{
+            this.id_nivel_destino=id_nivel_destino
+        }
+
     }
 
     /**
@@ -129,7 +143,7 @@ class Puerta(
     }
 
     fun printPuerta() {
-        println("Puerta  \n" +
+        println("Puerta \n" +
                 "POSICION: [${posicion.x_sala},${posicion.y_sala}] \n" +
                 "DESTINO: nivel-> ${id_nivel_destino}    sala->${id_sala_destino}    " +
                 "posicion destino-> [${getPosicionDestino()?.x_sala},${getPosicionDestino()?.y_sala}]\n" +

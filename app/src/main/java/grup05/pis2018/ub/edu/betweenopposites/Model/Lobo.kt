@@ -42,7 +42,7 @@ class Lobo(
     companion object {
         var life: Vida = Vida()
         var bando: Bando = Bando.Neutro
-        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.PARADO, Posicion(100f, 860f))
+        var instance = Lobo(life, bando, Dimension.lobo.height, Dimension.lobo.width, 120f, Direccion.PARADO, Posicion(100f, 860f))
 
     }
 
