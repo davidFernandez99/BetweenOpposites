@@ -8,7 +8,7 @@ import android.content.Context
  */
 class ConjuntoNiveles(contexto: Context,
     NUMERO_NIVELES_POR_JUEGO: Int = 8,
-    NUMERO_SALAS_BASICAS_POR_NIVEL: Int = 6,
+    NUMERO_SALAS_BASICAS_POR_NIVEL: Int = 4,
     NUMERO_DE_SALAS_ESPECIALES_POR_NIVEL: Int = 1
 ) {
 
