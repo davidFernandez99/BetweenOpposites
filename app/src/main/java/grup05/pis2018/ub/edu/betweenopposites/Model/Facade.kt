@@ -40,6 +40,8 @@ class Facade : Model {
         var ultimaPuntuacion:Int=0
         var signo:Int=0 //si es 1 es +, y 2 es -
         var acabar_juego=false
+        var efectos_activados:Boolean=true
+        var vibracion_activada:Boolean=true
     }
 
     /**
@@ -54,6 +56,7 @@ class Facade : Model {
         DisplayThread.playing=true
         Facade.nivel=1
         Facade.mapa=1
+        DisplayThread.segundos=0
         gameData = GameData(contexto)
         Lobo.instance.vulnerable=true
         Lobo.instance.vida=Vida()

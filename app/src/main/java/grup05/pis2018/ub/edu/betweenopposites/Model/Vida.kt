@@ -7,7 +7,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import grup05.pis2018.ub.edu.betweenopposites.R
 
-//TODO: YO HARIA ESTA CLASE HEREDAR DE OBJETO PARA QUE TENGA TMB UNA POSICIÓN, BITMAP, METODO DRAW...
+
 class Vida() {
 
     var bitmap:Bitmap?=null

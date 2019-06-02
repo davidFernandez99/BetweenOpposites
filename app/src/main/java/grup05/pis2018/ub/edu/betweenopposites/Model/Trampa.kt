@@ -3,6 +3,7 @@ package grup05.pis2018.ub.edu.betweenopposites.Model
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import grup05.pis2018.ub.edu.betweenopposites.Game.DisplayThread
 import grup05.pis2018.ub.edu.betweenopposites.R
 
 
@@ -27,6 +28,9 @@ class Trampa(
             var lobo: Lobo = Lobo.instance
             if (lobo.vulnerable == true) {
                 lobo.quitarVida()
+                if(Facade.vibracion_activada==true){
+                    DisplayThread.activar_vibracion=true
+                }
 
             }
         }

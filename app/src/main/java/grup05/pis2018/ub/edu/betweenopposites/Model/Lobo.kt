@@ -42,7 +42,7 @@ class Lobo(
     companion object {
         var life: Vida = Vida()
         var bando: Bando = Bando.Neutro
-        var instance = Lobo(life, bando, 32f, 32f, 120f, Direccion.PARADO, Posicion(100f, 860f))
+        var instance = Lobo(life, bando, Dimension.lobo.height, Dimension.lobo.width, 120f, Direccion.PARADO, Posicion(100f, 860f))
 
     }
 
@@ -103,9 +103,7 @@ class Lobo(
      * Suma cierta puntuación teniendo en cuenta el multiplicador acumulado
      */
     fun sumarPuntuacion(valorSumadpr: Int) {
-        if(this.puntuacion.puntuacion==0){
-            cambioBando()
-        }
+
         this.puntuacion.puntuacion += valorSumadpr * this.multiplicador
         Facade.signo=1
         Facade.ultimaPuntuacion=valorSumadpr*this.multiplicador
@@ -152,7 +150,11 @@ class Lobo(
     }
     //Método para restaurar la velocidad a la del comienzo para el aumento de velocidad y para restablecer la velocidad al chocar con un muro y volver a moverse
     fun restarurarVelocidad() {
-        this.velocidad = velocidadInicial
+        this.velocidad = velocidadCambiada
+    }
+
+    fun restaurarVelocidadInicial(){
+        this.velocidad=velocidadInicial
     }
 
     //Función que devuleve si la partida ha terminado o no

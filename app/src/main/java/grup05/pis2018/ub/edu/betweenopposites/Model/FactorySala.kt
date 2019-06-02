@@ -158,9 +158,15 @@ object FactorySala {
          * Tras haber creado los caminos, puertas y la sala le pongo los objetos que quiero meter en ella
          */
 
+        // Creo los spawn_point y compruevo que tod0 este correctamente.
+        salaBasica.syncPuertasyMuros()
+        salaBasica.createAvalibleMatrix()
+
+        list_available=salaBasica.getPosicionesLibres()
+
+        //Meto los objetos
         salaBasica.anadirOrbes(FactoryObjetos.generarOrbes(dificultad,list_available))
         salaBasica.anadirObjetos(FactoryObjetos.generarObjetos(dificultad,list_available))
-
 
         return salaBasica
     }

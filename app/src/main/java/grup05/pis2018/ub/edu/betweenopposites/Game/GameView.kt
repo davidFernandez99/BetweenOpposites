@@ -14,7 +14,7 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
 
     var gameThread = Thread(this)
     val contexto:Context=context
-    var display:DisplayThread ?=null
+    var display: DisplayThread?=null
 
     private fun prepareLevel() { // Aqui inicializaremos los objetos del juego
 
@@ -22,7 +22,7 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
     override fun run() {
         if(DisplayThread.paused==false){
             Looper.prepare()
-            display= DisplayThread(gameThread,contexto,holder)
+            display= DisplayThread(gameThread, contexto, holder)
             display!!.starts()
         }
 
@@ -35,7 +35,7 @@ open class GameView (context: Context, private val size: Point) : SurfaceView(co
     fun onResume(){
         //gameThread.resume()
         MainActivity.player.start()
-        display!!.resume()
+        //display!!.resume()
 
     }
     fun onPause(){

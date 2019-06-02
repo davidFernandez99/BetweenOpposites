@@ -1,24 +1,25 @@
 package grup05.pis2018.ub.edu.betweenopposites.Game
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.os.CountDownTimer
-import android.os.Handler
+import android.media.MediaPlayer
+import android.os.Vibrator
 import android.view.SurfaceHolder
 import grup05.pis2018.ub.edu.betweenopposites.Model.Lobo
 import grup05.pis2018.ub.edu.betweenopposites.Model.Tiempo
 import grup05.pis2018.ub.edu.betweenopposites.Model.TiempoObjeto
+import grup05.pis2018.ub.edu.betweenopposites.R
 
 class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
     val gameThread= gameThread
     val contexto=contexto
     var holder:SurfaceHolder=holder
     val paint= Paint()
-    var game:GameEngine?=null
+    var game: GameEngine?=null
     var segundos:Int=0
     var fps:Long=1
+    var sonidoComer: MediaPlayer ?=null
     companion object{
         var playing = true
         var paused = false
@@ -39,19 +40,24 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         var tiempoInvisibilidad: TiempoObjeto=TiempoObjeto(MAX_TIEMPO_INVISIBLE,conv)
         var tiempoVelocidad: TiempoObjeto=TiempoObjeto(MAX_TIEMPO_VELOCIDAD,conv)
 
+        var activar_sonido:Boolean=false
+        var activar_vibracion:Boolean=false
 
     }
 
 
     fun starts() {
-        game=GameEngine(paint,contexto,holder)
+        sonidoComer= MediaPlayer.create(contexto, R.raw.eat2)
+        val v: Vibrator = contexto.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator //Fem vibar el mbl al activar l'opcio
+
+        game= GameEngine(paint,contexto,holder)
 
         //tiempo.start()
         paint.setColor(Color.WHITE)
         game!!.inicializarVariable()
         tiempo.start()
         while (playing) {
-
+            var ticks=1000/fps
             // Capture the current time
             val startFrameTime = System.currentTimeMillis()
 
@@ -59,6 +65,14 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
             if (!paused) {
 
                 game!!.update(fps)
+                if(DisplayThread.activar_sonido==true){
+                    sonidoComer!!.start()
+                    DisplayThread.activar_sonido=false
+                }
+                if(DisplayThread.activar_vibracion==true){
+                    v.vibrate(50)
+                    DisplayThread.activar_vibracion=false
+                }
             }
             if(tiempo.finish==true &&!paused){
                 DisplayThread.segundos++
@@ -76,7 +90,7 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
                 tiempoVelocidad.start()
             }
             if(segundos_vel>=10){
-                Lobo.instance.restarurarVelocidad()
+                Lobo.instance.restaurarVelocidadInicial()
                 tiempoVelocidad.finish=false
                 segundos_vel=0
             }
@@ -94,6 +108,21 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
             if (timeThisFrame >= 1) {
                 fps = 1000 / timeThisFrame
             }
+            var sleepTime:Long = ticks - (System.currentTimeMillis() - startFrameTime)
+
+            try {
+
+                if (sleepTime > 0)
+
+                    Thread.sleep(sleepTime)
+                else
+
+                    Thread.sleep(0)
+
+            } catch (e: Exception) {
+            }
+
+
         }
     }
 
@@ -107,10 +136,6 @@ class DisplayThread (gameThread:Thread,contexto: Context,holder:SurfaceHolder){
         playing = false
 
     }
-    fun resume(){
-        paused = false
-        playing = true
 
-    }
 
 }
